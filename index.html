@@ -3,43 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Clockout: When can you retire?</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="/js/survey.js"></script>
+<script src="/js/data.js"></script>
 </head>
 <body>
   <div id="survey">
-    <fieldset>
-      <legend>First a couple of personal details</legend>
-      <div id="demoCol1">
-        <label for="dob">DOB:</label>
-        <input type="date" name="dob" id="dob" required>
-        <br>
-        <label for="gender">Gender:</label>
-        <input type="radio" name="gender" value="male" id="gender" required>
-        <label for="gender">Male</label>
-        <input type="radio" name="gender" value="female" id="gender" required>
-        <label for="gender">Female</label>
-        <br>
-        <label for="salary">Salary:</label>
-        <input type="number" name="salary" placeholder="$50,000" id="salary" min="0" required>
-      </div>
-      <div id="demoCol2">
-        <label for="retAge">Target Retirement Age:</label>
-        <input type="number" name="retAge" maxlength="2" id="retAge" required>
-        <br>
-        <label for="married">Married:</label>
-        <input type="checkbox" name="married" id="married" value="1">
-        <br>
-        <label for="state">Retirement State:</label>
-        <input type="text" name="state" id="state" maxlength="2" placeholder="NY" required>
-        <br>
-        <button onclick="demographics(this)">Next</button>
-      </div>
-    </fieldset>
+    <form class="demoForm" action="">
+      <fieldset>
+        <legend>First a couple of personal details</legend>
+        <div id="demoCol1">
+          <label for="dob">DOB:</label>
+          <input type="date" name="dob" id="dob" required>
+          <br>
+          <label for="gender">Gender:</label>
+          <input type="radio" name="gender" value="male" id="gender" required>
+          <label for="gender">Male</label>
+          <input type="radio" name="gender" value="female" id="gender" required>
+          <label for="gender">Female</label>
+          <br>
+          <label for="salary">Salary:</label>
+          <input type="number" name="salary" placeholder="$50,000" id="salary" min="0" required>
+        </div>
+        <div id="demoCol2">
+          <label for="retAge">Target Retirement Age:</label>
+          <input type="number" name="retAge" maxlength="2" id="retAge" required>
+          <br>
+          <label for="married">Married:</label>
+          <input type="checkbox" name="married" id="married" >
+          <br>
+          <label for="state">Retirement State:</label>
+          <input type="text" name="state" id="state" maxlength="2" placeholder="NY" required>
+          <br>
+          <!-- <input type="button" name="submit" value="Next" onclick="demo(this.form)"> -->
+          <button onclick="demographics(this.form)">Next</button>
+        </div>
+      </fieldset>
+    </form>
   </div>
 
 
-
-  <script src="survey.js"></script>
 </body>
 </html>
