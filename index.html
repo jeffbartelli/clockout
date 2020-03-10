@@ -4,14 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="style.css" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=PT+Sans|Lato|Roboto&display=swap" rel="stylesheet">
   <title>Clockout: When can you retire?</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="/js/survey.js"></script>
 <script src="/js/data.js"></script>
 </head>
 <body>
-  <div id="survey">
-    <form class="demoForm" action="">
+  <form class="demoForm" action="">
+    <div id="demographics">
       <fieldset>
         <legend>First a couple of personal details</legend>
         <div id="demoCol1">
@@ -29,7 +31,7 @@
         </div>
         <div id="demoCol2">
           <label for="retAge">Target Retirement Age:</label>
-          <input type="number" name="retAge" maxlength="2" id="retAge" required>
+          <input type="number" name="retAge" maxlength="2" id="retAge" placeholder="65" required>
           <br>
           <label for="married">Married:</label>
           <input type="checkbox" name="married" id="married" >
@@ -37,12 +39,147 @@
           <label for="state">Retirement State:</label>
           <input type="text" name="state" id="state" maxlength="2" placeholder="NY" required>
           <br>
-          <!-- <input type="button" name="submit" value="Next" onclick="demo(this.form)"> -->
-          <button onclick="demographics(this.form)">Next</button>
         </div>
       </fieldset>
-    </form>
-  </div>
+    </div>
+    <div id="iras">
+      <fieldset>
+        <legend>Individual Retirement Accounts</legend>
+        <label for="">Please enter the relevant information for each type of IRA you have. For example, if you maintain more than one Roth IRA then enter the total amount for all of those Roth IRAs. You will not be given the option to enter each Roth IRA individually. This is true for Traditional/Crossover IRAs as well.</label>
+        <br>
+        <label class="sectionHeader">Roth IRAs</label>
+        <br>
+        <label for="amtContRothIra">Total Roth IRA Contributions through the end of last year:</label>
+        <input type="number" id="amtContRothIra" name="amtContRothIra" min="0" value="0">
+        <br>
+        <label for="currentValRothIra">Total Current Value of Roth IRAs:</label>
+        <input type="number" name="currentValRothIra" id="currentValRothIra" min="0" value="0">
+        <br>
+        <label for="annualContRothIra">Future Annual Roth IRA Contribution Amount (cannot exceed $6,000):</label>
+        <input type="number" name="annualContRothIra" id="annualContRothIra" value="0">
+        <br>
+        <label for="catchUpContRothIra">Do you plan to make 'Catch Up' contributions to your Roth IRA accounts beginning at the age of 50 (this is an additional $1,000 you can contribute each year):</label>
+        <input type="checkbox" name="catchUpContRothIra" id="catchUpContRothIra">
+        <br>
+        <label for="contEndAgeRothIra">At what age do you plan to stop contributing to your IRA (there is no age limit for Roth IRAs):</label>
+        <input type="number" maxlength="2" name="contEndAgeRothIra" id="contEndAgeRothIra">
+        <br>
+        <label for="investStratRothIra">Investment Strategy:</label>
+        <select name="investStratRothIra" id="invstStratRothIra">
+          <option value="conservative">Conservative</option>
+          <option value="average">Average</option>
+          <option value="risky">Risky</option>
+        </select>
+        <br>
+        <label class="sectionHeader">Traditional IRAs</label>
+        <br>
+        <label for="currentValTradIra">Total Current Value of Traditional IRAs:</label>
+        <input type="number" name="currentValTradIra" id="currentValTradIra" min="0" value="0">
+        <br>
+        <label for="annualContTradIra">Future Annual Traditional IRA Contribution Amount (cannot exceed $6,000):</label>
+        <input type="number" name="annualContTradIra" id="annualContTradIra" value="0">
+        <br>
+        <label for="catchUpContTradIra">Do you plan to make 'Catch Up' contributions to your Traditional IRA accounts beginning at the age of 50 (this is an additional $1,000 you can contribute each year):</label>
+        <input type="checkbox" name="catchUpContTradIra" id="catchUpContTradIra">
+        <br>
+        <label for="contEndAgeTradIra">At what age do you plan to stop contributing to your Traditional IRA (you cannot make contributions after the age of 70):</label>
+        <input type="number" maxlength="2" name="contEndAgeTradIra" id="contEndAgeTradIra">
+        <br>
+        <label for="investStratTradIra">Investment Strategy:</label>
+        <select name="investStratTradIra" id="invstStratTradIra">
+          <option value="conservative">Conservative</option>
+          <option value="average">Average</option>
+          <option value="risky">Risky</option>
+        </select>
+      </fieldset>
+    </div>
+    <div id="ecas">
+      <fieldset>
+        <legend>Employer Contribution Accounts</legend>
+        <label for="">Please enter the relevant information for each type of Employer Contribution Account you have. For example, if you maintain more than one traditional 401k then enter the total amount for all of those accounts. If you have more than one 403b then enter the total values for all those accounts. You will not be given the option of entering each of these accounts individually. Also beware that your total contributions to 401k, 403b, 457b accounts cannot exceed $19,500 (or $6,500 for catch up contributions). Your total contributions to Simple IRAs and Simple 401k accounts cannot exceed $13,500 (or $3,000 for catch up contributions). Your contributions to Simple accounts are included in the overall limit of $19,500 per year. </label>
+        <br>
+        <label class="sectionHeader">Roth Accounts</label>
+        <br>
+        <label class="accountHeader">Roth 401k</label>
+        <br>
+        <label for="amtContRoth401">Total Roth 401k Contributions through the end of last year:</label>
+        <input type="number" id="amtContRoth401" name="amtContRoth401" min="0" value="0">
+        <br>
+        <label for="currentValRoth401">Total Current Value of Roth 401k:</label>
+        <input type="number" name="currentValRoth401" id="currentValRoth401" min="0" value="0">
+        <br>
+        <label for="annualContRoth401">Future Annual Roth 401k Contribution Amount (cannot exceed $19,500):</label>
+        <input type="number" name="annualContRoth401" id="annualContRoth401" value="0">
+        <br>
+        <label for="catchUpContRoth401">Do you plan to make 'Catch Up' contributions to your Roth 401k accounts beginning at the age of 50 (this is an additional $6,500 you can contribute each year):</label>
+        <input type="checkbox" name="catchUpContRoth401" id="catchUpContRoth401">
+        <br>
+        <label for="contEndAgeRoth401">At what age do you plan to stop contributing to your Roth 401k (there is no age limit for the Roth 401k):</label>
+        <input type="number" maxlength="2" name="contEndAgeRoth401" id="contEndAgeRoth401">
+        <br>
+        <label for="investStratRoth401">Investment Strategy:</label>
+        <select name="investStratRoth401" id="invstStratRoth401">
+          <option value="conservative">Conservative</option>
+          <option value="average">Average</option>
+          <option value="risky">Risky</option>
+        </select>
+        <br>
+        <label class="accountHeader">Roth 403b</label>
+        <br>
+        <label for="amtContRoth403">Total Roth 403b Contributions through the end of last year:</label>
+        <input type="number" id="amtContRoth403" name="amtContRoth403" min="0" value="0">
+        <br>
+        <label for="currentValRoth403">Total Current Value of Roth 403b:</label>
+        <input type="number" name="currentValRoth403" id="currentValRoth403" min="0" value="0">
+        <br>
+        <label for="annualContRoth403">Future Annual Roth 403b Contribution Amount (cannot exceed $19,500):</label>
+        <input type="number" name="annualContRoth403" id="annualContRoth403" value="0">
+        <br>
+        <label for="catchUpContRoth403">Do you plan to make 'Catch Up' contributions to your Roth 403b accounts beginning at the age of 50 (this is an additional $6,500 you can contribute each year):</label>
+        <input type="checkbox" name="catchUpContRoth403" id="catchUpContRoth403">
+        <br>
+        <label for="contEndAgeRoth403">At what age do you plan to stop contributing to your Roth 403b (there is no age limit for the Roth 403b):</label>
+        <input type="number" maxlength="2" name="contEndAgeRoth403" id="contEndAgeRoth403">
+        <br>
+        <label for="investStratRoth403">Investment Strategy:</label>
+        <select name="investStratRoth403" id="invstStratRoth403">
+          <option value="conservative">Conservative</option>
+          <option value="average">Average</option>
+          <option value="risky">Risky</option>
+        </select>
+        <br>
+        <label class="accountHeader">Roth 457b</label>
+        <br>
+        <label for="amtContRoth457">Total Roth 457b Contributions through the end of last year:</label>
+        <input type="number" id="amtContRoth457" name="amtContRoth457" min="0" value="0">
+        <br>
+        <label for="currentValRoth457">Total Current Value of Roth 457b:</label>
+        <input type="number" name="currentValRoth457" id="currentValRoth457" min="0" value="0">
+        <br>
+        <label for="annualContRoth457">Future Annual Roth 457b Contribution Amount (cannot exceed $19,500):</label>
+        <input type="number" name="annualContRoth457" id="annualContRoth457" value="0">
+        <br>
+        <label for="catchUpContRoth457">Do you plan to make 'Catch Up' contributions to your Roth 457b accounts beginning at the age of 50 (this is an additional $6,500 you can contribute each year):</label>
+        <input type="checkbox" name="catchUpContRoth457" id="catchUpContRoth457">
+        <br>
+        <label for="contEndAgeRoth457">At what age do you plan to stop contributing to your Roth 457b (there is no age limit for the Roth 457b):</label>
+        <input type="number" maxlength="2" name="contEndAgeRoth457" id="contEndAgeRoth457">
+        <br>
+        <label for="investStratRoth457">Investment Strategy:</label>
+        <select name="investStratRoth457" id="invstStratRoth457">
+          <option value="conservative">Conservative</option>
+          <option value="average">Average</option>
+          <option value="risky">Risky</option>
+        </select>
+        <br>
+        <label class="sectionHeader">Traditional Accounts</label>
+        <br>
+      </fieldset>
+    </div>
+
+    <!-- <input type="button" name="submit" value="Next" onclick="demo(this.form)"> -->
+    <button onclick="demographics(this.form)">Next</button>
+  </form>
 
 
 </body>

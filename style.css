@@ -1,0 +1,25 @@
+body {
+  font-family: 'PT Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
+}
+
+#demoCol1, #demoCol2 {
+  display: inline-block;
+}
+
+legend {
+  font-weight: bolder;
+}
+
+.sectionHeader {
+  font-weight: bolder;
+}
+
+.accountHeader {
+  font-weight: bold;
+}
+
+input {
+  /* position: absolute;
+  right: 0px; */
+}
