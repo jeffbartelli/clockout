@@ -62,7 +62,7 @@
         <input type="number" maxlength="2" name="contEndAgeRothIra" id="contEndAgeRothIra">
         <br>
         <label for="investStratRothIra">Investment Strategy:</label>
-        <select name="investStratRothIra" id="invstStratRothIra">
+        <select name="investStratRothIra" id="investStratRothIra">
           <option value="conservative">Conservative</option>
           <option value="average">Average</option>
           <option value="risky">Risky</option>
@@ -83,7 +83,7 @@
         <input type="number" maxlength="2" name="contEndAgeTradIra" id="contEndAgeTradIra">
         <br>
         <label for="investStratTradIra">Investment Strategy:</label>
-        <select name="investStratTradIra" id="invstStratTradIra">
+        <select name="investStratTradIra" id="investStratTradIra">
           <option value="conservative">Conservative</option>
           <option value="average">Average</option>
           <option value="risky">Risky</option>
@@ -115,7 +115,7 @@
         <input type="number" maxlength="2" name="contEndAgeTrad401" id="contEndAgeTrad401">
         <br>
         <label for="investStratTrad401">Investment Strategy:</label>
-        <select name="investStratTrad401" id="invstStratTrad401">
+        <select name="investStratTrad401" id="investStratTrad401">
           <option value="conservative">Conservative</option>
           <option value="average">Average</option>
           <option value="risky">Risky</option>
@@ -139,7 +139,7 @@
         <input type="number" maxlength="2" name="contEndAgeTrad403" id="contEndAgeTrad403">
         <br>
         <label for="investStratTrad403">Investment Strategy:</label>
-        <select name="investStratTrad403" id="invstStratTrad403">
+        <select name="investStratTrad403" id="investStratTrad403">
           <option value="conservative">Conservative</option>
           <option value="average">Average</option>
           <option value="risky">Risky</option>
@@ -163,7 +163,7 @@
         <input type="number" maxlength="2" name="contEndAgeTrad457" id="contEndAgeTrad457">
         <br>
         <label for="investStratTrad457">Investment Strategy:</label>
-        <select name="investStratTrad457" id="invstStratTrad457">
+        <select name="investStratTrad457" id="investStratTrad457">
           <option value="conservative">Conservative</option>
           <option value="average">Average</option>
           <option value="risky">Risky</option>
@@ -193,7 +193,7 @@
         <input type="number" maxlength="2" name="contEndAgeRoth401" id="contEndAgeRoth401">
         <br>
         <label for="investStratRoth401">Investment Strategy:</label>
-        <select name="investStratRoth401" id="invstStratRoth401">
+        <select name="investStratRoth401" id="investStratRoth401">
           <option value="conservative">Conservative</option>
           <option value="average">Average</option>
           <option value="risky">Risky</option>
@@ -220,7 +220,7 @@
         <input type="number" maxlength="2" name="contEndAgeRoth403" id="contEndAgeRoth403">
         <br>
         <label for="investStratRoth403">Investment Strategy:</label>
-        <select name="investStratRoth403" id="invstStratRoth403">
+        <select name="investStratRoth403" id="investStratRoth403">
           <option value="conservative">Conservative</option>
           <option value="average">Average</option>
           <option value="risky">Risky</option>
@@ -247,7 +247,7 @@
         <input type="number" maxlength="2" name="contEndAgeRoth457" id="contEndAgeRoth457">
         <br>
         <label for="investStratRoth457">Investment Strategy:</label>
-        <select name="investStratRoth457" id="invstStratRoth457">
+        <select name="investStratRoth457" id="investStratRoth457">
           <option value="conservative">Conservative</option>
           <option value="average">Average</option>
           <option value="risky">Risky</option>
@@ -324,7 +324,7 @@
         <input type="number" maxlength="2" name="contEndAgeSimpleIra" id="contEndAgeSimpleIra">
         <br>
         <label for="investStratSimpleIra">Investment Strategy:</label>
-        <select name="investStratSimpleIra" id="invstStratSimpleIra">
+        <select name="investStratSimpleIra" id="investStratSimpleIra">
           <option value="conservative">Conservative</option>
           <option value="average">Average</option>
           <option value="risky">Risky</option>
@@ -360,11 +360,30 @@
         <legend class="sectionHeader">Pensions</legend>
         <label for="">Instructions for entering pension information.</label>
         <br>
-        <label class="accountHeader">Simplified Employee Pension (SEP)</label>
+        <label class="accountHeader">Generic Pension</label>
+        <br>
+        <label for="benBeginAgeGen">Age at which you begin receiving benefits:</label>
+        <input type="number" name="benBeginAgeGen" id="benBeginAgeGen">
+        <br>
+        <label for="monthlyBenAmtGen">Monthly Benefit Amount:</label>
+        <input type="number" name="monthlyBenAmtGen" id="monthlyBenAmtGen">
+        <br>
+        <label for="annualColaGen">Annual Average Cost of Living Adjustment (%):</label>
+        <input type="number" name="annualColaGen" id="annualColaGen" min="0" max="10">
+        <br>
+        <label for="colaBeginAgeGen">What age do Cost of Living Adjustments begin:</label>
+        <input type="number" name="colaBeginAgeGen" id="colaBeginAgeGen" maxlength="2">
+        <br>
+        <label for="taxGen">Are these pension benefits taxable:</label>
+        <input type="checkbox" name="taxGen" id="taxGen">
         <br>
         <label class="accountHeader">FERS Pension</label>
         <br>
-        <label class="accountHeader">Generic Pension</label>
+        <label for="benBeginAgeFers">Age at which you begin receiving benefits:</label>
+        <input type="number" name="benBeginAgeFers" id="benBeginAgeFers">
+        <br>
+        <label for="monthlyBenAmtFers">Monthly Benefit Amount:</label>
+        <input type="number" name="monthlyBenAmtFers" id="monthlyBenAmtFers">
         <br>
       </fieldset>
       <fieldset>
@@ -373,9 +392,24 @@
         <br>
         <label class="accountHeader">VA Disability</label>
         <br>
+        <label for="monthlyAmtVa">Monthly VA Disability payment:</label>
+        <input type="number" name="monthlyAmtVa" id="monthlyAmtVa">
+        <br>
         <label class="accountHeader">SSI Disability</label>
         <br>
+        <label for="monthlyAmtVa">Monthly SSI Disability payment:</label>
+        <input type="number" name="monthlyAmtSsi" id="monthlyAmtSsi">
+        <br>
         <label class="accountHeader">Other Disability</label>
+        <br>
+        <label for="monthlyAmtOther">Monthly Other Disability payment:</label>
+        <input type="number" name="monthlyAmtOther" id="monthlyAmtOther">
+        <br>
+        <label for="colaOther">Annual Cost of Living Adjustment (%):</label>
+        <input type="number" name="colaOther" id="colaOther" min="0" max="10">
+        <br>
+        <label for="taxOther">Are these disability benefits taxable:</label>
+        <input type="checkbox" name="taxOther" id="taxOther">
         <br>
       </fieldset>
       <fieldset>
@@ -384,17 +418,72 @@
         <br>
         <label class="accountHeader">Investment Accounts</label>
         <br>
+        <label for="currentValInv">Total Current Value of Savings/Investment/Brokerage accounts:</label>
+        <input type="number" name="currentValInv" id="currentValInv" min="0" value="0">
+        <br>
+        <label for="annualContInv">Future Annual Contribution Amount:</label>
+        <input type="number" name="annualContInv" id="annualContInv" value="0">
+        <br>
+        <label for="contEndAgeInv">At what age do you plan to stop contributing to your Savings/Investment/Brokerage accounts:</label>
+        <input type="number" maxlength="2" name="contEndAgeInv" id="contEndAgeInv">
+        <br>
+        <label for="investStratInv">Investment Strategy:</label>
+        <select name="investStratInv" id="investStratInv">
+          <option value="conservative">Conservative</option>
+          <option value="average">Average</option>
+          <option value="risky">Risky</option>
+        </select>
+        <br>
         <label class="accountHeader">Rents</label>
+        <br>
+        <label for="rentalProfits">Annual Net Rental Profits:</label>
+        <input type="number" name="rentalProfits" id="rentalProfits" placeholder="0">
         <br>
         <label class="accountHeader">Annuities/Insurance</label>
         <br>
+        <label for="annualAnnuity">Annual annuity and insurance payout:</label>
+        <input type="number" name="annualAnnuity" id="annualAnnuity" placeholder="0">
+        <br>
+        <label for="annuityTax">Are these annuity/insurance benefits taxable:</label>
+        <input type="checkbox" name="annuitTax" id="annuityTax">
+        <br>
         <label class="accountHeader">Other Assets</label>
+        <br>
+        <label for="otherAssets">Annual Liquid Asset Amount:</label>
+        <input type="number" name="otherAssets" id="otherAssets">
+        <br>
+        <label for="otherAssetsTax">Are these other assets taxable:</label>
+        <input type="checkbox" name="otherAssetsTax" id="otherAssetsTax">
         <br>
         <label class="accountHeader">Retirement Salary</label>
         <br>
+        <label for="retSalAmt">Annual Retirement Salary:</label>
+        <input type="number" name="retSalAmt" id="retSalAmt" placeholder="0">
+        <br>
+        <label for="retSalBeginAge">Age when retirement employment begins:</label>
+        <input type="number" name="retSalBeginAge" id="retSalBeginAge">
+        <br>
         <label class="accountHeader">SSI</label>
         <br>
+        <label for="retirementAgeSsi">Age at which you plan to begin SSI benefits:</label>
+        <input type="number" name="retirementAgeSsi" id="retirementAgeSsi" min="62" max="67">
+        <br>
+        <label for="monthlyAmtSsi">Projected full monthly SSI benefit (not adjusted if initiating benefits before age 67):</label>
+        <input type="number" name="monthlyAmtSsi" id="monthlyAmtSsi">
+        <br>
         <label class="accountHeader">Other Benefits</label>
+        <br>
+        <label for="otherBenAmt">All other financial benefits/revenue/income:</label>
+        <input type="number" name="otherBenAmt" id="otherBenAmt">
+        <br>
+        <label for="otherBenCola">Annual Cost of Living Adjustment, if applicable:</label>
+        <input type="number" name="otherBenCola" id="otherBenCola">
+        <br>
+        <label for="otherBenBeginAge">Age when benefits begin:</label>
+        <input type="number" name="otherBenBeginAge" id="otherBenBeginAge">
+        <br>
+        <label for="otherBenTax">Are these benefits taxable:</label>
+        <input type="checkbox" name="otherBenTax" id="otherBenTax">
         <br>
       </fieldset>
     </div>
@@ -406,3 +495,4 @@
 
 </body>
 </html>
+
