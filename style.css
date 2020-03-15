@@ -12,8 +12,8 @@ legend {
   font-weight: bolder;
 }
 
-.sectionHeader {
-  font-weight: bolder;
+.prompts, .fields {
+  display: inline-block;
 }
 
 .accountHeader {
@@ -24,4 +24,8 @@ input {
   /* position: fixed;
   right: 20px;
   margin: 2px; */
+}
+
+p {
+  margin: 3px;
 }

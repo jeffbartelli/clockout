@@ -12,261 +12,268 @@
 <script src="/js/data.js"></script>
 </head>
 <body>
-  <form class="demoForm" action="">
-    <div id="demographics">
+  <form id="dataForm" action="">
+    <div class="tab">
       <fieldset>
         <legend>First a couple of personal details</legend>
-        <label for="dob">DOB:</label>
-        <input type="date" name="dob" id="dob" required>
-        <br>
-        <label for="gender">Gender:</label>
-        <input type="radio" name="gender" value="male" id="gender" required>
-        <label for="gender">Male</label>
-        <input type="radio" name="gender" value="female" id="gender" required>
-        <label for="gender">Female</label>
-        <br>
-        <label for="salary">Salary:</label>
-        <input type="number" name="salary" placeholder="$50,000" id="salary" min="0" required>
-        <br>
-        <label for="retAge">Target Retirement Age:</label>
-        <input type="number" name="retAge" maxlength="2" id="retAge" placeholder="65" required>
-        <br>
-        <label for="married">Married:</label>
-        <input type="checkbox" name="married" id="married" >
-        <br>
-        <label for="state">Retirement State:</label>
-        <input type="text" name="state" id="state" maxlength="2" placeholder="NY" required>
-        <br>
+        <div class="prompts">
+          <p><label for="dob">DOB:</label></p>
+          <p><label for="gender">Gender:</label></p>
+          <p><label for="salary">Salary:</label></p>
+          <p><label for="retAge">Target Retirement Age:</label></p>
+          <p><label for="married">Married:</label></p>
+          <p><label for="state">Retirement State:</label></p>
+        </div>
+        <div class="fields">
+          <p><input type="date" name="dob" id="dob" required></p>
+          <p>
+            <input type="radio" name="gender" value="male" id="gender" required>
+            <label for="gender">Male</label>
+            <input type="radio" name="gender" value="female" id="gender" required>
+            <label for="gender">Female</label>
+          </p>
+          <p><input type="number" name="salary" placeholder="$50,000" id="salary" min="0" required></p>
+          <p><input type="number" name="retAge" maxlength="2" id="retAge" placeholder="65" required></p>
+          <p><input type="checkbox" name="married" id="married" ></p>
+          <p><input type="text" name="state" id="state" maxlength="2" placeholder="NY" required></p>
+        </div>
       </fieldset>
     </div>
-    <div id="iras">
+
+    <div class="tab">
       <fieldset>
-        <legend>Individual Retirement Accounts</legend>
-        <label for="">Please enter the relevant information for each type of IRA you have. For example, if you maintain more than one Roth IRA then enter the total amount for all of those Roth IRAs. You will not be given the option to enter each Roth IRA individually. This is true for Traditional/Crossover IRAs as well.</label>
-        <br>
-        <label class="sectionHeader">Roth IRAs</label>
-        <br>
-        <label for="amtContRothIra">Total Roth IRA Contributions through the end of last year:</label>
-        <input type="number" id="amtContRothIra" name="amtContRothIra" min="0" value="0">
-        <br>
-        <label for="currentValRothIra">Total Current Value of Roth IRAs:</label>
-        <input type="number" name="currentValRothIra" id="currentValRothIra" min="0" value="0">
-        <br>
-        <label for="annualContRothIra">Future Annual Roth IRA Contribution Amount (cannot exceed $6,000):</label>
-        <input type="number" name="annualContRothIra" id="annualContRothIra" value="0">
-        <br>
-        <label for="catchUpContRothIra">Do you plan to make 'Catch Up' contributions to your Roth IRA accounts beginning at the age of 50 (this is an additional $1,000 you can contribute each year):</label>
-        <input type="checkbox" name="catchUpContRothIra" id="catchUpContRothIra">
-        <br>
-        <label for="contEndAgeRothIra">At what age do you plan to stop contributing to your IRA (there is no age limit for Roth IRAs):</label>
-        <input type="number" maxlength="2" name="contEndAgeRothIra" id="contEndAgeRothIra">
-        <br>
-        <label for="investStratRothIra">Investment Strategy:</label>
-        <select name="investStratRothIra" id="investStratRothIra">
-          <option value="conservative">Conservative</option>
-          <option value="average">Average</option>
-          <option value="risky">Risky</option>
-        </select>
-        <br>
-        <label class="sectionHeader">Traditional IRAs</label>
-        <br>
-        <label for="currentValTradIra">Total Current Value of Traditional IRAs:</label>
-        <input type="number" name="currentValTradIra" id="currentValTradIra" min="0" value="0">
-        <br>
-        <label for="annualContTradIra">Future Annual Traditional IRA Contribution Amount (cannot exceed $6,000):</label>
-        <input type="number" name="annualContTradIra" id="annualContTradIra" value="0">
-        <br>
-        <label for="catchUpContTradIra">Do you plan to make 'Catch Up' contributions to your Traditional IRA accounts beginning at the age of 50 (this is an additional $1,000 you can contribute each year):</label>
-        <input type="checkbox" name="catchUpContTradIra" id="catchUpContTradIra">
-        <br>
-        <label for="contEndAgeTradIra">At what age do you plan to stop contributing to your Traditional IRA (you cannot make contributions after the age of 70):</label>
-        <input type="number" maxlength="2" name="contEndAgeTradIra" id="contEndAgeTradIra">
-        <br>
-        <label for="investStratTradIra">Investment Strategy:</label>
-        <select name="investStratTradIra" id="investStratTradIra">
-          <option value="conservative">Conservative</option>
-          <option value="average">Average</option>
-          <option value="risky">Risky</option>
-        </select>
+        <legend>Individual Retirement Accounts (IRA)</legend>
+        <p>Please enter the relevant information for each type of IRA you have. For example, if you maintain more than one Roth IRA then enter the total amount for all of those Roth IRAs. You will not be given the option to enter each Roth IRA individually. This is true for Traditional/Crossover IRAs as well.</p>
+        <h4>Roth IRAs</h4>
+        <div class="prompts">
+          <p><label for="amtContRothIra">Total Roth IRA Contributions through the end of last year:</label></p>
+          <p><label for="currentValRothIra">Total Current Value of Roth IRAs:</label></p>
+          <p><label for="annualContRothIra">Future Annual Roth IRA Contribution Amount (cannot exceed $6,000):</label></p>
+          <p><label for="catchUpContRothIra">Do you plan to make  the additional $1,000 'Catch Up' contributions beginning at the age of 50:</label></p>
+          <p><label for="contEndAgeRothIra">At what age do you plan to stop contributing to your IRA (there is no age limit for Roth IRAs):</label></p>
+          <p><label for="investStratRothIra">Investment Strategy:</label></p>
+        </div>
+        <div class="fields">
+          <p><input type="number" id="amtContRothIra" name="amtContRothIra" min="0" placeholder="24,000"></p>
+          <p><input type="number" name="currentValRothIra" id="currentValRothIra" min="0" placeholder="30,000"></p>
+          <p><input type="number" name="annualContRothIra" id="annualContRothIra" placeholder="6,000"></p>
+          <p><input type="checkbox" name="catchUpContRothIra" id="catchUpContRothIra"></p>
+          <p><input type="number" maxlength="2" name="contEndAgeRothIra" id="contEndAgeRothIra" placeholder="65"></p>
+          <p><select name="investStratRothIra" id="investStratRothIra" class="dropdown">
+            <option value="" disabled selected hidden>Select one</option>
+            <option value="conservative" name="investStratRothIra">Conservative</option>
+            <option value="average" name="investStratRothIra">Average</option>
+            <option value="risky" name="investStratRothIra">Risky</option>
+          </select></p>
+        </div>
+        <h4>Traditional IRAs</h4>
+        <div class="prompts">
+          <p><label for="currentValTradIra">Total Current Value of Traditional IRAs:</label></p>
+          <p><label for="annualContTradIra">Future Annual Traditional IRA Contribution Amount (cannot exceed $6,000):</label></p>
+          <p><label for="catchUpContTradIra">Do you plan to make  the additional $1,000 'Catch Up' contributions beginning at the age of 50:</label></p>
+          <p><label for="contEndAgeTradIra">At what age do you plan to stop contributing (you cannot make contributions after the age of 70):</label></p>
+          <p><label for="investStratTradIra">Investment Strategy:</label></p>
+          <p></p>
+        </div>
+        <div class="fields">
+          <p><input type="number" name="currentValTradIra" id="currentValTradIra" min="0" placeholder="65,000"></p>
+          <p><input type="number" name="annualContTradIra" id="annualContTradIra" placeholder="6,000"></p>
+          <p><input type="checkbox" name="catchUpContTradIra" id="catchUpContTradIra"></p>
+          <p><input type="number" maxlength="2" name="contEndAgeTradIra" id="contEndAgeTradIra" placeholder="70"></p>
+          <p><select name="investStratTradIra" id="investStratTradIra">
+            <option value="" disabled selected hidden>Select one</option>
+            <option value="conservative">Conservative</option>
+            <option value="average">Average</option>
+            <option value="risky">Risky</option>
+          </select></p>
+        </div>
       </fieldset>
     </div>
-    <div id="ecas">
+
+    <div class="tab">
       <fieldset>
         <legend>Employer Contribution Accounts</legend>
-        <label for="">Please enter the relevant information for each type of Employer Contribution Account you have. For example, if you maintain more than one traditional 401k then enter the total amount for all of those accounts. If you have more than one 403b then enter the total values for all those accounts. You will not be given the option of entering each of these accounts individually. Also beware that your total contributions to 401k, 403b, 457b accounts cannot exceed $19,500 (or $6,500 for catch up contributions). Your total contributions to Simple IRAs and Simple 401k accounts cannot exceed $13,500 (or $3,000 for catch up contributions). Your contributions to Simple accounts are included in the overall limit of $19,500 per year. </label>
-        <br>
-      <fieldset>
-        <legend class="sectionHeader">Traditional Accounts</legend>
-        <label class="accountHeader">Traditional 401k</label>
-        <br>
-        <label for="currentValTrad401">Total Current Value of Traditional 401k:</label>
-        <input type="number" name="currentValTrad401" id="currentValTrad401" min="0" value="0">
-        <br>
-        <label for="empContTrad401">Future Annual Traditional 401k Employer Contribution Amount:</label>
-        <input type="number" name="empContTrad401" id="empContTrad401" min="0" max="100" value="0">
-        <br>
-        <label for="annualContTrad401">Future Annual Traditional 401k Contribution Amount (cannot exceed $19,500):</label>
-        <input type="number" name="annualContTrad401" id="annualContTrad401" value="0">
-        <br>
-        <label for="catchUpContTrad401">Do you plan to make 'Catch Up' contributions to your Traditional 401k accounts beginning at the age of 50 (this is an additional $6,500 you can contribute each year):</label>
-        <input type="checkbox" name="catchUpContTrad401" id="catchUpContTrad401">
-        <br>
-        <label for="contEndAgeTrad401">At what age do you plan to stop contributing to your Traditional 401k:</label>
-        <input type="number" maxlength="2" name="contEndAgeTrad401" id="contEndAgeTrad401">
-        <br>
-        <label for="investStratTrad401">Investment Strategy:</label>
-        <select name="investStratTrad401" id="investStratTrad401">
-          <option value="conservative">Conservative</option>
-          <option value="average">Average</option>
-          <option value="risky">Risky</option>
-        </select>
-        <br>
-        <label class="accountHeader">Traditional 403b</label>
-        <br>
-        <label for="currentValTrad403">Total Current Value of Traditional 403b:</label>
-        <input type="number" name="currentValTrad403" id="currentValTrad403" min="0" value="0">
-        <br>
-        <label for="empContTrad403">Future Annual Traditional 403b Employer Contribution Amount:</label>
-        <input type="number" name="empContTrad403" id="empContTrad403" min="0" max="100" value="0">
-        <br>
-        <label for="annualContTrad403">Future Annual Traditional 403b Contribution Amount (cannot exceed $19,500):</label>
-        <input type="number" name="annualContTrad403" id="annualContTrad403" value="0">
-        <br>
-        <label for="catchUpContTrad403">Do you plan to make 'Catch Up' contributions to your Traditional 403b accounts beginning at the age of 50 (this is an additional $6,500 you can contribute each year):</label>
-        <input type="checkbox" name="catchUpContTrad403" id="catchUpContTrad403">
-        <br>
-        <label for="contEndAgeTrad403">At what age do you plan to stop contributing to your Traditional 403b:</label>
-        <input type="number" maxlength="2" name="contEndAgeTrad403" id="contEndAgeTrad403">
-        <br>
-        <label for="investStratTrad403">Investment Strategy:</label>
-        <select name="investStratTrad403" id="investStratTrad403">
-          <option value="conservative">Conservative</option>
-          <option value="average">Average</option>
-          <option value="risky">Risky</option>
-        </select>
-        <br>
-        <label class="accountHeader">Traditional 457b</label>
-        <br>
-        <label for="currentValTrad457">Total Current Value of Traditional 457b:</label>
-        <input type="number" name="currentValTrad457" id="currentValTrad457" min="0" value="0">
-        <br>
-        <label for="empContTrad457">Future Annual Traditional 457b Employer Contribution Amount:</label>
-        <input type="number" name="empContTrad457" id="empContTrad457" min="0" max="100" value="0">
-        <br>
-        <label for="annualContTrad457">Future Annual Traditional 457b Contribution Amount (cannot exceed $19,500):</label>
-        <input type="number" name="annualContTrad457" id="annualContTrad457" value="0">
-        <br>
-        <label for="catchUpContTrad457">Do you plan to make 'Catch Up' contributions to your Traditional 457b accounts beginning at the age of 50 (this is an additional $6,500 you can contribute each year):</label>
-        <input type="checkbox" name="catchUpContTrad457" id="catchUpContTrad457">
-        <br>
-        <label for="contEndAgeTrad457">At what age do you plan to stop contributing to your Traditional 457b:</label>
-        <input type="number" maxlength="2" name="contEndAgeTrad457" id="contEndAgeTrad457">
-        <br>
-        <label for="investStratTrad457">Investment Strategy:</label>
-        <select name="investStratTrad457" id="investStratTrad457">
-          <option value="conservative">Conservative</option>
-          <option value="average">Average</option>
-          <option value="risky">Risky</option>
-        </select>
-        <br>
+        <p>Please enter the relevant information for each type of Employer Contribution Account you have. For example, if you maintain more than one traditional 401k then enter the total amount for all of those accounts. If you have more than one 403b then enter the total values for all those accounts. You will not be given the option of entering each of these accounts individually. Also beware that your total contributions to 401k, 403b, 457b accounts cannot exceed $19,500 (or $6,500 for catch up contributions). Your total contributions to Simple IRAs and Simple 401k accounts cannot exceed $13,500 (or $3,000 for catch up contributions). Your contributions to Simple accounts are included in the overall limit of $19,500 per year.</p>
       </fieldset>
+    </div>
+    <div class="tab">
       <fieldset>
-        <legend class="sectionHeader">Roth Accounts</legend>
-        <label class="accountHeader">Roth 401k</label>
-        <br>
-        <label for="amtContRoth401">Total Roth 401k Contributions through the end of last year:</label>
-        <input type="number" id="amtContRoth401" name="amtContRoth401" min="0" value="0">
-        <br>
-        <label for="currentValRoth401">Total Current Value of Roth 401k:</label>
-        <input type="number" name="currentValRoth401" id="currentValRoth401" min="0" value="0">
-        <br>
-        <label for="empContRoth401">Future Annual Roth 401k Employer Contribution Amount:</label>
-        <input type="number" name="empContRoth401" id="empContRoth401" min="0" max="100" value="0">
-        <br>
-        <label for="annualContRoth401">Future Annual Roth 401k Contribution Amount (cannot exceed $19,500):</label>
-        <input type="number" name="annualContRoth401" id="annualContRoth401" value="0">
-        <br>
-        <label for="catchUpContRoth401">Do you plan to make 'Catch Up' contributions to your Roth 401k accounts beginning at the age of 50 (this is an additional $6,500 you can contribute each year):</label>
-        <input type="checkbox" name="catchUpContRoth401" id="catchUpContRoth401">
-        <br>
-        <label for="contEndAgeRoth401">At what age do you plan to stop contributing to your Roth 401k (there is no age limit for the Roth 401k):</label>
-        <input type="number" maxlength="2" name="contEndAgeRoth401" id="contEndAgeRoth401">
-        <br>
-        <label for="investStratRoth401">Investment Strategy:</label>
-        <select name="investStratRoth401" id="investStratRoth401">
-          <option value="conservative">Conservative</option>
-          <option value="average">Average</option>
-          <option value="risky">Risky</option>
-        </select>
-        <br>
-        <label class="accountHeader">Roth 403b</label>
-        <br>
-        <label for="amtContRoth403">Total Roth 403b Contributions through the end of last year:</label>
-        <input type="number" id="amtContRoth403" name="amtContRoth403" min="0" value="0">
-        <br>
-        <label for="currentValRoth403">Total Current Value of Roth 403b:</label>
-        <input type="number" name="currentValRoth403" id="currentValRoth403" min="0" value="0">
-        <br>
-        <label for="empContRoth403">Future Annual Roth 403b Employer Contribution Amount:</label>
-        <input type="number" name="empContRoth403" id="empContRoth403" min="0" max="100" value="0">
-        <br>
-        <label for="annualContRoth403">Future Annual Roth 403b Contribution Amount (cannot exceed $19,500):</label>
-        <input type="number" name="annualContRoth403" id="annualContRoth403" value="0">
-        <br>
-        <label for="catchUpContRoth403">Do you plan to make 'Catch Up' contributions to your Roth 403b accounts beginning at the age of 50 (this is an additional $6,500 you can contribute each year):</label>
-        <input type="checkbox" name="catchUpContRoth403" id="catchUpContRoth403">
-        <br>
-        <label for="contEndAgeRoth403">At what age do you plan to stop contributing to your Roth 403b (there is no age limit for the Roth 403b):</label>
-        <input type="number" maxlength="2" name="contEndAgeRoth403" id="contEndAgeRoth403">
-        <br>
-        <label for="investStratRoth403">Investment Strategy:</label>
-        <select name="investStratRoth403" id="investStratRoth403">
-          <option value="conservative">Conservative</option>
-          <option value="average">Average</option>
-          <option value="risky">Risky</option>
-        </select>
-        <br>
-        <label class="accountHeader">Roth 457b</label>
-        <br>
-        <label for="amtContRoth457">Total Roth 457b Contributions through the end of last year:</label>
-        <input type="number" id="amtContRoth457" name="amtContRoth457" min="0" value="0">
-        <br>
-        <label for="currentValRoth457">Total Current Value of Roth 457b:</label>
-        <input type="number" name="currentValRoth457" id="currentValRoth457" min="0" value="0">
-        <br>
-        <label for="empContRoth457">Future Annual Roth 457b Employer Contribution Amount:</label>
-        <input type="number" name="empContRoth457" id="empContRoth457" min="0" max="100" value="0">
-        <br>
-        <label for="annualContRoth457">Future Annual Roth 457b Contribution Amount (cannot exceed $19,500):</label>
-        <input type="number" name="annualContRoth457" id="annualContRoth457" value="0">
-        <br>
-        <label for="catchUpContRoth457">Do you plan to make 'Catch Up' contributions to your Roth 457b accounts beginning at the age of 50 (this is an additional $6,500 you can contribute each year):</label>
-        <input type="checkbox" name="catchUpContRoth457" id="catchUpContRoth457">
-        <br>
-        <label for="contEndAgeRoth457">At what age do you plan to stop contributing to your Roth 457b (there is no age limit for the Roth 457b):</label>
-        <input type="number" maxlength="2" name="contEndAgeRoth457" id="contEndAgeRoth457">
-        <br>
-        <label for="investStratRoth457">Investment Strategy:</label>
-        <select name="investStratRoth457" id="investStratRoth457">
-          <option value="conservative">Conservative</option>
-          <option value="average">Average</option>
-          <option value="risky">Risky</option>
-        </select>
+        <legend class="sectionHeader">Employer Contribution Accounts: 401(k)</legend>
+        <h4>Traditional 401k</h4>
+        <div class="prompts">
+          <p><label for="currentValTrad401">Total Current Value of Traditional 401k:</label></p>
+          <p><label for="empContTrad401">Future Annual Traditional 401k Employer Contribution Amount: <input type="number" name="" class="ecaCalculator" min="0" max="100" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span></label></p>
+          <p><label for="annualContTrad401">Future Annual Traditional 401k Contribution Amount (cannot exceed $19,500):</label></p>
+          <p><label for="catchUpContTrad401">Do you plan to make the additional $6,500 'Catch Up' contributions beginning at the age of 50:</label></p>
+          <p><label for="contEndAgeTrad401">At what age do you plan to stop contributing to your Traditional 401k:</label></p>
+          <p><label for="investStratTrad401">Investment Strategy:</label></p>
+        </div>
+        <div class="fields">        
+          <p><input type="number" name="currentValTrad401" id="currentValTrad401" min="0" placeholder="75,000"></p>
+          <p><input type="number" name="empContTrad401" id="empContTrad401" min="0" max="100" placeholder="5"></p>  
+          <p><input type="number" name="annualContTrad401" id="annualContTrad401" placeholder="0"></p>
+          <p><input type="checkbox" name="catchUpContTrad401" id="catchUpContTrad401"></p>
+          <p><input type="number" maxlength="2" name="contEndAgeTrad401" id="contEndAgeTrad401"></p>
+          <select name="investStratTrad401" id="investStratTrad401">
+            <option value="" disabled selected hidden>Select one</option>
+            <option value="conservative">Conservative</option>
+            <option value="average">Average</option>
+            <option value="risky">Risky</option>
+          </select>
+        </div>
+        <h4>Roth 401k</h4>
+          <div class="prompts">
+            <p><label for="amtContRoth401">Total Roth 401k Contributions through the end of last year:</label></p>
+            <p><label for="currentValRoth401">Total Current Value of Roth 401k:</label></p>
+            <p><label for="empContRoth401">Future Annual Roth 401k Employer Contribution Amount: <input type="number" name="" class="ecaCalculator" min="0" max="100" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span></label></p>
+            <p><label for="annualContRoth401">Future Annual Roth 401k Contribution Amount (cannot exceed $19,500):</label></p>
+            <p><label for="catchUpContRoth401">Do you plan to make the additional $6,500 'Catch Up' contributions beginning at the age of 50:</label></p>
+            <p><label for="contEndAgeRoth401">At what age do you plan to stop contributing to your Roth 401k (there is no age limit for the Roth 401k):</label></p>
+            <p><label for="investStratRoth401">Investment Strategy:</label></p>
+          </div>
+          <div class="fields">
+            <p><input type="number" id="amtContRoth401" name="amtContRoth401" min="0" placeholder="0"></p>
+            <p><input type="number" name="currentValRoth401" id="currentValRoth401" min="0" placeholder="0"></p>
+            <p><input type="number" name="empContRoth401" id="empContRoth401" min="0" max="100" placeholder="0"></p>
+            <p><input type="number" name="annualContRoth401" id="annualContRoth401" placeholder="0"></p>
+            <p><input type="checkbox" name="catchUpContRoth401" id="catchUpContRoth401"></p>
+            <p><input type="number" maxlength="2" name="contEndAgeRoth401" id="contEndAgeRoth401"></p>
+            <p>
+              <select name="investStratRoth401" id="investStratRoth401">
+                <option value="" disabled selected hidden>Select one</option>
+                <option value="conservative">Conservative</option>
+                <option value="average">Average</option>
+                <option value="risky">Risky</option>
+              </select>
+            </p>
+          </div>
       </fieldset>
+    </div>
+    <div class="tab">
+      <fieldset>
+        <legend>Employer Contribution Accounts: 403b</legend>
+        <h4>Traditional 403(b)</h4>
+        <div class="prompts">
+          <p><label for="currentValTrad403">Total Current Value of Traditional 403b:</label></p>
+          <p><label for="empContTrad403">Future Annual Traditional 403b Employer Contribution Amount: <input type="number" name="" class="ecaCalculator" min="0" max="100" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span></label></p>
+          <p><label for="annualContTrad403">Future Annual Traditional 403b Contribution Amount (cannot exceed $19,500):</label></p>
+          <p><label for="catchUpContTrad403">Do you plan to make the additional $6,500 'Catch Up' contributions beginning at the age of 50:</label></p>
+          <p><label for="contEndAgeTrad403">At what age do you plan to stop contributing to your Traditional 403b:</label></p>
+          <p><label for="investStratTrad403">Investment Strategy:</label></p>
+        </div>
+        <div class="fields">
+          <p><input type="number" name="currentValTrad403" id="currentValTrad403" min="0" placeholder="0"></p>
+          <p><input type="number" name="empContTrad403" id="empContTrad403" min="0" max="100" placeholder="0"></p>
+          <p><input type="number" name="annualContTrad403" id="annualContTrad403" placeholder="0"></p>
+          <p><input type="checkbox" name="catchUpContTrad403" id="catchUpContTrad403"></p>
+          <p><input type="number" maxlength="2" name="contEndAgeTrad403" id="contEndAgeTrad403"></p>
+          <p>
+            <select name="investStratTrad403" id="investStratTrad403">
+              <option value="" disabled selected hidden>Select one</option>
+              <option value="conservative">Conservative</option>
+              <option value="average">Average</option>
+              <option value="risky">Risky</option>
+            </select>
+          </p>
+        </div>
+        <h4>Roth 403b</h4>
+        <div class="prompts">
+          <p><label for="amtContRoth403">Total Roth 403b Contributions through the end of last year:</label></p>
+          <p><label for="currentValRoth403">Total Current Value of Roth 403b:</label></p>
+          <p><label for="empContRoth403">Future Annual Roth 403b Employer Contribution Amount: <input type="number" name="" class="ecaCalculator" min="0" max="100" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span></label></p>
+          <p><label for="annualContRoth403">Future Annual Roth 403b Contribution Amount (cannot exceed $19,500):</label></p>
+          <p><label for="catchUpContRoth403">Do you plan to make the additional $6,500 'Catch Up' contributions beginning at the age of 50:</label></p>
+          <p><label for="contEndAgeRoth403">At what age do you plan to stop contributing to your Roth 403b (there is no age limit for the Roth 403b):</label></p>
+          <p><label for="investStratRoth403">Investment Strategy:</label></p>
+        </div>
+        <div class="fields">
+          <p><input type="number" id="amtContRoth403" name="amtContRoth403" min="0" placeholder="0"></p>
+          <p><input type="number" name="currentValRoth403" id="currentValRoth403" min="0" placeholder="0"></p>
+          <p><input type="number" name="empContRoth403" id="empContRoth403" min="0" max="100" placeholder="0"></p>
+          <p><input type="number" name="annualContRoth403" id="annualContRoth403" placeholder="0"></p>
+          <p><input type="checkbox" name="catchUpContRoth403" id="catchUpContRoth403"></p>
+          <p><input type="number" maxlength="2" name="contEndAgeRoth403" id="contEndAgeRoth403"></p>
+          <p>
+            <select name="investStratRoth403" id="investStratRoth403">
+              <option value="" disabled selected hidden>Select one</option>
+              <option value="conservative">Conservative</option>
+              <option value="average">Average</option>
+              <option value="risky">Risky</option>
+            </select>
+          </p>
+        </div>
+      </fieldset>
+    </div>
+    <div class="tab">
+      <fieldset>
+        <legend>Employer Contribution Accounts: 457(b)</legend>
+        <h4>Traditional 457b</h4>
+        <div class="prompts">
+          <p><label for="currentValTrad457">Total Current Value of Traditional 457b:</label></p>
+          <p><label for="empContTrad457">Future Annual Traditional 457b Employer Contribution Amount:</label></p>
+          <p><label for="annualContTrad457">Future Annual Traditional 457b Contribution Amount (cannot exceed $19,500):</label></p>
+          <p><label for="catchUpContTrad457">Do you plan to make the additional $6,500 'Catch Up' contributions beginning at the age of 50:</label></p>
+          <p><label for="contEndAgeTrad457">At what age do you plan to stop contributing to your Traditional 457b:</label></p>
+          <p><label for="investStratTrad457">Investment Strategy:</label></p>
+        </div>
+        <div class="fields">
+          <p><input type="number" name="currentValTrad457" id="currentValTrad457" min="0" placeholder="0"></p>
+          <p><input type="number" name="empContTrad457" id="empContTrad457" min="0" max="100" placeholder="0"></p>
+          <p><input type="number" name="annualContTrad457" id="annualContTrad457" placeholder="0"></p>
+          <p><input type="checkbox" name="catchUpContTrad457" id="catchUpContTrad457"></p>
+          <p><input type="number" maxlength="2" name="contEndAgeTrad457" id="contEndAgeTrad457"></p>
+          <p>
+            <select name="investStratTrad457" id="investStratTrad457">
+              <option value="" disabled selected hidden>Select one</option>
+              <option value="conservative">Conservative</option>
+              <option value="average">Average</option>
+              <option value="risky">Risky</option>
+            </select>
+          </p>
+        </div>
+        <h4>Roth 457b</h4>
+        <div class="prompts">
+          <p><label for="amtContRoth457">Total Roth 457b Contributions through the end of last year:</label></p>
+          <p><label for="currentValRoth457">Total Current Value of Roth 457b:</label></p>
+          <p><label for="empContRoth457">Future Annual Roth 457b Employer Contribution Amount:</label></p>
+          <p><label for="annualContRoth457">Future Annual Roth 457b Contribution Amount (cannot exceed $19,500):</label></p>
+          <p><label for="catchUpContRoth457">Do you plan to make the additional $6,500 'Catch Up' contributions beginning at the age of 50:</label></p>
+          <p><label for="contEndAgeRoth457">At what age do you plan to stop contributing to your Roth 457b (there is no age limit for the Roth 457b):</label></p>
+          <p><label for="investStratRoth457">Investment Strategy:</label></p>
+        </div>
+        <div class="prompts">
+          <p><input type="number" id="amtContRoth457" name="amtContRoth457" min="0" placeholder="0"></p>
+          <p><input type="number" name="currentValRoth457" id="currentValRoth457" min="0" placeholder="0"></p>
+          <p><input type="number" name="empContRoth457" id="empContRoth457" min="0" max="100" placeholder="0"></p>
+          <p><input type="number" name="annualContRoth457" id="annualContRoth457" placeholder="0"></p>
+          <p><input type="checkbox" name="catchUpContRoth457" id="catchUpContRoth457"></p>
+          <p><input type="number" maxlength="2" name="contEndAgeRoth457" id="contEndAgeRoth457"></p>
+          <p>
+            <select name="investStratRoth457" id="investStratRoth457">
+              <option value="" disabled selected hidden>Select one</option>
+              <option value="conservative">Conservative</option>
+              <option value="average">Average</option>
+              <option value="risky">Risky</option>
+            </select>
+          </p>
+        </div>
+      </fieldset>
+    </div>
+    <div class="tab">
       <fieldset>
         <legend class="sectionHeader">Small Business Accounts</legend>
         <label class="accountHeader">Single 401k</label>
         <br>
         <label for="currentValSingle401">Total Current Value of your Single 401k:</label>
-        <input type="number" name="currentValSingle401" id="currentValSingle401" min="0" value="0">
+        <input type="number" name="currentValSingle401" id="currentValSingle401" min="0" placeholder="0">
         <br>
-        <label for="empContSingle401">Future Annual Single 401k Employer Contribution Amount:</label>
-        <input type="number" name="empContSingle401" id="empContSingle401" min="0" max="100" value="0">
+        <label for="empContSingle401">Future Annual Single 401k Employer Contribution Amount: <input type="number" name="" class="ecaCalculator" min="0" max="100" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span></label>
+        <input type="number" name="empContSingle401" id="empContSingle401" min="0" max="100" placeholder="0">
         <br>
         <label for="annualContSingle401">Future Annual Single 401k Contribution Amount (cannot exceed $19,500):</label>
-        <input type="number" name="annualContSingle401" id="annualContSingle401" value="0">
+        <input type="number" name="annualContSingle401" id="annualContSingle401" placeholder="0">
         <br>
-        <label for="catchUpContSingle401">Do you plan to make 'Catch Up' contributions to your Single 401k accounts beginning at the age of 50 (this is an additional $6,500 you can contribute each year):</label>
+        <label for="catchUpContSingle401">Do you plan to make the additional $6,500 'Catch Up' contributions beginning at the age of 50:</label>
         <input type="checkbox" name="catchUpContSingle401" id="catchUpContSingle401">
         <br>
         <label for="contEndAgeSingle401">At what age do you plan to stop contributing to your Single 401k:</label>
@@ -274,6 +281,7 @@
         <br>
         <label for="investStratSingle401">Investment Strategy:</label>
         <select name="investStratSingle401" id="investStratSingle401">
+          <option value="" disabled selected hidden>Select one</option>
           <option value="conservative">Conservative</option>
           <option value="average">Average</option>
           <option value="risky">Risky</option>
@@ -282,15 +290,15 @@
         <label class="accountHeader">Safe Harbor 401k</label>
         <br>
         <label for="currentValSafeHarbor401">Total Current Value of your Safe Harbor 401k:</label>
-        <input type="number" name="currentValSafeHarbor401" id="currentValSafeHarbor401" min="0" value="0">
+        <input type="number" name="currentValSafeHarbor401" id="currentValSafeHarbor401" min="0" placeholder="0">
         <br>
-        <label for="empContSafeHarbor401">Future Annual Safe Harbor 401k Employer Contribution Amount:</label>
-        <input type="number" name="empContSafeHarbor401" id="empContSafeHarbor401" min="0" max="100" value="0">
+        <label for="empContSafeHarbor401">Future Annual Safe Harbor 401k Employer Contribution Amount: <input type="number" name="" class="ecaCalculator" min="0" max="100" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span></label>
+        <input type="number" name="empContSafeHarbor401" id="empContSafeHarbor401" min="0" max="100" placeholder="0">
         <br>
         <label for="annualContSafeHarbor401">Future Annual Safe Harbor 401k Contribution Amount (cannot exceed $19,500):</label>
-        <input type="number" name="annualContSafeHarbor401" id="annualContSafeHarbor401" value="0">
+        <input type="number" name="annualContSafeHarbor401" id="annualContSafeHarbor401" placeholder="0">
         <br>
-        <label for="catchUpContSafeHarbor401">Do you plan to make 'Catch Up' contributions to your Safe Harbor 401k accounts beginning at the age of 50 (this is an additional $6,500 you can contribute each year):</label>
+        <label for="catchUpContSafeHarbor401">Do you plan to make the additional $6,500 'Catch Up' contributions beginning at the age of 50:</label>
         <input type="checkbox" name="catchUpContSafeHarbor401" id="catchUpContSafeHarbor401">
         <br>
         <label for="contEndAgeSafeHarbor401">At what age do you plan to stop contributing to your Safe Harbor 401k:</label>
@@ -298,6 +306,7 @@
         <br>
         <label for="investStratSafeHarbor401">Investment Strategy:</label>
         <select name="investStratSafeHarbor401" id="investStratSafeHarbor401">
+          <option value="" disabled selected hidden>Select one</option>
           <option value="conservative">Conservative</option>
           <option value="average">Average</option>
           <option value="risky">Risky</option>
@@ -309,15 +318,15 @@
         <label class="sectionHeader">Simple IRA</label>
         <br>
         <label for="currentValSimpleIra">Total Current Value of Simple IRAs:</label>
-        <input type="number" name="currentValSimpleIra" id="currentValSimpleIra" min="0" value="0">
+        <input type="number" name="currentValSimpleIra" id="currentValSimpleIra" min="0" placeholder="0">
         <br>
         <label for="empContSimpleIra">Future Annual Simple IRA Employer Contribution Amount (1%-3%):</label>
-        <input type="number" name="empContSimpleIra" id="empContSimpleIra" min="1" max="3" value="0">
+        <input type="number" name="empContSimpleIra" id="empContSimpleIra" min="1" max="3" placeholder="0">
         <br>
         <label for="annualContSimpleIra">Future Annual Simple IRA Contribution Amount (cannot exceed $13,500):</label>
-        <input type="number" name="annualContSimpleIra" id="annualContSimpleIra" value="0">
+        <input type="number" name="annualContSimpleIra" id="annualContSimpleIra" placeholder="0">
         <br>
-        <label for="catchUpContSimpleIra">Do you plan to make 'Catch Up' contributions to your Roth IRA accounts beginning at the age of 50 (this is an additional $3,000 you can contribute each year):</label>
+        <label for="catchUpContSimpleIra">Do you plan to make the additional $3,000 'Catch Up' contributions beginning at the age of 50:</label>
         <input type="checkbox" name="catchUpContSimpleIra" id="catchUpContSimpleIra">
         <br>
         <label for="contEndAgeSimpleIra">At what age do you plan to stop contributing to your Simple IRA:</label>
@@ -325,6 +334,7 @@
         <br>
         <label for="investStratSimpleIra">Investment Strategy:</label>
         <select name="investStratSimpleIra" id="investStratSimpleIra">
+          <option value="" disabled selected hidden>Select one</option>
           <option value="conservative">Conservative</option>
           <option value="average">Average</option>
           <option value="risky">Risky</option>
@@ -333,15 +343,15 @@
         <label class="accountHeader">Simple 401k</label>
         <br>
         <label for="currentValSimple401">Total Current Value of your Simple 401k:</label>
-        <input type="number" name="currentValSimple401" id="currentValSimple401" min="0" value="0">
+        <input type="number" name="currentValSimple401" id="currentValSimple401" min="0" placeholder="0">
         <br>
         <label for="empContSimple401">Future Annual Simple 401k Employer Contribution Amount:</label>
-        <input type="number" name="empContSimple401" id="empContSimple401" min="0" max="100" value="0">
+        <input type="number" name="empContSimple401" id="empContSimple401" min="0" max="100" placeholder="0">
         <br>
         <label for="annualContSimple401">Future Annual Simple 401k Contribution Amount (cannot exceed $13,500):</label>
-        <input type="number" name="annualContSimple401" id="annualContSimple401" value="0">
+        <input type="number" name="annualContSimple401" id="annualContSimple401" placeholder="0">
         <br>
-        <label for="catchUpContSimple401">Do you plan to make 'Catch Up' contributions to your Simple 401k accounts beginning at the age of 50 (this is an additional $3,000 you can contribute each year):</label>
+        <label for="catchUpContSimple401">Do you plan to make the additional $3,000 'Catch Up' contributions beginning at the age of 50:</label>
         <input type="checkbox" name="catchUpContSimple401" id="catchUpContSimple401">
         <br>
         <label for="contEndAgeSimple401">At what age do you plan to stop contributing to your Simple 401k:</label>
@@ -349,6 +359,7 @@
         <br>
         <label for="investStratSimple401">Investment Strategy:</label>
         <select name="investStratSimple401" id="investStratSimple401">
+          <option value="" disabled selected hidden>Select one</option>
           <option value="conservative">Conservative</option>
           <option value="average">Average</option>
           <option value="risky">Risky</option>
@@ -419,16 +430,17 @@
         <label class="accountHeader">Investment Accounts</label>
         <br>
         <label for="currentValInv">Total Current Value of Savings/Investment/Brokerage accounts:</label>
-        <input type="number" name="currentValInv" id="currentValInv" min="0" value="0">
+        <input type="number" name="currentValInv" id="currentValInv" min="0" placeholder="0">
         <br>
         <label for="annualContInv">Future Annual Contribution Amount:</label>
-        <input type="number" name="annualContInv" id="annualContInv" value="0">
+        <input type="number" name="annualContInv" id="annualContInv" placeholder="0">
         <br>
         <label for="contEndAgeInv">At what age do you plan to stop contributing to your Savings/Investment/Brokerage accounts:</label>
         <input type="number" maxlength="2" name="contEndAgeInv" id="contEndAgeInv">
         <br>
         <label for="investStratInv">Investment Strategy:</label>
         <select name="investStratInv" id="investStratInv">
+          <option value="" disabled selected hidden>Select one</option>
           <option value="conservative">Conservative</option>
           <option value="average">Average</option>
           <option value="risky">Risky</option>
@@ -489,7 +501,7 @@
     </div>
 
     <!-- <input type="button" name="submit" value="Next" onclick="demo(this.form)"> -->
-    <button onclick="demographics(this.form)">Next</button>
+    <button onclick="harvest(this.form)">Next</button>
   </form>
 
 
