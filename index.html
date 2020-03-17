@@ -13,9 +13,10 @@
 </head>
 <body>
   <form id="dataForm" action="">
-    <div class="tab">
+    <div class="tab" id="demographics">
       <fieldset>
-        <legend>First a couple of personal details</legend>
+        <legend>Demographics</legend>
+        <h4>Personal Details</h4>
         <div class="prompts">
           <p><label for="dob">DOB:</label></p>
           <p><label for="gender">Gender:</label></p>
@@ -36,6 +37,27 @@
           <p><input type="number" name="retAge" maxlength="2" id="retAge" placeholder="65" required></p>
           <p><input type="checkbox" name="married" id="married" ></p>
           <p><input type="text" name="state" id="state" maxlength="2" placeholder="NY" required></p>
+        </div>
+        <h4>Investments, Accounts & Assets (mark all that apply)</h4>
+        <div class="fields">
+          <p><input type="checkbox" name="ira" class="accountTypes" value="1"></p>
+          <p><input type="checkbox" name="401k" class="accountTypes" value="2"></p>
+          <p><input type="checkbox" name="403b" class="accountTypes" value="3"></p>
+          <p><input type="checkbox" name="457b" class="accountTypes" value="4"></p>
+          <p><input type="checkbox" name="simple" class="accountTypes" value="5"></p>
+          <p><input type="checkbox" name="pension" class="accountTypes" value="6" checked></p>
+          <p><input type="checkbox" name="disability" class="accountTypes" value="7"></p>
+          <p><input type="checkbox" name="other" class="accountTypes" value="8"></p>
+        </div>
+        <div class="prompts">
+          <p><label for="ira">IRAs (Traditional/Crossover, Roth)</label></p>
+          <p><label for="401k">401k (Traditional, Roth, Single, Safe Harbor)</label></p>
+          <p><label for="403b">403b (Traditional, Roth)</label></p>
+          <p><label for="457b">457b (Traditional, Roth)</label></p>
+          <p><label for="simple">Simple IRA/401k</label></p>
+          <p><label for="pension">Pensions, Annuities, Social Security</label></p>
+          <p><label for="disability">Disability Benefits</label></p>
+          <p><label for="other">Other Assets</label></p>
         </div>
       </fieldset>
     </div>
@@ -90,11 +112,11 @@
       </fieldset>
     </div>
 
-    <div class="tab">
+    <!-- <div class="tab">
       <fieldset>
         <legend>Employer Contribution Accounts</legend>
         <p>Please enter the relevant information for each type of Employer Contribution Account you have. For example, if you maintain more than one traditional 401k then enter the total amount for all of those accounts. If you have more than one 403b then enter the total values for all those accounts. You will not be given the option of entering each of these accounts individually. Also beware that your total contributions to 401k, 403b, 457b accounts cannot exceed $19,500 (or $6,500 for catch up contributions). Your total contributions to Simple IRAs and Simple 401k accounts cannot exceed $13,500 (or $3,000 for catch up contributions). Your contributions to Simple accounts are included in the overall limit of $19,500 per year.</p>
-      </fieldset>
+      </fieldset> -->
     </div>
     <div class="tab">
       <fieldset>
@@ -365,7 +387,7 @@
     </div>
     <div class="tab">
       <fieldset>
-        <legend class="sectionHeader">Pensions</legend>
+        <legend class="sectionHeader">Pensions & Annuities</legend>
         <p>Instructions for entering pension information.</p>
         <h4>Generic Pension</h4>
         <div class="prompts">
@@ -400,6 +422,36 @@
             </select>
           </p>
           <p><input type="number" name="annualBenAmtFers" id="annualBenAmtFers" placeholder="1,400"></p>
+        </div>
+        <h4>Annuities/Insurance</h4>
+        <div class="prompts">
+          <p><label for="annualAnnuity">Annual annuity and insurance payout:</label></p>
+          <p><label for="annuityAge">Age at which annuity begins:</label></p>
+          <p><label for="annuityTax">Are these annuity/insurance benefits taxable:</label></p>
+        </div>
+        <div class="fields">
+          <p><input type="number" name="annualAnnuity" id="annualAnnuity" placeholder="12,000"></p>
+          <p><input type="number" name="annuityAge" id="annuityAge" placeholder="67"></p>
+          <p><input type="checkbox" name="annuitTax" id="annuityTax"></p>
+        </div>
+        <h4>SSI Retirement Benefit</h4>
+        <div class="prompts">
+          <p><label for="retirementAgeSsi">Age at which you plan to begin SSI benefits:</label></p>
+          <p><label for="monthlyAmtSsi">Projected full monthly SSI benefit (not adjusted if initiating benefits before age 67):</label></p>
+        </div>
+        <div class="fields">
+          <p>
+            <select name="benBeginAgeFers" id="benBeginAgeFers">
+              <option value="" disabled selected hidden>Select one</option>
+              <option value="62">62</option>
+              <option value="63">63</option>
+              <option value="64">64</option>
+              <option value="65">66</option>
+              <option value="66">66</option>
+              <option value="67">67</option>
+            </select>
+          </p>
+          <p><input type="number" name="monthlyAmtSsi" id="monthlyAmtSsi"></p>
         </div>
       </fieldset>
     </div>
@@ -436,7 +488,7 @@
     </div>
     <div class="tab">
       <fieldset>
-        <legend class="sectionHeader">Other Income</legend>
+        <legend class="sectionHeader">Other Assets & Income</legend>
         <p>Instructions for populating the Other Income section.</p>
         <h4>Investment Accounts</h4>
         <div class="prompts">
@@ -458,25 +510,6 @@
             </select>
           </p>
         </div>
-        <h4>SSI Retirement Benefit</h4>
-        <div class="prompts">
-          <p><label for="retirementAgeSsi">Age at which you plan to begin SSI benefits:</label></p>
-          <p><label for="monthlyAmtSsi">Projected full monthly SSI benefit (not adjusted if initiating benefits before age 67):</label></p>
-        </div>
-        <div class="fields">
-          <p>
-            <select name="benBeginAgeFers" id="benBeginAgeFers">
-              <option value="" disabled selected hidden>Select one</option>
-              <option value="62">62</option>
-              <option value="63">63</option>
-              <option value="64">64</option>
-              <option value="65">66</option>
-              <option value="66">66</option>
-              <option value="67">67</option>
-            </select>
-          </p>
-          <p><input type="number" name="monthlyAmtSsi" id="monthlyAmtSsi"></p>
-        </div>
         <h4>Retirement Salary</h4>
         <div class="prompts">
           <p><label for="retSalAmt">Annual Retirement Salary:</label></p>
@@ -494,15 +527,6 @@
         <div class="fields">
           <p><input type="number" name="rentalProfits" id="rentalProfits" placeholder="0"></p>
           <p><input type="number" name="rentalProfitsGrowth" id="rentalProfitsGrowth" min="0" placeholder="0"></p>
-        </div>
-        <h4>Annuities/Insurance</h4>
-        <div class="prompts">
-          <p><label for="annualAnnuity">Annual annuity and insurance payout:</label></p>
-          <p><label for="annuityTax">Are these annuity/insurance benefits taxable:</label></p>
-        </div>
-        <div class="fields">
-          <p><input type="number" name="annualAnnuity" id="annualAnnuity" placeholder="0"></p>
-          <p><input type="checkbox" name="annuitTax" id="annuityTax"></p>
         </div>
         <h4>Other Assets</h4>
         <div class="prompts">
@@ -528,7 +552,20 @@
         </div>
       </fieldset>
     </div>
-    <button onclick="harvest(this.form)">Next</button>
+    <div style="overflow:auto;">
+      <div style="float:right;">
+        <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+        <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+        <button type="button" id="submit" onclick="harvest(this.form)">Submit</button>
+
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:40px;">
+      <span class="step"></span>
+      <span class="step"></span>
+      <span class="step"></span>
+      <span class="step"></span>
+    </div>
   </form>
 
 </body>

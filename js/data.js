@@ -103,6 +103,7 @@ const data = {
   rentalProfits:null,
   rentalProfitsGrowth:null,
   annualAnnuity:null,
+  annuityAge:null,
   annuityTax:null,
   retirementAgeSsi:null,
   monthlyAmtSsi:null,
