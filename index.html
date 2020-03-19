@@ -40,24 +40,96 @@
         </div>
         <h4>Investments, Accounts & Assets (mark all that apply)</h4>
         <div class="fields">
-          <p><input type="checkbox" name="ira" class="accountTypes" value="1"></p>
-          <p><input type="checkbox" name="401k" class="accountTypes" value="2"></p>
-          <p><input type="checkbox" name="403b" class="accountTypes" value="3"></p>
-          <p><input type="checkbox" name="457b" class="accountTypes" value="4"></p>
-          <p><input type="checkbox" name="simple" class="accountTypes" value="5"></p>
-          <p><input type="checkbox" name="pension" class="accountTypes" value="6" checked></p>
+          <p><input type="checkbox" name="pension" class="accountTypes" value="1" checked></p>
+          <p><input type="checkbox" name="ira" class="accountTypes" value="2"></p>
+          <p><input type="checkbox" name="401k" class="accountTypes" value="3"></p>
+          <p><input type="checkbox" name="403b" class="accountTypes" value="4"></p>
+          <p><input type="checkbox" name="457b" class="accountTypes" value="5"></p>
+          <p><input type="checkbox" name="simple" class="accountTypes" value="6"></p>
           <p><input type="checkbox" name="disability" class="accountTypes" value="7"></p>
           <p><input type="checkbox" name="other" class="accountTypes" value="8"></p>
         </div>
         <div class="prompts">
+          <p><label for="pension">Pensions, Annuities, Social Security</label></p>
           <p><label for="ira">IRAs (Traditional/Crossover, Roth)</label></p>
           <p><label for="401k">401k (Traditional, Roth, Single, Safe Harbor)</label></p>
           <p><label for="403b">403b (Traditional, Roth)</label></p>
           <p><label for="457b">457b (Traditional, Roth)</label></p>
           <p><label for="simple">Simple IRA/401k</label></p>
-          <p><label for="pension">Pensions, Annuities, Social Security</label></p>
+          
           <p><label for="disability">Disability Benefits</label></p>
           <p><label for="other">Other Assets</label></p>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="tab">
+      <fieldset>
+        <legend class="sectionHeader">Pensions & Annuities</legend>
+        <p>Instructions for entering pension information.</p>
+        <h4>Generic Pension</h4>
+        <div class="prompts">
+          <p><label for="benBeginAgeGen">Age at which you begin receiving benefits:</label></p>
+          <p><label for="annualBenAmtGen">Annual Benefit Amount:</label></p>
+          <p><label for="annualColaGen">Annual Average Cost of Living Adjustment (%):</label></p>
+          <p><label for="colaBeginAgeGen">What age do Cost of Living Adjustments begin:</label></p>
+          <p><label for="taxGen">Are these pension benefits taxable:</label></p>
+        </div>
+        <div class="fields">
+          <p><input type="number" name="benBeginAgeGen" id="benBeginAgeGen" placeholder="72"></p>
+          <p><input type="number" name="annualBenAmtGen" id="annualBenAmtGen" placeholder="2,500"></p>
+          <p><input type="number" name="annualColaGen" id="annualColaGen" min="0" max="10" placeholder="2.3"></p>
+          <p><input type="number" name="colaBeginAgeGen" id="colaBeginAgeGen" maxlength="2" placeholder="75"></p>
+          <p><input type="checkbox" name="taxGen" id="taxGen"></p>
+        </div>
+        <h4>FERS Pension</h4>
+        <div class="prompts">
+          <p><label for="benBeginAgeFers">Age at which you begin receiving benefits:</label></p>
+          <p><label for="annualBenAmtFers">Monthly Benefit Amount:</label></p>
+        </div>
+        <div class="fields">
+          <p>
+            <select name="benBeginAgeFers" id="benBeginAgeFers">
+              <option value="" disabled selected hidden>Select one</option>
+              <option value="57">57</option>
+              <option value="58">58</option>
+              <option value="59">59</option>
+              <option value="60">60</option>
+              <option value="61">61</option>
+              <option value="62">62</option>
+            </select>
+          </p>
+          <p><input type="number" name="annualBenAmtFers" id="annualBenAmtFers" placeholder="1,400"></p>
+        </div>
+        <h4>Annuities/Insurance</h4>
+        <div class="prompts">
+          <p><label for="annualAnnuity">Annual annuity and insurance payout:</label></p>
+          <p><label for="annuityAge">Age at which annuity begins:</label></p>
+          <p><label for="annuityTax">Are these annuity/insurance benefits taxable:</label></p>
+        </div>
+        <div class="fields">
+          <p><input type="number" name="annualAnnuity" id="annualAnnuity" placeholder="12,000"></p>
+          <p><input type="number" name="annuityAge" id="annuityAge" placeholder="67"></p>
+          <p><input type="checkbox" name="annuitTax" id="annuityTax"></p>
+        </div>
+        <h4>SSI Retirement Benefit</h4>
+        <div class="prompts">
+          <p><label for="retirementAgeSsi">Age at which you plan to begin SSI benefits:</label></p>
+          <p><label for="monthlyAmtSsi">Projected full monthly SSI benefit (not adjusted if initiating benefits before age 67):</label></p>
+        </div>
+        <div class="fields">
+          <p>
+            <select name="benBeginAgeFers" id="benBeginAgeFers">
+              <option value="" disabled selected hidden>Select one</option>
+              <option value="62">62</option>
+              <option value="63">63</option>
+              <option value="64">64</option>
+              <option value="65">66</option>
+              <option value="66">66</option>
+              <option value="67">67</option>
+            </select>
+          </p>
+          <p><input type="number" name="monthlyAmtSsi" id="monthlyAmtSsi"></p>
         </div>
       </fieldset>
     </div>
@@ -387,76 +459,6 @@
     </div>
     <div class="tab">
       <fieldset>
-        <legend class="sectionHeader">Pensions & Annuities</legend>
-        <p>Instructions for entering pension information.</p>
-        <h4>Generic Pension</h4>
-        <div class="prompts">
-          <p><label for="benBeginAgeGen">Age at which you begin receiving benefits:</label></p>
-          <p><label for="annualBenAmtGen">Annual Benefit Amount:</label></p>
-          <p><label for="annualColaGen">Annual Average Cost of Living Adjustment (%):</label></p>
-          <p><label for="colaBeginAgeGen">What age do Cost of Living Adjustments begin:</label></p>
-          <p><label for="taxGen">Are these pension benefits taxable:</label></p>
-        </div>
-        <div class="fields">
-          <p><input type="number" name="benBeginAgeGen" id="benBeginAgeGen" placeholder="72"></p>
-          <p><input type="number" name="annualBenAmtGen" id="annualBenAmtGen" placeholder="2,500"></p>
-          <p><input type="number" name="annualColaGen" id="annualColaGen" min="0" max="10" placeholder="2.3"></p>
-          <p><input type="number" name="colaBeginAgeGen" id="colaBeginAgeGen" maxlength="2" placeholder="75"></p>
-          <p><input type="checkbox" name="taxGen" id="taxGen"></p>
-        </div>
-        <h4>FERS Pension</h4>
-        <div class="prompts">
-          <p><label for="benBeginAgeFers">Age at which you begin receiving benefits:</label></p>
-          <p><label for="annualBenAmtFers">Monthly Benefit Amount:</label></p>
-        </div>
-        <div class="fields">
-          <p>
-            <select name="benBeginAgeFers" id="benBeginAgeFers">
-              <option value="" disabled selected hidden>Select one</option>
-              <option value="57">57</option>
-              <option value="58">58</option>
-              <option value="59">59</option>
-              <option value="60">60</option>
-              <option value="61">61</option>
-              <option value="62">62</option>
-            </select>
-          </p>
-          <p><input type="number" name="annualBenAmtFers" id="annualBenAmtFers" placeholder="1,400"></p>
-        </div>
-        <h4>Annuities/Insurance</h4>
-        <div class="prompts">
-          <p><label for="annualAnnuity">Annual annuity and insurance payout:</label></p>
-          <p><label for="annuityAge">Age at which annuity begins:</label></p>
-          <p><label for="annuityTax">Are these annuity/insurance benefits taxable:</label></p>
-        </div>
-        <div class="fields">
-          <p><input type="number" name="annualAnnuity" id="annualAnnuity" placeholder="12,000"></p>
-          <p><input type="number" name="annuityAge" id="annuityAge" placeholder="67"></p>
-          <p><input type="checkbox" name="annuitTax" id="annuityTax"></p>
-        </div>
-        <h4>SSI Retirement Benefit</h4>
-        <div class="prompts">
-          <p><label for="retirementAgeSsi">Age at which you plan to begin SSI benefits:</label></p>
-          <p><label for="monthlyAmtSsi">Projected full monthly SSI benefit (not adjusted if initiating benefits before age 67):</label></p>
-        </div>
-        <div class="fields">
-          <p>
-            <select name="benBeginAgeFers" id="benBeginAgeFers">
-              <option value="" disabled selected hidden>Select one</option>
-              <option value="62">62</option>
-              <option value="63">63</option>
-              <option value="64">64</option>
-              <option value="65">66</option>
-              <option value="66">66</option>
-              <option value="67">67</option>
-            </select>
-          </p>
-          <p><input type="number" name="monthlyAmtSsi" id="monthlyAmtSsi"></p>
-        </div>
-      </fieldset>
-    </div>
-    <div class="tab">
-      <fieldset>
         <legend class="sectionHeader">Disability Benefits</legend>
         <p>Instructions for entering disability information.</p>
         <h4>VA Disability</h4>
@@ -553,19 +555,15 @@
       </fieldset>
     </div>
     <div style="overflow:auto;">
+      <div style="text-align:center;margin-top:40px;" id="progress">
+      </div>
       <div style="float:right;">
         <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
         <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
-        <button type="button" id="submit" onclick="harvest(this.form)">Submit</button>
-
+        <!-- <button type="button" id="submit" onclick="harvest(this.form)">Submit</button> -->
       </div>
     </div>
-    <div style="text-align:center;margin-top:40px;">
-      <span class="step"></span>
-      <span class="step"></span>
-      <span class="step"></span>
-      <span class="step"></span>
-    </div>
+
   </form>
 
 </body>
