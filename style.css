@@ -1,16 +1,42 @@
 body {
   font-family: 'PT Sans', sans-serif;
   font-family: 'Roboto', sans-serif;
-  max-width: 1200px;
+  /* max-width: 80%; */
+}
+
+#dataForm {
+  /* max-width: 80%; */
+  /* height: 380px; */
+  padding: 4px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  /* text-align: justify; */
+  background-color: white;
+  border: 1px solid darkgray;
+  margin: 10px auto;
+  padding: 10px;
+}
+
+h4 {
+  margin: 10px 0 3px 0;
+}
+
+fieldset {
+  background-color: white;
+  height: fit-content;
 }
 
 legend {
   font-weight: bolder;
 }
 
-.prompts, .fields {
+input, select {
   display: inline-block;
+}
+
+label {
   font-size: large;
+  display: inline-block;
 }
 
 .accountHeader {
@@ -27,20 +53,13 @@ p {
   margin: 3px;
 }
 
-#dataForm {
-  background-color: #ffffff;
-  margin: 10px auto;
-  padding: 40px;
-  min-width: 300px;
-}
-
 input[type="number"],input[type="text"],input[type="date"] {
-  width: 100px;
+  /* width: 150px; */
   border: 1px solid #aaaaaa;
 }
 
-.ecaCalculator {
-  width: 35px;
+::placeholder {
+  color: darkgrey;
 }
 
 /* Mark input boxes that gets an error on validation: */
@@ -51,6 +70,11 @@ input.invalid {
 /* Hide all steps by default: */
 .tab {
   display: none;
+}
+
+#progress {
+  text-align: center;
+  margin-top: 20px;
 }
 
 /* Make circles that indicate the steps of the form: */
@@ -74,3 +98,8 @@ input.invalid {
 /* .step.finish {
   background-color: #4CAF50;
 } */
+
+.ecaCalculator {
+  width: 35px;
+  font-size: medium;
+}

@@ -58,7 +58,7 @@ window.nextPrev = (n) => {
     demographics();
   }
   let x = document.getElementsByClassName('tab');
-  if (n == 1 && !validateForm()) return false;
+  // if (n == 1 && !validateForm()) return false;
   x[currentTab].style.display = 'none';
 
   if(currentTab >= Math.max.apply(null,tabOrder)) {
@@ -68,6 +68,7 @@ window.nextPrev = (n) => {
   currentTab = tabOrder[tabOrder.indexOf(currentTab)+n];
   // console.log(currentTab);
   showTab(currentTab);
+  window.scrollTo(0,0);
 }
 
 function validateForm() {
@@ -96,24 +97,21 @@ function validateForm() {
 }
 
 window.demographics = (form) => {
-  let inputs = $("#demographics :input").not(".accountTypes");
+  let inputs = $("#personalDetails :input");
   for (let i=0;i<inputs.length;i++) {
     data[inputs[i].id] = inputs[i].value;
-    if(inputs[i].type.toLowerCase() == 'checkbox') {
-      if(inputs[i].checked) {
-        data[inputs[i].id] = 1;
-      } else {
-        data[inputs[i].id] = 0;
-      }
-    }
   }
 }
 
+let dollarFormat = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+});
+
 window.ecaCalc = (e) => {
   $(e).addClass('thisCalc');
-  e.parentNode.lastChild.innerHTML = data.salary;
-  document.getElementById(e.parentNode.htmlFor).value = Math.round(
-    data.salary * (e.value/100) > 57000 ? 57000 : data.salary * (e.value/100));
+  e.parentNode.lastChild.innerHTML = dollarFormat.format(data.salary);
+  document.getElementById(e.parentNode.htmlFor).value = parseInt(Math.round(data.salary * (e.value/100) > 57000 ? 57000 : data.salary * (e.value/100)));
   $(e).removeClass('thisCalc');
     // Need a separate calculator or logic for Roth accounts.
 }
@@ -134,6 +132,20 @@ window.harvest = (form) => {
   for (let i=0;i<dropdowns.length;i++){
     data[dropdowns[i].id] = dropdowns[i].value;
   }
+}
+
+// STATE DROPDOWN
+let select = document.querySelector('#retState');
+let selectDef = document.createElement('option');
+selectDef.setAttribute('selected','');
+selectDef.setAttribute('disabled','');
+selectDef.textContent = '--';
+select.appendChild(selectDef);
+for (let i=0; i<states.length; i++) {
+  let el = document.createElement('option');
+  el.textContent = states[i];
+  el.value = states[i];
+  select.appendChild(el);
 }
 
 });
