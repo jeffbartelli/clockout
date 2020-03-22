@@ -1,9 +1,9 @@
 $(document).ready(function(){
 
 let tabOrder = [0];
-window.accountTypes = (form) => {
+window.accountTypes = () => {
   tabOrder = [0];
-  let accounts = document.getElementsByClassName('accountTypes');
+  let accounts = $('.accountTypes');
   for(let i=0; i<accounts.length;i++){
     if (accounts[i].checked) {
       tabOrder.push(i+1);
@@ -15,11 +15,11 @@ window.accountTypes = (form) => {
   let tabCount = tabOrder.length-1;
   if(tabCount >= markerCount) {
     for(let i=0; i<tabCount-markerCount; i++) {
-      document.getElementById('progress').appendChild(progressMarker.cloneNode(true));
+      $('#progress').append(progressMarker.cloneNode(true));
     }
   } else if (tabCount < markerCount) {
     for(let i=0; i<markerCount-tabCount; i++) {
-      let el = document.getElementById('progress').lastChild;
+      let el = $('#progress:last-child');
       el.remove();
     }
   }
@@ -51,14 +51,16 @@ window.showTab = (n) => {
   fixStepIndicator();
 }
 showTab(currentTab);
+$('input:first').select()
 
 window.nextPrev = (n) => {
+
+  let x = document.getElementsByClassName('tab');
+  if (n == 1 && !validateForm()) return false;
   if(currentTab == 0) {
     accountTypes();
     demographics();
   }
-  let x = document.getElementsByClassName('tab');
-  // if (n == 1 && !validateForm()) return false;
   x[currentTab].style.display = 'none';
 
   if(currentTab >= Math.max.apply(null,tabOrder)) {
@@ -66,34 +68,45 @@ window.nextPrev = (n) => {
     // Need to figure out how to successfully trigger harvest at this point
   }
   currentTab = tabOrder[tabOrder.indexOf(currentTab)+n];
-  // console.log(currentTab);
   showTab(currentTab);
+  x[currentTab].getElementsByTagName('input')[0].select();
   window.scrollTo(0,0);
 }
 
 function validateForm() {
   // This function deals with validation of the form fields
-  var x, y, i, valid = true;
-  x = document.getElementsByClassName("tab");
-  y = x[currentTab].getElementsByTagName("input");
+  let valid = true;
+  let $x = $(".tab");
+  let $y = $x[currentTab].querySelectorAll('.userInput');
+  console.log($y[0].querySelectorAll('input[type=number],input[type=date],select'));
+  let y = $x[currentTab].querySelectorAll('input[type=number],input[type=date],select');
   // A loop that checks every input field in the current tab:
-  for (i = 0; i < y.length; i++) {
-    // If a field is required and empty...
-    if (y[i].required) {
-      if (y[i].value == "") {
-        // add an "invalid" class to the field:
-        y[i].className += " invalid";
-        // and set the current valid status to false:
-        valid = false;
-      }
+  for (let j=0; j<$y.length;j++) {
+    let temp = $y[j].querySelectorAll('input[type=number],input[type=date],select');
+    let said = false;
+    for (let i=0; i<temp.length; i++) {
+      if (temp[i].value != '') {said = true;}
     }
+    if (said == true) {
+      for (let i = 0; i < y.length; i++) {
+        // If a field is required and empty...
+        if (y[i].value == "") {
+          // add an "invalid" class to the field:
+          y[i].className += " invalid";
+          // and set the current valid status to false:
+          valid = false;
+        }
+      }
+    } else {continue;}
   }
+  
   // If the valid status is true, mark the step as finished and valid:
-  // if (valid) {
-  //   $(".step")[currentTab].addClass('finish');
-  // //   document.getElementsByClassName("step")[currentTab].className += " finish";
-  // }
-  // return valid; // return the valid status
+  if (valid && currentTab > 0) {
+    console.log($(".step")[currentTab]);
+    // NEED TO FIGURE OUT WHY THIS ADDCLASS ISN'T WORKING NOW
+    $(".step")[currentTab].addClass('finish');
+  }
+  return valid; // return the valid status
 }
 
 window.demographics = (form) => {

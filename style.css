@@ -63,7 +63,7 @@ input[type="number"],input[type="text"],input[type="date"] {
 }
 
 /* Mark input boxes that gets an error on validation: */
-input.invalid {
+select.invalid, input.invalid {
   background-color: #ffdddd;
 }
 
