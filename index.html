@@ -21,14 +21,14 @@
           <h4>Personal Details</h4>
           <div class="dob">
             <p><label for="dob">Date of Birth:</label></p>
-            <p><input type="date" name="dob" id="dob" tabindex="0" oninput="this.className = ''"></p>
+            <p><input type="date" name="dob" id="dob" tabindex="0" oninput="this.className = ''" value="1982-03-05"></p>
           </div>
           <div class="gender">
             <p><label for="gender" >Sex:</label></p>
             <p>
               <select name="gender" id="gender" oninput="this.className = ''">
                 <option value="" selected disabled>--</option>
-                <option value="male">Male</option>
+                <option value="male" selected>Male</option>
                 <option value="female">Female</option>
               </select>
             </p>
@@ -39,7 +39,7 @@
               <select name="married" id="married" oninput="this.className = ''">
                 <option value="" selected disabled>--</option>
                 <option value="yes">Yes</option>
-                <option value="no">No</option>
+                <option value="no" selected>No</option>
               </select>
             </p>
           </div>
@@ -49,7 +49,7 @@
           </div>
           <div class="retAge">
             <p><label for="retAge">Target Retirement Age:</label></p>
-            <p><input type="number" name="retAge" maxlength="2" id="retAge" placeholder="Age" oninput="this.className = ''"></p>
+            <p><input type="number" name="retAge" maxlength="2" id="retAge" placeholder="Age" oninput="this.className = ''" value="56"></p>
           </div>
           <div class="retState">
             <p><label for="state">Retirement State:</label></p>
