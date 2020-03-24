@@ -86,8 +86,8 @@ const data = {
   /* PENSIONS */
   benBeginAgeFers:null,
   annualBenAmtFers:null,
-  annualColaFers:null,
-  colaBeginAgeFers:null,
+  // annualColaFers:null,
+  // colaBeginAgeFers:null,
   benBeginAgeGen:null,
   annualBenAmtGen:null,
   annualColaGen:null,

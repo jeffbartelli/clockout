@@ -78,7 +78,8 @@
           <div class="instructions">Instructions for entering SSI information.</div>
           <div class="monthlyAmtSsi">
             <p><label for="monthlyAmtSsi">Projected full monthly SSI benefit (not adjusted if initiating benefits before age 67):</label></p>
-            <p><input type="number" name="monthlyAmtSsi" id="monthlyAmtSsi" oninput="this.className = ''"></p>
+            <p>
+              <input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="monthlyAmtSsi" id="monthlyAmtSsi" oninput="this.className = ''" placeholder="Annual Amount"></p>
           </div>
           <div class="retirementAgeSsi">
             <p><label for="retirementAgeSsi">Age at which you plan to begin SSI benefits:</label></p>
@@ -98,13 +99,16 @@
         <div id="genPension" class="userInput">
           <h4>Generic Pension</h4>
           <div class="instructions">Instructions for entering pension information.</div>
+          <div class="annualBenAmtGen">
+            <p><label for="annualBenAmtGen">Monthly benefit amount:</label></p>
+            <p><input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annualBenAmtGen" id="annualBenAmtGen" placeholder="Annual Amount" oninput="this.className = ''"></p>
+          </div>
+          <div class="taxGen">
+            <p><label>Is the benefit taxable: <input type="checkbox" id="taxGen"></label></p>
+          </div>
           <div class="benBeginAgeGen">
             <p><label for="benBeginAgeGen">Age when benefit begins:</label></p>
             <p><input type="number" name="benBeginAgeGen" id="benBeginAgeGen" placeholder="Age" oninput="this.className = ''"></p>
-          </div>
-          <div class="annualBenAmtGen">
-            <p><label for="annualBenAmtGen">Annual benefit amount:</label></p>
-            <p><input type="number" name="annualBenAmtGen" id="annualBenAmtGen" placeholder="Amount" oninput="this.className = ''"></p>
           </div>
           <div class="annualColaGen">
             <p><label for="annualColaGen">Average cost of living adjustment (COLA) (%):</label></p>
@@ -114,9 +118,6 @@
             <p><label for="colaBeginAgeGen">Age when COLA begins:</label></p>
             <p><input type="number" name="colaBeginAgeGen" id="colaBeginAgeGen" maxlength="2" placeholder="Age" oninput="this.className = ''"></p>
           </div>
-          <div class="taxGen">
-            <p><label>Is the benefit taxable: <input type="checkbox" id="taxGen"></label></p>
-          </div>
         </div>
         <div id="fersPension" class="userInput">
           <h4>FERS Pension</h4>
@@ -124,6 +125,10 @@
           <div class="benBeginAgeFers">
             <p><label for="benBeginAgeFers">Age when benefits begin:</label></p>
             <p>
+              <div class="annualBenAmtFers">
+                <p><label for="annualBenAmtFers">Monthly benefit amount:</label></p>
+                <p><input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annualBenAmtFers" id="annualBenAmtFers" placeholder="Annual Amount" oninput="this.className = ''"></p>
+              </div>
               <select name="benBeginAgeFers" id="benBeginAgeFers" oninput="this.className = ''">
                 <option value="" disabled selected hidden>Select one</option>
                 <option value="57">57</option>
@@ -135,24 +140,20 @@
               </select>
             </p>
           </div>
-          <div class="annualBenAmtFers">
-            <p><label for="annualBenAmtFers">Annual benefit amount:</label></p>
-            <p><input type="number" name="annualBenAmtFers" id="annualBenAmtFers" placeholder="Amount" oninput="this.className = ''"></p>
-          </div>
         </div>
         <div id="annuities" class="userInput">
           <h4>Annuities/Insurance</h4>
           <div class="instructions">Instructions for entering annuity information.</div>
           <div class="annualAnnuity">
-            <p><label for="annualAnnuity">Annual benefit amount:</label></p>
-            <p><input type="number" name="annualAnnuity" id="annualAnnuity" placeholder="Amount" oninput="this.className = ''"></p>
+            <p><label for="annualAnnuity">Monthly benefit amount:</label></p>
+            <p><input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annualAnnuity" id="annualAnnuity" placeholder="Annual Amount" oninput="this.className = ''"></p>
+          </div>
+          <div class="annuityTax">
+            <p><label>Is the benefit taxable: <input type="checkbox" id="annuityTax"></label></p>
           </div>
           <div class="annuityAge">
             <p><label for="annuityAge">Age at which annuity begins:</label></p>
             <p><input type="number" name="annuityAge" id="annuityAge" placeholder="Age" oninput="this.className = ''"></p>
-          </div>
-          <div class="annuityTax">
-            <p><label>Is the benefit taxable: <input type="checkbox" id="annuityTax"></label></p>
           </div>
         </div>
       </fieldset>
@@ -174,7 +175,7 @@
           </div>
           <div class="annualContRothIra">
             <p><label for="annualContRothIra">Future Annual Roth IRA Contribution Amount (up to $6,000):</label></p>
-            <p><input type="number" name="annualContRothIra" id="annualContRothIra" placeholder="Amount" oninput="this.className = ''"></p>
+            <p><input type="number" name="annualContRothIra" id="annualContRothIra" placeholder="Amount" oninput="this.className = ''" onchange="iraCalc(this)"></p>
           </div>
           <div class="catchUpContRothIra">
             <p><label>$1,000 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContRothIra"></label></p>
@@ -201,7 +202,7 @@
           </div>
           <div class="annualContTradIra">
             <p><label for="annualContTradIra">Future annual Traditional IRA contribution amount (up to) $6,000):</label></p>
-            <p><input type="number" name="annualContTradIra" id="annualContTradIra" placeholder="Amount" oninput="this.className = ''"></p>
+            <p><input type="number" name="annualContTradIra" id="annualContTradIra" placeholder="Amount" oninput="this.className = ''" onchange="iraCalc(this)"></p>
           </div>
           <div class="catchUpContTradIra">
             <p><label>$1,000 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContTradIra"></label></p>
@@ -593,33 +594,33 @@
     <div class="tab" id="disability">
       <fieldset>
         <legend class="sectionHeader">Disability Benefits</legend>
-        <div class="instructions">Instructions for entering 401k information.</div>
+        <div class="instructions">Instructions for entering disability information.</div>
         <div id="vaDisability">
           <h4>VA Disability</h4>
           <div class="annualAmtVa">
-            <p><label for="annualAmtVa">Annual VA Disability Total:</label></p>
-            <p><input type="number" name="annualAmtVa" id="annualAmtVa" placeholder="Amount" oninput="this.className = ''"></p>
+            <p><label for="annualAmtVa">Monthly VA Disability Total:</label></p>
+            <p><input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annualAmtVa" id="annualAmtVa" placeholder="Annual Amount" oninput="this.className = ''"></p>
           </div>
         </div>
         <div id="ssiDisability">
           <h4>SSI Disability</h4>
           <div class="annualAmtSsi">
-            <p><label for="annualAmtSsi">Annual SSI Disability Total:</label></p>
-            <p><input type="number" name="annualAmtSsi" id="annualAmtSsi" placeholder="Amount" oninput="this.className = ''"></p>
+            <p><label for="annualAmtSsi">Monthly SSI Disability Total:</label></p>
+            <p><input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annualAmtSsi" id="annualAmtSsi" placeholder="Annual Amount" oninput="this.className = ''"></p>
           </div>
         </div>
         <div id="otherDisability">
           <h4>Other Disability</h4>
           <div class="annualAmtOther" class="userInput">
-            <p><label for="annualAmtOther">Annual Other Disability Total:</label></p>
-            <p><input type="number" name="annualAmtOther" id="annualAmtOther" placeholder="Amount" oninput="this.className = ''"></p>
+            <p><label for="annualAmtOther">Monthly Other Disability Total:</label></p>
+            <p><input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annualAmtOther" id="annualAmtOther" placeholder="Annual Amount" oninput="this.className = ''"></p>
+          </div>
+          <div class="taxOther">
+            <p><label>Are these disability benefits taxable: <input type="checkbox" id="taxOther"></label></p>
           </div>
           <div class="colaOther">
             <p><label for="colaOther">Annual Cost of Living Adjustment (%):</label></p>
             <p><input type="number" name="colaOther" id="colaOther" min="0" max="10" placeholder="0.0" oninput="this.className = ''"></p>
-          </div>
-          <div class="taxOther">
-            <p><label>Are these disability benefits taxable: <input type="checkbox" id="taxOther"></label></p>
           </div>
         </div>
       </fieldset>

@@ -84,7 +84,6 @@ window.nextPrev = (n) => {
 
 function validateForm() {
   // This function deals with validation of the form fields
-
   let x, y, blank, valid = true;
   x = document.getElementsByClassName("tab");
   let z = x[currentTab].getElementsByClassName('userInput');
@@ -131,11 +130,28 @@ window.ecaCalc = (e) => {
     // Need a separate calculator or logic for Roth accounts.
 }
 
+window.monthlyCalc = (e) => {
+  e.parentNode.lastChild.value = parseInt(e.value * 12);
+}
+
+window.iraCalc = (e) => {
+  let roth = document.getElementById('annualContRothIra');
+  let trad = document.getElementById('annualContTradIra');
+  let total = parseInt(roth.value) + parseInt(trad.value);
+  if (total > 6000) {
+    roth.className += " invalid";
+    trad.className += " invalid";
+    alert(`Total combined annual contributions to Roth and Traditional IRAs cannot exceed $6,000. Your total is currently ${dollarFormat.format(total)}.`);
+  } else if (total <= 6000) {
+    roth.className = '';
+    trad.className = '';
+  }
+}
+
 window.harvest = (form) => {
-  // INPUTS DOES NOT INCLUDE SELECT ITEMS. EXPAND DEFINITION TO INCLUDE SELECT, AND TO HANDLE CHECKBOXES CORRECTLY.
-  let inputs = $(document.getElementsByTagName('input')).not('.accountTypes').not('.ecaCalculator');
+  // INPUTS DOES NOT INCLUDE SELECT ITEMS. EXPAND DEFINITION TO INCLUDE SELECT, AND TO HANDLE CHECKBOXES CORRECTLY. 
+  let inputs = document.querySelectorAll('input:not(.accountTypes):not(.ecaCalculator),select');
   for (let i=0; i<inputs.length; i++) {
-    console.log(inputs[i].value);
   }
   for (let i=0;i<inputs.length;i++) {
     data[inputs[i].id] = inputs[i].value;
@@ -152,7 +168,6 @@ window.harvest = (form) => {
   for (let i=0;i<dropdowns.length;i++){
     data[dropdowns[i].id] = dropdowns[i].value;
   }
-  console.log(inputs);
 }
 
 // STATE DROPDOWN

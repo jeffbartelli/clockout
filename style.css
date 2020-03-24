@@ -54,7 +54,7 @@ p {
 }
 
 input[type="number"],input[type="text"],input[type="date"] {
-  /* width: 150px; */
+  width: 150px;
   border: 1px solid #aaaaaa;
 }
 
@@ -99,7 +99,7 @@ select.invalid, input.invalid {
   background-color: #4CAF50;
 } */
 
-.ecaCalculator {
+input.ecaCalculator, {
   width: 35px;
   font-size: medium;
 }
