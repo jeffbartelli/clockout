@@ -72,9 +72,18 @@ select.invalid, input.invalid {
   display: none;
 }
 
-#progress {
+#formNav {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
   text-align: center;
   margin-top: 20px;
+  /* display: inline-block; */
+  /* position: relative; */
+}
+
+#progress {
+  margin-bottom: 10px;
 }
 
 /* Make circles that indicate the steps of the form: */

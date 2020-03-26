@@ -115,6 +115,7 @@ window.demographics = (form) => {
   for (let i=0;i<inputs.length;i++) {
     data[inputs[i].id] = inputs[i].value;
   }
+  console.log(data);
 }
 
 let dollarFormat = new Intl.NumberFormat('en-US', {
@@ -135,9 +136,9 @@ window.monthlyCalc = (e) => {
 }
 
 window.iraCalc = (e) => {
-  let roth = document.getElementById('annualContRothIra');
-  let trad = document.getElementById('annualContTradIra');
-  let total = parseInt(roth.value) + parseInt(trad.value);
+  let roth = +parseInt(document.getElementById('annualContRothIra').value) || 0;
+  let trad = +parseInt(document.getElementById('annualContTradIra')) || 0;
+  let total = roth + trad;
   if (total > 6000) {
     roth.className += " invalid";
     trad.className += " invalid";
@@ -145,6 +146,46 @@ window.iraCalc = (e) => {
   } else if (total <= 6000) {
     roth.className = '';
     trad.className = '';
+  }
+}
+
+window.simpleCalc = (e) => {
+  let roth = +parseInt(document.getElementById('annualContSimpleIra').value) || 0;
+  let trad = +parseInt(document.getElementById('annualContSimple401').value) || 0;
+  let total = roth + trad;
+  if (total > 13500) {
+    roth.className += " invalid";
+    trad.className += " invalid";
+    alert(`Total combined annual contributions to Simple IRA and Simple 401k cannot exceed $13,500. Your total is currently ${dollarFormat.format(total)}. Remember, this total is included in the larger Employer Contribution Accounts (401k, 403b, 457b, Simple) contribution limits.`);
+  } else if (total <= 13500) {
+    roth.className = '';
+    trad.className = '';
+  }
+}
+
+window.retCalc = (e) => {
+  let trad401 = +parseInt(document.getElementById('annualContTrad401').value) || 0;
+  let roth401 = +parseInt(document.getElementById('annualContRoth401').value) || 0;
+  let trad403 = +parseInt(document.getElementById('annualContTrad403').value) || 0;
+  let roth403 = +parseInt(document.getElementById('annualContRoth403').value) || 0;
+  let trad457 = +parseInt(document.getElementById('annualContTrad457').value) || 0;
+  let roth457 = +parseInt(document.getElementById('annualContRoth457').value) || 0;
+  let single401 = +parseInt(document.getElementById('annualContSingle401').value) || 0;
+  let safe401 = +parseInt(document.getElementById('annualContSafeHarbor401').value) || 0;
+  let simpleIra = +parseInt(document.getElementById('annualContSimpleIra').value) || 0;
+  let simple401 = +parseInt(document.getElementById('annualContSimple401').value) || 0;
+  let total = trad401 + roth401 + trad403 + roth403 + trad457 + roth457 + single401 + safe401 + simpleIra + simple401;
+  let range = document.getElementsByClassName('tab')[currentTab];
+  let effects = range.querySelectorAll("[id^='annualCont']");
+  if (total > 19500) {
+    effects.forEach(a => {
+      a.className += " invalid";
+    })
+    alert(`Total combined annual contributions cannot exceed $19,500. This total is comprised of all 401k, 403b, 457b, and Simple accounts you maintain. Your current projected annual contributions are as follows: \n Traditional 401k: ${dollarFormat.format(trad401)} \n Roth 401k: ${dollarFormat.format(roth401)} \n Single 401k: ${dollarFormat.format(single401)} \n Safe Harbor 401k: ${dollarFormat.format(safe401)} \n Traditional 403b: ${dollarFormat.format(trad403)} \n Roth 403b: ${dollarFormat.format(roth403)} \n Traditional 457: ${dollarFormat.format(trad457)} \n Roth 457: ${dollarFormat.format(roth457)} \n Simple IRA: ${dollarFormat.format(simpleIra)} \n Simple 401k: ${dollarFormat.format(simple401)} \n Total: ${dollarFormat.format(total)}\nPlease reduce these values to less than $19,501.`);
+  } else if (total <= 19500) {
+    effects.forEach(a => {
+      a.className = '';
+    })
   }
 }
 
