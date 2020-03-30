@@ -60,652 +60,707 @@
         </div>
         <div class="investmentSelect">
           <h4>Investments, Accounts & Assets (mark all that apply):</h4>
-          <p><label><input type="checkbox" class="accountTypes" checked disabled>Social Security, Pensions, Annuities</label></p>
-          <p><label><input type="checkbox" class="accountTypes">IRAs (Traditional/Crossover, Roth)</label></p>
-          <p><label><input type="checkbox" class="accountTypes">401k (Traditional, Roth, Single, Safe Harbor)</label></p>
-          <p><label><input type="checkbox" class="accountTypes">403b (Traditional, Roth)</label></p>
-          <p><label><input type="checkbox" class="accountTypes">457b (Traditional, Roth)</label></p>
-          <p><label><input type="checkbox" class="accountTypes">Simple IRA/401k</label></p>
-          <p><label><input type="checkbox" class="accountTypes">Disability Benefits</label></p>
-          <p><label><input type="checkbox" class="accountTypes">Other Assets</label></p>
         </div>
       </fieldset>
     </div>
 
-    <div class="tab" id="pensionsAnnuities">
+    <div class="tab userInput pensions" id="ssi">
       <fieldset>
-        <legend class="sectionHeader">Pensions & Annuities</legend>
-        <div id="ssi" class="userInput">
-          <h4>SSI Retirement Benefit</h4>
-          <div class="instructions">Instructions for entering SSI information.</div>
-          <div class="monthlyAmtSsi">
-            <p><label for="monthlyAmtSsi">Projected full monthly SSI benefit (not adjusted if initiating benefits before age 67):</label></p>
-            <p>
-              <input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="monthlyAmtSsi" id="monthlyAmtSsi" oninput="this.className = ''" placeholder="Annual Amount"></p>
-          </div>
-          <div class="retirementAgeSsi">
-            <p><label for="retirementAgeSsi">Age at which you plan to begin SSI benefits:</label></p>
-            <p>
-              <select name="retirementAgeSsi" id="retirementAgeSsi" oninput="this.className = ''">
-                <option value="" disabled selected hidden>Select one</option>
-                <option value="62">62</option>
-                <option value="63">63</option>
-                <option value="64">64</option>
-                <option value="65">66</option>
-                <option value="66">66</option>
-                <option value="67">67</option>
-              </select>
-            </p>
-          </div>
+        <legend class="sectionHeader">SSI Retirement Benefit</legend>
+        <!-- <h4></h4> -->
+        <div class="instructions">Instructions for entering SSI information.</div>
+        <div class="monthlyAmtSsi">
+          <p><label for="monthlyAmtSsi">Projected full monthly SSI benefit (not adjusted if initiating benefits before age 67):</label></p>
+          <p>
+            <input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="monthlyAmtSsi" id="monthlyAmtSsi" oninput="this.className = ''" placeholder="Annual Amount"></p>
         </div>
-        <div id="genPension" class="userInput">
-          <h4>Generic Pension</h4>
-          <div class="instructions">Instructions for entering pension information.</div>
-          <div class="annualBenAmtGen">
-            <p><label for="annualBenAmtGen">Monthly benefit amount:</label></p>
-            <p><input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annualBenAmtGen" id="annualBenAmtGen" placeholder="Annual Amount" oninput="this.className = ''"></p>
-          </div>
-          <div class="taxGen">
-            <p><label>Is the benefit taxable: <input type="checkbox" id="taxGen"></label></p>
-          </div>
-          <div class="benBeginAgeGen">
-            <p><label for="benBeginAgeGen">Age when benefit begins:</label></p>
-            <p><input type="number" name="benBeginAgeGen" id="benBeginAgeGen" placeholder="Age" oninput="this.className = ''"></p>
-          </div>
-          <div class="annualColaGen">
-            <p><label for="annualColaGen">Average cost of living adjustment (COLA) (%):</label></p>
-            <p><input type="number" name="annualColaGen" id="annualColaGen" min="0" max="10" placeholder="Percent" oninput="this.className = ''"></p>
-          </div>
-          <div class="colaBeginAgeGen">
-            <p><label for="colaBeginAgeGen">Age when COLA begins:</label></p>
-            <p><input type="number" name="colaBeginAgeGen" id="colaBeginAgeGen" maxlength="2" placeholder="Age" oninput="this.className = ''"></p>
-          </div>
-        </div>
-        <div id="fersPension" class="userInput">
-          <h4>FERS Pension</h4>
-          <div class="instructions">Instructions for entering FERS information.</div>
-          <div class="benBeginAgeFers">
-            <p><label for="benBeginAgeFers">Age when benefits begin:</label></p>
-            <p>
-              <div class="annualBenAmtFers">
-                <p><label for="annualBenAmtFers">Monthly benefit amount:</label></p>
-                <p><input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annualBenAmtFers" id="annualBenAmtFers" placeholder="Annual Amount" oninput="this.className = ''"></p>
-              </div>
-              <select name="benBeginAgeFers" id="benBeginAgeFers" oninput="this.className = ''">
-                <option value="" disabled selected hidden>Select one</option>
-                <option value="57">57</option>
-                <option value="58">58</option>
-                <option value="59">59</option>
-                <option value="60">60</option>
-                <option value="61">61</option>
-                <option value="62">62</option>
-              </select>
-            </p>
-          </div>
-        </div>
-        <div id="annuities" class="userInput">
-          <h4>Annuities/Insurance</h4>
-          <div class="instructions">Instructions for entering annuity information.</div>
-          <div class="annualAnnuity">
-            <p><label for="annualAnnuity">Monthly benefit amount:</label></p>
-            <p><input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annualAnnuity" id="annualAnnuity" placeholder="Annual Amount" oninput="this.className = ''"></p>
-          </div>
-          <div class="annuityTax">
-            <p><label>Is the benefit taxable: <input type="checkbox" id="annuityTax"></label></p>
-          </div>
-          <div class="annuityAge">
-            <p><label for="annuityAge">Age at which annuity begins:</label></p>
-            <p><input type="number" name="annuityAge" id="annuityAge" placeholder="Age" oninput="this.className = ''"></p>
-          </div>
+        <div class="retirementAgeSsi">
+          <p><label for="retirementAgeSsi">Age at which you plan to begin SSI benefits:</label></p>
+          <p>
+            <select name="retirementAgeSsi" id="retirementAgeSsi" oninput="this.className = ''">
+              <option value="" disabled selected hidden>Select one</option>
+              <option value="62">62</option>
+              <option value="63">63</option>
+              <option value="64">64</option>
+              <option value="65">66</option>
+              <option value="66">66</option>
+              <option value="67">67</option>
+            </select>
+          </p>
         </div>
       </fieldset>
     </div>
 
-    <div class="tab" name="ira">
+    <div id="genPension" class=" tab userInput pensions">
       <fieldset>
-        <legend>Individual Retirement Accounts (IRA)</legend>
+        <legend class="sectionHeader">Generic Pension</legend>
+        <!-- <h4></h4> -->
+        <div class="instructions">Instructions for entering pension information.</div>
+        <div class="annualBenAmtGen">
+          <p><label for="annualBenAmtGen">Monthly benefit amount:</label></p>
+          <p><input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annualBenAmtGen" id="annualBenAmtGen" placeholder="Annual Amount" oninput="this.className = ''"></p>
+        </div>
+        <div class="taxGen">
+          <p><label>Is the benefit taxable: <input type="checkbox" id="taxGen"></label></p>
+        </div>
+        <div class="benBeginAgeGen">
+          <p><label for="benBeginAgeGen">Age when benefit begins:</label></p>
+          <p><input type="number" name="benBeginAgeGen" id="benBeginAgeGen" placeholder="Age" oninput="this.className = ''"></p>
+        </div>
+        <div class="annualColaGen">
+          <p><label for="annualColaGen">Average cost of living adjustment (COLA) (%):</label></p>
+          <p><input type="number" name="annualColaGen" id="annualColaGen" min="0" max="10" placeholder="Percent" oninput="this.className = ''"></p>
+        </div>
+        <div class="colaBeginAgeGen">
+          <p><label for="colaBeginAgeGen">Age when COLA begins:</label></p>
+          <p><input type="number" name="colaBeginAgeGen" id="colaBeginAgeGen" maxlength="2" placeholder="Age" oninput="this.className = ''"></p>
+        </div>
+      </fieldset>
+    </div>
+
+    <div id="fersPension" class="tab userInput pensions">
+      <fieldset>
+        <legend class="sectionHeader">FERS Pension</legend>
+        <!-- <h4></h4> -->
+        <div class="instructions">Instructions for entering FERS information.</div>
+        <div class="benBeginAgeFers">
+          <p><label for="benBeginAgeFers">Age when benefits begin:</label></p>
+          <p>
+            <div class="annualBenAmtFers">
+              <p><label for="annualBenAmtFers">Monthly benefit amount:</label></p>
+              <p><input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annualBenAmtFers" id="annualBenAmtFers" placeholder="Annual Amount" oninput="this.className = ''"></p>
+            </div>
+            <select name="benBeginAgeFers" id="benBeginAgeFers" oninput="this.className = ''">
+              <option value="" disabled selected hidden>Select one</option>
+              <option value="57">57</option>
+              <option value="58">58</option>
+              <option value="59">59</option>
+              <option value="60">60</option>
+              <option value="61">61</option>
+              <option value="62">62</option>
+            </select>
+          </p>
+        </div>
+      </fieldset>
+    </div>
+
+    <div id="annuities" class="tab userInput pensions">
+      <fieldset>
+        <legend class="sectionHeader">Annuities/Insurance</legend>
+        <!-- <h4></h4> -->
+        <div class="instructions">Instructions for entering annuity information.</div>
+        <div class="annualAnnuity">
+          <p><label for="annualAnnuity">Monthly benefit amount:</label></p>
+          <p><input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annualAnnuity" id="annualAnnuity" placeholder="Annual Amount" oninput="this.className = ''"></p>
+        </div>
+        <div class="annuityTax">
+          <p><label>Is the benefit taxable: <input type="checkbox" id="annuityTax"></label></p>
+        </div>
+        <div class="annuityAge">
+          <p><label for="annuityAge">Age at which annuity begins:</label></p>
+          <p><input type="number" name="annuityAge" id="annuityAge" placeholder="Age" oninput="this.className = ''"></p>
+        </div>
+      </fieldset>
+    </div>
+
+    <div id="tradIra" class="tab userInput ira">
+      <fieldset>
+        <legend class="sectionHeader">Traditional IRAs</legend>
         <div class="instructions">Instructions for entering Roth IRA information.</div>
-        <div id="rothIra" class="userInput">
-          <h4>Roth IRAs</h4>
-          <div class="amtContRothIra">
-            <p><label for="amtContRothIra">Total Roth IRA contributions through last year:</label></p>
-            <p><input type="number" id="amtContRothIra" name="amtContRothIra" min="0" placeholder="Amount" oninput="this.className = ''"></p>
-          </div>
-          <div class="currentValRothIra">
-            <p><label for="currentValRothIra">Total Current Value of Roth IRAs:</label></p>
-            <p><input type="number" name="currentValRothIra" id="currentValRothIra" min="0" placeholder="Amount" oninput="this.className = ''"></p>
-          </div>
-          <div class="annualContRothIra">
-            <p><label for="annualContRothIra">Future Annual Roth IRA Contribution Amount (up to $6,000):</label></p>
-            <p><input type="number" name="annualContRothIra" id="annualContRothIra" placeholder="Amount" oninput="this.className = ''" onchange="iraCalc(this)"></p>
-          </div>
-          <div class="catchUpContRothIra">
-            <p><label>$1,000 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContRothIra"></label></p>
-          </div>
-          <div class="contEndAgeRothIra">
-            <p><label for="contEndAgeRothIra">Age when you will stop contributing to Roth IRAs:</label></p>
-            <p><input type="number" maxlength="2" name="contEndAgeRothIra" id="contEndAgeRothIra" placeholder="Age" oninput="this.className = ''"></p>
-          </div>
-          <div class="investStratRothIra">
-            <p><label for="investStratRothIra">Investment Strategy:</label></p>
-            <p><select name="investStratRothIra" id="investStratRothIra" class="dropdown" oninput="this.className = ''">
-              <option value="" disabled selected hidden>Select one</option>
-              <option value="conservative" name="investStratRothIra">Conservative</option>
-              <option value="average" name="investStratRothIra">Average</option>
-              <option value="risky" name="investStratRothIra">Risky</option>
-            </select></p>
-          </div>
+        <!-- <h4></h4> -->
+        <div class="currentValTradIra">
+          <p><label for="currentValTradIra">Total current value of Traditional IRAs:</label></p>
+          <p><input type="number" name="currentValTradIra" id="currentValTradIra" min="0" placeholder="Amount"></p>
         </div>
-        <div id="tradIra" class="userInput">
-          <h4>Traditional IRAs</h4>
-          <div class="currentValTradIra">
-            <p><label for="currentValTradIra">Total current value of Traditional IRAs:</label></p>
-            <p><input type="number" name="currentValTradIra" id="currentValTradIra" min="0" placeholder="Amount"></p>
-          </div>
-          <div class="annualContTradIra">
-            <p><label for="annualContTradIra">Future annual Traditional IRA contribution amount (up to) $6,000):</label></p>
-            <p><input type="number" name="annualContTradIra" id="annualContTradIra" placeholder="Amount" oninput="this.className = ''" onchange="iraCalc(this)"></p>
-          </div>
-          <div class="catchUpContTradIra">
-            <p><label>$1,000 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContTradIra"></label></p>
-          </div>
-          <div class="contEndAgeTradIra">
-            <p><label for="contEndAgeTradIra">Age when you will stop contributing to Traditional IRAs (up to 70):</label></p>
-            <p><input type="number" maxlength="2" name="contEndAgeTradIra" id="contEndAgeTradIra" placeholder="Age" oninput="this.className = ''"></p>
-          </div>
-          <div class="investStratTradIra">
-            <p><label for="investStratTradIra">Investment Strategy:</label></p>
-            <p><select name="investStratTradIra" id="investStratTradIra" oninput="this.className = ''">
+        <div class="annualContTradIra">
+          <p><label for="annualContTradIra">Future annual Traditional IRA contribution amount (up to) $6,000):</label></p>
+          <p><input type="number" name="annualContTradIra" id="annualContTradIra" placeholder="Amount" oninput="this.className = ''" onchange="iraCalc(this)"></p>
+        </div>
+        <div class="catchUpContTradIra">
+          <p><label>$1,000 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContTradIra"></label></p>
+        </div>
+        <div class="contEndAgeTradIra">
+          <p><label for="contEndAgeTradIra">Age when you will stop contributing to Traditional IRAs (up to 70):</label></p>
+          <p><input type="number" maxlength="2" name="contEndAgeTradIra" id="contEndAgeTradIra" placeholder="Age" oninput="this.className = ''"></p>
+        </div>
+        <div class="investStratTradIra">
+          <p><label for="investStratTradIra">Investment Strategy:</label></p>
+          <p><select name="investStratTradIra" id="investStratTradIra" oninput="this.className = ''">
+            <option value="" disabled selected hidden>Select one</option>
+            <option value="conservative">Conservative</option>
+            <option value="average">Average</option>
+            <option value="risky">Risky</option>
+          </select></p>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="tab userInput ira" id="rothIra">
+      <fieldset>
+        <legend class="sectionHeader">Roth IRAs</legend>
+        <div class="instructions">Instructions for entering Roth IRA information.</div>
+        <!-- <h4></h4> -->
+        <div class="amtContRothIra">
+          <p><label for="amtContRothIra">Total Roth IRA contributions through last year:</label></p>
+          <p><input type="number" id="amtContRothIra" name="amtContRothIra" min="0" placeholder="Amount" oninput="this.className = ''"></p>
+        </div>
+        <div class="currentValRothIra">
+          <p><label for="currentValRothIra">Total Current Value of Roth IRAs:</label></p>
+          <p><input type="number" name="currentValRothIra" id="currentValRothIra" min="0" placeholder="Amount" oninput="this.className = ''"></p>
+        </div>
+        <div class="annualContRothIra">
+          <p><label for="annualContRothIra">Future Annual Roth IRA Contribution Amount (up to $6,000):</label></p>
+          <p><input type="number" name="annualContRothIra" id="annualContRothIra" placeholder="Amount" oninput="this.className = ''" onchange="iraCalc(this)"></p>
+        </div>
+        <div class="catchUpContRothIra">
+          <p><label>$1,000 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContRothIra"></label></p>
+        </div>
+        <div class="contEndAgeRothIra">
+          <p><label for="contEndAgeRothIra">Age when you will stop contributing to Roth IRAs:</label></p>
+          <p><input type="number" maxlength="2" name="contEndAgeRothIra" id="contEndAgeRothIra" placeholder="Age" oninput="this.className = ''"></p>
+        </div>
+        <div class="investStratRothIra">
+          <p><label for="investStratRothIra">Investment Strategy:</label></p>
+          <p><select name="investStratRothIra" id="investStratRothIra" class="dropdown" oninput="this.className = ''">
+            <option value="" disabled selected hidden>Select one</option>
+            <option value="conservative" name="investStratRothIra">Conservative</option>
+            <option value="average" name="investStratRothIra">Average</option>
+            <option value="risky" name="investStratRothIra">Risky</option>
+          </select></p>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="tab userInput 401k" id="trad401k">
+      <fieldset>
+        <legend class="sectionHeader">Traditional 401k</legend>
+        <div class="instructions">Instructions for entering 401k information.</div>
+        <!-- <h4></h4> -->
+        <div class="currentValTrad401">
+          <p><label for="currentValTrad401">Total Current Value of Traditional 401k:</label></p>
+          <p><input type="number" name="currentValTrad401" id="currentValTrad401" min="0" placeholder="Amount" oninput="this.className = ''"></p>
+        </div>
+        <div class="empContTrad401">
+          <p><label for="empContTrad401">Future Annual Traditional 401k Employer Contribution Amount: <input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span></label></p>
+          <p><input type="number" name="empContTrad401" id="empContTrad401" min="0" max="100" placeholder="Amount" oninput="this.className = ''"></p>  
+        </div>
+        <div class="annualContTrad401">
+          <p><label for="annualContTrad401">Future Annual Traditional 401k Contribution Amount (up to $19,500):</label></p>
+          <p><input type="number" name="annualContTrad401" id="annualContTrad401" placeholder="Amount" onchange="retCalc(this)" oninput="this.className = ''"></p>
+        </div>
+        <div class="catchUpContTrad401">
+          <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContTrad401"></label></p>
+        </div>
+        <div class="contEndAgeTrad401">
+          <p><label for="contEndAgeTrad401">Age when you will stop contributing to Traditional 401k (up to 70):</label></p>
+          <p><input type="number" maxlength="2" name="contEndAgeTrad401" id="contEndAgeTrad401" placeholder="Age" oninput="this.className = ''"></p>
+        </div>
+        <div class="investStratTrad401">
+          <p><label for="investStratTrad401">Investment Strategy:</label></p>
+          <select name="investStratTrad401" id="investStratTrad401" oninput="this.className = ''">
+            <option value="" disabled selected hidden>Select one</option>
+            <option value="conservative">Conservative</option>
+            <option value="average">Average</option>
+            <option value="risky">Risky</option>
+          </select>  
+        </div>
+      </fieldset>  
+    </div>
+
+    <div id="roth401k" class="tab userInput 401k">
+      <fieldset>
+        <legend class="sectionHeader">Roth 401k</legend>
+        <div class="instructions">Instructions for entering 401k information.</div>
+        <!-- <h4></h4> -->
+        <div class="amtContRoth401">
+          <p><label for="amtContRoth401">Total Roth 401k Contributions through the end of last year:</label></p>
+          <p><input type="number" id="amtContRoth401" name="amtContRoth401" min="0" placeholder="Amount" oninput="this.className = ''"></p>
+        </div>
+        <div class="currentValRoth401">
+          <p><label for="currentValRoth401">Total Current Value of Roth 401k:</label></p>
+          <p><input type="number" name="currentValRoth401" id="currentValRoth401" min="0" placeholder="Amount" oninput="this.className = ''"></p>
+        </div>
+        <div class="empContRoth401">
+          <p><label for="empContRoth401">Future Annual Roth 401k Employer Contribution Amount: <input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span></label></p>
+          <p><input type="number" name="empContRoth401" id="empContRoth401" min="0" max="100" placeholder="Amount" oninput="this.className = ''"></p>
+        </div>
+        <div class="annualContRoth401">
+          <p><label for="annualContRoth401">Future Annual Roth 401k Contribution Amount (up to $19,500):</label></p>
+          <p><input type="number" name="annualContRoth401" id="annualContRoth401" placeholder="Amount" oninput="this.className = ''" onchange="retCalc(this)"></p>
+        </div>
+        <div class="catchUpContRoth401">
+          <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContRoth401"></label></p>
+        </div>
+        <div class="contEndAgeRoth401">
+          <p><label for="contEndAgeRoth401">Age when you will stop contributing to Roth 401k:</label></p>
+          <p><input type="number" maxlength="2" name="contEndAgeRoth401" id="contEndAgeRoth401" placeholder="Age" oninput="this.className = ''"></p>
+        </div>
+        <div class="investStratRoth401">
+          <p><label for="investStratRoth401">Investment Strategy:</label></p>
+          <p>
+            <select name="investStratRoth401" id="investStratRoth401" oninput="this.className = ''">
               <option value="" disabled selected hidden>Select one</option>
               <option value="conservative">Conservative</option>
               <option value="average">Average</option>
               <option value="risky">Risky</option>
-            </select></p>
-          </div>
+            </select>
+          </p>
         </div>
       </fieldset>
     </div>
 
-    <div class="tab" id="401k">
+    <div id="safeHarbor401k" class="tab userInput 401k">
       <fieldset>
-        <legend class="sectionHeader">Employer Contribution Accounts: 401(k)</legend>
+        <legend class="sectionHeader">Safe Harbor 401k</legend>
         <div class="instructions">Instructions for entering 401k information.</div>
-        <div id="trad401k" class="userInput">
-          <h4>Traditional 401k</h4>
-          <div class="currentValTrad401">
-            <p><label for="currentValTrad401">Total Current Value of Traditional 401k:</label></p>
-            <p><input type="number" name="currentValTrad401" id="currentValTrad401" min="0" placeholder="Amount" oninput="this.className = ''"></p>
-          </div>
-          <div class="empContTrad401">
-            <p><label for="empContTrad401">Future Annual Traditional 401k Employer Contribution Amount: <input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span></label></p>
-            <p><input type="number" name="empContTrad401" id="empContTrad401" min="0" max="100" placeholder="Amount" oninput="this.className = ''"></p>  
-          </div>
-          <div class="annualContTrad401">
-            <p><label for="annualContTrad401">Future Annual Traditional 401k Contribution Amount (up to $19,500):</label></p>
-            <p><input type="number" name="annualContTrad401" id="annualContTrad401" placeholder="Amount" onchange="retCalc(this)" oninput="this.className = ''"></p>
-          </div>
-          <div class="catchUpContTrad401">
-            <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContTrad401"></label></p>
-          </div>
-          <div class="contEndAgeTrad401">
-            <p><label for="contEndAgeTrad401">Age when you will stop contributing to Traditional 401k (up to 70):</label></p>
-            <p><input type="number" maxlength="2" name="contEndAgeTrad401" id="contEndAgeTrad401" placeholder="Age" oninput="this.className = ''"></p>
-          </div>
-          <div class="investStratTrad401">
-            <p><label for="investStratTrad401">Investment Strategy:</label></p>
-            <select name="investStratTrad401" id="investStratTrad401" oninput="this.className = ''">
+        <!-- <h4></h4> -->
+        <div class="currentValSafeHarbor401">
+          <p><label for="currentValSafeHarbor401">Total Current Value of your Safe Harbor 401k:</label></p>
+          <p><input type="number" name="currentValSafeHarbor401" id="currentValSafeHarbor401" min="0" placeholder="Amount" oninput="this.className = ''"></p>
+        </div>
+        <div class="empContSafeHarbor401">
+          <p><label for="empContSafeHarbor401">Future Annual Safe Harbor 401k Employer Contribution Amount: <input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span></label></p>
+          <p><input type="number" name="empContSafeHarbor401" id="empContSafeHarbor401" min="0" max="100" placeholder="Amount" oninput="this.className = ''"></p>
+        </div>
+        <div class="annualContSafeHarbor401">
+          <p><label for="annualContSafeHarbor401">Future Annual Safe Harbor 401k Contribution Amount (up to $19,500):</label></p>
+          <p><input type="number" name="annualContSafeHarbor401" id="annualContSafeHarbor401" placeholder="Amount" oninput="this.className = ''" onchange="retCalc(this)"></p>
+        </div>
+        <div class="catchUpContSafeHarbor401">
+          <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContSafeHarbor401"></label></p>
+        </div>
+        <div class="contEndAgeSafeHarbor401">
+          <p><label for="contEndAgeSafeHarbor401">Age when you will stop contributing to your Safe Harbor 401k:</label></p>
+          <p><input type="number" maxlength="2" name="contEndAgeSafeHarbor401" id="contEndAgeSafeHarbor401" placeholder="Age" oninput="this.className = ''"></p>
+        </div>
+        <div class="investStratSafeHarbor401">
+          <p><label for="investStratSafeHarbor401">Investment Strategy:</label></p>
+          <p>
+            <select name="investStratSafeHarbor401" id="investStratSafeHarbor401" oninput="this.className = ''">
               <option value="" disabled selected hidden>Select one</option>
               <option value="conservative">Conservative</option>
               <option value="average">Average</option>
               <option value="risky">Risky</option>
-            </select>  
+            </select>
+          </p>
           </div>
+      </fieldset>
+    </div>
+
+    <div id="single401k" class=" tab userInput 401k">
+      <fieldset>
+        <legend class="sectionHeader">Single 401k</legend>
+        <div class="instructions">Instructions for entering 401k information.</div>
+        <!-- <h4></h4> -->
+        <div class="currentValSingle401">
+          <p><label for="currentValSingle401">Total Current Value of your Single 401k:</label></p>
+          <p><input type="number" name="currentValSingle401" id="currentValSingle401" min="0" placeholder="Amount" oninput="this.className = ''"></p>
         </div>
-        <div id="roth401k" class="userInput">
-          <h4>Roth 401k</h4>
-          <div class="amtContRoth401">
-            <p><label for="amtContRoth401">Total Roth 401k Contributions through the end of last year:</label></p>
-            <p><input type="number" id="amtContRoth401" name="amtContRoth401" min="0" placeholder="Amount" oninput="this.className = ''"></p>
-          </div>
-          <div class="currentValRoth401">
-            <p><label for="currentValRoth401">Total Current Value of Roth 401k:</label></p>
-            <p><input type="number" name="currentValRoth401" id="currentValRoth401" min="0" placeholder="Amount" oninput="this.className = ''"></p>
-          </div>
-          <div class="empContRoth401">
-            <p><label for="empContRoth401">Future Annual Roth 401k Employer Contribution Amount: <input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span></label></p>
-            <p><input type="number" name="empContRoth401" id="empContRoth401" min="0" max="100" placeholder="Amount" oninput="this.className = ''"></p>
-          </div>
-          <div class="annualContRoth401">
-            <p><label for="annualContRoth401">Future Annual Roth 401k Contribution Amount (up to $19,500):</label></p>
-            <p><input type="number" name="annualContRoth401" id="annualContRoth401" placeholder="Amount" oninput="this.className = ''" onchange="retCalc(this)"></p>
-          </div>
-          <div class="catchUpContRoth401">
-            <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContRoth401"></label></p>
-          </div>
-          <div class="contEndAgeRoth401">
-            <p><label for="contEndAgeRoth401">Age when you will stop contributing to Roth 401k:</label></p>
-            <p><input type="number" maxlength="2" name="contEndAgeRoth401" id="contEndAgeRoth401" placeholder="Age" oninput="this.className = ''"></p>
-          </div>
-          <div class="investStratRoth401">
-            <p><label for="investStratRoth401">Investment Strategy:</label></p>
-            <p>
-              <select name="investStratRoth401" id="investStratRoth401" oninput="this.className = ''">
-                <option value="" disabled selected hidden>Select one</option>
-                <option value="conservative">Conservative</option>
-                <option value="average">Average</option>
-                <option value="risky">Risky</option>
-              </select>
-            </p>
-          </div>
+        <div class="empContSingle401">
+          <p><label for="empContSingle401">Future Annual Single 401k Employer Contribution Amount: <input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span></label></p>
+          <p><input type="number" name="empContSingle401" id="empContSingle401" min="0" max="100" placeholder="Amount" oninput="this.className = ''"></p>
         </div>
-        <div id="single401k" class="userInput">
-          <h4>Single 401k</h4>
-          <div class="currentValSingle401">
-            <p><label for="currentValSingle401">Total Current Value of your Single 401k:</label></p>
-            <p><input type="number" name="currentValSingle401" id="currentValSingle401" min="0" placeholder="Amount" oninput="this.className = ''"></p>
-          </div>
-          <div class="empContSingle401">
-            <p><label for="empContSingle401">Future Annual Single 401k Employer Contribution Amount: <input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span></label></p>
-            <p><input type="number" name="empContSingle401" id="empContSingle401" min="0" max="100" placeholder="Amount" oninput="this.className = ''"></p>
-          </div>
-          <div class="annualContSingle401">
-            <p><label for="annualContSingle401">Future Annual Single 401k Contribution Amount (up to $19,500):</label></p>
-            <p><input type="number" name="annualContSingle401" id="annualContSingle401" placeholder="Amount" oninput="this.className = ''" onchange="retCalc(this)"></p>
-          </div>
-          <div class="catchUpContSingle401">
-            <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContSingle401"></label></p>
-          </div>
-          <div class="contEndAgeSingle401">
-            <p><label for="contEndAgeSingle401">Age when you will stop contributing to Single 401k:</label></p>
-            <p><input type="number" maxlength="2" name="contEndAgeSingle401" id="contEndAgeSingle401" placeholder="Age" oninput="this.className = ''"></p>
-          </div>
-          <div class="investStratSingle401">
-            <p><label for="investStratSingle401">Investment Strategy:</label></p>
-            <p>
-              <select name="investStratSingle401" id="investStratSingle401" oninput="this.className = ''">
-                <option value="" disabled selected hidden>Select one</option>
-                <option value="conservative">Conservative</option>
-                <option value="average">Average</option>
-                <option value="risky">Risky</option>
-              </select>
-            </p>
-          </div>
+        <div class="annualContSingle401">
+          <p><label for="annualContSingle401">Future Annual Single 401k Contribution Amount (up to $19,500):</label></p>
+          <p><input type="number" name="annualContSingle401" id="annualContSingle401" placeholder="Amount" oninput="this.className = ''" onchange="retCalc(this)"></p>
         </div>
-        <div id="safeHarbor401k" class="userInput">
-          <h4>Safe Harbor 401k</h4>
-          <div class="currentValSafeHarbor401">
-            <p><label for="currentValSafeHarbor401">Total Current Value of your Safe Harbor 401k:</label></p>
-            <p><input type="number" name="currentValSafeHarbor401" id="currentValSafeHarbor401" min="0" placeholder="Amount" oninput="this.className = ''"></p>
-          </div>
-          <div class="empContSafeHarbor401">
-            <p><label for="empContSafeHarbor401">Future Annual Safe Harbor 401k Employer Contribution Amount: <input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span></label></p>
-            <p><input type="number" name="empContSafeHarbor401" id="empContSafeHarbor401" min="0" max="100" placeholder="Amount" oninput="this.className = ''"></p>
-          </div>
-          <div class="annualContSafeHarbor401">
-            <p><label for="annualContSafeHarbor401">Future Annual Safe Harbor 401k Contribution Amount (up to $19,500):</label></p>
-            <p><input type="number" name="annualContSafeHarbor401" id="annualContSafeHarbor401" placeholder="Amount" oninput="this.className = ''" onchange="retCalc(this)"></p>
-          </div>
-          <div class="catchUpContSafeHarbor401">
-            <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContSafeHarbor401"></label></p>
-          </div>
-          <div class="contEndAgeSafeHarbor401">
-            <p><label for="contEndAgeSafeHarbor401">Age when you will stop contributing to your Safe Harbor 401k:</label></p>
-            <p><input type="number" maxlength="2" name="contEndAgeSafeHarbor401" id="contEndAgeSafeHarbor401" placeholder="Age" oninput="this.className = ''"></p>
-          </div>
-          <div class="investStratSafeHarbor401">
-            <p><label for="investStratSafeHarbor401">Investment Strategy:</label></p>
-            <p>
-              <select name="investStratSafeHarbor401" id="investStratSafeHarbor401" oninput="this.className = ''">
-                <option value="" disabled selected hidden>Select one</option>
-                <option value="conservative">Conservative</option>
-                <option value="average">Average</option>
-                <option value="risky">Risky</option>
-              </select>
-            </p>
-            </div>
+        <div class="catchUpContSingle401">
+          <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContSingle401"></label></p>
+        </div>
+        <div class="contEndAgeSingle401">
+          <p><label for="contEndAgeSingle401">Age when you will stop contributing to Single 401k:</label></p>
+          <p><input type="number" maxlength="2" name="contEndAgeSingle401" id="contEndAgeSingle401" placeholder="Age" oninput="this.className = ''"></p>
+        </div>
+        <div class="investStratSingle401">
+          <p><label for="investStratSingle401">Investment Strategy:</label></p>
+          <p>
+            <select name="investStratSingle401" id="investStratSingle401" oninput="this.className = ''">
+              <option value="" disabled selected hidden>Select one</option>
+              <option value="conservative">Conservative</option>
+              <option value="average">Average</option>
+              <option value="risky">Risky</option>
+            </select>
+          </p>
         </div>
       </fieldset>
     </div>
 
-    <div class="tab" id="403b">
+    <div id="trad403b" class="tab userInput 403b">
       <fieldset>
-        <legend>Employer Contribution Accounts: 403(b)</legend>
+        <legend class="sectionHeader">Traditional 403b</legend>
         <div class="instructions">Instructions for entering 401k information.</div>
-        <div id="trad403b" class="userInput">
-          <h4>Traditional 403b</h4>
-          <div class="currentValTrad403">
-            <p><label for="currentValTrad403">Total Current Value of Traditional 403b:</label></p>
-            <p><input type="number" name="currentValTrad403" id="currentValTrad403" min="0" placeholder="Amount" oninput="this.className = ''"></p>
-          </div>
-          <div class="empContTrad403">
-            <p><label for="empContTrad403">Future Annual Traditional 403b Employer Contribution Amount: <input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span></label></p>
-            <p><input type="number" name="empContTrad403" id="empContTrad403" min="0" max="100" placeholder="Amount" oninput="this.className = ''"></p>
-          </div>
-          <div class="annualContTrad403">
-            <p><label for="annualContTrad403">Future Annual Traditional 403b Contribution Amount (up to $19,500):</label></p>
-            <p><input type="number" name="annualContTrad403" id="annualContTrad403" placeholder="Amount" oninput="this.className = ''" onchange="retCalc(this)"></p>
-          </div>
-          <div class="catchUpContTrad403">
-            <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContTrad403"></label></p>
-          </div>
-          <div class="contEndAgeTrad403">
-            <p><label for="contEndAgeTrad403">Age when you will stop contributing to your Traditional 403b (up to 70):</label></p>
-            <p><input type="number" maxlength="2" name="contEndAgeTrad403" id="contEndAgeTrad403" placeholder="Age" oninput="this.className = ''"></p>
-          </div>
-          <div class="investStratTrad403">
-            <p><label for="investStratTrad403">Investment Strategy:</label></p>
-            <p>
-              <select name="investStratTrad403" id="investStratTrad403" oninput="this.className = ''">
-                <option value="" disabled selected hidden>Select one</option>
-                <option value="conservative">Conservative</option>
-                <option value="average">Average</option>
-                <option value="risky">Risky</option>
-              </select>
-            </p>
-          </div>
+        <!-- <h4></h4> -->
+        <div class="currentValTrad403">
+          <p><label for="currentValTrad403">Total Current Value of Traditional 403b:</label></p>
+          <p><input type="number" name="currentValTrad403" id="currentValTrad403" min="0" placeholder="Amount" oninput="this.className = ''"></p>
         </div>
-        <div id="roth403b" class="userInput">
-          <h4>Roth 403b</h4>
-          <div class="amtContRoth403">
-            <p><label for="amtContRoth403">Total Roth 403b Contributions through the end of last year:</label></p>
-            <p><input type="number" id="amtContRoth403" name="amtContRoth403" min="0" placeholder="Amount" oninput="this.className = ''"></p>
-          </div>
-          <div class="currentValRoth403">
-            <p><label for="currentValRoth403">Total Current Value of Roth 403b:</label></p>
-            <p><input type="number" name="currentValRoth403" id="currentValRoth403" min="0" placeholder="Amount" oninput="this.className = ''"></p>
-          </div>
-          <div class="empContRoth403">
-            <p><label for="empContRoth403">Future Annual Roth 403b Employer Contribution Amount: <input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span></label></p>
-            <p><input type="number" name="empContRoth403" id="empContRoth403" min="0" max="100" placeholder="Amount" oninput="this.className = ''"></p>
-          </div>
-          <div class="annualContRoth403">
-            <p><label for="annualContRoth403">Future Annual Roth 403b Contribution Amount (up to $19,500):</label></p>
-            <p><input type="number" name="annualContRoth403" id="annualContRoth403" placeholder="Amount" oninput="this.className = ''" onchange="retCalc(this)"></p>
-          </div>
-          <div class="catchUpContRoth403">
-            <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContRoth403"></label></p>
-          </div>
-          <div class="contEndAgeRoth403">
-            <p><label for="contEndAgeRoth403">Age when you will stop contributing to your Roth 403b:</label></p>
-            <p><input type="number" maxlength="2" name="contEndAgeRoth403" id="contEndAgeRoth403" placeholder="Age" oninput="this.className = ''"></p>
-          </div>
-          <div class="investStratRoth403">
-            <p><label for="investStratRoth403">Investment Strategy:</label></p>
-            <p>
-              <select name="investStratRoth403" id="investStratRoth403" oninput="this.className = ''">
-                <option value="" disabled selected hidden>Select one</option>
-                <option value="conservative">Conservative</option>
-                <option value="average">Average</option>
-                <option value="risky">Risky</option>
-              </select>
-            </p>
-            </div>
+        <div class="empContTrad403">
+          <p><label for="empContTrad403">Future Annual Traditional 403b Employer Contribution Amount: <input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span></label></p>
+          <p><input type="number" name="empContTrad403" id="empContTrad403" min="0" max="100" placeholder="Amount" oninput="this.className = ''"></p>
+        </div>
+        <div class="annualContTrad403">
+          <p><label for="annualContTrad403">Future Annual Traditional 403b Contribution Amount (up to $19,500):</label></p>
+          <p><input type="number" name="annualContTrad403" id="annualContTrad403" placeholder="Amount" oninput="this.className = ''" onchange="retCalc(this)"></p>
+        </div>
+        <div class="catchUpContTrad403">
+          <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContTrad403"></label></p>
+        </div>
+        <div class="contEndAgeTrad403">
+          <p><label for="contEndAgeTrad403">Age when you will stop contributing to your Traditional 403b (up to 70):</label></p>
+          <p><input type="number" maxlength="2" name="contEndAgeTrad403" id="contEndAgeTrad403" placeholder="Age" oninput="this.className = ''"></p>
+        </div>
+        <div class="investStratTrad403">
+          <p><label for="investStratTrad403">Investment Strategy:</label></p>
+          <p>
+            <select name="investStratTrad403" id="investStratTrad403" oninput="this.className = ''">
+              <option value="" disabled selected hidden>Select one</option>
+              <option value="conservative">Conservative</option>
+              <option value="average">Average</option>
+              <option value="risky">Risky</option>
+            </select>
+          </p>
         </div>
       </fieldset>
     </div>
 
-    <div class="tab" id="457b" class="userInput">
+    <div id="roth403b" class="tab userInput 403b">
       <fieldset>
-        <legend>Employer Contribution Accounts: 457(b)</legend>
-        <div class="instructions">Instructions for entering 401k information.</div>
-        <div id="trad457b">
-          <h4>Traditional 457b</h4>
-          <div class="currentValTrad457">
-            <p><label for="currentValTrad457">Total Current Value of Traditional 457b:</label></p>
-            <p><input type="number" name="currentValTrad457" id="currentValTrad457" min="0" placeholder="Amount" oninput="this.className = ''"></p>
-          </div>
-          <div class="empContTrad457">
-            <p><label for="empContTrad457">Future Annual Traditional 457b Employer Contribution Amount:<input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span></label></p>
-            <p><input type="number" name="empContTrad457" id="empContTrad457" min="0" max="100" placeholder="Amount" oninput="this.className = ''"></p>
-          </div>
-          <div class="annualContTrad457">
-            <p><label for="annualContTrad457">Future Annual Traditional 457b Contribution Amount (up to $19,500):</label></p>
-            <p><input type="number" name="annualContTrad457" id="annualContTrad457" placeholder="Amount" oninput="this.className = ''" onchange="retCalc(this)"></p>
-          </div>
-          <div class="catchUpContTrad457">
-            <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContTrad457"></label></p>
-          </div>
-          <div class="contEndAgeTrad457">
-            <p><label for="contEndAgeTrad457">Age when you will stop contributing to your Traditional 457b (up to 70):</label></p>
-            <p><input type="number" maxlength="2" name="contEndAgeTrad457" id="contEndAgeTrad457" placeholder="Age" oninput="this.className = ''"></p>
-          </div>
-          <div class="investStratTrad457"> 
-            <p><label for="investStratTrad457">Investment Strategy:</label></p>
-            <p>
-              <select name="investStratTrad457" id="investStratTrad457" oninput="this.className = ''">
-                <option value="" disabled selected hidden>Select one</option>
-                <option value="conservative">Conservative</option>
-                <option value="average">Average</option>
-                <option value="risky">Risky</option>
-              </select>
-            </p>
-          </div>
+        <legend class="sectionHeader">Roth 403b</legend>
+        <div class="instructions">Instructions for entering 401k information.</div>  
+        <!-- <h4></h4> -->
+        <div class="amtContRoth403">
+          <p><label for="amtContRoth403">Total Roth 403b Contributions through the end of last year:</label></p>
+          <p><input type="number" id="amtContRoth403" name="amtContRoth403" min="0" placeholder="Amount" oninput="this.className = ''"></p>
         </div>
-        <div id="roth457b" class="userInput">
-          <h4>Roth 457b</h4>
-          <div class="amtContRoth457">
-            <p><label for="amtContRoth457">Total Roth 457b Contributions through the end of last year:</label></p>
-            <p><input type="number" id="amtContRoth457" name="amtContRoth457" min="0" placeholder="Amount" oninput="this.className = ''"></p>
-          </div>
-          <div class="currentValRoth457">
-            <p><label for="currentValRoth457">Total Current Value of Roth 457b:</label></p>
-            <p><input type="number" name="currentValRoth457" id="currentValRoth457" min="0" placeholder="Amount" oninput="this.className = ''"></p>
-          </div>
-          <div class="empContRoth457">
-            <p><label for="empContRoth457">Future Annual Roth 457b Employer Contribution Amount:<input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span></label></p>
-            <p><input type="number" name="empContRoth457" id="empContRoth457" min="0" max="100" placeholder="Amount" oninput="this.className = ''"></p>
-          </div>
-          <div class="annualContRoth457">
-            <p><label for="annualContRoth457">Future Annual Roth 457b Contribution Amount (cannot exceed $19,500):</label></p>
-            <p><input type="number" name="annualContRoth457" id="annualContRoth457" placeholder="Amount" oninput="this.className = ''" onchange="retCalc(this)"></p>
-          </div>
-          <div class="catchUpContRoth457">
-            <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContRoth457"></label></p>
-          </div>
-          <div class="contEndAgeRoth457">
-            <p><label for="contEndAgeRoth457">Age when you will stop contributing to your Roth 457b:</label></p>
-            <p><input type="number" maxlength="2" name="contEndAgeRoth457" id="contEndAgeRoth457" placeholder="Age" oninput="this.className = ''"></p>
-          </div>
-          <div class="investStratRoth457">
-            <p><label for="investStratRoth457">Investment Strategy:</label></p>
-            <p>
-              <select name="investStratRoth457" id="investStratRoth457" oninput="this.className = ''">
-                <option value="" disabled selected hidden>Select one</option>
-                <option value="conservative">Conservative</option>
-                <option value="average">Average</option>
-                <option value="risky">Risky</option>
-              </select>
-            </p>
-          </div>
+        <div class="currentValRoth403">
+          <p><label for="currentValRoth403">Total Current Value of Roth 403b:</label></p>
+          <p><input type="number" name="currentValRoth403" id="currentValRoth403" min="0" placeholder="Amount" oninput="this.className = ''"></p>
         </div>
-      </fieldset>
-    </div>
-    <div class="tab" id="simple">
-      <fieldset>
-        <legend class="sectionHeader">Simple Accounts</legend>
-        <div class="instructions">Instructions for entering 401k information.</div>
-        <div id="simpleIra" class="userInput">
-          <h4>Simple IRA</h4>
-          <div class="currentValSimpleIra">
-            <p><label for="currentValSimpleIra">Total Current Value of Simple IRAs:</label></p>
-            <p><input type="number" name="currentValSimpleIra" id="currentValSimpleIra" min="0" placeholder="Amount" oninput="this.className = ''"></p>
-          </div>
-          <div class="empContSimpleIra">
-            <p><label for="empContSimpleIra">Future Annual Simple IRA Employer Contribution Amount (1%-3%): <input type="number" name="" class="ecaCalculator" min="1" max="3" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span></label></label></p>
-            <p><input type="number" name="empContSimpleIra" id="empContSimpleIra" min="1" max="3" placeholder="Amount" oninput="this.className = ''"></p>
-          </div>
-          <div class="annualContSimpleIra">
-            <p><label for="annualContSimpleIra">Future Annual Simple IRA Contribution Amount (up to $13,500):</label></p>
-            <p><input type="number" name="annualContSimpleIra" id="annualContSimpleIra" placeholder="Amount" oninput="this.className = ''" onchange="simpleCalc(this)"></p>
-          </div>
-          <div class="catchUpContSimpleIra">
-            <p><label >$3,000 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContSimpleIra"></label></p>
-          </div>
-          <div class="contEndAgeSimpleIra">
-            <p><label for="contEndAgeSimpleIra">Age when you will stop contributing to your Simple IRA:</label></p>
-            <p><input type="number" maxlength="2" name="contEndAgeSimpleIra" id="contEndAgeSimpleIra" placeholder="Age" oninput="this.className = ''"></p>
-          </div>
-          <div class="investStratSimpleIra">
-            <p><label for="investStratSimpleIra">Investment Strategy:</label></p>
-            <p>
-              <select name="investStratSimpleIra" id="investStratSimpleIra" oninput="this.className = ''">
-                <option value="" disabled selected hidden>Select one</option>
-                <option value="conservative">Conservative</option>
-                <option value="average">Average</option>
-                <option value="risky">Risky</option>
-              </select>
-            </p>
-          </div>
+        <div class="empContRoth403">
+          <p><label for="empContRoth403">Future Annual Roth 403b Employer Contribution Amount: <input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span></label></p>
+          <p><input type="number" name="empContRoth403" id="empContRoth403" min="0" max="100" placeholder="Amount" oninput="this.className = ''"></p>
         </div>
-        <div id="simple401k" class="userInput">
-          <h4>Simple 401k</h4>
-          <div class="currentValSimple401">
-            <p><label for="currentValSimple401">Total Current Value of your Simple 401k:</label></p>
-            <p><input type="number" name="currentValSimple401" id="currentValSimple401" min="0" placeholder="Amount" oninput="this.className = ''"></p>
-          </div>
-          <div class="empContSimple401">
-            <p><label for="empContSimple401">Future Annual Simple 401k Employer Contribution Amount:</label></p>
-            <p><input type="number" name="empContSimple401" id="empContSimple401" min="0" max="100" placeholder="Amount" oninput="this.className = ''"></p>
-          </div>
-          <div class="annualContSimple401">
-            <p><label for="annualContSimple401">Future Annual Simple 401k Contribution Amount (cannot exceed $13,500):</label></p>
-            <p><input type="number" name="annualContSimple401" id="annualContSimple401" placeholder="Amount" oninput="this.className = ''" onchange="simpleCalc(this)"></p>
-          </div>
-          <div class="catchUpContSimple401">
-            <p><label>$3,000 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContSimple401"></label></p>
-          </div>
-          <div class="contEndAgeSimple401">
-            <p><label for="contEndAgeSimple401">Age when you will stop contributing to your Simple 401k:</label></p>
-            <p><input type="number" maxlength="2" name="contEndAgeSimple401" id="contEndAgeSimple401" placeholder="Age" oninput="this.className = ''"></p>
-          </div>
-          <div class="investStratSimple401">
-            <p><label for="investStratSimple401">Investment Strategy:</label></p>
-            <p>
-              <select name="investStratSimple401" id="investStratSimple401" oninput="this.className = ''">
-                <option value="" disabled selected hidden>Select one</option>
-                <option value="conservative">Conservative</option>
-                <option value="average">Average</option>
-                <option value="risky">Risky</option>
-              </select>
-            </p>
-          </div>
+        <div class="annualContRoth403">
+          <p><label for="annualContRoth403">Future Annual Roth 403b Contribution Amount (up to $19,500):</label></p>
+          <p><input type="number" name="annualContRoth403" id="annualContRoth403" placeholder="Amount" oninput="this.className = ''" onchange="retCalc(this)"></p>
+        </div>
+        <div class="catchUpContRoth403">
+          <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContRoth403"></label></p>
+        </div>
+        <div class="contEndAgeRoth403">
+          <p><label for="contEndAgeRoth403">Age when you will stop contributing to your Roth 403b:</label></p>
+          <p><input type="number" maxlength="2" name="contEndAgeRoth403" id="contEndAgeRoth403" placeholder="Age" oninput="this.className = ''"></p>
+        </div>
+        <div class="investStratRoth403">
+          <p><label for="investStratRoth403">Investment Strategy:</label></p>
+          <p>
+            <select name="investStratRoth403" id="investStratRoth403" oninput="this.className = ''">
+              <option value="" disabled selected hidden>Select one</option>
+              <option value="conservative">Conservative</option>
+              <option value="average">Average</option>
+              <option value="risky">Risky</option>
+            </select>
+          </p>
         </div>
       </fieldset>
     </div>
 
-    <div class="tab" id="disability">
+    <div id="trad457b" class="tab userInput 457b">
       <fieldset>
-        <legend class="sectionHeader">Disability Benefits</legend>
+        <legend>Traditional 457b</legend>
+        <div class="instructions">Instructions for entering 401k information.</div>
+        <!-- <h4></h4> -->
+        <div class="currentValTrad457">
+          <p><label for="currentValTrad457">Total Current Value of Traditional 457b:</label></p>
+          <p><input type="number" name="currentValTrad457" id="currentValTrad457" min="0" placeholder="Amount" oninput="this.className = ''"></p>
+        </div>
+        <div class="empContTrad457">
+          <p><label for="empContTrad457">Future Annual Traditional 457b Employer Contribution Amount:<input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span></label></p>
+          <p><input type="number" name="empContTrad457" id="empContTrad457" min="0" max="100" placeholder="Amount" oninput="this.className = ''"></p>
+        </div>
+        <div class="annualContTrad457">
+          <p><label for="annualContTrad457">Future Annual Traditional 457b Contribution Amount (up to $19,500):</label></p>
+          <p><input type="number" name="annualContTrad457" id="annualContTrad457" placeholder="Amount" oninput="this.className = ''" onchange="retCalc(this)"></p>
+        </div>
+        <div class="catchUpContTrad457">
+          <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContTrad457"></label></p>
+        </div>
+        <div class="contEndAgeTrad457">
+          <p><label for="contEndAgeTrad457">Age when you will stop contributing to your Traditional 457b (up to 70):</label></p>
+          <p><input type="number" maxlength="2" name="contEndAgeTrad457" id="contEndAgeTrad457" placeholder="Age" oninput="this.className = ''"></p>
+        </div>
+        <div class="investStratTrad457"> 
+          <p><label for="investStratTrad457">Investment Strategy:</label></p>
+          <p>
+            <select name="investStratTrad457" id="investStratTrad457" oninput="this.className = ''">
+              <option value="" disabled selected hidden>Select one</option>
+              <option value="conservative">Conservative</option>
+              <option value="average">Average</option>
+              <option value="risky">Risky</option>
+            </select>
+          </p>
+        </div>
+      </fieldset>
+    </div>
+
+    <div id="roth457b" class="tab userInput 457b">
+      <fieldset>
+        <legend>Roth 457b</legend>
+        <div class="instructions">Instructions for entering 401k information.</div>
+        <!-- <h4></h4> -->
+        <div class="amtContRoth457">
+          <p><label for="amtContRoth457">Total Roth 457b Contributions through the end of last year:</label></p>
+          <p><input type="number" id="amtContRoth457" name="amtContRoth457" min="0" placeholder="Amount" oninput="this.className = ''"></p>
+        </div>
+        <div class="currentValRoth457">
+          <p><label for="currentValRoth457">Total Current Value of Roth 457b:</label></p>
+          <p><input type="number" name="currentValRoth457" id="currentValRoth457" min="0" placeholder="Amount" oninput="this.className = ''"></p>
+        </div>
+        <div class="empContRoth457">
+          <p><label for="empContRoth457">Future Annual Roth 457b Employer Contribution Amount:<input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span></label></p>
+          <p><input type="number" name="empContRoth457" id="empContRoth457" min="0" max="100" placeholder="Amount" oninput="this.className = ''"></p>
+        </div>
+        <div class="annualContRoth457">
+          <p><label for="annualContRoth457">Future Annual Roth 457b Contribution Amount (cannot exceed $19,500):</label></p>
+          <p><input type="number" name="annualContRoth457" id="annualContRoth457" placeholder="Amount" oninput="this.className = ''" onchange="retCalc(this)"></p>
+        </div>
+        <div class="catchUpContRoth457">
+          <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContRoth457"></label></p>
+        </div>
+        <div class="contEndAgeRoth457">
+          <p><label for="contEndAgeRoth457">Age when you will stop contributing to your Roth 457b:</label></p>
+          <p><input type="number" maxlength="2" name="contEndAgeRoth457" id="contEndAgeRoth457" placeholder="Age" oninput="this.className = ''"></p>
+        </div>
+        <div class="investStratRoth457">
+          <p><label for="investStratRoth457">Investment Strategy:</label></p>
+          <p>
+            <select name="investStratRoth457" id="investStratRoth457" oninput="this.className = ''">
+              <option value="" disabled selected hidden>Select one</option>
+              <option value="conservative">Conservative</option>
+              <option value="average">Average</option>
+              <option value="risky">Risky</option>
+            </select>
+          </p>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="tab userInput simple" id="simpleIra">
+      <fieldset>
+        <legend class="sectionHeader">Simple IRA</legend>
+        <div class="instructions">Instructions for entering Simple IRA information.</div>
+        <!-- <h4></h4> -->
+        <div class="currentValSimpleIra">
+          <p><label for="currentValSimpleIra">Total Current Value of Simple IRAs:</label></p>
+          <p><input type="number" name="currentValSimpleIra" id="currentValSimpleIra" min="0" placeholder="Amount" oninput="this.className = ''"></p>
+        </div>
+        <div class="empContSimpleIra">
+          <p><label for="empContSimpleIra">Future Annual Simple IRA Employer Contribution Amount (1%-3%): <input type="number" name="" class="ecaCalculator" min="1" max="3" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span></label></label></p>
+          <p><input type="number" name="empContSimpleIra" id="empContSimpleIra" min="1" max="3" placeholder="Amount" oninput="this.className = ''"></p>
+        </div>
+        <div class="annualContSimpleIra">
+          <p><label for="annualContSimpleIra">Future Annual Simple IRA Contribution Amount (up to $13,500):</label></p>
+          <p><input type="number" name="annualContSimpleIra" id="annualContSimpleIra" placeholder="Amount" oninput="this.className = ''" onchange="simpleCalc(this)"></p>
+        </div>
+        <div class="catchUpContSimpleIra">
+          <p><label >$3,000 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContSimpleIra"></label></p>
+        </div>
+        <div class="contEndAgeSimpleIra">
+          <p><label for="contEndAgeSimpleIra">Age when you will stop contributing to your Simple IRA:</label></p>
+          <p><input type="number" maxlength="2" name="contEndAgeSimpleIra" id="contEndAgeSimpleIra" placeholder="Age" oninput="this.className = ''"></p>
+        </div>
+        <div class="investStratSimpleIra">
+          <p><label for="investStratSimpleIra">Investment Strategy:</label></p>
+          <p>
+            <select name="investStratSimpleIra" id="investStratSimpleIra" oninput="this.className = ''">
+              <option value="" disabled selected hidden>Select one</option>
+              <option value="conservative">Conservative</option>
+              <option value="average">Average</option>
+              <option value="risky">Risky</option>
+            </select>
+          </p>
+        </div>
+      </fieldset>
+    </div>
+
+    <div id="simple401k" class="tab userInput simple">
+      <fieldset>
+        <legend class="sectionHeader">Simple 401k</legend>
+        <div class="instructions">Instructions for entering Simple IRA information.</div>
+        <!-- <h4></h4> -->
+        <div class="currentValSimple401">
+          <p><label for="currentValSimple401">Total Current Value of your Simple 401k:</label></p>
+          <p><input type="number" name="currentValSimple401" id="currentValSimple401" min="0" placeholder="Amount" oninput="this.className = ''"></p>
+        </div>
+        <div class="empContSimple401">
+          <p><label for="empContSimple401">Future Annual Simple 401k Employer Contribution Amount:</label></p>
+          <p><input type="number" name="empContSimple401" id="empContSimple401" min="0" max="100" placeholder="Amount" oninput="this.className = ''"></p>
+        </div>
+        <div class="annualContSimple401">
+          <p><label for="annualContSimple401">Future Annual Simple 401k Contribution Amount (cannot exceed $13,500):</label></p>
+          <p><input type="number" name="annualContSimple401" id="annualContSimple401" placeholder="Amount" oninput="this.className = ''" onchange="simpleCalc(this)"></p>
+        </div>
+        <div class="catchUpContSimple401">
+          <p><label>$3,000 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContSimple401"></label></p>
+        </div>
+        <div class="contEndAgeSimple401">
+          <p><label for="contEndAgeSimple401">Age when you will stop contributing to your Simple 401k:</label></p>
+          <p><input type="number" maxlength="2" name="contEndAgeSimple401" id="contEndAgeSimple401" placeholder="Age" oninput="this.className = ''"></p>
+        </div>
+        <div class="investStratSimple401">
+          <p><label for="investStratSimple401">Investment Strategy:</label></p>
+          <p>
+            <select name="investStratSimple401" id="investStratSimple401" oninput="this.className = ''">
+              <option value="" disabled selected hidden>Select one</option>
+              <option value="conservative">Conservative</option>
+              <option value="average">Average</option>
+              <option value="risky">Risky</option>
+            </select>
+          </p>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="tab userInput disability" id="vaDisability">
+      <fieldset>
+        <legend class="sectionHeader">VA Disability</legend>
         <div class="instructions">Instructions for entering disability information.</div>
-        <div id="vaDisability">
-          <h4>VA Disability</h4>
-          <div class="annualAmtVa">
-            <p><label for="annualAmtVa">Monthly VA Disability Total:</label></p>
-            <p><input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annualAmtVa" id="annualAmtVa" placeholder="Annual Amount" oninput="this.className = ''"></p>
-          </div>
-        </div>
-        <div id="ssiDisability">
-          <h4>SSI Disability</h4>
-          <div class="annualAmtSsi">
-            <p><label for="annualAmtSsi">Monthly SSI Disability Total:</label></p>
-            <p><input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annualAmtSsi" id="annualAmtSsi" placeholder="Annual Amount" oninput="this.className = ''"></p>
-          </div>
-        </div>
-        <div id="otherDisability">
-          <h4>Other Disability</h4>
-          <div class="annualAmtOther" class="userInput">
-            <p><label for="annualAmtOther">Monthly Other Disability Total:</label></p>
-            <p><input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annualAmtOther" id="annualAmtOther" placeholder="Annual Amount" oninput="this.className = ''"></p>
-          </div>
-          <div class="taxOther">
-            <p><label>Are these disability benefits taxable: <input type="checkbox" id="taxOther"></label></p>
-          </div>
-          <div class="colaOther">
-            <p><label for="colaOther">Annual Cost of Living Adjustment (%):</label></p>
-            <p><input type="number" name="colaOther" id="colaOther" min="0" max="10" placeholder="0.0" oninput="this.className = ''"></p>
-          </div>
+        <!-- <h4></h4> -->
+        <div class="annualAmtVa">
+          <p><label for="annualAmtVa">Monthly VA Disability Total:</label></p>
+          <p><input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annualAmtVa" id="annualAmtVa" placeholder="Annual Amount" oninput="this.className = ''"></p>
         </div>
       </fieldset>
     </div>
-    <div class="tab" id="otherAssets">
+
+    <div class="tab userInput disability" id="ssiDisability">
       <fieldset>
-        <legend class="sectionHeader">Other Assets & Income</legend>
+        <legend class="sectionHeader">SSI Disability</legend>
+        <div class="instructions">Instructions for entering disability information.</div>
+        <!-- <h4></h4> -->
+        <div class="annualAmtSsi">
+          <p><label for="annualAmtSsi">Monthly SSI Disability Total:</label></p>
+          <p><input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annualAmtSsi" id="annualAmtSsi" placeholder="Annual Amount" oninput="this.className = ''"></p>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="tab userInput disability" id="otherDisability">
+      <fieldset>
+        <legend class="sectionHeader">Other Disability</legend>
+        <div class="instructions">Instructions for entering disability information.</div>
+        <!-- <h4></h4> -->
+        <div class="annualAmtOther" class="userInput">
+          <p><label for="annualAmtOther">Monthly Other Disability Total:</label></p>
+          <p><input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annualAmtOther" id="annualAmtOther" placeholder="Annual Amount" oninput="this.className = ''"></p>
+        </div>
+        <div class="taxOther">
+          <p><label>Are these disability benefits taxable: <input type="checkbox" id="taxOther"></label></p>
+        </div>
+        <div class="colaOther">
+          <p><label for="colaOther">Annual Cost of Living Adjustment (%):</label></p>
+          <p><input type="number" name="colaOther" id="colaOther" min="0" max="10" placeholder="0.0" oninput="this.className = ''"></p>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="tab userInput other" id="investmentAccts">
+      <fieldset>
+        <legend class="sectionHeader">Investment Accounts</legend>
         <div class="instructions">Instructions for entering additional information.</div>
-        <div id="investmentAccts" class="userInput">
-          <h4>Investment Accounts</h4>
-          <div class="currentValInv">
-            <p><label for="currentValInv">Total Current Value of Savings/Investment/Brokerage accounts:</label></p>
-            <p><input type="number" name="currentValInv" id="currentValInv" min="0" placeholder="Amount" oninput="this.className = ''"></p>
-          </div>
-          <div class="annualContInv">
-            <p><label for="annualContInv">Future Annual Contribution Amount:</label></p>
-            <p><input type="number" name="annualContInv" id="annualContInv" placeholder="Amount" oninput="this.className = ''"></p>
-          </div>
-          <div class="contEndAgeInv">
-            <p><label for="contEndAgeInv">At what age do you plan to stop contributing to your Savings/Investment/Brokerage accounts:</label></p>
-            <p><input type="number" maxlength="2" name="contEndAgeInv" id="contEndAgeInv" oninput="this.className = ''"></p>
-          </div>
-          <div class="investStratInv">
-            <p><label for="investStratInv">Investment Strategy:</label></p>
-            <p>
-              <select name="investStratInv" id="investStratInv" oninput="this.className = ''">
-                <option value="" disabled selected hidden>Select one</option>
-                <option value="conservative">Conservative</option>
-                <option value="average">Average</option>
-                <option value="risky">Risky</option>
-              </select>
-            </p>
-          </div>
+        <!-- <h4></h4> -->
+        <div class="currentValInv">
+          <p><label for="currentValInv">Total Current Value of Savings/Investment/Brokerage accounts:</label></p>
+          <p><input type="number" name="currentValInv" id="currentValInv" min="0" placeholder="Amount" oninput="this.className = ''"></p>
         </div>
-        <div id="retirement" class="userInput">
-          <h4>Retirement Salary</h4>
-          <div class="retSalAmt">
-            <p><label for="retSalAmt">Annual Retirement Salary:</label></p>
-            <p><input type="number" name="retSalAmt" id="retSalAmt" placeholder="Salary" oninput="this.className = ''"></p>
-          </div>
-          <div class="retSalBeginAge">
-            <p><label for="retSalBeginAge">Age when retirement employment begins:</label></p>
-            <p><input type="number" name="retSalBeginAge" id="retSalBeginAge" oninput="this.className = ''"></p>
-          </div>
+        <div class="annualContInv">
+          <p><label for="annualContInv">Future Annual Contribution Amount:</label></p>
+          <p><input type="number" name="annualContInv" id="annualContInv" placeholder="Amount" oninput="this.className = ''"></p>
         </div>
-        <div id="rents" class="userInput">
-          <h4>Rents</h4>
-          <div class="rentalProfits">
-            <p><label for="rentalProfits">Annual Net Rental Profits:</label></p>
-            <p><input type="number" name="rentalProfits" id="rentalProfits" placeholder="Amount" oninput="this.className = ''"></p>
-          </div>
-          <div class="rentalProfitsGrowth">
-            <p><label for="rentalProfitsGrowth">Annual Net Rental Profit Growth (%):</label></p>
-            <p><input type="number" name="rentalProfitsGrowth" id="rentalProfitsGrowth" min="0" placeholder="0.0" oninput="this.className = ''"></p>
-          </div>
+        <div class="contEndAgeInv">
+          <p><label for="contEndAgeInv">At what age do you plan to stop contributing to your Savings/Investment/Brokerage accounts:</label></p>
+          <p><input type="number" maxlength="2" name="contEndAgeInv" id="contEndAgeInv" oninput="this.className = ''"></p>
         </div>
-        <div id="otherAssets" class="userInput">
-          <h4>Other Assets</h4>
-          <div class="otherAssets">
-            <p><label for="otherAssets">Annual Liquid Asset Amount:</label></p>
-            <p><input type="number" name="otherAssets" id="otherAssets" placeholder="Amount" oninput="this.className = ''"></p>
-          </div>
-          <div class="otherAssetsTax">
-            <p><label>Are these other assets taxable: <input type="checkbox" id="otherAssetsTax"></label></p>
-          </div>
+        <div class="investStratInv">
+          <p><label for="investStratInv">Investment Strategy:</label></p>
+          <p>
+            <select name="investStratInv" id="investStratInv" oninput="this.className = ''">
+              <option value="" disabled selected hidden>Select one</option>
+              <option value="conservative">Conservative</option>
+              <option value="average">Average</option>
+              <option value="risky">Risky</option>
+            </select>
+          </p>
         </div>
-        <div id="otherBenefits" class="userInput">
-          <h4>Other Benefits</h4>
-          <div class="otherBenAmt">
-            <p><label for="otherBenAmt">All other financial benefits/revenue/income:</label></p>
-            <p><input type="number" name="otherBenAmt" id="otherBenAmt" oninput="this.className = ''"></p>
-          </div>
-          <div class="otherBenCola">
-            <p><label for="otherBenCola">Annual Cost of Living Adjustment, if applicable:</label></p>
-            <p><input type="number" name="otherBenCola" id="otherBenCola" oninput="this.className = ''"></p>
-          </div>
-          <div class="otherBenBeginAge">
-            <p><label for="otherBenBeginAge">Age when benefits begin:</label></p>
-            <p><input type="number" name="otherBenBeginAge" id="otherBenBeginAge" oninput="this.className = ''"></p>
-          </div>
-          <div class="otherBenTax">
-            <p><label>Are these benefits taxable: <input type="checkbox" id="otherBenTax"></label></p>
-          </div>
+      </fieldset>
+    </div>
+
+    <div class="tab userInput other" id="retirement">
+      <fieldset>
+        <legend class="sectionHeader">Retirement Salary</legend>
+        <div class="instructions">Instructions for entering additional information.</div>
+        <!-- <h4></h4> -->
+        <div class="retSalAmt">
+          <p><label for="retSalAmt">Annual Retirement Salary:</label></p>
+          <p><input type="number" name="retSalAmt" id="retSalAmt" placeholder="Salary" oninput="this.className = ''"></p>
+        </div>
+        <div class="retSalBeginAge">
+          <p><label for="retSalBeginAge">Age when retirement employment begins:</label></p>
+          <p><input type="number" name="retSalBeginAge" id="retSalBeginAge" oninput="this.className = ''"></p>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="tab userInput other" id="rents">
+      <fieldset>
+        <legend class="sectionHeader">Rental Income</legend>
+        <div class="instructions">Instructions for entering additional information.</div>
+        <!-- <h4></h4> -->
+        <div class="rentalProfits">
+          <p><label for="rentalProfits">Annual Net Rental Profits:</label></p>
+          <p><input type="number" name="rentalProfits" id="rentalProfits" placeholder="Amount" oninput="this.className = ''"></p>
+        </div>
+        <div class="rentalProfitsGrowth">
+          <p><label for="rentalProfitsGrowth">Annual Net Rental Profit Growth (%):</label></p>
+          <p><input type="number" name="rentalProfitsGrowth" id="rentalProfitsGrowth" min="0" placeholder="0.0" oninput="this.className = ''"></p>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="tab userInput other" id="otherAssets">
+      <fieldset>
+        <legend class="sectionHeader">Other Assets</legend>
+        <div class="instructions">Instructions for entering additional information.</div>
+        <!-- <h4></h4> -->
+        <div class="otherAssets">
+          <p><label for="otherAssets">Annual Liquid Asset Amount:</label></p>
+          <p><input type="number" name="otherAssets" id="otherAssets" placeholder="Amount" oninput="this.className = ''"></p>
+        </div>
+        <div class="otherAssetsTax">
+          <p><label>Are these other assets taxable: <input type="checkbox" id="otherAssetsTax"></label></p>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="tab userInput other" id="otherBenefits">
+      <fieldset>
+        <legend class="sectionHeader">Other Benefits</legend>
+        <div class="instructions">Instructions for entering additional information.</div>
+        <!-- <h4></h4> -->
+        <div class="otherBenAmt">
+          <p><label for="otherBenAmt">All other financial benefits/revenue/income:</label></p>
+          <p><input type="number" name="otherBenAmt" id="otherBenAmt" oninput="this.className = ''"></p>
+        </div>
+        <div class="otherBenCola">
+          <p><label for="otherBenCola">Annual Cost of Living Adjustment, if applicable:</label></p>
+          <p><input type="number" name="otherBenCola" id="otherBenCola" oninput="this.className = ''"></p>
+        </div>
+        <div class="otherBenBeginAge">
+          <p><label for="otherBenBeginAge">Age when benefits begin:</label></p>
+          <p><input type="number" name="otherBenBeginAge" id="otherBenBeginAge" oninput="this.className = ''"></p>
+        </div>
+        <div class="otherBenTax">
+          <p><label>Are these benefits taxable: <input type="checkbox" id="otherBenTax"></label></p>
         </div>
       </fieldset>
     </div>

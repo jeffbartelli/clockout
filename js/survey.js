@@ -1,5 +1,21 @@
 $(document).ready(function(){
 
+window.investmentSelect = () => {
+  let $accounts = $('legend');
+  for (let i=1; i<$accounts.length; i++) {
+    $('.investmentSelect').append(
+      $('<p/>').append(
+        $('<label/>')
+          .text($accounts[i].innerHTML)
+          .prepend(
+            $('<input/>')
+              .attr('type','checkbox')
+              .addClass('accountTypes') 
+  )))}
+  $('.investmentSelect').find('*').filter(':input:first').prop('checked','true').prop('disabled','true');
+}
+investmentSelect();
+
 let tabOrder = [0];
 window.accountTypes = () => {
   tabOrder = [0];
@@ -115,7 +131,7 @@ window.demographics = (form) => {
   for (let i=0;i<inputs.length;i++) {
     data[inputs[i].id] = inputs[i].value;
   }
-  console.log(data);
+  // console.log(data);
 }
 
 let dollarFormat = new Intl.NumberFormat('en-US', {

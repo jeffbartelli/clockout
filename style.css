@@ -1,7 +1,8 @@
 body {
   font-family: 'PT Sans', sans-serif;
   font-family: 'Roboto', sans-serif;
-  /* max-width: 80%; */
+  /* max-width: 40%; */
+  margin:auto;
 }
 
 #dataForm {
@@ -70,6 +71,11 @@ select.invalid, input.invalid {
 /* Hide all steps by default: */
 .tab {
   display: none;
+  height: 400px;
+}
+
+.tab:first-of-type {
+  height:auto;
 }
 
 #formNav {
@@ -108,7 +114,25 @@ select.invalid, input.invalid {
   background-color: #4CAF50;
 } */
 
-input.ecaCalculator, {
+input.ecaCalculator {
   width: 35px;
   font-size: medium;
+}
+
+@media only screen and (max-width: 500px) {
+  .tab {
+    height:auto;
+  }
+
+  /* #formNav .tab:first-of-type {
+    position: unset;
+  }
+
+  #formNav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    margin-bottom: 5px;
+  } */
+
 }
