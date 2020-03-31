@@ -11,6 +11,7 @@
   <script src="/js/data.js"></script>
   <script src="/js/survey.js"></script>
   <script src="/js/assets.js"></script>
+  <script src="/js/calculators.js"></script>
 
 </head>
 <body>
@@ -246,7 +247,8 @@
         </div>
         <div class="annualContTrad401">
           <p><label for="annualContTrad401">Future Annual Traditional 401k Contribution Amount (up to $19,500):</label></p>
-          <p><input type="number" name="annualContTrad401" id="annualContTrad401" placeholder="Amount" onchange="retCalc(this)" oninput="this.className = ''"></p>
+          <p><input type="number" name="annualContTrad401" id="annualContTrad401" placeholder="Amount" onchange="retCalc(this)" oninput="$(this).removeClass('invalid')"></p>
+          <!-- DONT KNOW IF THIS CHANGE WORKS YET -->
         </div>
         <div class="catchUpContTrad401">
           <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContTrad401"></label></p>
@@ -772,6 +774,12 @@
         <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
     </div>
   </form>
+  <div id="ecaModal" class="modal">
+    <p>Total combined annual contributions to ALL of your Employer Contribution Accounts cannot exceed $19,500 ($13,500 for Simple accounts). Redistribute your contributions below.</p>
+    <table>
+    </table>
+    <button id="modalClose" disabled>Submit</button>
+  </div>
 </body>
 </html>
 
