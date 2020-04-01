@@ -1,21 +1,10 @@
-$(document).ready(function(){
+import {data, states} from './data.js';
 
-window.investmentSelect = () => {
-  let $accounts = $('legend');
-  for (let i=1; i<$accounts.length; i++) {
-    $('.investmentSelect').append(
-      $('<p/>').append(
-        $('<label/>')
-          .text($accounts[i].innerHTML)
-          .prepend(
-            $('<input/>')
-              .attr('type','checkbox')
-              .addClass('accountTypes') 
-  )))}
-  $('.investmentSelect').find('*').filter(':input:first').prop('checked','true').prop('disabled','true');
-}
-investmentSelect();
+let currentTab = 0;
 
+document.addEventListener('DOMContentLoaded', function() {
+
+/* Creates progress markers for the form pages*/
 let tabOrder = [0];
 window.accountTypes = () => {
   tabOrder = [0];
@@ -42,20 +31,19 @@ window.accountTypes = () => {
   document.getElementsByClassName('step')[0].classList.add('active');
 }
 
+/* Sets the active step marker */
 window.fixStepIndicator = () => {
   let x = document.getElementsByClassName('step');
-  for (i=0; i<x.length; i++) {
+  for (let i=0; i<x.length; i++) {
     x[i].className = x[i].className.replace(' active','');
   }
   $(x[tabOrder.indexOf(currentTab)-1]).addClass('active');
 }
 
-let currentTab = 0;
+/* Turns on the active tab in the survey */
 window.showTab = (n) => {
   let x = document.getElementsByClassName('tab');
-  if (!x[n]) {
-    console.log('trigger');
-  } else {
+  if (x[n]) {
     x[n].style.display = 'block';
     if (n == 0) {
       document.getElementById('prevBtn').style.display = "none";
@@ -71,10 +59,9 @@ window.showTab = (n) => {
   }
 }
 showTab(currentTab);
-$('input:first').select()
+$('input:first').select();
 
 window.nextPrev = (n) => {
-
   let x = document.getElementsByClassName('tab');
   if (n == 1 && !validateForm()) return false;
   if(currentTab == 0) {
@@ -88,23 +75,26 @@ window.nextPrev = (n) => {
   if (!currentTab) {
     harvest();
   // NEED A REDIRECT HERE TO THE NEXT SCREEN
-
   }
   if (x[currentTab]) {
     showTab(currentTab);
     x[currentTab].getElementsByTagName('input')[0].select();
     window.scrollTo(0,0);
   }
-
 }
 
+// validate broke. Need to remove J loop, get K loop working.
 function validateForm() {
   // This function deals with validation of the form fields
   let x, y, blank, valid = true;
   x = document.getElementsByClassName("tab");
-  let z = x[currentTab].getElementsByClassName('userInput');
+  let z = x[currentTab];
+  console.log(x);
+  console.log(currentTab);
+  console.log(z);
   for (let j=0; j<z.length; j++) {
     y = z[j].querySelectorAll('input[type=number],input[type=date],select');
+    console.log(y);
     for (let i=0; i<y.length; i++) {
       if (y[i].value != '') {blank = false;}
 
@@ -155,19 +145,6 @@ window.harvest = (form) => {
     data[dropdowns[i].id] = dropdowns[i].value;
   }
 }
-
-// STATE DROPDOWN
-let select = document.querySelector('#retState');
-let selectDef = document.createElement('option');
-selectDef.setAttribute('selected','');
-selectDef.setAttribute('disabled','');
-selectDef.textContent = '--';
-select.appendChild(selectDef);
-for (let i=0; i<states.length; i++) {
-  let el = document.createElement('option');
-  el.textContent = states[i];
-  el.value = states[i];
-  select.appendChild(el);
-}
-
 });
+
+export {currentTab, data};

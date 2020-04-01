@@ -71,12 +71,12 @@ select.invalid, input.invalid {
 /* Hide all steps by default: */
 .tab {
   display: none;
-  height: 400px;
+  /* height: 400px; */
 }
 
-.tab:first-of-type {
+/* .tab:first-of-type {
   height:auto;
-}
+} */
 
 #formNav {
   width: 100%;

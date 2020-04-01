@@ -8,11 +8,13 @@
   <link href="https://fonts.googleapis.com/css?family=PT+Sans|Lato|Roboto&display=swap" rel="stylesheet">
   <title>Clockout: When can you retire?</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="/js/data.js"></script>
-  <script src="/js/survey.js"></script>
+  <script src="/js/investChecklist.js"></script>
+  <script type="module" src="/js/stateDropdown.js" ></script>
+  <script type="module" src="/js/numberFormats.js"></script>
+  <script type="module" src="/js/data.js"></script>
+  <script type="module" src="/js/survey.js"></script>
+  <script type="module" src="/js/calculators.js"></script>
   <script src="/js/assets.js"></script>
-  <script src="/js/calculators.js"></script>
-
 </head>
 <body>
   <form id="dataForm" action="">
@@ -288,7 +290,7 @@
         </div>
         <div class="annualContRoth401">
           <p><label for="annualContRoth401">Future Annual Roth 401k Contribution Amount (up to $19,500):</label></p>
-          <p><input type="number" name="annualContRoth401" id="annualContRoth401" placeholder="Amount" oninput="this.className = ''" onchange="retCalc(this)"></p>
+          <p><input type="number" name="annualContRoth401" id="annualContRoth401" placeholder="Amount" oninput="$(this).removeClass('invalid')" onchange="retCalc(this)"></p>
         </div>
         <div class="catchUpContRoth401">
           <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContRoth401"></label></p>
@@ -326,7 +328,7 @@
         </div>
         <div class="annualContSafeHarbor401">
           <p><label for="annualContSafeHarbor401">Future Annual Safe Harbor 401k Contribution Amount (up to $19,500):</label></p>
-          <p><input type="number" name="annualContSafeHarbor401" id="annualContSafeHarbor401" placeholder="Amount" oninput="this.className = ''" onchange="retCalc(this)"></p>
+          <p><input type="number" name="annualContSafeHarbor401" id="annualContSafeHarbor401" placeholder="Amount" oninput="$(this).removeClass('invalid')" onchange="retCalc(this)"></p>
         </div>
         <div class="catchUpContSafeHarbor401">
           <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContSafeHarbor401"></label></p>
@@ -364,7 +366,7 @@
         </div>
         <div class="annualContSingle401">
           <p><label for="annualContSingle401">Future Annual Single 401k Contribution Amount (up to $19,500):</label></p>
-          <p><input type="number" name="annualContSingle401" id="annualContSingle401" placeholder="Amount" oninput="this.className = ''" onchange="retCalc(this)"></p>
+          <p><input type="number" name="annualContSingle401" id="annualContSingle401" placeholder="Amount" oninput="$(this).removeClass('invalid')" onchange="retCalc(this)"></p>
         </div>
         <div class="catchUpContSingle401">
           <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContSingle401"></label></p>
@@ -402,7 +404,7 @@
         </div>
         <div class="annualContTrad403">
           <p><label for="annualContTrad403">Future Annual Traditional 403b Contribution Amount (up to $19,500):</label></p>
-          <p><input type="number" name="annualContTrad403" id="annualContTrad403" placeholder="Amount" oninput="this.className = ''" onchange="retCalc(this)"></p>
+          <p><input type="number" name="annualContTrad403" id="annualContTrad403" placeholder="Amount" oninput="$(this).removeClass('invalid')" onchange="retCalc(this)"></p>
         </div>
         <div class="catchUpContTrad403">
           <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContTrad403"></label></p>
@@ -444,7 +446,7 @@
         </div>
         <div class="annualContRoth403">
           <p><label for="annualContRoth403">Future Annual Roth 403b Contribution Amount (up to $19,500):</label></p>
-          <p><input type="number" name="annualContRoth403" id="annualContRoth403" placeholder="Amount" oninput="this.className = ''" onchange="retCalc(this)"></p>
+          <p><input type="number" name="annualContRoth403" id="annualContRoth403" placeholder="Amount" oninput="$(this).removeClass('invalid')" onchange="retCalc(this)"></p>
         </div>
         <div class="catchUpContRoth403">
           <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContRoth403"></label></p>
@@ -482,7 +484,7 @@
         </div>
         <div class="annualContTrad457">
           <p><label for="annualContTrad457">Future Annual Traditional 457b Contribution Amount (up to $19,500):</label></p>
-          <p><input type="number" name="annualContTrad457" id="annualContTrad457" placeholder="Amount" oninput="this.className = ''" onchange="retCalc(this)"></p>
+          <p><input type="number" name="annualContTrad457" id="annualContTrad457" placeholder="Amount" oninput="$(this).removeClass('invalid')" onchange="retCalc(this)"></p>
         </div>
         <div class="catchUpContTrad457">
           <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContTrad457"></label></p>
@@ -524,7 +526,7 @@
         </div>
         <div class="annualContRoth457">
           <p><label for="annualContRoth457">Future Annual Roth 457b Contribution Amount (cannot exceed $19,500):</label></p>
-          <p><input type="number" name="annualContRoth457" id="annualContRoth457" placeholder="Amount" oninput="this.className = ''" onchange="retCalc(this)"></p>
+          <p><input type="number" name="annualContRoth457" id="annualContRoth457" placeholder="Amount" oninput="$(this).removeClass('invalid')" onchange="retCalc(this)"></p>
         </div>
         <div class="catchUpContRoth457">
           <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContRoth457"></label></p>
@@ -776,6 +778,7 @@
   </form>
   <div id="ecaModal" class="modal">
     <p>Total combined annual contributions to ALL of your Employer Contribution Accounts cannot exceed $19,500 ($13,500 for Simple accounts). Redistribute your contributions below.</p>
+    <p>(You can enter a percentage of your salary or an overall amount.)</p>
     <table>
     </table>
     <button id="modalClose" disabled>Submit</button>

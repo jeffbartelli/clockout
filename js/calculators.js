@@ -1,11 +1,7 @@
-// import {currentTab} from './survey.js';
+import {currentTab, data} from './survey.js';
+import {dollarFormat} from './numberFormats.js';
 
-$(document).ready(function(){
-
-  let dollarFormat = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  });
+document.addEventListener('DOMContentLoaded', function() {
 
   window.ecaCalc = (e) => {
     $(e).addClass('thisCalc');
@@ -15,6 +11,7 @@ $(document).ready(function(){
       // Need a separate calculator or logic for Roth accounts.
   }
   
+  // retCalc variables need to come up here. Then bidirectional values setting needs to be set up.
   window.ecaModal = () => {
     let $accounts = $('legend');
     for (let i=7; i<17; i++) {
@@ -111,7 +108,6 @@ $(document).ready(function(){
     let simple401 = +parseInt(document.getElementById('annualContSimple401').value) || 0;
     let total = trad401 + roth401 + trad403 + roth403 + trad457 + roth457 + single401 + safe401 + simpleIra + simple401;
     let range = document.getElementsByClassName('tab')[currentTab];
-    // CURRENT TAB UNDEFINED. DEFINED IN SURVEY.JS. HOW TO GET IT OVER HERE? MODULES DIDN'T WORK.
     let effects = range.querySelectorAll("[id^='annualCont']");
     if (total > 19500) {
       effects.forEach(a => {
