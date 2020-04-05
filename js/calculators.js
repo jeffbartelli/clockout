@@ -47,9 +47,12 @@ document.addEventListener('DOMContentLoaded', function() {
   window.ecaModalCalc = (e) => {
     $(e).parent().last().find('.modalSalary').text(dollarFormat.format(data.demographics.salary));
     $(e).parent().next().find('.ecaContAmount').val(parseInt(Math.round(data.demographics.salary * (e.value/100) > 19500 ? 19500 : data.demographics.salary * (e.value/100))));
-  
+    ecaModalTotal();
+  };
+
+  window.ecaModalTotal = () => {
     let ecaContAmount = 0;
-    $('.ecaContAmount').each(function(e) {
+    $('.ecaContAmount').each(function() {
       if ($(this).val()) {
         ecaContAmount += parseInt($(this).val());
         }
@@ -63,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
       $('#modalClose').prop('disabled',false);
     }
   };
-
+  
   $('#modalClose').click(()=>{
     let $values = $('#ecaModal .ecaContAmount');
     document.getElementById('annualContTrad401').value = $values[0].value;
@@ -76,6 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('annualContRoth457').value = $values[7].value;
     document.getElementById('annualContSimpleIra').value = $values[8].value;
     document.getElementById('annualContSimple401').value = $values[9].value;
+    $('#ecaModal').toggle();
   });
   
   window.monthlyCalc = (e) => {
@@ -89,12 +93,12 @@ document.addEventListener('DOMContentLoaded', function() {
     let trad = document.getElementById('annualContTradIra');
     let total = rothValue + tradValue;
     if (total > 6000) {
-      roth.className += " invalid";
-      trad.className += " invalid";
+      roth.classList.add('invalid');
+      trad.classList.add('invalid');
       alert(`Total combined annual contributions to Roth and Traditional IRAs cannot exceed $6,000. Your total is currently ${dollarFormat.format(total)}.`);
     } else if (total <= 6000) {
-      roth.className = '';
-      trad.className = '';
+      $(roth).removeClass('invalid');
+      $(trad).removeClass('invalid');
     }
   }
   
@@ -103,14 +107,14 @@ document.addEventListener('DOMContentLoaded', function() {
     let tradValue = +parseInt(document.getElementById('annualContSimple401').value) || 0;
     let roth = document.getElementById('annualContSimpleIra');
     let trad = document.getElementById('annualContSimple401');
-    let total = roth + trad;
+    let total = rothValue + tradValue;
     if (total > 13500) {
-      roth.className += " invalid";
-      trad.className += " invalid";
+      roth.classList.add('invalid');
+      trad.classList.add('invalid');
       alert(`Total combined annual contributions to Simple IRA and Simple 401k cannot exceed $13,500. Your total is currently ${dollarFormat.format(total)}. Remember, this total is included in the larger Employer Contribution Accounts (401k, 403b, 457b, Simple) contribution limits.`);
     } else if (total <= 13500) {
-      roth.className = '';
-      trad.className = '';
+      $(roth).removeClass('invalid');
+      $(trad).removeClass('invalid');
     }
   }
   
@@ -126,18 +130,30 @@ document.addEventListener('DOMContentLoaded', function() {
     let simpleIra = +parseInt(document.getElementById('annualContSimpleIra').value) || 0;
     let simple401 = +parseInt(document.getElementById('annualContSimple401').value) || 0;
     let total = trad401 + roth401 + trad403 + roth403 + trad457 + roth457 + single401 + safe401 + simpleIra + simple401;
+    let $values = $('#ecaModal .ecaContAmount');
     let range = document.getElementsByClassName('tab')[currentTab];
     let effects = range.querySelectorAll("[id^='annualCont']");
     if (total > 19500) {
       effects.forEach(a => {
-        a.className += " invalid";
-      })
-      alert(`Total combined annual contributions cannot exceed $19,500. This total is comprised of all 401k, 403b, 457b, and Simple accounts you maintain. Your current projected annual contributions are as follows: \n Traditional 401k: ${dollarFormat.format(trad401)} \n Roth 401k: ${dollarFormat.format(roth401)} \n Single 401k: ${dollarFormat.format(single401)} \n Safe Harbor 401k: ${dollarFormat.format(safe401)} \n Traditional 403b: ${dollarFormat.format(trad403)} \n Roth 403b: ${dollarFormat.format(roth403)} \n Traditional 457: ${dollarFormat.format(trad457)} \n Roth 457: ${dollarFormat.format(roth457)} \n Simple IRA: ${dollarFormat.format(simpleIra)} \n Simple 401k: ${dollarFormat.format(simple401)} \n Total: ${dollarFormat.format(total)}\nPlease reduce these values to less than $19,501.`);
+        a.classList.add('invalid');
+      });
+      $values[0].value = trad401;
+      $values[1].value = roth401;
+      $values[2].value = safe401;
+      $values[3].value = single401;
+      $values[4].value = trad403;
+      $values[5].value = roth403;
+      $values[6].value = trad457;
+      $values[7].value = roth457;
+      $values[8].value = simpleIra;
+      $values[9].value = simple401;
+      ecaModalTotal();
+      $('#ecaModal').toggle();
     } else if (total <= 19500) {
       effects.forEach(a => {
-        a.className = '';
+        $(a).removeClass('invalid');
       })
     }
-  }
+  };
   
 });
