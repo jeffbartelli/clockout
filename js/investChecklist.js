@@ -14,6 +14,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 .addClass('accountTypes') 
     )))}
     $('.investmentSelect').find('*').filter(':input:first').prop('checked','true').prop('disabled','true');
+    let $accountTypes = $('.accountTypes');
+    let $tabs = $('.tab');
+    for (let i=1; i<$('.tab').length; i++) {
+      $accountTypes[i-1].classList.add($tabs[i].id);
+    }
   }
   investmentSelect();
 

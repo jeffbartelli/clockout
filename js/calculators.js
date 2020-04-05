@@ -5,13 +5,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
   window.ecaCalc = (e) => {
     $(e).addClass('thisCalc');
-    e.parentNode.lastChild.innerHTML = dollarFormat.format(data.salary);
-    document.getElementById(e.parentNode.htmlFor).value = parseInt(Math.round(data.salary * (e.value/100) > 57000 ? 57000 : data.salary * (e.value/100)));
+    e.parentNode.lastChild.innerHTML = dollarFormat.format(data.demographics.salary);
+    document.getElementById(e.parentNode.htmlFor).value = parseInt(Math.round(data.demographics.salary * (e.value/100) > 57000 ? 57000 : data.demographics.salary * (e.value/100)));
     $(e).removeClass('thisCalc');
       // Need a separate calculator or logic for Roth accounts.
   }
   
-  // retCalc variables need to come up here. Then bidirectional values setting needs to be set up.
   window.ecaModal = () => {
     let $accounts = $('legend');
     for (let i=7; i<17; i++) {
@@ -22,7 +21,9 @@ document.addEventListener('DOMContentLoaded', function() {
             <input type="number" class="percent ecaCalculator" min="0" max="0" placeholder="0.0" onchange="ecaModalCalc(this)">% x\
             <span class="modalSalary"></span> =</td>\
             <td>\
-            <input type="number" class="ecaContAmount" placeholder="0">\
+            <input type="number" class="ecaContAmount" 
+            onchange="ecaModalCalc(this)"
+            placeholder="0">\
             </td>`));   
     }
     $('table').append(
@@ -38,14 +39,14 @@ document.addEventListener('DOMContentLoaded', function() {
       )
     )
     $('.modalSalary').each(function() {
-      $(this).text(dollarFormat.format(data.salary));
+      $(this).text(dollarFormat.format(data.demographics.salary));
     });  
   }
   ecaModal();
   
   window.ecaModalCalc = (e) => {
-    $(e).parent().last().find('.modalSalary').text(dollarFormat.format(data.salary));
-    $(e).parent().next().find('.ecaContAmount').val(parseInt(Math.round(data.salary * (e.value/100) > 19500 ? 19500 : data.salary * (e.value/100))));
+    $(e).parent().last().find('.modalSalary').text(dollarFormat.format(data.demographics.salary));
+    $(e).parent().next().find('.ecaContAmount').val(parseInt(Math.round(data.demographics.salary * (e.value/100) > 19500 ? 19500 : data.demographics.salary * (e.value/100))));
   
     let ecaContAmount = 0;
     $('.ecaContAmount').each(function(e) {
@@ -61,16 +62,32 @@ document.addEventListener('DOMContentLoaded', function() {
       $('.modalTotal').css('color','black');
       $('#modalClose').prop('disabled',false);
     }
-  }
+  };
+
+  $('#modalClose').click(()=>{
+    let $values = $('#ecaModal .ecaContAmount');
+    document.getElementById('annualContTrad401').value = $values[0].value;
+    document.getElementById('annualContRoth401').value = $values[1].value;
+    document.getElementById('annualContSafeHarbor401').value = $values[2].value;
+    document.getElementById('annualContSingle401').value = $values[3].value;
+    document.getElementById('annualContTrad403').value = $values[4].value;
+    document.getElementById('annualContRoth403').value = $values[5].value;
+    document.getElementById('annualContTrad457').value = $values[6].value;
+    document.getElementById('annualContRoth457').value = $values[7].value;
+    document.getElementById('annualContSimpleIra').value = $values[8].value;
+    document.getElementById('annualContSimple401').value = $values[9].value;
+  });
   
   window.monthlyCalc = (e) => {
     e.parentNode.lastChild.value = parseInt(e.value * 12);
   }
   
   window.iraCalc = (e) => {
-    let roth = +parseInt(document.getElementById('annualContRothIra').value) || 0;
-    let trad = +parseInt(document.getElementById('annualContTradIra')) || 0;
-    let total = roth + trad;
+    let rothValue = +parseInt(document.getElementById('annualContRothIra').value) || 0;
+    let tradValue = +parseInt(document.getElementById('annualContTradIra')) || 0;
+    let roth = document.getElementById('annualContRothIra');
+    let trad = document.getElementById('annualContTradIra');
+    let total = rothValue + tradValue;
     if (total > 6000) {
       roth.className += " invalid";
       trad.className += " invalid";
@@ -82,8 +99,10 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   window.simpleCalc = (e) => {
-    let roth = +parseInt(document.getElementById('annualContSimpleIra').value) || 0;
-    let trad = +parseInt(document.getElementById('annualContSimple401').value) || 0;
+    let rothValue = +parseInt(document.getElementById('annualContSimpleIra').value) || 0;
+    let tradValue = +parseInt(document.getElementById('annualContSimple401').value) || 0;
+    let roth = document.getElementById('annualContSimpleIra');
+    let trad = document.getElementById('annualContSimple401');
     let total = roth + trad;
     if (total > 13500) {
       roth.className += " invalid";

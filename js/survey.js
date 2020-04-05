@@ -67,6 +67,7 @@ window.nextPrev = (n) => {
   if(currentTab == 0) {
     accountTypes();
     demographics();
+    activeItems();
   }
   x[currentTab].style.display = 'none';
 
@@ -83,19 +84,13 @@ window.nextPrev = (n) => {
   }
 }
 
-// validate broke. Need to remove J loop, get K loop working.
 function validateForm() {
   // This function deals with validation of the form fields
   let x, y, blank, valid = true;
   x = document.getElementsByClassName("tab");
   let z = x[currentTab];
-  console.log(x);
-  console.log(currentTab);
-  console.log(z);
-  for (let j=0; j<z.length; j++) {
-    y = z[j].querySelectorAll('input[type=number],input[type=date],select');
-    console.log(y);
-    for (let i=0; i<y.length; i++) {
+  y = z.querySelectorAll('input[type=number],input[type=date],select,input:not(.accountTypes):not(.monthlyCalc)');
+  for (let i=0; i<y.length; i++) {
       if (y[i].value != '') {blank = false;}
 
     }
@@ -112,17 +107,24 @@ function validateForm() {
       }
       blank = true;
     } 
-  }
   return valid;
 }
 
-window.demographics = (form) => {
+window.demographics = () => {
   let inputs = $("#personalDetails :input");
   for (let i=0;i<inputs.length;i++) {
-    data[inputs[i].id] = inputs[i].value;
+    data.demographics[inputs[i].id] = inputs[i].value;
   }
-  // console.log(data);
 }
+
+window.activeItems = () => {
+  let $options = $('.accountTypes');
+  for (let i=0; i<$options.length; i++) {
+    if ($options[i].checked) {
+      data[$options[i].classList[1]].active = true;
+    }
+  };
+};
 
 window.harvest = (form) => {
   // INPUTS DOES NOT INCLUDE SELECT ITEMS. EXPAND DEFINITION TO INCLUDE SELECT, AND TO HANDLE CHECKBOXES CORRECTLY. 
