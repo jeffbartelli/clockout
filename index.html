@@ -98,7 +98,8 @@
       <fieldset>
         <legend class="sectionHeader">Generic Pension</legend>
         <!-- <h4></h4> -->
-        <div class="instructions">Instructions for entering pension information.</div>
+        <div class="instructions">
+          <p>Use the fields below to enter the details about your pension. You can enter either a monthly or annual distribution.And if there is no later age at which Cost of Living Adjustments do not begin, then enter the same age for when benefits begin.</p> </div>
         <div class="annualBenAmtGen">
           <p><label for="annualBenAmtGen">Monthly benefit amount:</label></p>
           <p><input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annualBenAmtGen" id="annualBenAmtGen" placeholder="Annual Amount" oninput="$(this).removeClass('invalid')"></p>
@@ -169,7 +170,12 @@
     <div id="tradIra" class="tab userInput ira">
       <fieldset>
         <legend class="sectionHeader">Traditional IRAs</legend>
-        <div class="instructions">Instructions for entering Roth IRA information.</div>
+        <div class="instructions">
+          <p>The Traditional IRA is an Individual Retirement Account
+            that allows you to make tax-deferred contributions until the age of 70. You pay standard income taxes on all distributions.This is beneficial if you expect to pay less in income taxes at retirement than you do today.</p>
+          <p>Maximum annual contributions cannot exceed $6,000, unless you are over 50, in which case you can contribute up to $7,000. For more information visit <a href="https://www.investopedia.com/terms/t/traditionalira.asp">this site</a>.</p>
+          <p>Enter the total values for all Traditional Roth IRA accounts you may hold in the fields below.</p>
+        </div>
         <!-- <h4></h4> -->
         <div class="currentValTradIra">
           <p><label for="currentValTradIra">Total current value of Traditional IRAs:</label></p>
@@ -201,7 +207,11 @@
     <div class="tab userInput ira" id="rothIra">
       <fieldset>
         <legend class="sectionHeader">Roth IRAs</legend>
-        <div class="instructions">Instructions for entering Roth IRA information.</div>
+        <div class="instructions">
+          <p>The Roth IRA is an Individual Retirement Account where taxes are taken out of your contribution now so that you avoid paying taxes on the distributions upon payout during retirement. This is beneficial if you expect to pay more in income taxes at retirement than you do today.</p>
+          <p>Maximum annual contributions cannot exceed $6,000, unless you are over 50, in which case you can contribute up to $7,000. For more information visit <a href="https://www.investopedia.com/terms/r/rothira.asp">this site</a>.</p>
+          <p>Enter the total values for all Roth IRA accounts you may hold in the fields below.</p>
+        </div>
         <!-- <h4></h4> -->
         <div class="amtContRothIra">
           <p><label for="amtContRothIra">Total Roth IRA contributions through last year:</label></p>
@@ -244,12 +254,12 @@
           <p><input type="number" name="currentValTrad401" id="currentValTrad401" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
         </div>
         <div class="empContTrad401">
-          <p><label for="empContTrad401">Future Annual Traditional 401k Employer Contribution Amount: <input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span></label></p>
-          <p><input type="number" name="empContTrad401" id="empContTrad401" min="0" max="100" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>  
+          <p><label for="empContTrad401">Future Annual Traditional 401k Employer Contribution Amount: </label></p>
+          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="empContTrad401" id="empContTrad401" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>  
         </div>
         <div class="annualContTrad401">
           <p><label for="annualContTrad401">Future Annual Traditional 401k Contribution Amount (up to $19,500):</label></p>
-          <p><input type="number" name="annualContTrad401" id="annualContTrad401" placeholder="Amount" onchange="retCalc(this); $(this).removeClass('invalid');"></p>
+          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaPersCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="annualContTrad401" id="annualContTrad401" placeholder="Amount" onchange="retCalc(this); $(this).removeClass('invalid');"></p>
           <!-- DONT KNOW IF THIS CHANGE WORKS YET -->
         </div>
         <div class="catchUpContTrad401">
@@ -285,12 +295,12 @@
           <p><input type="number" name="currentValRoth401" id="currentValRoth401" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
         </div>
         <div class="empContRoth401">
-          <p><label for="empContRoth401">Future Annual Roth 401k Employer Contribution Amount: <input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span></label></p>
-          <p><input type="number" name="empContRoth401" id="empContRoth401" min="0" max="100" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
+          <p><label for="empContRoth401">Future Annual Roth 401k Employer Contribution Amount: </label></p>
+          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="empContRoth401" id="empContRoth401" min="0" max="100" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
         </div>
         <div class="annualContRoth401">
           <p><label for="annualContRoth401">Future Annual Roth 401k Contribution Amount (up to $19,500):</label></p>
-          <p><input type="number" name="annualContRoth401" id="annualContRoth401" placeholder="Amount" onchange="retCalc(this); $(this).removeClass('invalid');"></p>
+          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaPersCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="annualContRoth401" id="annualContRoth401" placeholder="Amount" onchange="retCalc(this); $(this).removeClass('invalid');"></p>
         </div>
         <div class="catchUpContRoth401">
           <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContRoth401"></label></p>
@@ -323,12 +333,12 @@
           <p><input type="number" name="currentValSafeHarbor401" id="currentValSafeHarbor401" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
         </div>
         <div class="empContSafeHarbor401">
-          <p><label for="empContSafeHarbor401">Future Annual Safe Harbor 401k Employer Contribution Amount: <input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span></label></p>
-          <p><input type="number" name="empContSafeHarbor401" id="empContSafeHarbor401" min="0" max="100" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
+          <p><label for="empContSafeHarbor401">Future Annual Safe Harbor 401k Employer Contribution Amount: </label></p>
+          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="empContSafeHarbor401" id="empContSafeHarbor401" min="0" max="100" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
         </div>
         <div class="annualContSafeHarbor401">
           <p><label for="annualContSafeHarbor401">Future Annual Safe Harbor 401k Contribution Amount (up to $19,500):</label></p>
-          <p><input type="number" name="annualContSafeHarbor401" id="annualContSafeHarbor401" placeholder="Amount" onchange="retCalc(this); $(this).removeClass('invalid');"></p>
+          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaPersCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="annualContSafeHarbor401" id="annualContSafeHarbor401" placeholder="Amount" onchange="retCalc(this); $(this).removeClass('invalid');"></p>
         </div>
         <div class="catchUpContSafeHarbor401">
           <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContSafeHarbor401"></label></p>
@@ -361,12 +371,12 @@
           <p><input type="number" name="currentValSingle401" id="currentValSingle401" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
         </div>
         <div class="empContSingle401">
-          <p><label for="empContSingle401">Future Annual Single 401k Employer Contribution Amount: <input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span></label></p>
-          <p><input type="number" name="empContSingle401" id="empContSingle401" min="0" max="100" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
+          <p><label for="empContSingle401">Future Annual Single 401k Employer Contribution Amount: </label></p>
+          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="empContSingle401" id="empContSingle401" min="0" max="100" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
         </div>
         <div class="annualContSingle401">
           <p><label for="annualContSingle401">Future Annual Single 401k Contribution Amount (up to $19,500):</label></p>
-          <p><input type="number" name="annualContSingle401" id="annualContSingle401" placeholder="Amount" onchange="retCalc(this); $(this).removeClass('invalid');"></p>
+          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaPersCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="annualContSingle401" id="annualContSingle401" placeholder="Amount" onchange="retCalc(this); $(this).removeClass('invalid');"></p>
         </div>
         <div class="catchUpContSingle401">
           <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContSingle401"></label></p>
@@ -399,12 +409,12 @@
           <p><input type="number" name="currentValTrad403" id="currentValTrad403" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
         </div>
         <div class="empContTrad403">
-          <p><label for="empContTrad403">Future Annual Traditional 403b Employer Contribution Amount: <input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span></label></p>
-          <p><input type="number" name="empContTrad403" id="empContTrad403" min="0" max="100" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
+          <p><label for="empContTrad403">Future Annual Traditional 403b Employer Contribution Amount: </label></p>
+          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="empContTrad403" id="empContTrad403" min="0" max="100" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
         </div>
         <div class="annualContTrad403">
           <p><label for="annualContTrad403">Future Annual Traditional 403b Contribution Amount (up to $19,500):</label></p>
-          <p><input type="number" name="annualContTrad403" id="annualContTrad403" placeholder="Amount" onchange="retCalc(this); $(this).removeClass('invalid');"></p>
+          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaPersCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="annualContTrad403" id="annualContTrad403" placeholder="Amount" onchange="retCalc(this); $(this).removeClass('invalid');"></p>
         </div>
         <div class="catchUpContTrad403">
           <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContTrad403"></label></p>
@@ -441,12 +451,12 @@
           <p><input type="number" name="currentValRoth403" id="currentValRoth403" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
         </div>
         <div class="empContRoth403">
-          <p><label for="empContRoth403">Future Annual Roth 403b Employer Contribution Amount: <input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span></label></p>
-          <p><input type="number" name="empContRoth403" id="empContRoth403" min="0" max="100" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
+          <p><label for="empContRoth403">Future Annual Roth 403b Employer Contribution Amount: </label></p>
+          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="empContRoth403" id="empContRoth403" min="0" max="100" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
         </div>
         <div class="annualContRoth403">
           <p><label for="annualContRoth403">Future Annual Roth 403b Contribution Amount (up to $19,500):</label></p>
-          <p><input type="number" name="annualContRoth403" id="annualContRoth403" placeholder="Amount" onchange="retCalc(this); $(this).removeClass('invalid');"></p>
+          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaPersCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="annualContRoth403" id="annualContRoth403" placeholder="Amount" onchange="retCalc(this); $(this).removeClass('invalid');"></p>
         </div>
         <div class="catchUpContRoth403">
           <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContRoth403"></label></p>
@@ -479,12 +489,12 @@
           <p><input type="number" name="currentValTrad457" id="currentValTrad457" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
         </div>
         <div class="empContTrad457">
-          <p><label for="empContTrad457">Future Annual Traditional 457b Employer Contribution Amount:<input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span></label></p>
-          <p><input type="number" name="empContTrad457" id="empContTrad457" min="0" max="100" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
+          <p><label for="empContTrad457">Future Annual Traditional 457b Employer Contribution Amount:</label></p>
+          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="empContTrad457" id="empContTrad457" min="0" max="100" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
         </div>
         <div class="annualContTrad457">
           <p><label for="annualContTrad457">Future Annual Traditional 457b Contribution Amount (up to $19,500):</label></p>
-          <p><input type="number" name="annualContTrad457" id="annualContTrad457" placeholder="Amount" onchange="retCalc(this); $(this).removeClass('invalid');"></p>
+          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaPersCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="annualContTrad457" id="annualContTrad457" placeholder="Amount" onchange="retCalc(this); $(this).removeClass('invalid');"></p>
         </div>
         <div class="catchUpContTrad457">
           <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContTrad457"></label></p>
@@ -521,12 +531,12 @@
           <p><input type="number" name="currentValRoth457" id="currentValRoth457" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
         </div>
         <div class="empContRoth457">
-          <p><label for="empContRoth457">Future Annual Roth 457b Employer Contribution Amount:<input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span></label></p>
-          <p><input type="number" name="empContRoth457" id="empContRoth457" min="0" max="100" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
+          <p><label for="empContRoth457">Future Annual Roth 457b Employer Contribution Amount:</label></p>
+          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="empContRoth457" id="empContRoth457" min="0" max="100" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
         </div>
         <div class="annualContRoth457">
           <p><label for="annualContRoth457">Future Annual Roth 457b Contribution Amount (cannot exceed $19,500):</label></p>
-          <p><input type="number" name="annualContRoth457" id="annualContRoth457" placeholder="Amount" onchange="retCalc(this); $(this).removeClass('invalid');"></p>
+          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaPersCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="annualContRoth457" id="annualContRoth457" placeholder="Amount" onchange="retCalc(this); $(this).removeClass('invalid');"></p>
         </div>
         <div class="catchUpContRoth457">
           <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContRoth457"></label></p>
@@ -559,8 +569,8 @@
           <p><input type="number" name="currentValSimpleIra" id="currentValSimpleIra" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
         </div>
         <div class="empContSimpleIra">
-          <p><label for="empContSimpleIra">Future Annual Simple IRA Employer Contribution Amount (1%-3%): <input type="number" name="" class="ecaCalculator" min="1" max="3" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span></label></label></p>
-          <p><input type="number" name="empContSimpleIra" id="empContSimpleIra" min="1" max="3" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
+          <p><label for="empContSimpleIra">Future Annual Simple IRA Employer Contribution Amount (1%-3%): </label></p>
+          <p><input type="number" name="" class="ecaCalculator" min="1" max="3" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="empContSimpleIra" id="empContSimpleIra" min="1" max="3" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
         </div>
         <div class="annualContSimpleIra">
           <p><label for="annualContSimpleIra">Future Annual Simple IRA Contribution Amount (up to $13,500):</label></p>
@@ -590,7 +600,9 @@
     <div id="simple401" class="tab userInput simple">
       <fieldset>
         <legend class="sectionHeader">Simple 401k</legend>
-        <div class="instructions">Instructions for entering Simple IRA information.</div>
+        <div class="instructions">
+          
+        </div>
         <!-- <h4></h4> -->
         <div class="currentValSimple401">
           <p><label for="currentValSimple401">Total Current Value of your Simple 401k:</label></p>
@@ -598,7 +610,8 @@
         </div>
         <div class="empContSimple401">
           <p><label for="empContSimple401">Future Annual Simple 401k Employer Contribution Amount:</label></p>
-          <p><input type="number" name="empContSimple401" id="empContSimple401" min="0" max="100" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
+          <p><input type="number" name="empContSimple401" id="empContSimple401" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
+          <!-- Possible math problem above. Check Simple 401k employer contribution protocol. -->
         </div>
         <div class="annualContSimple401">
           <p><label for="annualContSimple401">Future Annual Simple 401k Contribution Amount (cannot exceed $13,500):</label></p>

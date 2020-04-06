@@ -4,6 +4,16 @@ let currentTab = 0;
 
 document.addEventListener('DOMContentLoaded', function() {
 
+window.checkboxDefault = () => {
+  let $checkboxes = $(':checkbox:not(".accountTypes")');
+  for (let i=0; i<$checkboxes.length; i++) {
+    if( $checkboxes[i].type == 'checkbox') {
+      $checkboxes[i].checked = false;
+      $checkboxes[i].value = null;
+    }
+  }
+}
+
 /* Creates progress markers for the form pages*/
 let tabOrder = [0];
 window.accountTypes = () => {
@@ -89,10 +99,9 @@ function validateForm() {
   let x, y, blank, valid = true;
   x = document.getElementsByClassName("tab");
   let z = x[currentTab];
-  y = z.querySelectorAll('input[type=number],input[type=date],select,input:not(.accountTypes):not(.monthlyCalc)');
+  y = $(z).find('select,input:not(.monthlyCalc):not(.accountTypes):not(":input[type=checkbox]")');
   for (let i=0; i<y.length; i++) {
       if (y[i].value != '') {blank = false;}
-
     }
     if (blank == false) {
       for (let k=0; k<y.length; k++) {
@@ -127,25 +136,20 @@ window.activeItems = () => {
 };
 
 window.harvest = (form) => {
-  // INPUTS DOES NOT INCLUDE SELECT ITEMS. EXPAND DEFINITION TO INCLUDE SELECT, AND TO HANDLE CHECKBOXES CORRECTLY. 
-  let inputs = document.querySelectorAll('input:not(.accountTypes):not(.ecaCalculator),select');
-  for (let i=0; i<inputs.length; i++) {
-  }
-  for (let i=0;i<inputs.length;i++) {
-    data[inputs[i].id] = inputs[i].value;
-
-    if(inputs[i].type.toLowerCase() == 'checkbox') {
-      if(inputs[i].checked) {
-        data[inputs[i].id] = 1;
-      } else {
-        data[inputs[i].id] = 0;
+  // let inputs = document.querySelectorAll('input:not(.accountTypes):not(.ecaCalculator):not(.monthlyCalc),select');
+  const invCategories = Object.keys(data);
+  for (let i=0; i<invCategories.length; i++) {
+    let tempKeys = Object.keys(data[invCategories[i]]);
+    for (let j=0; j<tempKeys.length; j++) {
+      if (tempKeys[j] == 'active') {continue;}
+      if (document.getElementById(tempKeys[j]).value == '') {continue;}
+      data[invCategories[i]][tempKeys[j]] = document.getElementById(tempKeys[j]).value;
+      if (document.getElementById(tempKeys[j]).type == 'checkbox') {
+        document.getElementById(tempKeys[j]).checked ? data[invCategories[i]][tempKeys[j]] = true : data[invCategories[i]][tempKeys[j]] = false;
       }
     }
-  }    
-  let dropdowns = document.getElementsByTagName('select');
-  for (let i=0;i<dropdowns.length;i++){
-    data[dropdowns[i].id] = dropdowns[i].value;
   }
+  console.log(data);    
 }
 });
 

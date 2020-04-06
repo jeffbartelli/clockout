@@ -5,12 +5,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
   window.ecaCalc = (e) => {
     $(e).addClass('thisCalc');
-    e.parentNode.lastChild.innerHTML = dollarFormat.format(data.demographics.salary);
-    document.getElementById(e.parentNode.htmlFor).value = parseInt(Math.round(data.demographics.salary * (e.value/100) > 57000 ? 57000 : data.demographics.salary * (e.value/100)));
+    e.nextSibling.nextSibling.innerHTML = dollarFormat.format(data.demographics.salary);
+    e.parentNode.lastChild.value = parseInt(Math.round(data.demographics.salary * (e.value/100) > 57000 ? 57000 : data.demographics.salary * (e.value/100)));
     $(e).removeClass('thisCalc');
       // Need a separate calculator or logic for Roth accounts.
   }
   
+  window.ecaPersCalc = (e) => {
+    $(e).addClass('thisCalc');
+    e.nextSibling.nextSibling.innerHTML = dollarFormat.format(data.demographics.salary);
+    e.parentNode.lastChild.value = parseInt(Math.round(data.demographics.salary * (e.value/100) > 19500 ? 19500 : data.demographics.salary * (e.value/100)));
+    $(e).removeClass('thisCalc');
+      // Need a separate calculator or logic for Roth accounts.
+  }
+
   window.ecaModal = () => {
     let $accounts = $('legend');
     for (let i=7; i<17; i++) {
@@ -100,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
       $(roth).removeClass('invalid');
       $(trad).removeClass('invalid');
     }
-  }
+  };
   
   window.simpleCalc = (e) => {
     let rothValue = +parseInt(document.getElementById('annualContSimpleIra').value) || 0;
