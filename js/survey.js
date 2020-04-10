@@ -149,7 +149,7 @@ window.harvest = (form) => {
       }
     }
   }
-  console.log(data);    
+  // console.log(data);    
 }
 });
 

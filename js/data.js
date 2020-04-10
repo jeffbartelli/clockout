@@ -28,6 +28,7 @@ const data = {
   annuities: {
     active:false,
     annualAnnuity:null,
+    annuityCola:null,
     annuityAge:null,
     annuityTax:null
   },

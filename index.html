@@ -159,13 +159,20 @@
       <fieldset>
         <legend class="sectionHeader">Annuities/Insurance</legend>
         <!-- <h4></h4> -->
-        <div class="instructions">Instructions for entering annuity information.</div>
+        <div class="instructions">
+          <p>Annuities are complex and confusing financial vehicles sold by insurance companies. For a deep dive into annuities, visit <a href="https://www.creditkarma.com/advice/i/how-do-annuities-work/" target="_blank">this</a> article over at creditkarma.</p>
+          <p>At present this form can really only accommodate fixed annuities. If you have a different type of annuity, consider entering your information in the Other Assets or Other Benefits categories.</p> 
+        </div>
         <div class="annualAnnuity">
           <p><label for="annualAnnuity">Monthly benefit amount:</label></p>
           <p><input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annualAnnuity" id="annualAnnuity" placeholder="Annual Amount" oninput="$(this).removeClass('invalid')"></p>
         </div>
         <div class="annuityTax">
           <p><label>Is the benefit taxable: <input type="checkbox" id="annuityTax"></label></p>
+        </div>
+        <div class="annuityCola">
+          <p><label for="annuityCola">Average cost of living adjustment (COLA) (%):</label></p>
+          <p><input type="number" name="annuityCola" id="annuityCola" min="0" max="10" placeholder="Percent" oninput="$(this).removeClass('invalid')"></p>
         </div>
         <div class="annuityAge">
           <p><label for="annuityAge">Age at which annuity begins:</label></p>
