@@ -14,7 +14,7 @@
   <script type="module" src="/js/data.js"></script>
   <script type="module" src="/js/survey.js"></script>
   <script type="module" src="/js/calculators.js"></script>
-  <script src="/js/assets.js"></script>
+  <script type="module" src="/js/assets.js"></script>
 </head>
 <body>
   <form id="dataForm" action="">
@@ -71,7 +71,11 @@
       <fieldset>
         <legend class="sectionHeader">SSI Retirement Benefit</legend>
         <!-- <h4></h4> -->
-        <div class="instructions">Instructions for entering SSI information.</div>
+        <div class="instructions">
+          <p>Nearly all U.S. citizens are entitled to Social Security. If you have worked in the U.S. and payed taxes then you have contributed to Social Security. </p><p>To determine what your estimated monthly payout will be you can do one of two things: use <a href="https://www.ssa.gov/benefits/retirement/estimator.html" target="_blank">this calculator</a> provided by the Social Security Administration to receive an estimate of your monthly benefit; or, you can retrieve an accurate estimate from your Social Security account. To do this, go to <a href="https://secure.ssa.gov/RIL/SiView.action">this site</a> to set up an account and access all of your Social Security contribution data.</p>
+          <p>You must also select an age to begin receiving Social Security benefits. These benefits cannot be claimed before the age of 62, at which point you will receive 70% of your benefit. Full benefits are received if you retire at age 67. And if you delay receiving benefits until the age of 70, you will receive 124% of your estimated benefit.</p>
+          <p>Note: The Social Security Administration estimates that after 2035 it will only collect enough payroll taxes to pay out 80% of your estimated benefit.</p>
+        </div>
         <div class="monthlyAmtSsi">
           <p><label for="monthlyAmtSsi">Projected full monthly SSI benefit (not adjusted if initiating benefits before age 67):</label></p>
           <p>
@@ -82,12 +86,15 @@
           <p>
             <select name="retirementAgeSsi" id="retirementAgeSsi" oninput="$(this).removeClass('invalid')">
               <option value="" disabled selected hidden>Select one</option>
-              <option value="62">62</option>
-              <option value="63">63</option>
-              <option value="64">64</option>
-              <option value="65">66</option>
-              <option value="66">66</option>
-              <option value="67">67</option>
+              <option value="62">62 (70%)</option>
+              <option value="63">63 (76%)</option>
+              <option value="64">64 (82%)</option>
+              <option value="65">66 (88%)</option>
+              <option value="66">66 (94%)</option>
+              <option value="67">67 (100%)</option>
+              <option value="68">68 (108%)</option>
+              <option value="69">69 (116%)</option>
+              <option value="70">70 (124%)</option>
             </select>
           </p>
         </div>
