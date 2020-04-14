@@ -1,5 +1,6 @@
 import {data} from './survey.js';
 import {life} from './data.js';
+import {investStrat} from './investStrat.js'
 
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -137,3 +138,18 @@ window.annuities = () => {
   }
   return annuityPayout;
 }
+
+window.tradIra = () => {
+  let ages = calcAge();
+  const birthYear = ages.current - ages.age;
+  const deathYear = ages.current - ages.age + ages.death;
+  const endContYear = birthYear + parseInt(data.tradIra.contEndAgeTradIra);
+  let tradIraPayout = [];
+  if (data.tradIra.active == true) {
+    for (let i=ages.current; i<deathYear+1; i++) {
+      /* For each year, first increase current value by investStrat %, then add on contribution amount. If current age over 50 && catchUpContTradIra is checked then add extra $1k. Then push total for that year. InvestStrat percentage should decrease based on ages.retire. Also try to structure the output to help guide later changes to the data?  */
+    }
+  }
+
+}
+
