@@ -114,6 +114,21 @@ select.invalid, input.invalid {
   background-color: #4CAF50;
 } */
 
+#retSalCalc {
+  background-color: white;
+  width: 12%;
+  height: 320px;
+  border-style: ridge;
+  border-radius: 5px;
+  position: fixed;
+  float: left;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 5px;
+  display: none;
+}
+
 input.ecaCalculator {
   width: 35px;
   font-size: medium;
@@ -147,9 +162,13 @@ input.ecaCalculator {
   margin: 0 auto 10px auto;
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 800px) {
   .tab {
     height:auto;
+  }
+
+  body {
+    max-width: 100%;
   }
 
   /* #formNav .tab:first-of-type {

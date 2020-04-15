@@ -94,6 +94,26 @@ document.addEventListener('DOMContentLoaded', function() {
     e.parentNode.lastChild.value = parseInt(e.value * 12);
   }
   
+  window.retSalCalc = () => {
+  let sum = 0;
+  $('.retSalCalcVals:not(.total)').each(function() {
+    sum += Number($(this).val());
+  });
+  $('#retSalTotal').val(sum);
+  };
+
+  $('#retSalCalcClose').click((event)=>{
+    let sum = 0;
+    $('.retSalCalcVals:not(.total)').each(function() {
+      sum += Number($(this).val());
+    });
+    if (sum != 0) {
+      $('#retSal').val(sum);
+    }
+    $('#retSalCalc').toggle();
+    event.preventDefault();
+  });
+
   window.iraCalc = (e) => {
     let rothValue = +parseInt(document.getElementById('annualContRothIra').value) || 0;
     let tradValue = +parseInt(document.getElementById('annualContTradIra')) || 0;

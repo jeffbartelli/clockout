@@ -99,7 +99,7 @@ function validateForm() {
   let x, y, blank, valid = true;
   x = document.getElementsByClassName("tab");
   let z = x[currentTab];
-  y = $(z).find('select,input:not(.monthlyCalc):not(.accountTypes):not(":input[type=checkbox]")');
+  y = $(z).find('select,input:not(.monthlyCalc):not(.accountTypes):not(":input[type=checkbox]"):not(.retSalCalcVals)');
   for (let i=0; i<y.length; i++) {
       if (y[i].value != '') {blank = false;}
     }

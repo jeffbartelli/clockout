@@ -50,8 +50,12 @@
             </p>
           </div>
           <div class="salary">
-            <p><label for="salary">Annual Salary:</label></p>
-            <p><input type="number" name="salary" placeholder="Salary" id="salary" min="0" value="100000" oninput="$(this).removeClass('invalid')"></p>
+            <p><label for="salary">Current Annual Salary:</label></p>
+            <p><input type="number" name="salary" placeholder="Current Salary" id="salary" min="0" value="100000" oninput="$(this).removeClass('invalid')"></p>
+          </div>
+          <div class="retSal">
+            <p><label for="retSal">Annual Retirement Budget:</label></p>
+            <p><input type="number" name="retSal" placeholder="Retired Budget" id="retSal" min="0" value="48000" oninput="$(this).removeClass('invalid')"><img src="https://img.icons8.com/material-outlined/24/000000/calculator--v2.png" onclick="$('#retSalCalc').toggle();" title="Calculate your total budget."/></p>
           </div>
           <div class="retAge">
             <p><label for="retAge">Target Retirement Age:</label></p>
@@ -66,6 +70,18 @@
           <h4>Investments, Accounts & Assets (mark all that apply):</h4>
         </div>
       </fieldset>
+      <div id="retSalCalc">
+        <p>Enter annual totals for each category. The total amount will represent the net salary (in today's dollars) that you will need in retirement.</p>
+        <p><input type="number" id="housing" placeholder="Housing Budget" class="retSalCalcVals" onchange="retSalCalc()"></p>
+        <p><input type="number" id="transport"  class="retSalCalcVals" placeholder="Transportation Budget" onchange="retSalCalc()"></p> 
+        <p><input type="number" id="groceries" class="retSalCalcVals" placeholder="Grocery & Dining Budget" onchange="retSalCalc()"></p> 
+        <p><input type="number" id="health" class="retSalCalcVals" placeholder="Healthcare Budget" onchange="retSalCalc()"></p>
+        <p><input type="number" id="travel" class="retSalCalcVals" placeholder="Travel/Vacation Budget" onchange="retSalCalc()"></p>
+        <p><input type="number" id="other" class="retSalCalcVals" placeholder="Other Expenses" onchange="retSalCalc()"></p>
+        <p><input type="number" id="retSalTotal" class="retSalCalcVals total" placeholder="Total Annual Expenses" value=""></p>
+        <button id="retSalCalcClose">Close</button>
+        </div>
+      </div>
     </div>
 
     <div class="tab userInput pensions" id="ssi">
@@ -204,7 +220,7 @@
           <p><label>$1,000 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContTradIra"></label></p>
         </div>
         <div class="contEndAgeTradIra">
-          <p><label for="contEndAgeTradIra">Age when you will stop contributing to Traditional IRAs (up to 70):</label></p>
+          <p><label for="contEndAgeTradIra">Age when you will stop contributing to Traditional IRAs:</label></p>
           <p><input type="number" maxlength="2" name="contEndAgeTradIra" id="contEndAgeTradIra" placeholder="Age" oninput="$(this).removeClass('invalid')"></p>
         </div>
         <div class="investStratTradIra">
@@ -281,7 +297,7 @@
           <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContTrad401"></label></p>
         </div>
         <div class="contEndAgeTrad401">
-          <p><label for="contEndAgeTrad401">Age when you will stop contributing to Traditional 401k (up to 70):</label></p>
+          <p><label for="contEndAgeTrad401">Age when you will stop contributing to Traditional 401k:</label></p>
           <p><input type="number" maxlength="2" name="contEndAgeTrad401" id="contEndAgeTrad401" placeholder="Age" oninput="$(this).removeClass('invalid')"></p>
         </div>
         <div class="investStratTrad401">
@@ -435,7 +451,7 @@
           <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContTrad403"></label></p>
         </div>
         <div class="contEndAgeTrad403">
-          <p><label for="contEndAgeTrad403">Age when you will stop contributing to your Traditional 403b (up to 70):</label></p>
+          <p><label for="contEndAgeTrad403">Age when you will stop contributing to your Traditional 403b:</label></p>
           <p><input type="number" maxlength="2" name="contEndAgeTrad403" id="contEndAgeTrad403" placeholder="Age" oninput="$(this).removeClass('invalid')"></p>
         </div>
         <div class="investStratTrad403">
@@ -515,7 +531,7 @@
           <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContTrad457"></label></p>
         </div>
         <div class="contEndAgeTrad457">
-          <p><label for="contEndAgeTrad457">Age when you will stop contributing to your Traditional 457b (up to 70):</label></p>
+          <p><label for="contEndAgeTrad457">Age when you will stop contributing to your Traditional 457b:</label></p>
           <p><input type="number" maxlength="2" name="contEndAgeTrad457" id="contEndAgeTrad457" placeholder="Age" oninput="$(this).removeClass('invalid')"></p>
         </div>
         <div class="investStratTrad457"> 
@@ -739,6 +755,10 @@
         <div class="retSalBeginAge">
           <p><label for="retSalBeginAge">Age when retirement employment begins:</label></p>
           <p><input type="number" name="retSalBeginAge" id="retSalBeginAge" oninput="$(this).removeClass('invalid')"></p>
+        </div>
+        <div class="retSalEndAge">
+          <p><label for="retSalEndAge">Age when retirement employment ends:</label></p>
+          <p><input type="number" name="retSalEndAge" id="retSalEndAge" max="119" oninput="$(this).removeClass('invalid')"></p>
         </div>
       </fieldset>
     </div>
