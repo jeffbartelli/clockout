@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
   $('#modalClose').click(()=>{
     let $values = $('#ecaModal .ecaContAmount');
     document.getElementById('annualContTrad401').value = $values[0].value;
-    document.getElementById('annualContRoth401').value = $values[1].value;
+    document.getElementById('annualContRoth').value = $values[1].value;
     document.getElementById('annualContSafeHarbor401').value = $values[2].value;
     document.getElementById('annualContSingle401').value = $values[3].value;
     document.getElementById('annualContTrad403').value = $values[4].value;
@@ -147,17 +147,11 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   window.retCalc = (e) => {
-    let trad401 = +parseInt(document.getElementById('annualContTrad401').value) || 0;
-    let roth401 = +parseInt(document.getElementById('annualContRoth401').value) || 0;
-    let trad403 = +parseInt(document.getElementById('annualContTrad403').value) || 0;
-    let roth403 = +parseInt(document.getElementById('annualContRoth403').value) || 0;
-    let trad457 = +parseInt(document.getElementById('annualContTrad457').value) || 0;
-    let roth457 = +parseInt(document.getElementById('annualContRoth457').value) || 0;
-    let single401 = +parseInt(document.getElementById('annualContSingle401').value) || 0;
-    let safe401 = +parseInt(document.getElementById('annualContSafeHarbor401').value) || 0;
+    let trad = +parseInt(document.getElementById('annualContTrad').value) || 0;
+    let roth = +parseInt(document.getElementById('annualContRoth').value) || 0;
     let simpleIra = +parseInt(document.getElementById('annualContSimpleIra').value) || 0;
     let simple401 = +parseInt(document.getElementById('annualContSimple401').value) || 0;
-    let total = trad401 + roth401 + trad403 + roth403 + trad457 + roth457 + single401 + safe401 + simpleIra + simple401;
+    let total = trad + roth + simpleIra + simple401;
     let $values = $('#ecaModal .ecaContAmount');
     let range = document.getElementsByClassName('tab')[currentTab];
     let effects = range.querySelectorAll("[id^='annualCont']");
@@ -165,14 +159,8 @@ document.addEventListener('DOMContentLoaded', function() {
       effects.forEach(a => {
         a.classList.add('invalid');
       });
-      $values[0].value = trad401;
-      $values[1].value = roth401;
-      $values[2].value = safe401;
-      $values[3].value = single401;
-      $values[4].value = trad403;
-      $values[5].value = roth403;
-      $values[6].value = trad457;
-      $values[7].value = roth457;
+      $values[0].value = trad;
+      $values[1].value = roth;
       $values[8].value = simpleIra;
       $values[9].value = simple401;
       ecaModalTotal();

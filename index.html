@@ -61,13 +61,12 @@
             <p><label for="retAge">Target Retirement Age:</label></p>
             <p><input type="number" name="retAge" maxlength="2" id="retAge" placeholder="Age" oninput="$(this).removeClass('invalid')" value="56"></p>
           </div>
-          <div class="retState">
+          <!-- <div class="retState">
             <p><label for="state">Retirement State:</label></p>
             <p><select name="state" id="retState" oninput="$(this).removeClass('invalid')"></select></p>
-          </div>
+          </div> -->
         </div>
         <div class="investmentSelect">
-          <h4>Investments, Accounts & Assets (mark all that apply):</h4>
         </div>
       </fieldset>
       <div id="retSalCalc">
@@ -86,7 +85,7 @@
 
     <div class="tab userInput pensions" id="ssi">
       <fieldset>
-        <legend class="sectionHeader">SSI Retirement Benefit</legend>
+        <legend class="sectionHeader income">SSI Retirement Benefit</legend>
         <!-- <h4></h4> -->
         <div class="instructions">
           <p>Nearly all U.S. citizens are entitled to Social Security. If you have worked in the U.S. and payed taxes then you have contributed to Social Security. </p><p>To determine what your estimated monthly payout will be you can do one of two things: use <a href="https://www.ssa.gov/benefits/retirement/estimator.html" target="_blank">this calculator</a> provided by the Social Security Administration to receive an estimate of your monthly benefit; or, you can retrieve an accurate estimate from your Social Security account. To do this, go to <a href="https://secure.ssa.gov/RIL/SiView.action">this site</a> to set up an account and access all of your Social Security contribution data.</p>
@@ -120,7 +119,7 @@
 
     <div id="genPension" class="tab userInput pensions">
       <fieldset>
-        <legend class="sectionHeader">Generic Pension</legend>
+        <legend class="sectionHeader income">Generic Pension</legend>
         <!-- <h4></h4> -->
         <div class="instructions">
           <p>Use the fields below to enter the details about your pension. You can enter either a monthly or annual distribution.And if there is no later age at which Cost of Living Adjustments do not begin, then enter the same age for when benefits begin.</p> </div>
@@ -148,7 +147,7 @@
 
     <div id="fersPension" class="tab userInput pensions">
       <fieldset>
-        <legend class="sectionHeader">FERS Pension</legend>
+        <legend class="sectionHeader income">FERS Pension</legend>
         <!-- <h4></h4> -->
         <div class="instructions">Instructions for entering FERS information.</div>
         <div class="benBeginAgeFers">
@@ -174,7 +173,7 @@
 
     <div id="annuities" class="tab userInput pensions">
       <fieldset>
-        <legend class="sectionHeader">Annuities/Insurance</legend>
+        <legend class="sectionHeader income">Annuities/Insurance</legend>
         <!-- <h4></h4> -->
         <div class="instructions">
           <p>Annuities are complex and confusing financial vehicles sold by insurance companies. For a deep dive into annuities, visit <a href="https://www.creditkarma.com/advice/i/how-do-annuities-work/" target="_blank">this</a> article over at creditkarma.</p>
@@ -198,9 +197,111 @@
       </fieldset>
     </div>
 
+    <div class="tab userInput disability" id="vaDisability">
+      <fieldset>
+        <legend class="sectionHeader income">VA Disability</legend>
+        <div class="instructions">Instructions for entering disability information.</div>
+        <!-- <h4></h4> -->
+        <div class="annualAmtVa">
+          <p><label for="annualAmtVa">Monthly VA Disability Total:</label></p>
+          <p><input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annualAmtVa" id="annualAmtVa" placeholder="Annual Amount" oninput="$(this).removeClass('invalid')"></p>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="tab userInput disability" id="ssiDisability">
+      <fieldset>
+        <legend class="sectionHeader income">SSI Disability</legend>
+        <div class="instructions">Instructions for entering disability information.</div>
+        <!-- <h4></h4> -->
+        <div class="annualAmtSsi">
+          <p><label for="annualAmtSsi">Monthly SSI Disability Total:</label></p>
+          <p><input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annualAmtSsi" id="annualAmtSsi" placeholder="Annual Amount" oninput="$(this).removeClass('invalid')"></p>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="tab userInput disability" id="otherDisability">
+      <fieldset>
+        <legend class="sectionHeader income">Other Disability</legend>
+        <div class="instructions">Instructions for entering disability information.</div>
+        <!-- <h4></h4> -->
+        <div class="annualAmtOther" class="userInput">
+          <p><label for="annualAmtOther">Monthly Other Disability Total:</label></p>
+          <p><input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annualAmtOther" id="annualAmtOther" placeholder="Annual Amount" oninput="$(this).removeClass('invalid')"></p>
+        </div>
+        <div class="taxOther">
+          <p><label>Are these disability benefits taxable: <input type="checkbox" id="taxOther"></label></p>
+        </div>
+        <div class="colaOther">
+          <p><label for="colaOther">Annual Cost of Living Adjustment (%):</label></p>
+          <p><input type="number" name="colaOther" id="colaOther" min="0" max="10" placeholder="0.0" oninput="$(this).removeClass('invalid')"></p>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="tab userInput other" id="retireSal">
+      <fieldset>
+        <legend class="sectionHeader income">Retirement Salary</legend>
+        <div class="instructions">Instructions for entering additional information.</div>
+        <!-- <h4></h4> -->
+        <div class="retSalAmt">
+          <p><label for="retSalAmt">Annual Retirement Salary:</label></p>
+          <p><input type="number" name="retSalAmt" id="retSalAmt" placeholder="Salary" oninput="$(this).removeClass('invalid')"></p>
+        </div>
+        <div class="retSalBeginAge">
+          <p><label for="retSalBeginAge">Age when retirement employment begins:</label></p>
+          <p><input type="number" name="retSalBeginAge" id="retSalBeginAge" oninput="$(this).removeClass('invalid')"></p>
+        </div>
+        <div class="retSalEndAge">
+          <p><label for="retSalEndAge">Age when retirement employment ends:</label></p>
+          <p><input type="number" name="retSalEndAge" id="retSalEndAge" max="119" oninput="$(this).removeClass('invalid')"></p>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="tab userInput other" id="rents">
+      <fieldset>
+        <legend class="sectionHeader income">Rental Income</legend>
+        <div class="instructions">Instructions for entering additional information.</div>
+        <!-- <h4></h4> -->
+        <div class="rentalProfits">
+          <p><label for="rentalProfits">Annual Net Rental Profits:</label></p>
+          <p><input type="number" name="rentalProfits" id="rentalProfits" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
+        </div>
+        <div class="rentalProfitsGrowth">
+          <p><label for="rentalProfitsGrowth">Annual Net Rental Profit Growth (%):</label></p>
+          <p><input type="number" name="rentalProfitsGrowth" id="rentalProfitsGrowth" min="0" placeholder="0.0" oninput="$(this).removeClass('invalid')"></p>
+        </div>
+      </fieldset>
+    </div>
+    
+    <div class="tab userInput other" id="otherBen">
+      <fieldset>
+        <legend class="sectionHeader income">Other Benefits</legend>
+        <div class="instructions">Instructions for entering additional information.</div>
+        <!-- <h4></h4> -->
+        <div class="otherBenAmt">
+          <p><label for="otherBenAmt">All other financial benefits/revenue/income:</label></p>
+          <p><input type="number" name="otherBenAmt" id="otherBenAmt" oninput="$(this).removeClass('invalid')"></p>
+        </div>
+        <div class="otherBenCola">
+          <p><label for="otherBenCola">Annual Cost of Living Adjustment, if applicable:</label></p>
+          <p><input type="number" name="otherBenCola" id="otherBenCola" oninput="$(this).removeClass('invalid')"></p>
+        </div>
+        <div class="otherBenBeginAge">
+          <p><label for="otherBenBeginAge">Age when benefits begin:</label></p>
+          <p><input type="number" name="otherBenBeginAge" id="otherBenBeginAge" oninput="$(this).removeClass('invalid')"></p>
+        </div>
+        <div class="otherBenTax">
+          <p><label>Are these benefits taxable: <input type="checkbox" id="otherBenTax"></label></p>
+        </div>
+      </fieldset>
+    </div>
+
     <div id="tradIra" class="tab userInput ira">
       <fieldset>
-        <legend class="sectionHeader">Traditional IRAs</legend>
+        <legend class="sectionHeader investment">Traditional IRAs</legend>
         <div class="instructions">
           <p>The Traditional IRA is an Individual Retirement Account
             that allows you to make tax-deferred contributions until the age of 70. You pay standard income taxes on all distributions.This is beneficial if you expect to pay less in income taxes at retirement than you do today.</p>
@@ -223,21 +324,12 @@
           <p><label for="contEndAgeTradIra">Age when you will stop contributing to Traditional IRAs:</label></p>
           <p><input type="number" maxlength="2" name="contEndAgeTradIra" id="contEndAgeTradIra" placeholder="Age" oninput="$(this).removeClass('invalid')"></p>
         </div>
-        <div class="investStratTradIra">
-          <p><label for="investStratTradIra">Investment Strategy:</label></p>
-          <p><select name="investStratTradIra" id="investStratTradIra" oninput="$(this).removeClass('invalid')">
-            <option value="" disabled selected hidden>Select one</option>
-            <option value="conservative">Conservative</option>
-            <option value="average">Average</option>
-            <option value="risky">Risky</option>
-          </select></p>
-        </div>
       </fieldset>
     </div>
 
     <div class="tab userInput ira" id="rothIra">
       <fieldset>
-        <legend class="sectionHeader">Roth IRAs</legend>
+        <legend class="sectionHeader investment">Roth IRAs</legend>
         <div class="instructions">
           <p>The Roth IRA is an Individual Retirement Account where taxes are taken out of your contribution now so that you avoid paying taxes on the distributions upon payout during retirement. This is beneficial if you expect to pay more in income taxes at retirement than you do today.</p>
           <p>Maximum annual contributions cannot exceed $6,000, unless you are over 50, in which case you can contribute up to $7,000. For more information visit <a href="https://www.investopedia.com/terms/r/rothira.asp">this site</a>.</p>
@@ -263,336 +355,71 @@
           <p><label for="contEndAgeRothIra">Age when you will stop contributing to Roth IRAs:</label></p>
           <p><input type="number" maxlength="2" name="contEndAgeRothIra" id="contEndAgeRothIra" placeholder="Age" oninput="$(this).removeClass('invalid')"></p>
         </div>
-        <div class="investStratRothIra">
-          <p><label for="investStratRothIra">Investment Strategy:</label></p>
-          <p><select name="investStratRothIra" id="investStratRothIra" class="dropdown" oninput="$(this).removeClass('invalid')">
-            <option value="" disabled selected hidden>Select one</option>
-            <option value="conservative" name="investStratRothIra">Conservative</option>
-            <option value="average" name="investStratRothIra">Average</option>
-            <option value="risky" name="investStratRothIra">Risky</option>
-          </select></p>
-        </div>
       </fieldset>
     </div>
 
-    <div class="tab userInput 401k" id="trad401">
+    <div class="tab userInput" id="tradAccts">
       <fieldset>
-        <legend class="sectionHeader">Traditional 401k</legend>
-        <div class="instructions">Instructions for entering 401k information.</div>
+        <legend class="sectionHeader investment">Traditional Retirement Accounts</legend>
+        <div class="instructions">Instructions for entering information on 401k, 403b, 457b, Single 401k, and Safe Harbor 401k.</div>
         <!-- <h4></h4> -->
-        <div class="currentValTrad401">
-          <p><label for="currentValTrad401">Total Current Value of Traditional 401k:</label></p>
-          <p><input type="number" name="currentValTrad401" id="currentValTrad401" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
+        <div class="currentValTrad">
+          <p><label for="currentValTrad">Total Current Value of Traditional Accounts:</label></p>
+          <p><input type="number" name="currentValTrad" id="currentValTrad" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
         </div>
-        <div class="empContTrad401">
-          <p><label for="empContTrad401">Future Annual Traditional 401k Employer Contribution Amount: </label></p>
-          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="empContTrad401" id="empContTrad401" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>  
+        <div class="empContTrad">
+          <p><label for="empContTrad">Future Annual Employer Contribution Amount: </label></p>
+          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="empContTrad" id="empContTrad" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>  
         </div>
-        <div class="annualContTrad401">
-          <p><label for="annualContTrad401">Future Annual Traditional 401k Contribution Amount (up to $19,500):</label></p>
-          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaPersCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="annualContTrad401" id="annualContTrad401" placeholder="Amount" onchange="retCalc(this); $(this).removeClass('invalid');"></p>
+        <div class="annualContTrad">
+          <p><label for="annualContTrad">Future Annual Personal Contribution Amount (up to $19,500):</label></p>
+          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaPersCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="annualContTrad" id="annualContTrad" placeholder="Amount" onchange="retCalc(this); $(this).removeClass('invalid');"></p>
           <!-- DONT KNOW IF THIS CHANGE WORKS YET -->
         </div>
-        <div class="catchUpContTrad401">
-          <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContTrad401"></label></p>
+        <div class="catchUpContTrad">
+          <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContTrad"></label></p>
         </div>
-        <div class="contEndAgeTrad401">
-          <p><label for="contEndAgeTrad401">Age when you will stop contributing to Traditional 401k:</label></p>
-          <p><input type="number" maxlength="2" name="contEndAgeTrad401" id="contEndAgeTrad401" placeholder="Age" oninput="$(this).removeClass('invalid')"></p>
-        </div>
-        <div class="investStratTrad401">
-          <p><label for="investStratTrad401">Investment Strategy:</label></p>
-          <select name="investStratTrad401" id="investStratTrad401" oninput="$(this).removeClass('invalid')">
-            <option value="" disabled selected hidden>Select one</option>
-            <option value="conservative">Conservative</option>
-            <option value="average">Average</option>
-            <option value="risky">Risky</option>
-          </select>  
+        <div class="contEndAgeTrad">
+          <p><label for="contEndAgeTrad">Age when you will stop contributing to your Traditional Accounts:</label></p>
+          <p><input type="number" maxlength="2" name="contEndAgeTrad" id="contEndAgeTrad" placeholder="Age" oninput="$(this).removeClass('invalid')"></p>
         </div>
       </fieldset>  
     </div>
 
-    <div id="roth401" class="tab userInput 401k">
+    <div id="rothAccts" class="tab userInput">
       <fieldset>
-        <legend class="sectionHeader">Roth 401k</legend>
-        <div class="instructions">Instructions for entering 401k information.</div>
+        <legend class="sectionHeader investment">Roth Retirement Accounts</legend>
+        <div class="instructions">Instructions for entering information.</div>
         <!-- <h4></h4> -->
-        <div class="amtContRoth401">
-          <p><label for="amtContRoth401">Total Roth 401k Contributions through the end of last year:</label></p>
-          <p><input type="number" id="amtContRoth401" name="amtContRoth401" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
+        <div class="amtContRoth">
+          <p><label for="amtContRoth">Total Roth 401k Contributions through the end of last year:</label></p>
+          <p><input type="number" id="amtContRoth" name="amtContRoth" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
         </div>
-        <div class="currentValRoth401">
-          <p><label for="currentValRoth401">Total Current Value of Roth 401k:</label></p>
-          <p><input type="number" name="currentValRoth401" id="currentValRoth401" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
+        <div class="currentValRoth">
+          <p><label for="currentValRoth">Total Current Value of Roth 401k:</label></p>
+          <p><input type="number" name="currentValRoth" id="currentValRoth" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
         </div>
-        <div class="empContRoth401">
-          <p><label for="empContRoth401">Future Annual Roth 401k Employer Contribution Amount: </label></p>
-          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="empContRoth401" id="empContRoth401" min="0" max="100" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
+        <div class="empContRoth">
+          <p><label for="empContRoth">Future Annual Roth 401k Employer Contribution Amount: </label></p>
+          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="empContRoth" id="empContRoth" min="0" max="100" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
         </div>
-        <div class="annualContRoth401">
-          <p><label for="annualContRoth401">Future Annual Roth 401k Contribution Amount (up to $19,500):</label></p>
-          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaPersCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="annualContRoth401" id="annualContRoth401" placeholder="Amount" onchange="retCalc(this); $(this).removeClass('invalid');"></p>
+        <div class="annualContRoth">
+          <p><label for="annualContRoth">Future Annual Roth 401k Contribution Amount (up to $19,500):</label></p>
+          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaPersCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="annualContRoth" id="annualContRoth" placeholder="Amount" onchange="retCalc(this); $(this).removeClass('invalid');"></p>
         </div>
-        <div class="catchUpContRoth401">
-          <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContRoth401"></label></p>
+        <div class="catchUpContRoth">
+          <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContRoth"></label></p>
         </div>
-        <div class="contEndAgeRoth401">
-          <p><label for="contEndAgeRoth401">Age when you will stop contributing to Roth 401k:</label></p>
-          <p><input type="number" maxlength="2" name="contEndAgeRoth401" id="contEndAgeRoth401" placeholder="Age" oninput="$(this).removeClass('invalid')"></p>
-        </div>
-        <div class="investStratRoth401">
-          <p><label for="investStratRoth401">Investment Strategy:</label></p>
-          <p>
-            <select name="investStratRoth401" id="investStratRoth401" oninput="$(this).removeClass('invalid')">
-              <option value="" disabled selected hidden>Select one</option>
-              <option value="conservative">Conservative</option>
-              <option value="average">Average</option>
-              <option value="risky">Risky</option>
-            </select>
-          </p>
-        </div>
-      </fieldset>
-    </div>
-
-    <div id="safeHarbor401" class="tab userInput 401k">
-      <fieldset>
-        <legend class="sectionHeader">Safe Harbor 401k</legend>
-        <div class="instructions">Instructions for entering 401k information.</div>
-        <!-- <h4></h4> -->
-        <div class="currentValSafeHarbor401">
-          <p><label for="currentValSafeHarbor401">Total Current Value of your Safe Harbor 401k:</label></p>
-          <p><input type="number" name="currentValSafeHarbor401" id="currentValSafeHarbor401" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
-        </div>
-        <div class="empContSafeHarbor401">
-          <p><label for="empContSafeHarbor401">Future Annual Safe Harbor 401k Employer Contribution Amount: </label></p>
-          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="empContSafeHarbor401" id="empContSafeHarbor401" min="0" max="100" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
-        </div>
-        <div class="annualContSafeHarbor401">
-          <p><label for="annualContSafeHarbor401">Future Annual Safe Harbor 401k Contribution Amount (up to $19,500):</label></p>
-          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaPersCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="annualContSafeHarbor401" id="annualContSafeHarbor401" placeholder="Amount" onchange="retCalc(this); $(this).removeClass('invalid');"></p>
-        </div>
-        <div class="catchUpContSafeHarbor401">
-          <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContSafeHarbor401"></label></p>
-        </div>
-        <div class="contEndAgeSafeHarbor401">
-          <p><label for="contEndAgeSafeHarbor401">Age when you will stop contributing to your Safe Harbor 401k:</label></p>
-          <p><input type="number" maxlength="2" name="contEndAgeSafeHarbor401" id="contEndAgeSafeHarbor401" placeholder="Age" oninput="$(this).removeClass('invalid')"></p>
-        </div>
-        <div class="investStratSafeHarbor401">
-          <p><label for="investStratSafeHarbor401">Investment Strategy:</label></p>
-          <p>
-            <select name="investStratSafeHarbor401" id="investStratSafeHarbor401" oninput="$(this).removeClass('invalid')">
-              <option value="" disabled selected hidden>Select one</option>
-              <option value="conservative">Conservative</option>
-              <option value="average">Average</option>
-              <option value="risky">Risky</option>
-            </select>
-          </p>
-          </div>
-      </fieldset>
-    </div>
-
-    <div id="single401" class=" tab userInput 401k">
-      <fieldset>
-        <legend class="sectionHeader">Single 401k</legend>
-        <div class="instructions">Instructions for entering 401k information.</div>
-        <!-- <h4></h4> -->
-        <div class="currentValSingle401">
-          <p><label for="currentValSingle401">Total Current Value of your Single 401k:</label></p>
-          <p><input type="number" name="currentValSingle401" id="currentValSingle401" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
-        </div>
-        <div class="empContSingle401">
-          <p><label for="empContSingle401">Future Annual Single 401k Employer Contribution Amount: </label></p>
-          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="empContSingle401" id="empContSingle401" min="0" max="100" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
-        </div>
-        <div class="annualContSingle401">
-          <p><label for="annualContSingle401">Future Annual Single 401k Contribution Amount (up to $19,500):</label></p>
-          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaPersCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="annualContSingle401" id="annualContSingle401" placeholder="Amount" onchange="retCalc(this); $(this).removeClass('invalid');"></p>
-        </div>
-        <div class="catchUpContSingle401">
-          <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContSingle401"></label></p>
-        </div>
-        <div class="contEndAgeSingle401">
-          <p><label for="contEndAgeSingle401">Age when you will stop contributing to Single 401k:</label></p>
-          <p><input type="number" maxlength="2" name="contEndAgeSingle401" id="contEndAgeSingle401" placeholder="Age" oninput="$(this).removeClass('invalid')"></p>
-        </div>
-        <div class="investStratSingle401">
-          <p><label for="investStratSingle401">Investment Strategy:</label></p>
-          <p>
-            <select name="investStratSingle401" id="investStratSingle401" oninput="$(this).removeClass('invalid')">
-              <option value="" disabled selected hidden>Select one</option>
-              <option value="conservative">Conservative</option>
-              <option value="average">Average</option>
-              <option value="risky">Risky</option>
-            </select>
-          </p>
-        </div>
-      </fieldset>
-    </div>
-
-    <div id="trad403" class="tab userInput 403b">
-      <fieldset>
-        <legend class="sectionHeader">Traditional 403b</legend>
-        <div class="instructions">Instructions for entering 401k information.</div>
-        <!-- <h4></h4> -->
-        <div class="currentValTrad403">
-          <p><label for="currentValTrad403">Total Current Value of Traditional 403b:</label></p>
-          <p><input type="number" name="currentValTrad403" id="currentValTrad403" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
-        </div>
-        <div class="empContTrad403">
-          <p><label for="empContTrad403">Future Annual Traditional 403b Employer Contribution Amount: </label></p>
-          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="empContTrad403" id="empContTrad403" min="0" max="100" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
-        </div>
-        <div class="annualContTrad403">
-          <p><label for="annualContTrad403">Future Annual Traditional 403b Contribution Amount (up to $19,500):</label></p>
-          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaPersCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="annualContTrad403" id="annualContTrad403" placeholder="Amount" onchange="retCalc(this); $(this).removeClass('invalid');"></p>
-        </div>
-        <div class="catchUpContTrad403">
-          <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContTrad403"></label></p>
-        </div>
-        <div class="contEndAgeTrad403">
-          <p><label for="contEndAgeTrad403">Age when you will stop contributing to your Traditional 403b:</label></p>
-          <p><input type="number" maxlength="2" name="contEndAgeTrad403" id="contEndAgeTrad403" placeholder="Age" oninput="$(this).removeClass('invalid')"></p>
-        </div>
-        <div class="investStratTrad403">
-          <p><label for="investStratTrad403">Investment Strategy:</label></p>
-          <p>
-            <select name="investStratTrad403" id="investStratTrad403" oninput="$(this).removeClass('invalid')">
-              <option value="" disabled selected hidden>Select one</option>
-              <option value="conservative">Conservative</option>
-              <option value="average">Average</option>
-              <option value="risky">Risky</option>
-            </select>
-          </p>
-        </div>
-      </fieldset>
-    </div>
-
-    <div id="roth403" class="tab userInput 403b">
-      <fieldset>
-        <legend class="sectionHeader">Roth 403b</legend>
-        <div class="instructions">Instructions for entering 401k information.</div>  
-        <!-- <h4></h4> -->
-        <div class="amtContRoth403">
-          <p><label for="amtContRoth403">Total Roth 403b Contributions through the end of last year:</label></p>
-          <p><input type="number" id="amtContRoth403" name="amtContRoth403" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
-        </div>
-        <div class="currentValRoth403">
-          <p><label for="currentValRoth403">Total Current Value of Roth 403b:</label></p>
-          <p><input type="number" name="currentValRoth403" id="currentValRoth403" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
-        </div>
-        <div class="empContRoth403">
-          <p><label for="empContRoth403">Future Annual Roth 403b Employer Contribution Amount: </label></p>
-          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="empContRoth403" id="empContRoth403" min="0" max="100" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
-        </div>
-        <div class="annualContRoth403">
-          <p><label for="annualContRoth403">Future Annual Roth 403b Contribution Amount (up to $19,500):</label></p>
-          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaPersCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="annualContRoth403" id="annualContRoth403" placeholder="Amount" onchange="retCalc(this); $(this).removeClass('invalid');"></p>
-        </div>
-        <div class="catchUpContRoth403">
-          <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContRoth403"></label></p>
-        </div>
-        <div class="contEndAgeRoth403">
-          <p><label for="contEndAgeRoth403">Age when you will stop contributing to your Roth 403b:</label></p>
-          <p><input type="number" maxlength="2" name="contEndAgeRoth403" id="contEndAgeRoth403" placeholder="Age" oninput="$(this).removeClass('invalid')"></p>
-        </div>
-        <div class="investStratRoth403">
-          <p><label for="investStratRoth403">Investment Strategy:</label></p>
-          <p>
-            <select name="investStratRoth403" id="investStratRoth403" oninput="$(this).removeClass('invalid')">
-              <option value="" disabled selected hidden>Select one</option>
-              <option value="conservative">Conservative</option>
-              <option value="average">Average</option>
-              <option value="risky">Risky</option>
-            </select>
-          </p>
-        </div>
-      </fieldset>
-    </div>
-
-    <div id="trad457" class="tab userInput 457b">
-      <fieldset>
-        <legend>Traditional 457b</legend>
-        <div class="instructions">Instructions for entering 401k information.</div>
-        <!-- <h4></h4> -->
-        <div class="currentValTrad457">
-          <p><label for="currentValTrad457">Total Current Value of Traditional 457b:</label></p>
-          <p><input type="number" name="currentValTrad457" id="currentValTrad457" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
-        </div>
-        <div class="empContTrad457">
-          <p><label for="empContTrad457">Future Annual Traditional 457b Employer Contribution Amount:</label></p>
-          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="empContTrad457" id="empContTrad457" min="0" max="100" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
-        </div>
-        <div class="annualContTrad457">
-          <p><label for="annualContTrad457">Future Annual Traditional 457b Contribution Amount (up to $19,500):</label></p>
-          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaPersCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="annualContTrad457" id="annualContTrad457" placeholder="Amount" onchange="retCalc(this); $(this).removeClass('invalid');"></p>
-        </div>
-        <div class="catchUpContTrad457">
-          <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContTrad457"></label></p>
-        </div>
-        <div class="contEndAgeTrad457">
-          <p><label for="contEndAgeTrad457">Age when you will stop contributing to your Traditional 457b:</label></p>
-          <p><input type="number" maxlength="2" name="contEndAgeTrad457" id="contEndAgeTrad457" placeholder="Age" oninput="$(this).removeClass('invalid')"></p>
-        </div>
-        <div class="investStratTrad457"> 
-          <p><label for="investStratTrad457">Investment Strategy:</label></p>
-          <p>
-            <select name="investStratTrad457" id="investStratTrad457" oninput="$(this).removeClass('invalid')">
-              <option value="" disabled selected hidden>Select one</option>
-              <option value="conservative">Conservative</option>
-              <option value="average">Average</option>
-              <option value="risky">Risky</option>
-            </select>
-          </p>
-        </div>
-      </fieldset>
-    </div>
-
-    <div id="roth457" class="tab userInput 457b">
-      <fieldset>
-        <legend>Roth 457b</legend>
-        <div class="instructions">Instructions for entering 401k information.</div>
-        <!-- <h4></h4> -->
-        <div class="amtContRoth457">
-          <p><label for="amtContRoth457">Total Roth 457b Contributions through the end of last year:</label></p>
-          <p><input type="number" id="amtContRoth457" name="amtContRoth457" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
-        </div>
-        <div class="currentValRoth457">
-          <p><label for="currentValRoth457">Total Current Value of Roth 457b:</label></p>
-          <p><input type="number" name="currentValRoth457" id="currentValRoth457" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
-        </div>
-        <div class="empContRoth457">
-          <p><label for="empContRoth457">Future Annual Roth 457b Employer Contribution Amount:</label></p>
-          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="empContRoth457" id="empContRoth457" min="0" max="100" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
-        </div>
-        <div class="annualContRoth457">
-          <p><label for="annualContRoth457">Future Annual Roth 457b Contribution Amount (cannot exceed $19,500):</label></p>
-          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaPersCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="annualContRoth457" id="annualContRoth457" placeholder="Amount" onchange="retCalc(this); $(this).removeClass('invalid');"></p>
-        </div>
-        <div class="catchUpContRoth457">
-          <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContRoth457"></label></p>
-        </div>
-        <div class="contEndAgeRoth457">
-          <p><label for="contEndAgeRoth457">Age when you will stop contributing to your Roth 457b:</label></p>
-          <p><input type="number" maxlength="2" name="contEndAgeRoth457" id="contEndAgeRoth457" placeholder="Age" oninput="$(this).removeClass('invalid')"></p>
-        </div>
-        <div class="investStratRoth457">
-          <p><label for="investStratRoth457">Investment Strategy:</label></p>
-          <p>
-            <select name="investStratRoth457" id="investStratRoth457" oninput="$(this).removeClass('invalid')">
-              <option value="" disabled selected hidden>Select one</option>
-              <option value="conservative">Conservative</option>
-              <option value="average">Average</option>
-              <option value="risky">Risky</option>
-            </select>
-          </p>
+        <div class="contEndAgeRoth">
+          <p><label for="contEndAgeRoth">Age when you will stop contributing to Roth 401k:</label></p>
+          <p><input type="number" maxlength="2" name="contEndAgeRoth" id="contEndAgeRoth" placeholder="Age" oninput="$(this).removeClass('invalid')"></p>
         </div>
       </fieldset>
     </div>
 
     <div class="tab userInput simple" id="simpleIra">
       <fieldset>
-        <legend class="sectionHeader">Simple IRA</legend>
+        <legend class="sectionHeader investment">Simple IRA</legend>
         <div class="instructions">Instructions for entering Simple IRA information.</div>
         <!-- <h4></h4> -->
         <div class="currentValSimpleIra">
@@ -614,23 +441,12 @@
           <p><label for="contEndAgeSimpleIra">Age when you will stop contributing to your Simple IRA:</label></p>
           <p><input type="number" maxlength="2" name="contEndAgeSimpleIra" id="contEndAgeSimpleIra" placeholder="Age" oninput="$(this).removeClass('invalid')"></p>
         </div>
-        <div class="investStratSimpleIra">
-          <p><label for="investStratSimpleIra">Investment Strategy:</label></p>
-          <p>
-            <select name="investStratSimpleIra" id="investStratSimpleIra" oninput="$(this).removeClass('invalid')">
-              <option value="" disabled selected hidden>Select one</option>
-              <option value="conservative">Conservative</option>
-              <option value="average">Average</option>
-              <option value="risky">Risky</option>
-            </select>
-          </p>
-        </div>
       </fieldset>
     </div>
 
     <div id="simple401" class="tab userInput simple">
       <fieldset>
-        <legend class="sectionHeader">Simple 401k</legend>
+        <legend class="sectionHeader investment">Simple 401k</legend>
         <div class="instructions">
           
         </div>
@@ -655,66 +471,12 @@
           <p><label for="contEndAgeSimple401">Age when you will stop contributing to your Simple 401k:</label></p>
           <p><input type="number" maxlength="2" name="contEndAgeSimple401" id="contEndAgeSimple401" placeholder="Age" oninput="$(this).removeClass('invalid')"></p>
         </div>
-        <div class="investStratSimple401">
-          <p><label for="investStratSimple401">Investment Strategy:</label></p>
-          <p>
-            <select name="investStratSimple401" id="investStratSimple401" oninput="$(this).removeClass('invalid')">
-              <option value="" disabled selected hidden>Select one</option>
-              <option value="conservative">Conservative</option>
-              <option value="average">Average</option>
-              <option value="risky">Risky</option>
-            </select>
-          </p>
-        </div>
-      </fieldset>
-    </div>
-
-    <div class="tab userInput disability" id="vaDisability">
-      <fieldset>
-        <legend class="sectionHeader">VA Disability</legend>
-        <div class="instructions">Instructions for entering disability information.</div>
-        <!-- <h4></h4> -->
-        <div class="annualAmtVa">
-          <p><label for="annualAmtVa">Monthly VA Disability Total:</label></p>
-          <p><input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annualAmtVa" id="annualAmtVa" placeholder="Annual Amount" oninput="$(this).removeClass('invalid')"></p>
-        </div>
-      </fieldset>
-    </div>
-
-    <div class="tab userInput disability" id="ssiDisability">
-      <fieldset>
-        <legend class="sectionHeader">SSI Disability</legend>
-        <div class="instructions">Instructions for entering disability information.</div>
-        <!-- <h4></h4> -->
-        <div class="annualAmtSsi">
-          <p><label for="annualAmtSsi">Monthly SSI Disability Total:</label></p>
-          <p><input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annualAmtSsi" id="annualAmtSsi" placeholder="Annual Amount" oninput="$(this).removeClass('invalid')"></p>
-        </div>
-      </fieldset>
-    </div>
-
-    <div class="tab userInput disability" id="otherDisability">
-      <fieldset>
-        <legend class="sectionHeader">Other Disability</legend>
-        <div class="instructions">Instructions for entering disability information.</div>
-        <!-- <h4></h4> -->
-        <div class="annualAmtOther" class="userInput">
-          <p><label for="annualAmtOther">Monthly Other Disability Total:</label></p>
-          <p><input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annualAmtOther" id="annualAmtOther" placeholder="Annual Amount" oninput="$(this).removeClass('invalid')"></p>
-        </div>
-        <div class="taxOther">
-          <p><label>Are these disability benefits taxable: <input type="checkbox" id="taxOther"></label></p>
-        </div>
-        <div class="colaOther">
-          <p><label for="colaOther">Annual Cost of Living Adjustment (%):</label></p>
-          <p><input type="number" name="colaOther" id="colaOther" min="0" max="10" placeholder="0.0" oninput="$(this).removeClass('invalid')"></p>
-        </div>
       </fieldset>
     </div>
 
     <div class="tab userInput other" id="investAcct">
       <fieldset>
-        <legend class="sectionHeader">Investment Accounts</legend>
+        <legend class="sectionHeader investment">Investment Accounts</legend>
         <div class="instructions">Instructions for entering additional information.</div>
         <!-- <h4></h4> -->
         <div class="currentValInv">
@@ -729,59 +491,12 @@
           <p><label for="contEndAgeInv">At what age do you plan to stop contributing to your Savings/Investment/Brokerage accounts:</label></p>
           <p><input type="number" maxlength="2" name="contEndAgeInv" id="contEndAgeInv" oninput="$(this).removeClass('invalid')"></p>
         </div>
-        <div class="investStratInv">
-          <p><label for="investStratInv">Investment Strategy:</label></p>
-          <p>
-            <select name="investStratInv" id="investStratInv" oninput="$(this).removeClass('invalid')">
-              <option value="" disabled selected hidden>Select one</option>
-              <option value="conservative">Conservative</option>
-              <option value="average">Average</option>
-              <option value="risky">Risky</option>
-            </select>
-          </p>
-        </div>
-      </fieldset>
-    </div>
-
-    <div class="tab userInput other" id="retireSal">
-      <fieldset>
-        <legend class="sectionHeader">Retirement Salary</legend>
-        <div class="instructions">Instructions for entering additional information.</div>
-        <!-- <h4></h4> -->
-        <div class="retSalAmt">
-          <p><label for="retSalAmt">Annual Retirement Salary:</label></p>
-          <p><input type="number" name="retSalAmt" id="retSalAmt" placeholder="Salary" oninput="$(this).removeClass('invalid')"></p>
-        </div>
-        <div class="retSalBeginAge">
-          <p><label for="retSalBeginAge">Age when retirement employment begins:</label></p>
-          <p><input type="number" name="retSalBeginAge" id="retSalBeginAge" oninput="$(this).removeClass('invalid')"></p>
-        </div>
-        <div class="retSalEndAge">
-          <p><label for="retSalEndAge">Age when retirement employment ends:</label></p>
-          <p><input type="number" name="retSalEndAge" id="retSalEndAge" max="119" oninput="$(this).removeClass('invalid')"></p>
-        </div>
-      </fieldset>
-    </div>
-
-    <div class="tab userInput other" id="rents">
-      <fieldset>
-        <legend class="sectionHeader">Rental Income</legend>
-        <div class="instructions">Instructions for entering additional information.</div>
-        <!-- <h4></h4> -->
-        <div class="rentalProfits">
-          <p><label for="rentalProfits">Annual Net Rental Profits:</label></p>
-          <p><input type="number" name="rentalProfits" id="rentalProfits" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
-        </div>
-        <div class="rentalProfitsGrowth">
-          <p><label for="rentalProfitsGrowth">Annual Net Rental Profit Growth (%):</label></p>
-          <p><input type="number" name="rentalProfitsGrowth" id="rentalProfitsGrowth" min="0" placeholder="0.0" oninput="$(this).removeClass('invalid')"></p>
-        </div>
       </fieldset>
     </div>
 
     <div class="tab userInput other" id="otherAssets">
       <fieldset>
-        <legend class="sectionHeader">Other Assets</legend>
+        <legend class="sectionHeader investment">Other Assets</legend>
         <div class="instructions">Instructions for entering additional information.</div>
         <!-- <h4></h4> -->
         <div class="otherAssets">
@@ -790,29 +505,6 @@
         </div>
         <div class="otherAssetsTax">
           <p><label>Are these other assets taxable: <input type="checkbox" id="otherAssetsTax"></label></p>
-        </div>
-      </fieldset>
-    </div>
-
-    <div class="tab userInput other" id="otherBen">
-      <fieldset>
-        <legend class="sectionHeader">Other Benefits</legend>
-        <div class="instructions">Instructions for entering additional information.</div>
-        <!-- <h4></h4> -->
-        <div class="otherBenAmt">
-          <p><label for="otherBenAmt">All other financial benefits/revenue/income:</label></p>
-          <p><input type="number" name="otherBenAmt" id="otherBenAmt" oninput="$(this).removeClass('invalid')"></p>
-        </div>
-        <div class="otherBenCola">
-          <p><label for="otherBenCola">Annual Cost of Living Adjustment, if applicable:</label></p>
-          <p><input type="number" name="otherBenCola" id="otherBenCola" oninput="$(this).removeClass('invalid')"></p>
-        </div>
-        <div class="otherBenBeginAge">
-          <p><label for="otherBenBeginAge">Age when benefits begin:</label></p>
-          <p><input type="number" name="otherBenBeginAge" id="otherBenBeginAge" oninput="$(this).removeClass('invalid')"></p>
-        </div>
-        <div class="otherBenTax">
-          <p><label>Are these benefits taxable: <input type="checkbox" id="otherBenTax"></label></p>
         </div>
       </fieldset>
     </div>
