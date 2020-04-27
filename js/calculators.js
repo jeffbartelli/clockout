@@ -4,24 +4,19 @@ import {dollarFormat} from './numberFormats.js';
 document.addEventListener('DOMContentLoaded', function() {
 
   window.ecaCalc = (e) => {
-    $(e).addClass('thisCalc');
     e.nextSibling.nextSibling.innerHTML = dollarFormat.format(data.demographics.salary);
     e.parentNode.lastChild.value = parseInt(Math.round(data.demographics.salary * (e.value/100) > 57000 ? 57000 : data.demographics.salary * (e.value/100)));
-    $(e).removeClass('thisCalc');
-      // Need a separate calculator or logic for Roth accounts.
   }
   
   window.ecaPersCalc = (e) => {
-    $(e).addClass('thisCalc');
     e.nextSibling.nextSibling.innerHTML = dollarFormat.format(data.demographics.salary);
     e.parentNode.lastChild.value = parseInt(Math.round(data.demographics.salary * (e.value/100) > 19500 ? 19500 : data.demographics.salary * (e.value/100)));
-    $(e).removeClass('thisCalc');
-      // Need a separate calculator or logic for Roth accounts.
+    retCalc();
   }
 
   window.ecaModal = () => {
     let $accounts = $('legend');
-    for (let i=7; i<17; i++) {
+    for (let i=13; i<17; i++) {
       $('table').append(
         $('<tr/>').append(
           $('<td/>', {'text': $accounts[i].innerHTML})).append(`
@@ -77,16 +72,10 @@ document.addEventListener('DOMContentLoaded', function() {
   
   $('#modalClose').click(()=>{
     let $values = $('#ecaModal .ecaContAmount');
-    document.getElementById('annualContTrad401').value = $values[0].value;
+    document.getElementById('annualContTrad').value = $values[0].value;
     document.getElementById('annualContRoth').value = $values[1].value;
-    document.getElementById('annualContSafeHarbor401').value = $values[2].value;
-    document.getElementById('annualContSingle401').value = $values[3].value;
-    document.getElementById('annualContTrad403').value = $values[4].value;
-    document.getElementById('annualContRoth403').value = $values[5].value;
-    document.getElementById('annualContTrad457').value = $values[6].value;
-    document.getElementById('annualContRoth457').value = $values[7].value;
-    document.getElementById('annualContSimpleIra').value = $values[8].value;
-    document.getElementById('annualContSimple401').value = $values[9].value;
+    document.getElementById('annualContSimpleIra').value = $values[2].value;
+    document.getElementById('annualContSimple401').value = $values[3].value;
     $('#ecaModal').toggle();
   });
   
@@ -139,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (total > 13500) {
       roth.classList.add('invalid');
       trad.classList.add('invalid');
-      alert(`Total combined annual contributions to Simple IRA and Simple 401k cannot exceed $13,500. Your total is currently ${dollarFormat.format(total)}. Remember, this total is included in the larger Employer Contribution Accounts (401k, 403b, 457b, Simple) contribution limits.`);
+      alert(`Total combined annual contributions to Simple IRA and Simple 401k cannot exceed $13,500. Your total is currently ${dollarFormat.format(total)}. Please adjust these values. And remember, this total is included in the larger Employer Contribution Accounts (401k, 403b, 457b, Simple) contribution limits.`);
     } else if (total <= 13500) {
       $(roth).removeClass('invalid');
       $(trad).removeClass('invalid');
@@ -161,12 +150,13 @@ document.addEventListener('DOMContentLoaded', function() {
       });
       $values[0].value = trad;
       $values[1].value = roth;
-      $values[8].value = simpleIra;
-      $values[9].value = simple401;
+      $values[2].value = simpleIra;
+      $values[3].value = simple401;
       ecaModalTotal();
       $('#ecaModal').toggle();
     } else if (total <= 19500) {
       effects.forEach(a => {
+        console.log(a);
         $(a).removeClass('invalid');
       })
     }

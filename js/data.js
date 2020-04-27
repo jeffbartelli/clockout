@@ -137,14 +137,24 @@ const life = {
 
 const rmd = {70:27.4,71:26.5,72:25.6,73:24.7,74:23.8,75:22.9,76:22.0,77:21.2,78:20.3,79:19.5,80:18.7,81:17.9,82:17.1,83:16.3,84:15.5,85:14.8,86:14.1,87:13.4,88:12.7,89:12.0,90:11.4,91:10.8,92:10.2,93:9.6,94:9.1,95:8.6,96:8.1,97:7.6,98:7.1,99:6.7,100:6.3};
 
-// const conservative = {18:4,19:4,20:4,21:4,22:4,23:4,24:4,25:4,26:4,27:4,28:4,29:4,30:4,31:4,32:4,33:4,34:4,35:4,36:4,37:4,38:4,39:4,40:3,41:3,42:3,43:3,44:3,45:3,46:3,47:3,48:3,49:3,50:3,51:3,52:3,53:3,54:3,55:3,56:2,57:2,58:2,59:2,60:2,61:2,62:2,63:2,64:2,65:2,66:1,67:1,68:1,69:1,70:1,71:1,72:1,73:1,74:1,75:1,76:1,77:1,78:1,79:1,80:1,81:1,82:1,83:1,84:1,85:1,86:1,87:1,88:1,89:1,90:1,91:1,92:1,93:1,94:1,95:1,96:1,97:1,98:1,99:1};
-
 const growthRate = {
-  under66: 0.0768,
-  over65: 0.0322
+  sp500: 0.0768,
+  ssi: 0.023,
+  vaDisability: 0.023,
+  fers: 0.018,
+  inflation: 0.0322
 }
 
 var retire = {
+  dates: {
+    year: [],
+    age: []
+  },
+  totals: {
+    target: [],
+    subtotal: [],
+    taxes: []
+  },
   income: {
     ssi: {
       annual: [],
@@ -163,7 +173,8 @@ var retire = {
       tax: []
     },
     vaDisability: {
-      annual: []
+      annual: [],
+      tax: []
     },
     ssiDisability: {
       annual: [],
@@ -186,54 +197,57 @@ var retire = {
       tax: []
     }
   },
-  tradAccts: {
-    tradIra: {
-      
+  ecaAccts: {
+    tradAccts: {
+      beginValue: [],
+      rmd: [],
+      withdrawal: [],
+      endValue: []     
     },
-    trad401: {
-
-    },
-    trad403: {
-
-    },
-    trad457: {
-
-    },
-    safeHarbor401: {
-
-    },
-    single401: {
-
+    rothAccts: {
+      contributions: [],
+      beginValue: [],
+      withdrawal: [],
+      endValue: []
     },
     simpleIra: {
-
+      beginValue: [],
+      rmd: [],
+      withdrawal: [],
+      endValue: []
     },
     simple401: {
-
+      beginValue: [],
+      rmd: [],
+      withdrawal: [],
+      endValue: []
     }
   },
   invAccts: {
     investAcct: {
-
+      beginValue: [],
+      withdrawal: [],
+      endValue: []
     },
     otherAssets: {
-
+      beginValue: [],
+      withdrawal: [],
+      endValue: []
     }
   },
-  rothAccts: {
+  iraAccts: {
     rothIra: {
-
+      contributions: [],
+      beginValue: [],
+      withdrawal: [],
+      endValue: []
     },
-    roth401: {
-
-    },
-    roth403: {
-
-    },
-    roth457: {
-
+    tradIra: {
+      totalValue: [],
+      rmd: [],
+      withdrawal: []      
     }
   }
 }
 
-export {data, life, states};
+export {data, life, states, retire, growthRate};

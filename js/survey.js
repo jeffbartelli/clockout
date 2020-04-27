@@ -4,16 +4,6 @@ let currentTab = 0;
 
 document.addEventListener('DOMContentLoaded', function() {
 
-window.checkboxDefault = () => {
-  let $checkboxes = $(':checkbox:not(".accountTypes")');
-  for (let i=0; i<$checkboxes.length; i++) {
-    if( $checkboxes[i].type == 'checkbox') {
-      $checkboxes[i].checked = false;
-      $checkboxes[i].value = null;
-    }
-  }
-}
-
 /* Creates progress markers for the form pages*/
 let tabOrder = [0];
 window.accountTypes = () => {
@@ -99,7 +89,7 @@ function validateForm() {
   let x, y, blank, valid = true;
   x = document.getElementsByClassName("tab");
   let z = x[currentTab];
-  y = $(z).find('select,input:not(.monthlyCalc):not(.accountTypes):not(":input[type=checkbox]"):not(.retSalCalcVals)');
+  y = $(z).find('select,input:not(.monthlyCalc):not(.accountTypes):not(":input[type=radio]"):not(.retSalCalcVals)');
   for (let i=0; i<y.length; i++) {
       if (y[i].value != '') {blank = false;}
     }
@@ -138,13 +128,13 @@ window.activeItems = () => {
 window.harvest = (form) => {
   // let inputs = document.querySelectorAll('input:not(.accountTypes):not(.ecaCalculator):not(.monthlyCalc),select');
   const invCategories = Object.keys(data);
-  for (let i=0; i<invCategories.length; i++) {
+  for (let i=1; i<invCategories.length; i++) {
     let tempKeys = Object.keys(data[invCategories[i]]);
     for (let j=0; j<tempKeys.length; j++) {
       if (tempKeys[j] == 'active') {continue;}
       if (document.getElementById(tempKeys[j]).value == '') {continue;}
       data[invCategories[i]][tempKeys[j]] = document.getElementById(tempKeys[j]).value;
-      if (document.getElementById(tempKeys[j]).type == 'checkbox') {
+      if (document.getElementById(tempKeys[j]).type == 'radio') {
         document.getElementById(tempKeys[j]).checked ? data[invCategories[i]][tempKeys[j]] = true : data[invCategories[i]][tempKeys[j]] = false;
       }
     }

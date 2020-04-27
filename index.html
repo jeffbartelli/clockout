@@ -43,9 +43,10 @@
             <p><label for="married">Married:</label></p>
             <p>
               <select name="married" id="married" oninput="$(this).removeClass('invalid')">
-                <option value="" selected disabled>--</option>
-                <option value="yes">Yes</option>
-                <option value="no" selected>No</option>
+                <option value="single" selected>Single</option>
+                <option value="married">Married</option>
+                <option value="married">Married Filing Separately</option>
+                <option value="headOfHousehold">Head of Household</option>
               </select>
             </p>
           </div>
@@ -318,7 +319,7 @@
           <p><input type="number" name="annualContTradIra" id="annualContTradIra" placeholder="Amount" oninput="$(this).removeClass('invalid')" onchange="iraCalc(this)"></p>
         </div>
         <div class="catchUpContTradIra">
-          <p><label>$1,000 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContTradIra"></label></p>
+          <p><label>$1,000 additional 'Catch Up' contribution beginning at age 50: <input type="radio" id="catchUpContTradIra" name="catchUpContIra"></label></p>
         </div>
         <div class="contEndAgeTradIra">
           <p><label for="contEndAgeTradIra">Age when you will stop contributing to Traditional IRAs:</label></p>
@@ -349,7 +350,7 @@
           <p><input type="number" name="annualContRothIra" id="annualContRothIra" placeholder="Amount" oninput="$(this).removeClass('invalid')" onchange="iraCalc(this)"></p>
         </div>
         <div class="catchUpContRothIra">
-          <p><label>$1,000 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContRothIra"></label></p>
+          <p><label>$1,000 additional 'Catch Up' contribution beginning at age 50: <input type="radio" id="catchUpContRothIra" name="catchUpContIra"></label></p>
         </div>
         <div class="contEndAgeRothIra">
           <p><label for="contEndAgeRothIra">Age when you will stop contributing to Roth IRAs:</label></p>
@@ -369,15 +370,15 @@
         </div>
         <div class="empContTrad">
           <p><label for="empContTrad">Future Annual Employer Contribution Amount: </label></p>
-          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="empContTrad" id="empContTrad" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>  
+          <p><input type="number" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="empContTrad" id="empContTrad" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>  
         </div>
         <div class="annualContTrad">
           <p><label for="annualContTrad">Future Annual Personal Contribution Amount (up to $19,500):</label></p>
-          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaPersCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="annualContTrad" id="annualContTrad" placeholder="Amount" onchange="retCalc(this); $(this).removeClass('invalid');"></p>
+          <p><input type="number" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaPersCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="annualContTrad" id="annualContTrad" placeholder="Amount" onchange="retCalc(this); $(this).removeClass('invalid');"></p>
           <!-- DONT KNOW IF THIS CHANGE WORKS YET -->
         </div>
         <div class="catchUpContTrad">
-          <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContTrad"></label></p>
+          <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="radio" id="catchUpContTrad" name="catchUpContEca"></label></p>
         </div>
         <div class="contEndAgeTrad">
           <p><label for="contEndAgeTrad">Age when you will stop contributing to your Traditional Accounts:</label></p>
@@ -401,14 +402,14 @@
         </div>
         <div class="empContRoth">
           <p><label for="empContRoth">Future Annual Roth 401k Employer Contribution Amount: </label></p>
-          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="empContRoth" id="empContRoth" min="0" max="100" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
+          <p><input type="number" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="empContRoth" id="empContRoth" min="0" max="100" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
         </div>
         <div class="annualContRoth">
           <p><label for="annualContRoth">Future Annual Roth 401k Contribution Amount (up to $19,500):</label></p>
-          <p><input type="number" name="" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaPersCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="annualContRoth" id="annualContRoth" placeholder="Amount" onchange="retCalc(this); $(this).removeClass('invalid');"></p>
+          <p><input type="number" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaPersCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="annualContRoth" id="annualContRoth" placeholder="Amount" onchange="retCalc(this); $(this).removeClass('invalid');"></p>
         </div>
         <div class="catchUpContRoth">
-          <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContRoth"></label></p>
+          <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="radio" id="catchUpContRoth" name="catchUpContEca"></label></p>
         </div>
         <div class="contEndAgeRoth">
           <p><label for="contEndAgeRoth">Age when you will stop contributing to Roth 401k:</label></p>
@@ -428,14 +429,14 @@
         </div>
         <div class="empContSimpleIra">
           <p><label for="empContSimpleIra">Future Annual Simple IRA Employer Contribution Amount (1%-3%): </label></p>
-          <p><input type="number" name="" class="ecaCalculator" min="1" max="3" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="empContSimpleIra" id="empContSimpleIra" min="1" max="3" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
+          <p><input type="number" class="ecaCalculator" min="1" max="3" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="empContSimpleIra" id="empContSimpleIra" min="1" max="3" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
         </div>
         <div class="annualContSimpleIra">
           <p><label for="annualContSimpleIra">Future Annual Simple IRA Contribution Amount (up to $13,500):</label></p>
           <p><input type="number" name="annualContSimpleIra" id="annualContSimpleIra" placeholder="Amount" onchange="simpleCalc(this); retCalc(this); $(this).removeClass('invalid');"></p>
         </div>
         <div class="catchUpContSimpleIra">
-          <p><label >$3,000 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContSimpleIra"></label></p>
+          <p><label >$3,000 additional 'Catch Up' contribution beginning at age 50: <input type="radio" id="catchUpContSimpleIra" name="catchUpContSimple"></label></p>
         </div>
         <div class="contEndAgeSimpleIra">
           <p><label for="contEndAgeSimpleIra">Age when you will stop contributing to your Simple IRA:</label></p>
@@ -465,7 +466,7 @@
           <p><input type="number" name="annualContSimple401" id="annualContSimple401" placeholder="Amount" onchange="simpleCalc(this); retCalc(this); $(this).removeClass('invalid');"></p>
         </div>
         <div class="catchUpContSimple401">
-          <p><label>$3,000 additional 'Catch Up' contribution beginning at age 50: <input type="checkbox" id="catchUpContSimple401"></label></p>
+          <p><label>$3,000 additional 'Catch Up' contribution beginning at age 50: <input type="radio" id="catchUpContSimple401" name="catchUpContSimple"></label></p>
         </div>
         <div class="contEndAgeSimple401">
           <p><label for="contEndAgeSimple401">Age when you will stop contributing to your Simple 401k:</label></p>

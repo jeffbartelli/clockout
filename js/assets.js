@@ -1,6 +1,5 @@
 import {data} from './survey.js';
-import {life} from './data.js';
-import {investStrat} from './investStrat.js'
+import {life, retire, growthRate} from './data.js';
 
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -13,18 +12,41 @@ window.calcAge = () => {
   let byear = c.getFullYear();
   let gender;
   let le;
-  if(data.hasOwnProperty('gender')) {
-    gender = data['gender'];
+  if(data.demographics.hasOwnProperty('gender')) {
+    gender = data.demographics['gender'];
   }
   if(life.hasOwnProperty(byear)) {
     gender == 'male' ? le = life[byear][0] + life.stdev[0] : le = life[byear][1] + life.stdev[1];
   };
   return {
-    current: new Date().getFullYear(),
+    currentYr: new Date().getFullYear(),
     age: age,
     retire: parseInt(data.demographics.retAge),
     death: le
   };
+}
+
+/* Puts ages and dates into the retire variable */
+window.dates = () => {
+  let ages = calcAge();
+  let cycle = ages.death - ages.age;
+  for (let i=0;i<cycle+1;i++) {
+    retire.dates.year.push(ages.currentYr+i);
+    retire.dates.age.push(ages.age+i);
+  }
+}
+
+/* Enters the target salary into the retire variable */
+window.targetSal = () => {
+  let ages = calcAge();
+  let cycle = ages.death - ages.age;
+  let amount = data.demographics.retSal;
+  for (let i=0;i<cycle+1;i++) {
+    retire.totals.target.push(
+      amount = amount * (1+growthRate.inflation) 
+    );
+  };
+  console.log(retire);
 }
 
 window.ssi = () => {
@@ -33,22 +55,22 @@ window.ssi = () => {
   const deathYear = ages.current - ages.age + ages.death;
   let ssiCola = 0.0215;
   let ssiPayout = [];
-  let fersRate = 0;
+  let ssiRate = 0;
   let annualRate = 0;
   let retYear = parseInt(birthYear) + parseInt(data.ssi.retirementAgeSsi);
   if(data.ssi.active == true) { /* this if should be outside the function */
     switch (parseInt(data.ssi.retirementAgeSsi)) { 
-      case 62: fersRate = 0.70; break;
-      case 63: fersRate = 0.76; break;
-      case 64: fersRate = 0.82; break;
-      case 65: fersRate = 0.88; break;
-      case 66: fersRate = 0.94; break;
-      case 67: fersRate = 1.00; break;
-      case 68: fersRate = 1.08; break;
-      case 69: fersRate = 1.16; break;
-      case 70: fersRate = 1.24;
+      case 62: ssiRate = 0.70; break;
+      case 63: ssiRate = 0.76; break;
+      case 64: ssiRate = 0.82; break;
+      case 65: ssiRate = 0.88; break;
+      case 66: ssiRate = 0.94; break;
+      case 67: ssiRate = 1.00; break;
+      case 68: ssiRate = 1.08; break;
+      case 69: ssiRate = 1.16; break;
+      case 70: ssiRate = 1.24;
     };
-    annualRate = parseInt(data.ssi.monthlyAmtSsi) * fersRate;
+    annualRate = parseInt(data.ssi.monthlyAmtSsi) * ssiRate;
     for (let i=ages.current; i<deathYear; i++) {
       if (i<retYear) {
         ssiPayout.push(0);
@@ -91,19 +113,19 @@ window.fersPension = () => {
   const deathYear = ages.current - ages.age + ages.death;
   let fersCola = 0.0177;
   let fersPayout = [];
-  let fersRate = 0;
+  let ssiRate = 0;
   let annualRate = 0;
   let retYear = parseInt(birthYear) + parseInt(data.fersPension.benBeginAgeFers);
   if(data.fersPension.active == true) { /* this if should be outside the function */
     switch (parseInt(data.fersPension.benBeginAgeFers)) { 
-      case 57: fersRate = 0.75; break;
-      case 58: fersRate = 0.80; break;
-      case 59: fersRate = 0.85; break;
-      case 60: fersRate = 0.90; break;
-      case 61: fersRate = 0.95; break;
-      case 62: fersRate = 1.00; 
+      case 57: ssiRate = 0.75; break;
+      case 58: ssiRate = 0.80; break;
+      case 59: ssiRate = 0.85; break;
+      case 60: ssiRate = 0.90; break;
+      case 61: ssiRate = 0.95; break;
+      case 62: ssiRate = 1.00; 
     };
-    annualRate = parseInt(data.fersPension.annualBenAmtFers) * fersRate;
+    annualRate = parseInt(data.fersPension.annualBenAmtFers) * ssiRate;
     for (let i=ages.current; i<deathYear; i++) {
       if (i<retYear) {
         fersPayout.push(0);
