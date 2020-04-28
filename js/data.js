@@ -146,55 +146,18 @@ const growthRate = {
 }
 
 var retire = {
-  dates: {
-    year: [],
-    age: []
-  },
-  totals: {
-    target: [],
-    subtotal: [],
-    taxes: []
-  },
   income: {
-    ssi: {
-      annual: [],
-      tax: []
-    },
-    genPension: {
-      annual: [],
-      tax: []
-    },
-    fersPension: {
-      annual: [],
-      tax: []
-    },
-    annuities: {
-      annual: [],
-      tax: []
-    },
-    vaDisability: {
-      annual: [],
-      tax: []
-    },
-    ssiDisability: {
-      annual: [],
-      tax: []
-    },
     otherDisability: {
       annual: [],
-      tax: []
     },
     retireSal: {
       annual: [],
-      tax: []
     },
     rents: {
       annual: [],
-      tax: []
     },
     otherBen: {
       annual: [],
-      tax: []
     }
   },
   ecaAccts: {
