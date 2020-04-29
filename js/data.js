@@ -146,20 +146,6 @@ const growthRate = {
 }
 
 var retire = {
-  income: {
-    otherDisability: {
-      annual: [],
-    },
-    retireSal: {
-      annual: [],
-    },
-    rents: {
-      annual: [],
-    },
-    otherBen: {
-      annual: [],
-    }
-  },
   ecaAccts: {
     tradAccts: {
       beginValue: [],

@@ -175,7 +175,76 @@ window.ssiDisability = () => {
       }
       amount *=1+growthRate.ssi;
     }
+  }
+}
 
+window.otherDisability = () => {
+  if(data.otherDisability.active == true) {
+    retire.income.otherDisability = {annual: []};
+    let ages = calcAge();
+    let amount = parseInt(data.otherDisability.annualAmtOther);
+    let cola = parseInt(data.otherDisability.colaOther)/100;
+    for (let i=0; i<ages.cycle+1; i++) {
+      if (i < ages.retire - ages.age) {
+        retire.income.otherDisability.annual.push(0);
+      } else {
+        retire.income.otherDisability.annual.push(amount);
+      }
+      amount *=1+cola;
+    }
+  }
+}
+
+window.retireSal = () => {
+  if(data.retireSal.active == true) {
+    retire.income.retireSal = {annual: []};
+    let ages = calcAge();
+    let amount = parseInt(data.retireSal.retSalAmt);
+    for (let i=0; i<ages.cycle+1; i++) {
+      if (i < data.retireSal.retSalBeginAge - ages.age) {
+        retire.income.retireSal.annual.push(0);
+      } else if (i < data.retireSal.retSalEndAge - ages.age) {
+        retire.income.retireSal.annual.push(amount);
+      } else {
+        retire.income.retireSal.annual.push(0);
+      }
+      amount *=1+growthRate.inflation;
+    }
+  }
+}
+
+window.rents = () => {
+  if(data.rents.active == true) {
+    retire.income.rents = {annual: []};
+    let ages = calcAge();
+    let amount = parseInt(data.rents.rentalProfits);
+    let growth = parseInt(data.rents.rentalProfitsGrowth)/100;
+    for (let i=0; i<ages.cycle+1; i++) {
+      if (i < ages.retire - ages.age) {
+        retire.income.rents.annual.push(0);
+      } else {
+        retire.income.rents.annual.push(amount);
+      }
+      amount *=1+growth;
+    }
+  }
+}
+
+window.otherBen = () => {
+  if(data.otherBen.active == true) {
+    retire.income.otherBen= {annual: []};
+    let ages = calcAge();
+    let benAmount = parseInt(data.otherBen.otherBenAmt);
+    let benCola = parseInt(data.otherBen.otherBenCola)/100;
+    let benAge = parseInt(data.otherBen.otherBenBeginAge);
+    for (let i=0; i<ages.cycle+1; i++) {
+      if (i < benAge - ages.age) {
+        retire.income.otherBen.annual.push(0);
+      } else {
+        retire.income.otherBen.annual.push(benAmount);
+      }
+      benAmount *= 1+benCola;
+    }
   }
 }
 
@@ -183,11 +252,16 @@ window.tester = () => {
   calcAge();
   targetSal();
   dates();
+  retire.income = {};
   ssi();
   genPension();
   fersPension();
   annuities();
   vaDisability();
   ssiDisability();
+  otherDisability();
+  retireSal();
+  rents();
+  otherBen();
   console.log(retire);
 }
