@@ -1,5 +1,5 @@
 import {data} from './survey.js';
-import {life, retire, growthRate} from './data.js';
+import {life, retire, growthRate, rmd} from './data.js';
 
 window.calcAge = () => {
   let b = data.demographics.dob.split(/\D/);
@@ -26,18 +26,22 @@ window.calcAge = () => {
 window.income = () => {
   let ages = calcAge();
   retire.dates = {year: [], age: []};
-  retire.totals = {target: [], subtotal: [], taxes: []};
-  for (let i=0;i<ages.cycle+1;i++) {
+  retire.totals = {required: [], income: [], subtotal: [], taxes: []};
+  for (let i=0;i<ages.cycle;i++) {
     retire.dates.year.push(ages.currentYr+i);
     retire.dates.age.push(ages.age+i);
     retire.totals.subtotal.push(0);
   }
   let targetSalAmt = data.demographics.retSal;
-  for (let i=0;i<ages.cycle+1;i++) {
+  for (let i=0;i<ages.cycle;i++) {
     if (i < ages.retire - ages.age) {
-      retire.totals.target.push(0);
+      retire.totals.income.push(0);
+      retire.totals.taxes.push(0);
+      retire.totals.required.push(0);
     } else {
-      retire.totals.target.push(targetSalAmt);
+      retire.totals.income.push(targetSalAmt);
+      retire.totals.taxes.push(targetSalAmt*0.2);
+      retire.totals.required.push(targetSalAmt*1.2);
     }
     targetSalAmt *= 1+growthRate.inflation 
   };
@@ -57,7 +61,7 @@ window.income = () => {
       case 70: ssiRate = 1.24;
     };
     let ssiAmount = data.ssi.monthlyAmtSsi * ssiRate;
-    for (let i=0; i<ages.cycle+1; i++) {
+    for (let i=0; i<ages.cycle; i++) {
       if (i < (data.ssi.retirementAgeSsi - ages.age)) {
         retire.income.ssi.annual.push(0);
       } else {
@@ -76,7 +80,7 @@ window.income = () => {
     let penBeginAge = parseInt(data.genPension.benBeginAgeGen);
     let penCola = parseInt(data.genPension.annualColaGen)/100;
     let penColaAge = parseInt(data.genPension.colaBeginAgeGen);
-    for (let i=0; i<ages.cycle+1; i++) {
+    for (let i=0; i<ages.cycle; i++) {
       if (i < (penBeginAge - ages.age)) {
         retire.income.genPension.annual.push(0);
       } else {
@@ -101,7 +105,7 @@ window.income = () => {
       case 62: fersRate = 1.00; 
     };
     let fersAmount = parseInt(data.fersPension.annualBenAmtFers) * fersRate;
-    for (let i=0; i<ages.cycle+1; i++) {
+    for (let i=0; i<ages.cycle; i++) {
       if (i < fersBeginAge - ages.age) {
         retire.income.fersPension.annual.push(0);
       } else {
@@ -116,7 +120,7 @@ window.income = () => {
     let annAmount = parseInt(data.annuities.annualAnnuity);
     let annuityCola = parseInt(data.annuities.annuityCola)/100;
     let annuityAge = parseInt(data.annuities.annuityAge);
-    for (let i=0; i<ages.cycle+1; i++) {
+    for (let i=0; i<ages.cycle; i++) {
       if (i < annuityAge - ages.age) {
         retire.income.annuities.annual.push(0);
       } else {
@@ -129,7 +133,7 @@ window.income = () => {
   if(data.vaDisability.active == true) {
     retire.income.vaDisability = {annual: []};
     let vaAmount = parseInt(data.vaDisability.annualAmtVa);
-    for (let i=0; i<ages.cycle+1; i++) {
+    for (let i=0; i<ages.cycle; i++) {
       if (i < ages.retire - ages.age) {
         retire.income.vaDisability.annual.push(0);
       } else {
@@ -142,7 +146,7 @@ window.income = () => {
   if(data.ssiDisability.active == true) {
     retire.income.ssiDisability = {annual: []};
     let ssiDisAmount = parseInt(data.ssiDisability.annualAmtSsi);
-    for (let i=0; i<ages.cycle+1; i++) {
+    for (let i=0; i<ages.cycle; i++) {
       if (i < ages.retire - ages.age) {
         retire.income.ssiDisability.annual.push(0);
       } else {
@@ -156,7 +160,7 @@ window.income = () => {
     retire.income.otherDisability = {annual: []};
     let oDisAmount = parseInt(data.otherDisability.annualAmtOther);
     let disCola = parseInt(data.otherDisability.colaOther)/100;
-    for (let i=0; i<ages.cycle+1; i++) {
+    for (let i=0; i<ages.cycle; i++) {
       if (i < ages.retire - ages.age) {
         retire.income.otherDisability.annual.push(0);
       } else {
@@ -169,7 +173,7 @@ window.income = () => {
   if(data.retireSal.active == true) {
     retire.income.retireSal = {annual: []};
     let retSalAmount = parseInt(data.retireSal.retSalAmt);
-    for (let i=0; i<ages.cycle+1; i++) {
+    for (let i=0; i<ages.cycle; i++) {
       if (i < data.retireSal.retSalBeginAge - ages.age) {
         retire.income.retireSal.annual.push(0);
       } else if (i < data.retireSal.retSalEndAge - ages.age) {
@@ -185,7 +189,7 @@ window.income = () => {
     retire.income.rents = {annual: []};
     let rentAmount = parseInt(data.rents.rentalProfits);
     let growth = parseInt(data.rents.rentalProfitsGrowth)/100;
-    for (let i=0; i<ages.cycle+1; i++) {
+    for (let i=0; i<ages.cycle; i++) {
       if (i < ages.retire - ages.age) {
         retire.income.rents.annual.push(0);
       } else {
@@ -196,11 +200,11 @@ window.income = () => {
     }
   };
   if(data.otherBen.active == true) {
-    retire.income.otherBen= {annual: []};
+    retire.income.otherBen = {annual: []};
     let oBenAmount = parseInt(data.otherBen.otherBenAmt);
     let oBenCola = parseInt(data.otherBen.otherBenCola)/100;
     let oBenAge = parseInt(data.otherBen.otherBenBeginAge);
-    for (let i=0; i<ages.cycle+1; i++) {
+    for (let i=0; i<ages.cycle; i++) {
       if (i < oBenAge - ages.age) {
         retire.income.otherBen.annual.push(0);
       } else {
@@ -210,5 +214,32 @@ window.income = () => {
       oBenAmount *= 1+oBenCola;
     }
   };
+  //POSSIBLE BREAK FOR ecaAccts FROM income
+  if(data.tradAccts.active == true) {
+    retire.ecaAccts.tradAccts = {beginValue: [], rmd: [], withdrawal: [], endValue: []};
+    let currentValTrad = parseInt(data.tradAccts.currentValTrad) || 0;
+    let empContTrad = parseInt(data.tradAccts.empContTrad) || 0;
+    let contEndAgeTrad = parseInt(data.tradAccts.contEndAgeTrad) || 0;
+    let annualContTrad = parseInt(data.tradAccts.annualContTrad) || 0;
+    let catchUpContTrad = data.tradAccts.catchUpContTrad;
+    for (let i=0; i<ages.cycle; i++) {
+      retire.ecaAccts.tradAccts.beginValue.push(currentValTrad *= (1+growthRate.sp500));
+      if (i >= (70 - ages.age)) {
+        var rmdTrad = currentValTrad / parseInt(rmd[ages.age + i]) || 0;
+        currentValTrad -= rmdTrad;
+        retire.totals.subtotal[i] += rmdTrad;
+        retire.ecaAccts.tradAccts.rmd.push(rmdTrad);
+      } else {
+        retire.ecaAccts.tradAccts.rmd.push(0);
+      }
+      if (i <= (contEndAgeTrad - ages.age)) {
+        currentValTrad += (empContTrad + annualContTrad);
+        if ((catchUpContTrad == true) && (i > (55 - ages.age))) {
+          currentValTrad += 6500;
+        };        
+      }
+      retire.ecaAccts.tradAccts.endValue.push(currentValTrad) ;
+    }
+  }
   console.log(retire);
 }

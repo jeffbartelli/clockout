@@ -156,7 +156,6 @@ document.addEventListener('DOMContentLoaded', function() {
       $('#ecaModal').toggle();
     } else if (total <= 19500) {
       effects.forEach(a => {
-        console.log(a);
         $(a).removeClass('invalid');
       })
     }

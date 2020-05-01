@@ -147,12 +147,7 @@ const growthRate = {
 
 var retire = {
   ecaAccts: {
-    tradAccts: {
-      beginValue: [],
-      rmd: [],
-      withdrawal: [],
-      endValue: []     
-    },
+
     rothAccts: {
       contributions: [],
       beginValue: [],
@@ -173,7 +168,7 @@ var retire = {
     }
   },
   invAccts: {
-    investAcct: {
+    investAccts: {
       beginValue: [],
       withdrawal: [],
       endValue: []
@@ -199,4 +194,4 @@ var retire = {
   }
 }
 
-export {data, life, states, retire, growthRate};
+export {data, life, states, retire, growthRate, rmd};
