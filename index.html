@@ -307,7 +307,7 @@
           <p>The Traditional IRA is an Individual Retirement Account
             that allows you to make tax-deferred contributions until the age of 70. You pay standard income taxes on all distributions.This is beneficial if you expect to pay less in income taxes at retirement than you do today.</p>
           <p>Maximum annual contributions cannot exceed $6,000, unless you are over 50, in which case you can contribute up to $7,000. For more information visit <a href="https://www.investopedia.com/terms/t/traditionalira.asp">this site</a>.</p>
-          <p>Enter the total values for all Traditional Roth IRA accounts you may hold in the fields below.</p>
+          <p>Enter the total values for all Traditional IRA accounts you may hold in the fields below.</p>
         </div>
         <!-- <h4></h4> -->
         <div class="currentValTradIra">
@@ -428,12 +428,12 @@
           <p><input type="number" name="currentValSimpleIra" id="currentValSimpleIra" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
         </div>
         <div class="empContSimpleIra">
-          <p><label for="empContSimpleIra">Future Annual Simple IRA Employer Contribution Amount (1%-3%): </label></p>
-          <p><input type="number" class="ecaCalculator" min="1" max="3" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="empContSimpleIra" id="empContSimpleIra" min="1" max="3" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
+          <p><label for="empContSimpleIra">Future Annual Simple IRA Employer Contribution: </label></p>
+          <p><input type="number" name="empContSimpleIra" id="empContSimpleIra" placeholder="Amount" onchange="$(this).removeClass('invalid')"></p>
         </div>
         <div class="annualContSimpleIra">
           <p><label for="annualContSimpleIra">Future Annual Simple IRA Contribution Amount (up to $13,500):</label></p>
-          <p><input type="number" name="annualContSimpleIra" id="annualContSimpleIra" placeholder="Amount" onchange="simpleCalc(this); retCalc(this); $(this).removeClass('invalid');"></p>
+          <p><input type="number" class="ecaCalculator" placeholder="0.0" onchange="simplePersCalc(this); $(this).removeClass('invalid');">% x <span class="ecaCalculatorSalary"></span><input type="number" name="annualContSimpleIra" id="annualContSimpleIra" placeholder="Amount" onchange="simpleCalc(this); $(this).removeClass('invalid');" /></p>
         </div>
         <div class="catchUpContSimpleIra">
           <p><label >$3,000 additional 'Catch Up' contribution beginning at age 50: <input type="radio" id="catchUpContSimpleIra" name="catchUpContSimple"></label></p>
@@ -463,7 +463,7 @@
         </div>
         <div class="annualContSimple401">
           <p><label for="annualContSimple401">Future Annual Simple 401k Contribution Amount (cannot exceed $13,500):</label></p>
-          <p><input type="number" name="annualContSimple401" id="annualContSimple401" placeholder="Amount" onchange="simpleCalc(this); retCalc(this); $(this).removeClass('invalid');"></p>
+          <p><input type="number" class="ecaCalculator" placeholder="0.0" onchange="simplePersCalc(this); $(this).removeClass('invalid');">% x <span class="ecaCalculatorSalary"></span><input type="number" name="annualContSimple401" id="annualContSimple401" placeholder="Amount" onchange="simpleCalc(this); $(this).removeClass('invalid');"></p>
         </div>
         <div class="catchUpContSimple401">
           <p><label>$3,000 additional 'Catch Up' contribution beginning at age 50: <input type="radio" id="catchUpContSimple401" name="catchUpContSimple"></label></p>

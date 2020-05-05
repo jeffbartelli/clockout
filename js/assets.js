@@ -46,10 +46,11 @@ window.income = () => {
     targetSalAmt *= 1+growthRate.inflation 
   };
   retire.income = {};
+  // SOCIAL SECURITY
   if(data.ssi.active == true) {
     retire.income.ssi = {annual: []};
     let ssiRate = 0;
-    switch (data.ssi.retirementAgeSsi) { 
+    switch (parseInt(data.ssi.retirementAgeSsi)) { 
       case 62: ssiRate = 0.70; break;
       case 63: ssiRate = 0.76; break;
       case 64: ssiRate = 0.82; break;
@@ -74,6 +75,7 @@ window.income = () => {
       ssiAmount *= 1+growthRate.ssi;
     };
   };
+  // GENERAL PENSIONS
   if(data.genPension.active == true) {
     retire.income.genPension = {annual: []};
     let penAmount = parseInt(data.genPension.annualBenAmtGen);
@@ -92,6 +94,7 @@ window.income = () => {
       }
     }
   };
+  // FERS PENSION
   if(data.fersPension.active == true) {
     retire.income.fersPension = {annual: []};
     let fersBeginAge = data.fersPension.benBeginAgeFers;
@@ -115,6 +118,7 @@ window.income = () => {
       }
     }
   };
+  // ANNUITIES/INSURANCE
   if(data.annuities.active == true) {
     retire.income.annuities = {annual: []};
     let annAmount = parseInt(data.annuities.annualAnnuity);
@@ -130,6 +134,7 @@ window.income = () => {
       }
     }
   };
+  // VA DISABILITY
   if(data.vaDisability.active == true) {
     retire.income.vaDisability = {annual: []};
     let vaAmount = parseInt(data.vaDisability.annualAmtVa);
@@ -143,6 +148,7 @@ window.income = () => {
       vaAmount *= 1+growthRate.vaDisability;
     }
   };
+  // SSI DISABILITY
   if(data.ssiDisability.active == true) {
     retire.income.ssiDisability = {annual: []};
     let ssiDisAmount = parseInt(data.ssiDisability.annualAmtSsi);
@@ -156,6 +162,7 @@ window.income = () => {
       ssiDisAmount *=1+growthRate.ssi;
     }
   };
+  // OTHER DISABILITY
   if(data.otherDisability.active == true) {
     retire.income.otherDisability = {annual: []};
     let oDisAmount = parseInt(data.otherDisability.annualAmtOther);
@@ -170,6 +177,7 @@ window.income = () => {
       oDisAmount *=1+disCola;
     }
   };
+  // RETIREMENT SALARY
   if(data.retireSal.active == true) {
     retire.income.retireSal = {annual: []};
     let retSalAmount = parseInt(data.retireSal.retSalAmt);
@@ -185,6 +193,7 @@ window.income = () => {
       retSalAmount *=1+growthRate.inflation;
     }
   };
+  // RENTS
   if(data.rents.active == true) {
     retire.income.rents = {annual: []};
     let rentAmount = parseInt(data.rents.rentalProfits);
@@ -199,6 +208,7 @@ window.income = () => {
       rentAmount *=1+growth;
     }
   };
+  // OTHER BENEFITS
   if(data.otherBen.active == true) {
     retire.income.otherBen = {annual: []};
     let oBenAmount = parseInt(data.otherBen.otherBenAmt);
@@ -214,7 +224,8 @@ window.income = () => {
       oBenAmount *= 1+oBenCola;
     }
   };
-  //POSSIBLE BREAK FOR ecaAccts FROM income
+  retire.ecaAccts = {};
+  // TRADITIONAL ACCOUNTS
   if(data.tradAccts.active == true) {
     retire.ecaAccts.tradAccts = {beginValue: [], rmd: [], withdrawal: [], endValue: []};
     let currentValTrad = parseInt(data.tradAccts.currentValTrad) || 0;
@@ -223,7 +234,7 @@ window.income = () => {
     let annualContTrad = parseInt(data.tradAccts.annualContTrad) || 0;
     let catchUpContTrad = data.tradAccts.catchUpContTrad;
     for (let i=0; i<ages.cycle; i++) {
-      retire.ecaAccts.tradAccts.beginValue.push(currentValTrad *= (1+growthRate.sp500));
+      retire.ecaAccts.tradAccts.beginValue.push(currentValTrad *= (i >= (65 - ages.age) ? 1+growthRate.inflation : 1+growthRate.sp500));
       if (i >= (70 - ages.age)) {
         var rmdTrad = currentValTrad / parseInt(rmd[ages.age + i]) || 0;
         currentValTrad -= rmdTrad;
@@ -241,5 +252,89 @@ window.income = () => {
       retire.ecaAccts.tradAccts.endValue.push(currentValTrad) ;
     }
   }
+  // SIMPLE IRA
+  if(data.simpleIra.active == true) {
+    retire.ecaAccts.simpleIra = {beginValue: [], rmd: [], withdrawal: [], endValue: []};
+    let currentValSimpleIra = parseInt(data.simpleIra.currentValSimpleIra) || 0;
+    let empContSimpleIra = parseInt(data.simpleIra.empContSimpleIra) || 0;
+    let contEndAgeSimpleIra = parseInt(data.simpleIra.contEndAgeSimpleIra) || 0;
+    let annualContSimpleIra = parseInt(data.simpleIra.annualContSimpleIra) || 0;
+    let catchUpContSimpleIra = data.simpleIra.catchUpContSimpleIra;
+    for (let i=0; i<ages.cycle; i++) {
+      retire.ecaAccts.simpleIra.beginValue.push(currentValSimpleIra *= (i >= (65 - ages.age) ? 1+growthRate.inflation : 1+growthRate.sp500));
+      if (i >= (70 - ages.age)) {
+        var rmdSimpleIra = currentValSimpleIra / parseInt(rmd[ages.age + i]) || 0;
+        currentValSimpleIra -= rmdSimpleIra;
+        retire.totals.subtotal[i] += rmdSimpleIra;
+        retire.ecaAccts.simpleIra.rmd.push(rmdSimpleIra);
+      } else {
+        retire.ecaAccts.simpleIra.rmd.push(0);
+      }
+      if (i <= (contEndAgeSimpleIra - ages.age)) {
+        currentValSimpleIra += (empContSimpleIra + annualContSimpleIra);
+        if ((catchUpContSimpleIra == true) && (i > (55 - ages.age))) {
+          currentValSimpleIra += 3000;
+        };        
+      }
+      retire.ecaAccts.simpleIra.endValue.push(currentValSimpleIra);
+    }
+  }
+  // SIMPLE 401k
+  if(data.simple401.active == true) {
+    retire.ecaAccts.simpleI401 = {beginValue: [], rmd: [], withdrawal: [], endValue: []};
+    let currentValSimple401 = parseInt(data.simple401.currentValSimple401) || 0;
+    let empContSimple401 = parseInt(data.simple401.empContSimple401) || 0;
+    let contEndAgeSimple401 = parseInt(data.simple401.contEndAgeSimple401) || 0;
+    let annualContSimple401 = parseInt(data.simple401.annualContSimple401) || 0;
+    let catchUpContSimple401 = data.simple401.catchUpContSimple401;
+    for (let i=0; i<ages.cycle; i++) {
+      retire.ecaAccts.simple401.beginValue.push(currentValSimple401 *= (i >= (65 - ages.age) ? 1+growthRate.inflation : 1+growthRate.sp500));
+      if (i >= (70 - ages.age)) {
+        var rmdSimple401 = currentValSimple401 / parseInt(rmd[ages.age + i]) || 0;
+        currentValSimple401 -= rmdSimple401;
+        retire.totals.subtotal[i] += rmdSimple401;
+        retire.ecaAccts.simple401.rmd.push(rmdSimple401);
+      } else {
+        retire.ecaAccts.simple401.rmd.push(0);
+      }
+      if (i <= (contEndAgeSimple401 - ages.age)) {
+        currentValSimple401 += (empContSimple401 + annualContSimple401);
+        if ((catchUpContSimple401 == true) && (i > (55 - ages.age))) {
+          currentValSimple401 += 3000;
+        };        
+      }
+      retire.ecaAccts.simple401.endValue.push(currentValSimple401);
+    }
+  };
+  retire.iraAccts = {};
+  // TRAD IRA
+  if(data.tradIra.active == true) {
+    retire.iraAccts.tradIra = {beginValue: [], rmd: [], withdrawal: [], endValue: []};
+    let currentValTradIra = parseInt(data.tradIra.currentValTradIra) || 0;
+    let contEndAgeTradIra = parseInt(data.tradIra.contEndAgeTradIra) || 0;
+    let annualContTradIra = parseInt(data.tradIra.annualContTradIra) || 0;
+    let catchUpContTradIra = data.tradIra.catchUpContTradIra;
+    for (let i=0; i<ages.cycle; i++) {
+      retire.iraAccts.tradIra.beginValue.push(currentValTradIra *= (i >= (65 - ages.age) ? 1+growthRate.inflation : 1+growthRate.sp500));
+      if (i >= (70 - ages.age)) {
+        var rmdTradIra = currentValTradIra / parseInt(rmd[ages.age + i]) || 0;
+        currentValTradIra -= rmdTradIra;
+        retire.totals.subtotal[i] += rmdTradIra;
+        retire.iraAccts.tradIra.rmd.push(rmdTradIra);
+      } else {
+        retire.iraAccts.tradIra.rmd.push(0);
+      }
+      if (i <= (contEndAgeTradIra - ages.age)) {
+        currentValTradIra += annualContTradIra;
+        if ((catchUpContTradIra == true) && (i > (55 - ages.age))) {
+          currentValTradIra += 1000;
+        };        
+      }
+      retire.iraAccts.tradIra.endValue.push(currentValTradIra);
+    }
+  }
+
   console.log(retire);
-}
+};
+
+// export {income};

@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
     ecaModalTotal();
   };
 
-  window.ecaModalTotal = () => {
+  window.ecaModalTotal = (e) => {
     let ecaContAmount = 0;
     $('.ecaContAmount').each(function() {
       if ($(this).val()) {
@@ -119,6 +119,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   };
   
+  window.simplePersCalc = (e) => {
+    e.nextSibling.nextSibling.innerHTML = dollarFormat.format(data.demographics.salary);
+    e.parentNode.lastChild.value = parseInt(Math.round(data.demographics.salary * (e.value/100) > 13500 ? 13500 : data.demographics.salary * (e.value/100)));
+    simpleCalc();
+  }
+
   window.simpleCalc = (e) => {
     let rothValue = +parseInt(document.getElementById('annualContSimpleIra').value) || 0;
     let tradValue = +parseInt(document.getElementById('annualContSimple401').value) || 0;
@@ -128,11 +134,15 @@ document.addEventListener('DOMContentLoaded', function() {
     if (total > 13500) {
       roth.classList.add('invalid');
       trad.classList.add('invalid');
+      // Build a Simple Modal for managing these inputs
       alert(`Total combined annual contributions to Simple IRA and Simple 401k cannot exceed $13,500. Your total is currently ${dollarFormat.format(total)}. Please adjust these values. And remember, this total is included in the larger Employer Contribution Accounts (401k, 403b, 457b, Simple) contribution limits.`);
     } else if (total <= 13500) {
-      $(roth).removeClass('invalid');
-      $(trad).removeClass('invalid');
+      roth.classList.remove('invalid');
+      trad.classList.remove('invalid');
     }
+    retCalc();
+    roth.classList.remove('invalid');
+    trad.classList.remove('invalid');
   }
   
   window.retCalc = (e) => {
@@ -153,11 +163,14 @@ document.addEventListener('DOMContentLoaded', function() {
       $values[2].value = simpleIra;
       $values[3].value = simple401;
       ecaModalTotal();
+      effects.forEach(a => {
+        a.classList.remove('invalid');
+      });
       $('#ecaModal').toggle();
     } else if (total <= 19500) {
       effects.forEach(a => {
-        $(a).removeClass('invalid');
-      })
+        a.classList.remove('invalid');
+      });
     }
   };
   

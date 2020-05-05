@@ -1,4 +1,5 @@
 import {data, states} from './data.js';
+// import {income} from './assets.js';
 
 let currentTab = 0;
 
@@ -139,7 +140,8 @@ window.harvest = (form) => {
       }
     }
   }
-  // console.log(data);    
+  // console.log(data); 
+  // income();   
 }
 });
 

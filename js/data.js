@@ -103,8 +103,7 @@ const data = {
     empContSimpleIra:null,
     contEndAgeSimpleIra:null,
     annualContSimpleIra:null,
-    catchUpContSimpleIra:null,
-    contEndAgeSimpleIra:null
+    catchUpContSimpleIra:null
   },
   simple401: {
     active:false,
@@ -146,28 +145,16 @@ const growthRate = {
 }
 
 var retire = {
-  ecaAccts: {
+  ecaAccter: {
 
     rothAccts: {
       contributions: [],
       beginValue: [],
       withdrawal: [],
       endValue: []
-    },
-    simpleIra: {
-      beginValue: [],
-      rmd: [],
-      withdrawal: [],
-      endValue: []
-    },
-    simple401: {
-      beginValue: [],
-      rmd: [],
-      withdrawal: [],
-      endValue: []
     }
   },
-  invAccts: {
+  invAccter: {
     investAccts: {
       beginValue: [],
       withdrawal: [],
@@ -179,17 +166,12 @@ var retire = {
       endValue: []
     }
   },
-  iraAccts: {
+  iraAccter: {
     rothIra: {
       contributions: [],
       beginValue: [],
       withdrawal: [],
       endValue: []
-    },
-    tradIra: {
-      totalValue: [],
-      rmd: [],
-      withdrawal: []      
     }
   }
 }
