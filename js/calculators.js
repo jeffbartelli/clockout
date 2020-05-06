@@ -141,8 +141,6 @@ document.addEventListener('DOMContentLoaded', function() {
       trad.classList.remove('invalid');
     }
     retCalc();
-    roth.classList.remove('invalid');
-    trad.classList.remove('invalid');
   }
   
   window.retCalc = (e) => {
