@@ -154,18 +154,6 @@ var retire = {
       endValue: []
     }
   },
-  invAccter: {
-    investAccts: {
-      beginValue: [],
-      withdrawal: [],
-      endValue: []
-    },
-    otherAssets: {
-      beginValue: [],
-      withdrawal: [],
-      endValue: []
-    }
-  },
   iraAccter: {
     rothIra: {
       contributions: [],

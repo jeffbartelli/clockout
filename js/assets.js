@@ -228,11 +228,11 @@ window.income = () => {
   // TRADITIONAL ACCOUNTS
   if(data.tradAccts.active == true) {
     retire.ecaAccts.tradAccts = {beginValue: [], rmd: [], withdrawal: [], endValue: []};
-    let currentValTrad = parseInt(data.tradAccts.currentValTrad) || 0;
-    let empContTrad = parseInt(data.tradAccts.empContTrad) || 0;
-    let contEndAgeTrad = parseInt(data.tradAccts.contEndAgeTrad) || 0;
-    let annualContTrad = parseInt(data.tradAccts.annualContTrad) || 0;
-    let catchUpContTrad = data.tradAccts.catchUpContTrad;
+    var currentValTrad = parseInt(data.tradAccts.currentValTrad) || 0;
+    var empContTrad = parseInt(data.tradAccts.empContTrad) || 0;
+    var contEndAgeTrad = parseInt(data.tradAccts.contEndAgeTrad) || 0;
+    var annualContTrad = parseInt(data.tradAccts.annualContTrad) || 0;
+    var catchUpContTrad = data.tradAccts.catchUpContTrad;
     for (let i=0; i<ages.cycle; i++) {
       retire.ecaAccts.tradAccts.beginValue.push(currentValTrad *= (i >= (65 - ages.age) ? 1+growthRate.inflation : 1+growthRate.sp500));
       if (i >= (70 - ages.age)) {
@@ -255,11 +255,11 @@ window.income = () => {
   // SIMPLE IRA
   if(data.simpleIra.active == true) {
     retire.ecaAccts.simpleIra = {beginValue: [], rmd: [], withdrawal: [], endValue: []};
-    let currentValSimpleIra = parseInt(data.simpleIra.currentValSimpleIra) || 0;
-    let empContSimpleIra = parseInt(data.simpleIra.empContSimpleIra) || 0;
-    let contEndAgeSimpleIra = parseInt(data.simpleIra.contEndAgeSimpleIra) || 0;
-    let annualContSimpleIra = parseInt(data.simpleIra.annualContSimpleIra) || 0;
-    let catchUpContSimpleIra = data.simpleIra.catchUpContSimpleIra;
+    var currentValSimpleIra = parseInt(data.simpleIra.currentValSimpleIra) || 0;
+    var empContSimpleIra = parseInt(data.simpleIra.empContSimpleIra) || 0;
+    var contEndAgeSimpleIra = parseInt(data.simpleIra.contEndAgeSimpleIra) || 0;
+    var annualContSimpleIra = parseInt(data.simpleIra.annualContSimpleIra) || 0;
+    var catchUpContSimpleIra = data.simpleIra.catchUpContSimpleIra;
     for (let i=0; i<ages.cycle; i++) {
       retire.ecaAccts.simpleIra.beginValue.push(currentValSimpleIra *= (i >= (65 - ages.age) ? 1+growthRate.inflation : 1+growthRate.sp500));
       if (i >= (70 - ages.age)) {
@@ -282,11 +282,11 @@ window.income = () => {
   // SIMPLE 401k
   if(data.simple401.active == true) {
     retire.ecaAccts.simpleI401 = {beginValue: [], rmd: [], withdrawal: [], endValue: []};
-    let currentValSimple401 = parseInt(data.simple401.currentValSimple401) || 0;
-    let empContSimple401 = parseInt(data.simple401.empContSimple401) || 0;
-    let contEndAgeSimple401 = parseInt(data.simple401.contEndAgeSimple401) || 0;
-    let annualContSimple401 = parseInt(data.simple401.annualContSimple401) || 0;
-    let catchUpContSimple401 = data.simple401.catchUpContSimple401;
+    var currentValSimple401 = parseInt(data.simple401.currentValSimple401) || 0;
+    var empContSimple401 = parseInt(data.simple401.empContSimple401) || 0;
+    var contEndAgeSimple401 = parseInt(data.simple401.contEndAgeSimple401) || 0;
+    var annualContSimple401 = parseInt(data.simple401.annualContSimple401) || 0;
+    var catchUpContSimple401 = data.simple401.catchUpContSimple401;
     for (let i=0; i<ages.cycle; i++) {
       retire.ecaAccts.simple401.beginValue.push(currentValSimple401 *= (i >= (65 - ages.age) ? 1+growthRate.inflation : 1+growthRate.sp500));
       if (i >= (70 - ages.age)) {
@@ -310,10 +310,10 @@ window.income = () => {
   // TRAD IRA
   if(data.tradIra.active == true) {
     retire.iraAccts.tradIra = {beginValue: [], rmd: [], withdrawal: [], endValue: []};
-    let currentValTradIra = parseInt(data.tradIra.currentValTradIra) || 0;
-    let contEndAgeTradIra = parseInt(data.tradIra.contEndAgeTradIra) || 0;
-    let annualContTradIra = parseInt(data.tradIra.annualContTradIra) || 0;
-    let catchUpContTradIra = data.tradIra.catchUpContTradIra;
+    var currentValTradIra = parseInt(data.tradIra.currentValTradIra) || 0;
+    var contEndAgeTradIra = parseInt(data.tradIra.contEndAgeTradIra) || 0;
+    var annualContTradIra = parseInt(data.tradIra.annualContTradIra) || 0;
+    var catchUpContTradIra = data.tradIra.catchUpContTradIra;
     for (let i=0; i<ages.cycle; i++) {
       retire.iraAccts.tradIra.beginValue.push(currentValTradIra *= (i >= (65 - ages.age) ? 1+growthRate.inflation : 1+growthRate.sp500));
       if (i >= (70 - ages.age)) {
@@ -334,6 +334,43 @@ window.income = () => {
     }
   }
 
+  let investGrowth = i >= (65 - ages.age) ? 1+growthRate.inflation : 1+growthRate.sp500;
+  retire.invAccts = {};
+  // INVESTMENT ACCOUNTS
+  if(data.investAcct.active == true) {
+    retire.invAccts.investAcct = {beginValue: [], withdrawal: [], endValue: []};
+    var currentValInv = parseInt(data.investAcct.currentValInv) || 0;
+    var contEndAgeInv = parseInt(data.investAcct.contEndAgeInv) || 0;
+    var annualContInv = parseInt(data.investAcct.annualContInv) || 0;
+    for (let i=0; i<ages.cycle; i++) {
+      // Annual growth applied
+      currentValInv *= investGrowth;
+      // Annual contribution applied
+      if (i <= (contEndAgeInv - ages.age)) {
+        currentValInv += annualContInv;
+      }
+      // Applied beginning value
+      retire.invAccts.investAcct.beginValue.push(currentValInv);
+      // Determine withdrawal amount
+      if (retire.totals.subtotal[i] > 0) {
+        if (currentValInv > retire.totals.subtotal) {
+          retire.invAccts.investAcct.withdrawal.push(retire.totals.subtotal);
+        } else {
+          retire.invAccts.investAcct.withdrawal.push(currentValInv);
+        }
+      } else {
+        retire.invAccts.investAcct.withdrawal.push(0);
+      }
+      // Subtract withdrawal to get end value
+      retire.invAccts.investAcct.endValue.push(retire.invAccts.investAcct.beginValue[i] - retire.invAccts.investAcct.withdrawal[i]);
+
+    }
+  }
+  // OTHER ASSETS
+  if(data.otherAssets.active == true) {
+    retire.invAccts.otherAssets = {beginValue: [], withdrawal: [], endValue: []};
+
+  }  
   console.log(retire);
 };
 
