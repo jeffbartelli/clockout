@@ -119,11 +119,11 @@ const data = {
     contEndAgeInv:null,
     annualContInv:null
   },
-  otherAssets: {
-    active:false,
-    otherAssets:null,
-    otherAssetsTax:null
-  }
+  // otherAssets: {
+  //   active:false,
+  //   otherAssets:null,
+  //   otherAssetsTax:null
+  // }
 };
 
 const states = [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FM', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MH', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY' ];
@@ -144,24 +144,4 @@ const growthRate = {
   inflation: 0.0322
 }
 
-var retire = {
-  ecaAccter: {
-
-    rothAccts: {
-      contributions: [],
-      beginValue: [],
-      withdrawal: [],
-      endValue: []
-    }
-  },
-  iraAccter: {
-    rothIra: {
-      contributions: [],
-      beginValue: [],
-      withdrawal: [],
-      endValue: []
-    }
-  }
-}
-
-export {data, life, states, retire, growthRate, rmd};
+export {data, life, states, growthRate, rmd};
