@@ -349,8 +349,8 @@ window.income = () => {
       }
       retire.invAccts.investAcct.beginValue.push(currentValInv);
       if (retire.totals.remaining[i] > 0) {
-        if (currentValInv > retire.totals.remaining) {
-          retire.invAccts.investAcct.withdrawal.push(retire.totals.remaining);
+        if (currentValInv >= retire.totals.remaining[i]) {
+          retire.invAccts.investAcct.withdrawal.push(retire.totals.remaining[i]);
         } else {
           retire.invAccts.investAcct.withdrawal.push(currentValInv);
         }
@@ -365,53 +365,68 @@ window.income = () => {
   // OTHER ASSETS
   // if(data.otherAssets.active == true) {
   //   retire.invAccts.otherAssets = {beginValue: [], withdrawal: [], endValue: []};
-
   // }  
   // ROTH ECA ACCOUNTS
   if(data.rothAccts.active == true) {
     retire.ecaAccts.rothAccts = {contributions: [], beginValue: [], withdrawal: [], endValue: []};
     var amtContRoth = data.rothAccts.amtContRoth;
     var currentValRoth = data.rothAccts.currentValRoth;
-    var empContRoth = data.rothAccts.empContRoth;
+    var empContRoth = parseInt(data.rothAccts.empContRoth) || 0;
     var contEndAgeRoth = data.rothAccts.contEndAgeRoth;
     var annualContRoth = data.rothAccts.annualContRoth;
     var catchUpContRoth = data.rothAccts.catchUpContRoth;
     for (let i=0; i<ages.cycle; i++) {
       // Annual growth applied
       currentValRoth *= investGrowth(i);
+      console.log(`Amount after growth: ${currentValRoth}`);
       // Annual contribution applied
       if (i <= (contEndAgeRoth - ages.age)) {
-        currentValRoth += (annualContRoth + empContRoth);
+        currentValRoth += annualContRoth;
+        currentValRoth += empContRoth;
+        console.log(`Amount after contributions: ${currentValRoth}`);
         if ((catchUpContRoth == true) && (i > (55 - ages.age))) {
-          currentValRoth += 1000;
+          currentValRoth += 6500;
+          amtContRoth += 6500
         }
         amtContRoth += annualContRoth;
       }
       // Applied beginning value
       retire.ecaAccts.rothAccts.beginValue.push(currentValRoth);
       retire.ecaAccts.rothAccts.contributions.push(amtContRoth);
+      // Counter function for zero balances in remaining between retire age and 59
+      var retCount = () => {
+        let count = 0;
+        for (let j=(ages.retire - ages.age); j<(59 - ages.age); j++) {
+          if (retire.totals.remaining[j] == 0) {
+            count++;
+          }
+        }
+        return count;
+      };
       // Determine Withdrawal Amount
       if (retire.totals.remaining[i] > 0) {
-        if (i < (59 - ages.age)) {
-          // NEED TO BUILD THE LOGIC FOR SPREADING REMAINING CONTRIBUTIONS AMONG YEARS WHERE REMAINING IS GREATER THAN ZERO, THEN APPLYING THE SHARE TO THIS WITHDRAWAL.
-          // THEN, IF AGE IS OVER 59, DROP ABOVE LOGIC AND JUST TAKE FROM THE ENTIRE ACCOUNT.
+        if (i < (59 - ages.age) && i >= (ages.retire - ages.age)) {
+          if (amtContRoth/((59 - ages.retire) - retCount()) < retire.totals.remaining[i]) {
+            retire.ecaAccts.rothAccts.withdrawal.push(amtContRoth/((59 - ages.retire) - retCount()));
+          } else {
+            retire.ecaAccts.rothAccts.withdrawal.push(retire.totals.remaining[i]);
+          }
+        } else if (i >= (59 - ages.age)) {
+          if (currentValRoth >= retire.totals.remaining[i]) {
+            retire.ecaAccts.rothAccts.withdrawal.push(retire.totals.remaining[i]);
+          } else {
+            retire.ecaAccts.rothAccts.withdrawal.push(currentValRoth);
+          }
         }
-
-
-        // if (retire.totals.remaining[i] > 0) {
-        //   if (currentValInv > retire.totals.remaining) {
-        //     retire.invAccts.investAcct.withdrawal.push(retire.totals.remaining);
-        //   } else {
-        //     retire.invAccts.investAcct.withdrawal.push(currentValInv);
-        //   }
-  
       } else {
         retire.ecaAccts.rothAccts.withdrawal.push(0);
       }
       // Subtract withdrawal to get end value
       retire.totals.remaining[i] -= retire.ecaAccts.rothAccts.withdrawal[i];
+      retire.ecaAccts.rothAccts.contributions[i] -= retire.ecaAccts.rothAccts.withdrawal[i];
       retire.ecaAccts.rothAccts.endValue.push(retire.ecaAccts.rothAccts.beginValue[i] - retire.ecaAccts.rothAccts.withdrawal[i]);
       currentValRoth = retire.ecaAccts.rothAccts.endValue[i];
+      amtContRoth = retire.ecaAccts.rothAccts.contributions[i];
     }
   }
   // ROTH IRA
