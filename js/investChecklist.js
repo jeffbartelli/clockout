@@ -20,7 +20,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 .attr('type','checkbox')
                 .addClass('accountTypes')
     )))};
-    $('.investmentSelect').find('*').filter(':input:first').prop('checked','true').prop('disabled','true');
+    $('.investmentSelect').find('*').filter(':input:first').prop('checked','true')
+    // .prop('disabled','true')
+    ;
     $('.investmentSelect').append(
       $('<h4/>').text('Investment Accounts (Mark all that apply);')
     );

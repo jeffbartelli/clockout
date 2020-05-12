@@ -378,15 +378,13 @@ window.income = () => {
     for (let i=0; i<ages.cycle; i++) {
       // Annual growth applied
       currentValRoth *= investGrowth(i);
-      console.log(`Amount after growth: ${currentValRoth}`);
       // Annual contribution applied
       if (i <= (contEndAgeRoth - ages.age)) {
         currentValRoth += annualContRoth;
         currentValRoth += empContRoth;
-        console.log(`Amount after contributions: ${currentValRoth}`);
         if ((catchUpContRoth == true) && (i > (55 - ages.age))) {
           currentValRoth += 6500;
-          amtContRoth += 6500
+          amtContRoth += 6500;
         }
         amtContRoth += annualContRoth;
       }
@@ -402,7 +400,7 @@ window.income = () => {
           }
         }
         return count;
-      };
+      };      
       // Determine Withdrawal Amount
       if (retire.totals.remaining[i] > 0) {
         if (i < (59 - ages.age) && i >= (ages.retire - ages.age)) {
@@ -423,8 +421,12 @@ window.income = () => {
       }
       // Subtract withdrawal to get end value
       retire.totals.remaining[i] -= retire.ecaAccts.rothAccts.withdrawal[i];
-      retire.ecaAccts.rothAccts.contributions[i] -= retire.ecaAccts.rothAccts.withdrawal[i];
       retire.ecaAccts.rothAccts.endValue.push(retire.ecaAccts.rothAccts.beginValue[i] - retire.ecaAccts.rothAccts.withdrawal[i]);
+      if (retire.ecaAccts.rothAccts.contributions[i] > retire.ecaAccts.rothAccts.withdrawal[i]) {
+        retire.ecaAccts.rothAccts.contributions[i] -= retire.ecaAccts.rothAccts.withdrawal[i];
+      } else {
+        retire.ecaAccts.rothAccts.contributions[i] = 0;
+      }
       currentValRoth = retire.ecaAccts.rothAccts.endValue[i];
       amtContRoth = retire.ecaAccts.rothAccts.contributions[i];
     }
@@ -432,8 +434,78 @@ window.income = () => {
   // ROTH IRA
   if(data.rothIra.active == true) {
     retire.iraAccts.rothIra = {contributions: [], beginValue: [], withdrawal: [], endValue: []};
+    var amtContRothIra = data.rothIra.amtContRothIra;
+    var currentValRothIra = data.rothIra.currentValRothIra;
+    var annualContRothIra = data.rothIra.annualContRothIra;
+    var catchUpContRothIra = data.rothIra.catchUpContRothIra;
+    var contEndAgeRothIra = data.rothIra.contEndAgeRothIra;
+    for (let i=0; i<ages.cycle; i++) {
+      // Annual growth applied
+      currentValRothIra *= investGrowth(i);
+      // Annual contribution applied
+      if (i <= (contEndAgeRothIra - ages.age)) {
+        currentValRothIra += annualContRothIra;
+        if ((catchUpContRothIra == true) && (i > (55 - ages.age))) {
+          currentValRothIra += 1000;
+          amtContRothIra += 1000;
+        }
+        amtContRothIra += annualContRothIra;
+      }
+      // Applied beginning value
+      retire.iraAccts.rothIra.beginValue.push(currentValRothIra);
+      retire.iraAccts.rothIra.contributions.push(amtContRothIra);
+      // Counter function for zero balances in remaining between retire age and 59
+      var retCount = () => {
+        let count = 0;
+        for (let j=(ages.retire - ages.age); j<(59 - ages.age); j++) {
+          if (retire.totals.remaining[j] == 0) {
+            count++;
+          }
+        }
+        return count;
+      }; 
+      // Determine Withdrawal Amount
+      if (retire.totals.remaining[i] > 0) {
+        if (i < (59 - ages.age) && i >= (ages.retire - ages.age)) {
+          if (amtContRothIra/((59 - ages.retire) - retCount()) < retire.totals.remaining[i]) {
+            retire.iraAccts.rothIra.withdrawal.push(amtContRothIra/((59 - ages.retire) - retCount()));
+          } else {
+            retire.iraAccts.rothIra.withdrawal.push(retire.totals.remaining[i]);
+          }
+        } else if (i >= (59 - ages.age)) {
+          if (currentValRothIra >= retire.totals.remaining[i]) {
+            retire.iraAccts.rothIra.withdrawal.push(retire.totals.remaining[i]);
+          } else {
+            retire.iraAccts.rothIra.withdrawal.push(currentValRothIra);
+          }
+        }
+      } else {
+        retire.iraAccts.rothIra.withdrawal.push(0);
+      }
+      // Subtract withdrawal to get end value
+      retire.totals.remaining[i] -= retire.iraAccts.rothIra.withdrawal[i];
+      retire.iraAccts.rothIra.endValue.push(retire.iraAccts.rothIra.beginValue[i] - retire.iraAccts.rothIra.withdrawal[i]);
+      if (retire.iraAccts.rothIra.contributions[i] > retire.iraAccts.rothIra.withdrawal[i]) {
+        retire.iraAccts.rothIra.contributions[i] -= retire.iraAccts.rothIra.withdrawal[i];
+      } else {
+        retire.iraAccts.rothIra.contributions[i] = 0;
+      }
+      currentValRothIra = retire.iraAccts.rothIra.endValue[i];
+      amtContRothIra = retire.iraAccts.rothIra.contributions[i];
+    }
   }
+  if(data.tradAccts.active == true) {
+    // EACH OF THESE NEEDS THE BASIC WITHDRAWAL CODE FOR 70 AND OVER. CLOSE EACH IF WITH CODE ASSIGNING END VALUE TO THE NEXT BEGIN VALUE (SEE LINES ABOVE).
+  }
+  if(data.simpleIra.active == true) {
+  
+  }
+  if(data.simple401.active == true) {
+  
+  }
+  if(data.tradIra.active == true) {
 
+  }
   console.log(retire);
 };
 
