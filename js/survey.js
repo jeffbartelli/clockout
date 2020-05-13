@@ -134,7 +134,7 @@ window.harvest = (form) => {
     for (let j=0; j<tempKeys.length; j++) {
       if (tempKeys[j] == 'active') {continue;}
       if (document.getElementById(tempKeys[j]).value == '') {continue;}
-      data[invCategories[i]][tempKeys[j]] = parseInt(document.getElementById(tempKeys[j]).value) || document.getElementById(tempKeys[j]).value;
+      data[invCategories[i]][tempKeys[j]] = Number(document.getElementById(tempKeys[j]).value) || document.getElementById(tempKeys[j]).value;
       if (document.getElementById(tempKeys[j]).type == 'radio') {
         document.getElementById(tempKeys[j]).checked ? data[invCategories[i]][tempKeys[j]] = true : data[invCategories[i]][tempKeys[j]] = false;
       }

@@ -1,0 +1,51 @@
+Income Function Steps
+
+Income Sources Structure:
+ 1. If Account == Active
+ 2. Create records in retire object
+ 3. Create internal variables from data (data.js)
+ 4. If age threshold
+ 5. Income Distribution
+ 6. Apply Growth Rate
+
+Investment Sources Structures:
+*** Traditional Accounts ***
+ 1. If Account == Active
+ 2. Create records in retire object
+ 3. Create internal variables from data (data.js)
+ 4. Push Begin Value
+ 5. If age threshold
+ 6. RMD Distribution
+ 7. Push RMD Value
+ 8. Apply (5/12)% Growth Rate to RMD amount
+ 9. Retire.[...].Remaining <0 Test
+10. Apply Growth Rate
+11. Accrue Personal/Employer Contributions
+12. Apply (5/12)% Growth Rate to Personal/Employer Contributions
+13. Accrue Catch Up Contributions
+14. Apply (5/12)% Growth Rate to Catch Up Contributions
+15. Push End Value
+
+*** Investment Account ***
+ 1. If Account == Active
+ 2. Create records in retire object
+ 3. Create internal variables from data (data.js)
+ 4. Push Begin Value
+
+- Deduct Income Contributions
+- Apply Annual Growth Rate
+-- Full Growth Rate For Beginning Value
+-- Half Growth Rate For Income Contributions
+- Apply Personal Contributions
+
+*** Roth Accounts ***
+- Test if Account is Active
+- Create records in retire object
+- Create variables from data (data.js)
+- Deduct Income Contributions
+- Apply Annual Growth Rate
+-- Full Growth Rate For Beginning Value
+-- Half Growth Rate For Income Contributions
+- Apply Personal/Employer Contributions
+
+
