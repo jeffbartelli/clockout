@@ -14,38 +14,48 @@ Investment Sources Structures:
  2. Create records in retire object
  3. Create internal variables from data (data.js)
  4. Push Begin Value
- 5. If age threshold
- 6. RMD Distribution
- 7. Push RMD Value
- 8. Apply (5/12)% Growth Rate to RMD amount
+ 5. Prevent interest accrual once current value = 0
+ 6. If age threshold
+ 7. RMD Distribution
+ 8. Push RMD Value
  9. Retire.[...].Remaining <0 Test
-10. Apply Growth Rate
-11. Accrue Personal/Employer Contributions
-12. Apply (5/12)% Growth Rate to Personal/Employer Contributions
-13. Accrue Catch Up Contributions
-14. Apply (5/12)% Growth Rate to Catch Up Contributions
-15. Push End Value
+10. Apply (5/12)% Growth Rate for RMD amount
+11. Apply Growth Rate
+12. Accrue Personal/Employer Contributions
+13. Apply (5/12)% Growth Rate to Personal/Employer Contributions
+14. Accrue Catch Up Contributions
+15. Apply (5/12)% Growth Rate to Catch Up Contributions
+16. Push End Value
 
 *** Investment Account ***
  1. If Account == Active
  2. Create records in retire object
  3. Create internal variables from data (data.js)
  4. Push Begin Value
-
-- Deduct Income Contributions
-- Apply Annual Growth Rate
--- Full Growth Rate For Beginning Value
--- Half Growth Rate For Income Contributions
-- Apply Personal Contributions
+ 5. Determine and Set Withdrawal Amount
+ 6. Prevent interest accrual once current value = 0
+ 7. Apply (5/12)% Growth Rate for Withdrawal Amount
+ 8. Apply Growth Rate
+ 9. Accrue Contributions
+10. Apply (5/12)% Growth Rate to Contributions
+11. Push End Value
 
 *** Roth Accounts ***
-- Test if Account is Active
-- Create records in retire object
-- Create variables from data (data.js)
-- Deduct Income Contributions
-- Apply Annual Growth Rate
--- Full Growth Rate For Beginning Value
--- Half Growth Rate For Income Contributions
-- Apply Personal/Employer Contributions
-
+ 1. If Account == Active
+ 2. Create records in retire object
+ 3. Create internal variables from data (data.js)
+ 4. Push Begin Value for Total and Contributions
+ 5. Determine Withdrawal Amount
+ 6. Age threshold: Withdraw against contributions before age 60
+ 7. Deduct withdrawal from total contributions
+ 8. Age threshold: Withdraw against balance after age 59
+ 9. Deduct withdrawal from current value and from retire...remaining
+10. Prevent interest accrual once current value = 0
+11. Apply (5/12)% Growth Rate for Withdrawal Amount
+12. Apply Growth Rate
+13. Accrue Contributions
+14. Apply (5/12)% Growth Rate to Contributions
+15. Accrue Catch Up Contributions
+16. Apply (5/12)% Growth Rate to Catch Up Contributions
+17. Push End Value
 
