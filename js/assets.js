@@ -635,9 +635,26 @@ window.income = () => {
       }
     }
   }
-  
+  /* 17. If Account == Active */
   if(data.tradAccts.active == true) {
-    // EACH OF THESE NEED THE BASIC WITHDRAWAL CODE FOR 59 AND OVER. EXPAND IF STATEMENT TO HAVE SECOND CLAUSE FOR AGE CRITERION. CLOSE EACH IF WITH CODE ASSIGNING END VALUE TO THE NEXT BEGIN VALUE (SEE LINES ABOVE).
+    for (let i=0; i<ages.cycle; i++) {
+      /* 18. Test Acct & Remaining > 0; Age Threshold */
+      if (retire.totals.remaining[i] > 0
+        && retire.ecaAccts.tradAccts.endValue[i] > 0
+        && i >= 59 - ages.age) {
+          /* 19. Push Withdrawal Value */
+        if (retire.ecaAccts.tradAccts.endValue[i] >= retire.totals.remaining[i]) {
+          retire.ecaAccts.tradAccts.withdrawal.push(retire.totals.remaining[i]);
+        } else {
+          retire.ecaAccts.tradAccts.withdrawal.push(retire.ecaAccts.tradAccts.endValue[i]);
+        }
+        retire.ecaAccts.tradAccts.endValue[i] -= retire.ecaAccts.tradAccts.withdrawal[i];
+        retire.totals.remaining[i] -= retire.ecaAccts.tradAccts.withdrawal[i];
+      } else {
+        retire.ecaAccts.tradAccts.withdrawal.push(0);
+      }
+    
+    }
   }
   if(data.simpleIra.active == true) {
   

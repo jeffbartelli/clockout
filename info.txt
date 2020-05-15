@@ -26,6 +26,11 @@ Investment Sources Structures:
 14. Accrue Catch Up Contributions
 15. Apply (5/12)% Growth Rate to Catch Up Contributions
 16. Push End Value
+*** ***
+17. If Account == Active
+18. Test acct & remaining > 0; Age threshold
+19. Push Withdrawal Value
+20.
 
 *** Investment Account ***
  1. If Account == Active
