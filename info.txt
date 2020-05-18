@@ -15,17 +15,20 @@ Investment Sources Structures:
  3. Create internal variables from data (data.js)
  4. Push Begin Value
  5. Prevent interest accrual once current value = 0
- 6. If age threshold
- 7. RMD Distribution
- 8. Push RMD Value
- 9. Retire.[...].Remaining <0 Test
-10. Apply (5/12)% Growth Rate for RMD amount
-11. Apply Growth Rate
-12. Accrue Personal/Employer Contributions
-13. Apply (5/12)% Growth Rate to Personal/Employer Contributions
-14. Accrue Catch Up Contributions
-15. Apply (5/12)% Growth Rate to Catch Up Contributions
-16. Push End Value
+ 6. If under 59, Push RMD & Withdrawal = 0
+ 7. If 58 < 70, Push Withdrawal Amount
+ 8. If >69, Push RMD Amount + Additional Withdrawal
+ 9. RMD Distribution
+10. Push RMD Value
+11. Push Additional Withdrawal Value
+12. Apply (5/12)% Growth Rate to RMD amount
+13. Apply (5/12)% Growth Rate to Withdrawal amount
+14. Apply Growth Rate
+15. Accrue Personal/Employer Contributions
+16. Apply (5/12)% Growth Rate to Personal/Employer Contributions
+17. Accrue Catch Up Contributions
+18. Apply (5/12)% Growth Rate to Catch Up Contributions
+19. Push End Value
 *** ***
 17. If Account == Active
 18. Test acct & remaining > 0; Age threshold

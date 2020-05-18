@@ -129,7 +129,6 @@ window.activeItems = () => {
 window.harvest = () => {
   // let inputs = document.querySelectorAll('input:not(.accountTypes):not(.ecaCalculator):not(.monthlyCalc),select');
   const invCategories = Object.keys(data);
-  console.log(invCategories);
   for (let i=1; i<invCategories.length; i++) {
     let tempKeys = Object.keys(data[invCategories[i]]);
     for (let j=0; j<tempKeys.length; j++) {
