@@ -2,15 +2,16 @@ import {currentTab, data} from './survey.js';
 import {dollarFormat} from './numberFormats.js';
 
 document.addEventListener('DOMContentLoaded', function() {
+  const details = demographics();
 
   window.ecaCalc = (e) => {
-    e.nextSibling.nextSibling.innerHTML = dollarFormat.format(data.demographics.salary);
-    e.parentNode.lastChild.value = parseInt(Math.round(data.demographics.salary * (e.value/100) > 57000 ? 57000 : data.demographics.salary * (e.value/100)));
+    e.nextSibling.nextSibling.innerHTML = dollarFormat.format(details.salary);
+    e.parentNode.lastChild.value = parseInt(Math.round(details.salary * (e.value/100) > 57000 ? 57000 : details.salary * (e.value/100)));
   }
   
   window.ecaPersCalc = (e) => {
-    e.nextSibling.nextSibling.innerHTML = dollarFormat.format(data.demographics.salary);
-    e.parentNode.lastChild.value = parseInt(Math.round(data.demographics.salary * (e.value/100) > 19500 ? 19500 : data.demographics.salary * (e.value/100)));
+    e.nextSibling.nextSibling.innerHTML = dollarFormat.format(details.salary);
+    e.parentNode.lastChild.value = parseInt(Math.round(details.salary * (e.value/100) > 19500 ? 19500 : details.salary * (e.value/100)));
     retCalc();
   }
 
@@ -42,14 +43,14 @@ document.addEventListener('DOMContentLoaded', function() {
       )
     )
     $('.modalSalary').each(function() {
-      $(this).text(dollarFormat.format(data.demographics.salary));
+      $(this).text(dollarFormat.format(details.salary));
     });  
   }
   ecaModal();
   
   window.ecaModalCalc = (e) => {
-    $(e).parent().last().find('.modalSalary').text(dollarFormat.format(data.demographics.salary));
-    $(e).parent().next().find('.ecaContAmount').val(parseInt(Math.round(data.demographics.salary * (e.value/100) > 19500 ? 19500 : data.demographics.salary * (e.value/100))));
+    $(e).parent().last().find('.modalSalary').text(dollarFormat.format(details.salary));
+    $(e).parent().next().find('.ecaContAmount').val(parseInt(Math.round(details.salary * (e.value/100) > 19500 ? 19500 : details.salary * (e.value/100))));
     ecaModalTotal();
   };
 
@@ -120,8 +121,8 @@ document.addEventListener('DOMContentLoaded', function() {
   };
   
   window.simplePersCalc = (e) => {
-    e.nextSibling.nextSibling.innerHTML = dollarFormat.format(data.demographics.salary);
-    e.parentNode.lastChild.value = parseInt(Math.round(data.demographics.salary * (e.value/100) > 13500 ? 13500 : data.demographics.salary * (e.value/100)));
+    e.nextSibling.nextSibling.innerHTML = dollarFormat.format(details.salary);
+    e.parentNode.lastChild.value = parseInt(Math.round(details.salary * (e.value/100) > 13500 ? 13500 : details.salary * (e.value/100)));
     simpleCalc();
   }
 

@@ -1,13 +1,13 @@
-import {data, states} from './data.js';
+import {data} from './data.js';
 // import {income} from './assets.js';
 
 let currentTab = 0;
+let tabOrder = [0];
 
 document.addEventListener('DOMContentLoaded', function() {
 
 /* Creates progress markers for the form pages*/
-let tabOrder = [0];
-window.accountTypes = () => {
+let accountTypes = () => {
   tabOrder = [0];
   let accounts = $('.accountTypes');
   for(let i=0; i<accounts.length;i++){
@@ -33,18 +33,18 @@ window.accountTypes = () => {
 }
 
 /* Sets the active step marker */
-window.fixStepIndicator = () => {
+let fixStepIndicator = () => {
   let x = document.getElementsByClassName('step');
   for (let i=0; i<x.length; i++) {
     // reduce so that classList.remove('active')
     x[i].className = x[i].className.replace(' active','');
   }
   $(x[tabOrder.indexOf(currentTab)-1]).addClass('active');
-  $(x[tabOrder.indexOf(currentTab)-1]).addClass('finish');
+  // $(x[tabOrder.indexOf(currentTab)-1]).addClass('finish');
 }
 
 /* Turns on the active tab in the survey */
-window.showTab = (n) => {
+let showTab = (n) => {
   let x = document.getElementsByClassName('tab');
   if (x[n]) {
     x[n].style.display = 'block';
@@ -80,7 +80,8 @@ window.nextPrev = (n) => {
 
   if (!currentTab) {
     harvest();
-  // NEED A REDIRECT HERE TO THE NEXT SCREEN
+    // window.location.href = "results.html";
+    income();
   }
   if (x[currentTab]) {
     showTab(currentTab);
@@ -116,9 +117,12 @@ function validateForm() {
 
 window.demographics = () => {
   let inputs = $("#personalDetails :input");
+  let details = {};
   for (let i=0;i<inputs.length;i++) {
     data.demographics[inputs[i].id] = inputs[i].value;
+    details[inputs[i].id] = inputs[i].value;
   }
+  return details;
 }
 
 window.activeItems = () => {
