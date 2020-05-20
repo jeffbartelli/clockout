@@ -5,6 +5,17 @@ body {
   background-color: azure;
 }
 
+h2 {
+  text-align: center;
+  padding: 20px;
+}
+
+p {margin: 3px;}
+
+h4 {margin: 3px;}
+
+::placeholder {color: darkgrey;}
+
 /* index.html */
 #header {
   height: 40px;
@@ -16,7 +27,7 @@ body {
   border-radius: 7px;
   max-width: 80%;
   margin: 50px auto;
-  height: 450px;
+  height: 400px;
   background-color: whitesmoke;
   position: relative;
 }
@@ -43,12 +54,6 @@ body {
   transition-delay: .1s;
   background-color: dodgerblue;
   border: 3px double deepskyblue;
-
-}
-
-h2 {
-  text-align: center;
-  padding: 20px;
 }
 
 .homepage-text {
@@ -111,43 +116,13 @@ h2 {
   margin: 0 auto;
 }
 
-
-
-
-#dataForm {
-  /* max-width: 80%; */
-  /* height: 380px; */
-  padding: 4px;
-  overflow-x: hidden;
-  overflow-y: auto;
-  /* text-align: justify; */
-  margin: auto;
-  padding: 10px;
-}
-
-h4 {
-  margin: 10px 0 3px 0;
-}
-
-fieldset {
-  background-color: white;
-  height: fit-content;
-}
-
-legend {
-  font-weight: bolder;
-}
-
 input, select {
   display: inline-block;
 }
 
-label {
-  font-size: large;
+label:not(.accountItems) {
+  font-size: medium;
   display: inline-block;
-}
-
-.accountHeader {
   font-weight: bold;
 }
 
@@ -157,17 +132,9 @@ label {
   margin: 2px;
 } */
 
-p {
-  margin: 3px;
-}
-
 input[type="number"],input[type="text"],input[type="date"] {
   width: 150px;
   border: 1px solid #aaaaaa;
-}
-
-::placeholder {
-  color: darkgrey;
 }
 
 /* Mark input boxes that gets an error on validation: */
@@ -203,9 +170,9 @@ select.invalid, input.invalid {
 }
 
 /* Mark the steps that are finished and valid: */
-/* .step.finish {
+.step.finish {
   background-color: #4CAF50;
-} */
+}
 
 #retSalCalc {
   background-color: white;

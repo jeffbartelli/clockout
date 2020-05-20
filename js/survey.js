@@ -36,9 +36,11 @@ window.accountTypes = () => {
 window.fixStepIndicator = () => {
   let x = document.getElementsByClassName('step');
   for (let i=0; i<x.length; i++) {
+    // reduce so that classList.remove('active')
     x[i].className = x[i].className.replace(' active','');
   }
   $(x[tabOrder.indexOf(currentTab)-1]).addClass('active');
+  $(x[tabOrder.indexOf(currentTab)-1]).addClass('finish');
 }
 
 /* Turns on the active tab in the survey */
@@ -48,8 +50,10 @@ window.showTab = (n) => {
     x[n].style.display = 'block';
     if (n == 0) {
       document.getElementById('prevBtn').style.display = "none";
+      // document.getElementById('prevBtn').disabled = true;
     } else {
       document.getElementById('prevBtn').style.display = "inline";
+      // document.getElementById('prevBtn').disabled = false;
     }
     if (n > 0 && n == (Math.max.apply(null,tabOrder))) {
       document.getElementById('nextBtn').innerHTML = "Submit";
@@ -81,7 +85,7 @@ window.nextPrev = (n) => {
   if (x[currentTab]) {
     showTab(currentTab);
     x[currentTab].getElementsByTagName('input')[0].select();
-    window.scrollTo(0,0);
+    // window.scrollTo(0,0);
   }
 }
 

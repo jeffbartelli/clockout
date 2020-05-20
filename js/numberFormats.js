@@ -1,10 +1,10 @@
-let dollarFormat = new Intl.NumberFormat('en-US', {
+var dollarFormat = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD',
   minimumFractionDigits: 0,
 });
 
-let percentFormat = new Intl.NumberFormat('en-US', {
+var percentFormat = new Intl.NumberFormat('en-US', {
   style: 'percent',
   minimumFractionDigits: 1,
 });

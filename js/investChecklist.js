@@ -16,7 +16,8 @@ document.addEventListener('DOMContentLoaded', function() {
         $('<p/>').append(
           $('<label/>')
             .text($accounts[i].innerHTML)
-            .attr('data-title',incomeTitles[i]) 
+            .attr('data-title',incomeTitles[i])
+            .attr('class','accountItems') 
             .prepend(
               $('<input/>')
                 .attr('type','checkbox')
@@ -36,7 +37,8 @@ document.addEventListener('DOMContentLoaded', function() {
         $('<p/>').append(
           $('<label/>')
             .text($investments[i].innerHTML)
-            .attr('data-title',investTitles[i]) 
+            .attr('data-title',investTitles[i])
+            .attr('class','accountItems')
             .prepend(
               $('<input/>')
                 .attr('type','checkbox')
