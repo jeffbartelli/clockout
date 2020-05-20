@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   window.ecaModal = () => {
-    let $accounts = $('legend');
+    let $accounts = $('.sectionHeader');
     for (let i=13; i<17; i++) {
       $('table').append(
         $('<tr/>').append(
@@ -114,8 +114,8 @@ document.addEventListener('DOMContentLoaded', function() {
       trad.classList.add('invalid');
       alert(`Total combined annual contributions to Roth and Traditional IRAs cannot exceed $6,000. Your total is currently ${dollarFormat.format(total)}.`);
     } else if (total <= 6000) {
-      $(roth).removeClass('invalid');
-      $(trad).removeClass('invalid');
+      roth.classList.remove('invalid');
+      trad.classList.remove('invalid');
     }
   };
   

@@ -5,12 +5,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
   /* Creates list of investments */
   var investmentSelect = () => {
-    let $accounts = $('legend.income');
+    let $accounts = $('h4.income');
     $('.investmentSelect').append(
-      $('<h4/>').text('Income & Benefits (Mark all that apply);')
+      $('<div/>').attr('class','incomeList').append(
+        $('<h4/>').text('Income & Benefits:')
+      )
     );
     for (let i=0; i<$accounts.length; i++) {
-      $('.investmentSelect').append(
+      $('.incomeList').append(
         $('<p/>').append(
           $('<label/>')
             .text($accounts[i].innerHTML)
@@ -24,11 +26,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // .prop('disabled','true')
     ;
     $('.investmentSelect').append(
-      $('<h4/>').text('Investment Accounts (Mark all that apply);')
+      $('<div/>').attr('class','investList').append(
+        $('<h4/>').text('Investment Accounts:')
+      )
     );
-    let $investments = $('legend.investment');
+    let $investments = $('h4.investment');
     for (let i=0; i<$investments.length; i++) {
-      $('.investmentSelect').append(
+      $('.investList').append(
         $('<p/>').append(
           $('<label/>')
             .text($investments[i].innerHTML)

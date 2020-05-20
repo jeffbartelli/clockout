@@ -64,7 +64,7 @@ $('input:first').select();
 
 window.nextPrev = (n) => {
   let x = document.getElementsByClassName('tab');
-  if (n == 1 && !validateForm()) return false;
+  // if (n == 1 && !validateForm()) return false;
   if(currentTab == 0) {
     accountTypes();
     demographics();
