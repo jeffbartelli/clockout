@@ -1,36 +1,9 @@
 import {data} from './data.js';
+import {investmentSelect} from './investChecklist.js';
 // import {income} from './assets.js';
 
 let currentTab = 0;
 let tabOrder = [0];
-
-document.addEventListener('DOMContentLoaded', function() {
-
-/* Creates progress markers for the form pages*/
-let accountTypes = () => {
-  tabOrder = [0];
-  let accounts = $('.accountTypes');
-  for(let i=0; i<accounts.length;i++){
-    if (accounts[i].checked) {
-      tabOrder.push(i+1);
-    }
-  }
-  let progressMarker = document.createElement('span');
-  $(progressMarker).addClass('step');
-  let markerCount = document.getElementById('progress').childElementCount;
-  let tabCount = tabOrder.length-1;
-  if(tabCount >= markerCount) {
-    for(let i=0; i<tabCount-markerCount; i++) {
-      $('#progress').append(progressMarker.cloneNode(true));
-    }
-  } else if (tabCount < markerCount) {
-    for(let i=0; i<markerCount-tabCount; i++) {
-      let el = $('#progress:last-child');
-      el.remove();
-    }
-  }
-  document.getElementsByClassName('step')[0].classList.add('active');
-}
 
 /* Sets the active step marker */
 let fixStepIndicator = () => {
@@ -62,9 +35,55 @@ let showTab = (n) => {
     }
     fixStepIndicator();
   }
+  $('input:first').select();
 }
 showTab(currentTab);
-$('input:first').select();
+investmentSelect();
+
+/* Creates progress markers for the form pages*/
+let accountTypes = () => {
+  tabOrder = [0];
+  let accounts = $('.accountTypes');
+  for(let i=0; i<accounts.length;i++){
+    if (accounts[i].checked) {
+      tabOrder.push(i+1);
+    }
+  }
+  let progressMarker = document.createElement('span');
+  $(progressMarker).addClass('step');
+  let markerCount = document.getElementById('progress').childElementCount;
+  let tabCount = tabOrder.length-1;
+  if(tabCount >= markerCount) {
+    for(let i=0; i<tabCount-markerCount; i++) {
+      $('#progress').append(progressMarker.cloneNode(true));
+    }
+  } else if (tabCount < markerCount) {
+    for(let i=0; i<markerCount-tabCount; i++) {
+      let el = $('#progress:last-child');
+      el.remove();
+    }
+  }
+  document.getElementsByClassName('step')[0].classList.add('active');
+}
+
+window.demographics = () => {
+  let inputs = $("#personalDetails :input");
+  let details = {};
+  for (let i=0;i<inputs.length;i++) {
+    data.demographics[inputs[i].id] = inputs[i].value;
+    details[inputs[i].id] = inputs[i].value;
+  }
+  return details;
+}
+
+window.activeItems = () => {
+  let $options = $('.accountTypes');
+  for (let i=0; i<$options.length; i++) {
+    if ($options[i].checked) {
+      data[$options[i].classList[1]].active = true;
+    }
+  };
+};
 
 window.nextPrev = (n) => {
   let x = document.getElementsByClassName('tab');
@@ -75,13 +94,11 @@ window.nextPrev = (n) => {
     activeItems();
   }
   x[currentTab].style.display = 'none';
-
   currentTab = tabOrder[tabOrder.indexOf(currentTab)+n];
-
   if (!currentTab) {
     harvest();
     // window.location.href = "results.html";
-    income();
+    // income();
   }
   if (x[currentTab]) {
     showTab(currentTab);
@@ -115,25 +132,6 @@ function validateForm() {
   return valid;
 }
 
-window.demographics = () => {
-  let inputs = $("#personalDetails :input");
-  let details = {};
-  for (let i=0;i<inputs.length;i++) {
-    data.demographics[inputs[i].id] = inputs[i].value;
-    details[inputs[i].id] = inputs[i].value;
-  }
-  return details;
-}
-
-window.activeItems = () => {
-  let $options = $('.accountTypes');
-  for (let i=0; i<$options.length; i++) {
-    if ($options[i].checked) {
-      data[$options[i].classList[1]].active = true;
-    }
-  };
-};
-
 window.harvest = () => {
   // let inputs = document.querySelectorAll('input:not(.accountTypes):not(.ecaCalculator):not(.monthlyCalc),select');
   const invCategories = Object.keys(data);
@@ -151,6 +149,5 @@ window.harvest = () => {
   console.log(data); 
   // income();   
 }
-});
 
 export {currentTab, data};
