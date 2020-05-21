@@ -71,15 +71,15 @@
             <p>Note: The Social Security Administration estimates that after 2035 it will only collect enough payroll taxes to pay out 80% of your estimated benefit.</p>
           </div>
           <div class="survey-fields">
-            <div class="monthlyAmtSsi">
-              <p><label for="monthlyAmtSsi">Projected full monthly SSI benefit (not adjusted if initiating benefits before age 67):</label></p>
+            <div class="annAmt_ssi">
+              <p><label for="annAmt_ssi">Projected full monthly SSI benefit (not adjusted if initiating benefits before age 67):</label></p>
               <p>
-                <input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="monthlyAmtSsi" id="monthlyAmtSsi" class="data" oninput="$(this).removeClass('invalid')" placeholder="Annual Amount"></p>
+                <input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annAmt_ssi" id="annAmt_ssi" class="data" oninput="$(this).removeClass('invalid')" placeholder="Annual Amount"></p>
             </div>
-            <div class="retirementAgeSsi">
-              <p><label for="retirementAgeSsi">Age at which you plan to begin SSI benefits:</label></p>
+            <div class="beginAge_ssi">
+              <p><label for="beginAge_ssi">Age at which you plan to begin SSI benefits:</label></p>
               <p>
-                <select name="retirementAgeSsi" id="retirementAgeSsi" class="data" oninput="$(this).removeClass('invalid')">
+                <select name="beginAge_ssi" id="beginAge_ssi" class="data" oninput="$(this).removeClass('invalid')">
                   <option value="" disabled selected hidden>Select one</option>
                   <option value="62">62 (70%)</option>
                   <option value="63">63 (76%)</option>
@@ -106,24 +106,24 @@
             <p>Use the fields below to enter the details about your pension. You can enter either a monthly or annual distribution.And if there is no later age at which Cost of Living Adjustments do not begin, then enter the same age for when benefits begin.</p>
           </div>
           <div class="survey-fields">
-            <div class="annualBenAmtGen">
-              <p><label for="annualBenAmtGen">Monthly benefit amount:</label></p>
-              <p><input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annualBenAmtGen" id="annualBenAmtGen" class="data" placeholder="Annual Amount" oninput="$(this).removeClass('invalid')"></p>
+            <div class="annAmt_genPension">
+              <p><label for="annAmt_genPension">Monthly benefit amount:</label></p>
+              <p><input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annAmt_genPension" id="annAmt_genPension" class="data" placeholder="Annual Amount" oninput="$(this).removeClass('invalid')"></p>
             </div>
-            <div class="taxGen">
-              <p><label>Is the benefit taxable: <input type="checkbox" id="taxGen" class="data" ></label></p>
+            <div class="tax_genPension">
+              <p><label>Is the benefit taxable: <input type="checkbox" id="tax_genPension" class="data" ></label></p>
             </div>
-            <div class="benBeginAgeGen">
-              <p><label for="benBeginAgeGen">Age when benefit begins:</label></p>
-              <p><input type="number" name="benBeginAgeGen" id="benBeginAgeGen" class="data" placeholder="Age" oninput="$(this).removeClass('invalid')"></p>
+            <div class="beginAge_genPension">
+              <p><label for="beginAge_genPension">Age when benefit begins:</label></p>
+              <p><input type="number" name="beginAge_genPension" id="beginAge_genPension" class="data" placeholder="Age" oninput="$(this).removeClass('invalid')"></p>
             </div>
-            <div class="annualColaGen">
-              <p><label for="annualColaGen">Average cost of living adjustment (COLA) (%):</label></p>
-              <p><input type="number" name="annualColaGen" id="annualColaGen" class="data" min="0" max="10" placeholder="Percent" oninput="$(this).removeClass('invalid')"></p>
+            <div class="colaRate_genPension">
+              <p><label for="colaRate_genPension">Average cost of living adjustment (COLA) (%):</label></p>
+              <p><input type="number" name="colaRate_genPension" id="colaRate_genPension" class="data" min="0" max="10" placeholder="Percent" oninput="$(this).removeClass('invalid')"></p>
             </div>
-            <div class="colaBeginAgeGen">
-              <p><label for="colaBeginAgeGen">Age when COLA begins:</label></p>
-              <p><input type="number" name="colaBeginAgeGen" id="colaBeginAgeGen" class="data" maxlength="2" placeholder="Age" oninput="$(this).removeClass('invalid')"></p>
+            <div class="colaAge_genPension">
+              <p><label for="colaAge_genPension">Age when COLA begins:</label></p>
+              <p><input type="number" name="colaAge_genPension" id="colaAge_genPension" class="data" maxlength="2" placeholder="Age" oninput="$(this).removeClass('invalid')"></p>
             </div>  
           </div>
         </div>
@@ -138,11 +138,11 @@
             <p>Instructions for entering FERS information.</p>
           </div>
           <div class="survey-fields">
-            <div class="annualBenAmtFers">
-              <p><label for="annualBenAmtFers">Monthly benefit amount: <input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annualBenAmtFers" id="annualBenAmtFers" class="data" placeholder="Annual Amount" oninput="$(this).removeClass('invalid')"></label></p>
+            <div class="annAmt_fersPension">
+              <p><label for="annAmt_fersPension">Monthly benefit amount: <input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annAmt_fersPension" id="annAmt_fersPension" class="data" placeholder="Annual Amount" oninput="$(this).removeClass('invalid')"></label></p>
             </div>
-            <div class="benBeginAgeFers">
-              <p><label for="benBeginAgeFers">Age when benefits begin: <select name="benBeginAgeFers" id="benBeginAgeFers" class="data" oninput="$(this).removeClass('invalid')">
+            <div class="beginAge_fersPension">
+              <p><label for="beginAge_fersPension">Age when benefits begin: <select name="beginAge_fersPension" id="beginAge_fersPension" class="data" oninput="$(this).removeClass('invalid')">
                 <option value="" disabled selected hidden>Select one</option>
                 <option value="57">57</option>
                 <option value="58">58</option>
@@ -167,20 +167,20 @@
             <p>At present this form can really only accommodate fixed annuities. If you have a different type of annuity, consider entering your information in the Other Assets or Other Benefits categories.</p>
           </div>
           <div class="survey-fields">
-            <div class="annualAnnuity">
-              <p><label for="annualAnnuity">Monthly benefit amount:</label></p>
-              <p><input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annualAnnuity" id="annualAnnuity" class="data" placeholder="Annual Amount" oninput="$(this).removeClass('invalid')"></p>
+            <div class="annAmt_annuities">
+              <p><label for="annAmt_annuities">Monthly benefit amount:</label></p>
+              <p><input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annAmt_annuities" id="annAmt_annuities" class="data" placeholder="Annual Amount" oninput="$(this).removeClass('invalid')"></p>
             </div>
-            <div class="annuityTax">
-              <p><label>Is the benefit taxable: <input type="checkbox" id="annuityTax" class="data" ></label></p>
+            <div class="tax_annuities">
+              <p><label>Is the benefit taxable: <input type="checkbox" id="tax_annuities" class="data" ></label></p>
             </div>
-            <div class="annuityCola">
-              <p><label for="annuityCola">Average cost of living adjustment (COLA) (%):</label></p>
-              <p><input type="number" name="annuityCola" id="annuityCola" class="data" min="0" max="10" placeholder="Percent" oninput="$(this).removeClass('invalid')"></p>
+            <div class="colaRate_annuities">
+              <p><label for="colaRate_annuities">Average cost of living adjustment (COLA) (%):</label></p>
+              <p><input type="number" name="colaRate_annuities" id="colaRate_annuities" class="data" min="0" max="10" placeholder="Percent" oninput="$(this).removeClass('invalid')"></p>
             </div>
-            <div class="annuityAge">
-              <p><label for="annuityAge">Age at which annuity begins:</label></p>
-              <p><input type="number" name="annuityAge" id="annuityAge" class="data" placeholder="Age" oninput="$(this).removeClass('invalid')"></p>
+            <div class="beginAge_annuities">
+              <p><label for="beginAge_annuities">Age at which annuity begins:</label></p>
+              <p><input type="number" name="beginAge_annuities" id="beginAge_annuities" class="data" placeholder="Age" oninput="$(this).removeClass('invalid')"></p>
             </div>
           </div>
         </div>
@@ -195,9 +195,9 @@
             <p>Instructions for entering disability information.</p>
           </div>
           <div class="survey-fields">
-            <div class="annualAmtVa">
-              <p><label for="annualAmtVa">Monthly VA Disability Total:</label></p>
-              <p><input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annualAmtVa" id="annualAmtVa" class="data" placeholder="Annual Amount" oninput="$(this).removeClass('invalid')"></p>
+            <div class="annAmt_vaDisability">
+              <p><label for="annAmt_vaDisability">Monthly VA Disability Total:</label></p>
+              <p><input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annAmt_vaDisability" id="annAmt_vaDisability" class="data" placeholder="Annual Amount" oninput="$(this).removeClass('invalid')"></p>
             </div>
           </div>
         </div>
@@ -212,9 +212,9 @@
             <p>Instructions for entering disability information.</p>
           </div>
           <div class="survey-fields">
-            <div class="annualAmtSsi">
-              <p><label for="annualAmtSsi">Monthly SSI Disability Total:</label></p>
-              <p><input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annualAmtSsi" id="annualAmtSsi" class="data" placeholder="Annual Amount" oninput="$(this).removeClass('invalid')"></p>
+            <div class="annAmt_ssiDisability">
+              <p><label for="annAmt_ssiDisability">Monthly SSI Disability Total:</label></p>
+              <p><input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annAmt_ssiDisability" id="annAmt_ssiDisability" class="data" placeholder="Annual Amount" oninput="$(this).removeClass('invalid')"></p>
             </div>
           </div>
         </div>
@@ -229,16 +229,16 @@
             <p>Instructions for entering disability information</p>
           </div>
           <div class="survey-fields">
-            <div class="annualAmtOther">
-              <p><label for="annualAmtOther">Monthly Other Disability Total:</label></p>
-              <p><input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annualAmtOther" id="annualAmtOther" class="data" placeholder="Annual Amount" oninput="$(this).removeClass('invalid')"></p>
+            <div class="annAmt_otherDisability">
+              <p><label for="annAmt_otherDisability">Monthly Other Disability Total:</label></p>
+              <p><input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annAmt_otherDisability" id="annAmt_otherDisability" class="data" placeholder="Annual Amount" oninput="$(this).removeClass('invalid')"></p>
             </div>
-            <div class="taxOther">
-              <p><label>Are these disability benefits taxable: <input type="checkbox" id="taxOther" class="data" ></label></p>
+            <div class="tax_otherDisability">
+              <p><label>Are these disability benefits taxable: <input type="checkbox" id="tax_otherDisability" class="data" ></label></p>
             </div>
-            <div class="colaOther">
-              <p><label for="colaOther">Annual Cost of Living Adjustment (%):</label></p>
-              <p><input type="number" name="colaOther" id="colaOther" class="data" min="0" max="10" placeholder="0.0" oninput="$(this).removeClass('invalid')"></p>
+            <div class="colaRate_otherDisability">
+              <p><label for="colaRate_otherDisability">Annual Cost of Living Adjustment (%):</label></p>
+              <p><input type="number" name="colaRate_otherDisability" id="colaRate_otherDisability" class="data" min="0" max="10" placeholder="0.0" oninput="$(this).removeClass('invalid')"></p>
             </div>
           </div>
         </div>
@@ -253,17 +253,17 @@
             <p>Do you really want to stop working after you retire? If you anticipate having any job after retirement - even if for just a few years - enter it here. Clockout will increase your annual salary at the average inflation rate.</p>
           </div>
           <div class="survey-fields">
-            <div class="retSalAmt">
-              <p><label for="retSalAmt">Annual Retirement Salary:</label></p>
-              <p><input type="number" name="retSalAmt" id="retSalAmt" class="data" placeholder="Salary" oninput="$(this).removeClass('invalid')"></p>
+            <div class="annAmt_retireSal">
+              <p><label for="annAmt_retireSal">Annual Retirement Salary:</label></p>
+              <p><input type="number" name="annAmt_retireSal" id="annAmt_retireSal" class="data" placeholder="Salary" oninput="$(this).removeClass('invalid')"></p>
             </div>
-            <div class="retSalBeginAge">
-              <p><label for="retSalBeginAge">Age when retirement employment begins:</label></p>
-              <p><input type="number" name="retSalBeginAge" id="retSalBeginAge" class="data" oninput="$(this).removeClass('invalid')"></p>
+            <div class="beginAge_retireSal">
+              <p><label for="beginAge_retireSal">Age when retirement employment begins:</label></p>
+              <p><input type="number" name="beginAge_retireSal" id="beginAge_retireSal" class="data" oninput="$(this).removeClass('invalid')"></p>
             </div>
-            <div class="retSalEndAge">
-              <p><label for="retSalEndAge">Age when retirement employment ends:</label></p>
-              <p><input type="number" name="retSalEndAge" id="retSalEndAge" class="data" max="119" oninput="$(this).removeClass('invalid')"></p>
+            <div class="endAge_retireSal">
+              <p><label for="endAge_retireSal">Age when retirement employment ends:</label></p>
+              <p><input type="number" name="endAge_retireSal" id="endAge_retireSal" class="data" max="119" oninput="$(this).removeClass('invalid')"></p>
             </div>
           </div>
         </div>
@@ -278,13 +278,13 @@
             <p>Enter annual rental totals in today's dollars. Clockout will grow those rents at the rate you provide below.</p>
           </div>
           <div class="survey-fields">
-            <div class="rentalProfits">
-              <p><label for="rentalProfits">Annual Net Rental Profits:</label></p>
-              <p><input type="number" name="rentalProfits" id="rentalProfits" class="data" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
+            <div class="annAmt_rents">
+              <p><label for="annAmt_rents">Annual Net Rental Profits:</label></p>
+              <p><input type="number" name="annAmt_rents" id="annAmt_rents" class="data" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
             </div>
-            <div class="rentalProfitsGrowth">
-              <p><label for="rentalProfitsGrowth">Annual Net Rental Profit Growth (%):</label></p>
-              <p><input type="number" name="rentalProfitsGrowth" id="rentalProfitsGrowth" class="data" min="0" placeholder="0.0" oninput="$(this).removeClass('invalid')"></p>
+            <div class="colaRate_rents">
+              <p><label for="colaRate_rents">Annual Net Rental Profit Growth (%):</label></p>
+              <p><input type="number" name="colaRate_rents" id="colaRate_rents" class="data" min="0" placeholder="0.0" oninput="$(this).removeClass('invalid')"></p>
             </div>
           </div>
         </div>
@@ -299,13 +299,13 @@
               <p>Instructions for entering additional information.</p>
             </div>
             <div class="survey-fields">
-              <div class="otherBenAmt">
-              <p><label for="otherBenAmt">All other financial benefits/revenue/income:</label></p>
-              <p><input type="number" name="otherBenAmt" id="otherBenAmt" class="data" oninput="$(this).removeClass('invalid')"></p>
+              <div class="annAmt_otherBen">
+              <p><label for="annAmt_otherBen">All other financial benefits/revenue/income:</label></p>
+              <p><input type="number" name="annAmt_otherBen" id="annAmt_otherBen" class="data" oninput="$(this).removeClass('invalid')"></p>
             </div>
-            <div class="otherBenCola">
-              <p><label for="otherBenCola">Annual Cost of Living Adjustment, if applicable:</label></p>
-              <p><input type="number" name="otherBenCola" id="otherBenCola" class="data" oninput="$(this).removeClass('invalid')"></p>
+            <div class="colaRate_otherBen">
+              <p><label for="colaRate_otherBen">Annual Cost of Living Adjustment, if applicable:</label></p>
+              <p><input type="number" name="colaRate_otherBen" id="colaRate_otherBen" class="data" oninput="$(this).removeClass('invalid')"></p>
             </div>
             <div class="otherBenBeginAge">
               <p><label for="otherBenBeginAge">Age when benefits begin:</label></p>
@@ -330,20 +330,20 @@
             <p>Enter the total values for all Traditional IRA accounts you may hold in the fields below.</p>
           </div>
           <div class="survey-fields">
-            <div class="currentValTradIra">
-              <p><label for="currentValTradIra">Total current value of Traditional IRAs:</label></p>
-              <p><input type="number" name="currentValTradIra" id="currentValTradIra" class="data" min="0" placeholder="Amount"></p>
+            <div class="currentVal_tradIra">
+              <p><label for="currentVal_tradIra">Total current value of Traditional IRAs:</label></p>
+              <p><input type="number" name="currentVal_tradIra" id="currentVal_tradIra" class="data" min="0" placeholder="Amount"></p>
             </div>
-            <div class="annualContTradIra">
-              <p><label for="annualContTradIra">Future annual Traditional IRA contribution amount (up to) $6,000):</label></p>
-              <p><input type="number" name="annualContTradIra" id="annualContTradIra" class="data" placeholder="Amount" oninput="$(this).removeClass('invalid')" onchange="iraCalc(this)"></p>
+            <div class="annContr_tradIra">
+              <p><label for="annContr_tradIra">Future annual Traditional IRA contribution amount (up to) $6,000):</label></p>
+              <p><input type="number" name="annContr_tradIra" id="annContr_tradIra" class="data" placeholder="Amount" oninput="$(this).removeClass('invalid')" onchange="iraCalc(this)"></p>
             </div>
-            <div class="catchUpContTradIra">
-              <p><label>$1,000 additional 'Catch Up' contribution beginning at age 50: <input type="radio" id="catchUpContTradIra" class="data" name="catchUpContIra"></label></p>
+            <div class="catchUpContr_tradIra">
+              <p><label>$1,000 additional 'Catch Up' contribution beginning at age 50: <input type="radio" id="catchUpContr_tradIra" class="data" name="catchUpContIra"></label></p>
             </div>
-            <div class="contEndAgeTradIra">
-              <p><label for="contEndAgeTradIra">Age when you will stop contributing to Traditional IRAs:</label></p>
-              <p><input type="number" maxlength="2" name="contEndAgeTradIra" id="contEndAgeTradIra" class="data" placeholder="Age" oninput="$(this).removeClass('invalid')"></p>
+            <div class="endAgeContr_tradIra">
+              <p><label for="endAgeContr_tradIra">Age when you will stop contributing to Traditional IRAs:</label></p>
+              <p><input type="number" maxlength="2" name="endAgeContr_tradIra" id="endAgeContr_tradIra" class="data" placeholder="Age" oninput="$(this).removeClass('invalid')"></p>
             </div>
           </div>
         </div>
@@ -360,24 +360,24 @@
             <p>Enter the total values for all Roth IRA accounts you may hold in the fields below.</p>
           </div>
           <div class="survey-fields">
-              <div class="amtContRothIra">
-              <p><label for="amtContRothIra">Total Roth IRA contributions through last year:</label></p>
-              <p><input type="number" id="amtContRothIra" class="data" name="amtContRothIra" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
+              <div class="contrVal_rothIra">
+              <p><label for="contrVal_rothIra">Total Roth IRA contributions through last year:</label></p>
+              <p><input type="number" id="contrVal_rothIra" class="data" name="contrVal_rothIra" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
             </div>
-            <div class="currentValRothIra">
-              <p><label for="currentValRothIra">Total Current Value of Roth IRAs:</label></p>
-              <p><input type="number" name="currentValRothIra" id="currentValRothIra" class="data" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
+            <div class="currentVal_rothIra">
+              <p><label for="currentVal_rothIra">Total Current Value of Roth IRAs:</label></p>
+              <p><input type="number" name="currentVal_rothIra" id="currentVal_rothIra" class="data" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
             </div>
-            <div class="annualContRothIra">
-              <p><label for="annualContRothIra">Future Annual Roth IRA Contribution Amount (up to $6,000):</label></p>
-              <p><input type="number" name="annualContRothIra" id="annualContRothIra" class="data" placeholder="Amount" oninput="$(this).removeClass('invalid')" onchange="iraCalc(this)"></p>
+            <div class="annContr_rothIra">
+              <p><label for="annContr_rothIra">Future Annual Roth IRA Contribution Amount (up to $6,000):</label></p>
+              <p><input type="number" name="annContr_rothIra" id="annContr_rothIra" class="data" placeholder="Amount" oninput="$(this).removeClass('invalid')" onchange="iraCalc(this)"></p>
             </div>
-            <div class="catchUpContRothIra">
-              <p><label>$1,000 additional 'Catch Up' contribution beginning at age 50: <input type="radio" id="catchUpContRothIra" class="data" name="catchUpContIra"></label></p>
+            <div class="catchUpContr_rothIra">
+              <p><label>$1,000 additional 'Catch Up' contribution beginning at age 50: <input type="radio" id="catchUpContr_rothIra" class="data" name="catchUpContIra"></label></p>
             </div>
-            <div class="contEndAgeRothIra">
-              <p><label for="contEndAgeRothIra">Age when you will stop contributing to Roth IRAs:</label></p>
-              <p><input type="number" maxlength="2" name="contEndAgeRothIra" id="contEndAgeRothIra" class="data" placeholder="Age" oninput="$(this).removeClass('invalid')"></p>
+            <div class="endAgeContr_rothIra">
+              <p><label for="endAgeContr_rothIra">Age when you will stop contributing to Roth IRAs:</label></p>
+              <p><input type="number" maxlength="2" name="endAgeContr_rothIra" id="endAgeContr_rothIra" class="data" placeholder="Age" oninput="$(this).removeClass('invalid')"></p>
             </div>
           </div>
         </div>
@@ -392,24 +392,24 @@
             <p>Instructions for entering information on 401k, 403b, 457b, Thrift Savings Plan, Single 401k, Safe Harbor 401k, and public sector accounts like the TSP.</p>
           </div>
           <div class="survey-fields">
-            <div class="currentValTrad">
-              <p><label for="currentValTrad">Total Current Value of Traditional Accounts:</label></p>
-              <p><input type="number" name="currentValTrad" id="currentValTrad" class="data" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
+            <div class="currentVal_tradAccts">
+              <p><label for="currentVal_tradAccts">Total Current Value of Traditional Accounts:</label></p>
+              <p><input type="number" name="currentVal_tradAccts" id="currentVal_tradAccts" class="data" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
             </div>
-            <div class="empContTrad">
-              <p><label for="empContTrad">Future Annual Employer Contribution Amount: </label></p>
-              <p><input type="number" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="empContTrad" id="empContTrad" class="data" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>  
+            <div class="empContr_tradAccts">
+              <p><label for="empContr_tradAccts">Future Annual Employer Contribution Amount: </label></p>
+              <p><input type="number" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="empContr_tradAccts" id="empContr_tradAccts" class="data" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>  
             </div>
-            <div class="annualContTrad">
-              <p><label for="annualContTrad">Future Annual Personal Contribution Amount (up to $19,500):</label></p>
-              <p><input type="number" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaPersCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="annualContTrad" id="annualContTrad" class="data" placeholder="Amount" onchange="retCalc(this); $(this).removeClass('invalid');"></p>
+            <div class="annContr_tradAccts">
+              <p><label for="annContr_tradAccts">Future Annual Personal Contribution Amount (up to $19,500):</label></p>
+              <p><input type="number" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaPersCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="annContr_tradAccts" id="annContr_tradAccts" class="data" placeholder="Amount" onchange="retCalc(this); $(this).removeClass('invalid');"></p>
             </div>
-            <div class="catchUpContTrad">
-              <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="radio" id="catchUpContTrad" class="data" name="catchUpContEca"></label></p>
+            <div class="catchUpContr_tradAccts">
+              <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="radio" id="catchUpContr_tradAccts" class="data" name="catchUpContEca"></label></p>
             </div>
-            <div class="contEndAgeTrad">
-              <p><label for="contEndAgeTrad">Age when you will stop contributing to your Traditional Accounts:</label></p>
-              <p><input type="number" maxlength="2" name="contEndAgeTrad" id="contEndAgeTrad" class="data" placeholder="Age" oninput="$(this).removeClass('invalid')"></p>
+            <div class="endAgeContr_tradAccts">
+              <p><label for="endAgeContr_tradAccts">Age when you will stop contributing to your Traditional Accounts:</label></p>
+              <p><input type="number" maxlength="2" name="endAgeContr_tradAccts" id="endAgeContr_tradAccts" class="data" placeholder="Age" oninput="$(this).removeClass('invalid')"></p>
             </div>
           </div>
         </div> 
@@ -424,28 +424,28 @@
             <p>Instructions for entering information.</p>
           </div>
           <div class="survey-fields">
-            <div class="amtContRoth">
-              <p><label for="amtContRoth">Total Roth 401k Contributions through the end of last year (to include Roth TSP contributions):</label></p>
-              <p><input type="number" id="amtContRoth" class="data" name="amtContRoth" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
+            <div class="contrVal_rothAccts">
+              <p><label for="contrVal_rothAccts">Total Roth 401k Contributions through the end of last year (to include Roth TSP contributions):</label></p>
+              <p><input type="number" id="contrVal_rothAccts" class="data" name="contrVal_rothAccts" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
             </div>
-            <div class="currentValRoth">
-              <p><label for="currentValRoth">Total Current Value of Roth 401k:</label></p>
-              <p><input type="number" name="currentValRoth" id="currentValRoth" class="data" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
+            <div class="currentVal_rothAccts">
+              <p><label for="currentVal_rothAccts">Total Current Value of Roth 401k:</label></p>
+              <p><input type="number" name="currentVal_rothAccts" id="currentVal_rothAccts" class="data" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
             </div>
-            <div class="empContRoth">
-              <p><label for="empContRoth">Future Annual Roth 401k Employer Contribution Amount: </label></p>
-              <p><input type="number" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="empContRoth" id="empContRoth" class="data" min="0" max="100" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
+            <div class="empContr_rothAccts">
+              <p><label for="empContr_rothAccts">Future Annual Roth 401k Employer Contribution Amount: </label></p>
+              <p><input type="number" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="empContr_rothAccts" id="empContr_rothAccts" class="data" min="0" max="100" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
             </div>
-            <div class="annualContRoth">
-              <p><label for="annualContRoth">Future Annual Roth 401k Contribution Amount (up to $19,500):</label></p>
-              <p><input type="number" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaPersCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="annualContRoth" id="annualContRoth" class="data" placeholder="Amount" onchange="retCalc(this); $(this).removeClass('invalid');"></p>
+            <div class="annContr_rothAccts">
+              <p><label for="annContr_rothAccts">Future Annual Roth 401k Contribution Amount (up to $19,500):</label></p>
+              <p><input type="number" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaPersCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="annContr_rothAccts" id="annContr_rothAccts" class="data" placeholder="Amount" onchange="retCalc(this); $(this).removeClass('invalid');"></p>
             </div>
-            <div class="catchUpContRoth">
-              <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="radio" id="catchUpContRoth" class="data" name="catchUpContEca"></label></p>
+            <div class="catchUpContr_rothAccts">
+              <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="radio" id="catchUpContr_rothAccts" class="data" name="catchUpContEca"></label></p>
             </div>
-            <div class="contEndAgeRoth">
-              <p><label for="contEndAgeRoth">Age when you will stop contributing to Roth 401k:</label></p>
-              <p><input type="number" maxlength="2" name="contEndAgeRoth" id="contEndAgeRoth" class="data" placeholder="Age" oninput="$(this).removeClass('invalid')"></p>
+            <div class="endAgeContr_rothAccts">
+              <p><label for="endAgeContr_rothAccts">Age when you will stop contributing to Roth 401k:</label></p>
+              <p><input type="number" maxlength="2" name="endAgeContr_rothAccts" id="endAgeContr_rothAccts" class="data" placeholder="Age" oninput="$(this).removeClass('invalid')"></p>
             </div>
           </div>
         </div>
@@ -460,24 +460,24 @@
             <p>Instructions for entering Simple IRA information.</p>
           </div>
           <div class="survey-fields">
-            <div class="currentValSimpleIra">
-              <p><label for="currentValSimpleIra">Total Current Value of Simple IRAs:</label></p>
-              <p><input type="number" name="currentValSimpleIra" id="currentValSimpleIra" class="data" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
+            <div class="currentVal_simpleIra">
+              <p><label for="currentVal_simpleIra">Total Current Value of Simple IRAs:</label></p>
+              <p><input type="number" name="currentVal_simpleIra" id="currentVal_simpleIra" class="data" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
             </div>
-            <div class="empContSimpleIra">
-              <p><label for="empContSimpleIra">Future Annual Simple IRA Employer Contribution: </label></p>
-              <p><input type="number" name="empContSimpleIra" id="empContSimpleIra" class="data" placeholder="Amount" onchange="$(this).removeClass('invalid')"></p>
+            <div class="empContr_simpleIra">
+              <p><label for="empContr_simpleIra">Future Annual Simple IRA Employer Contribution: </label></p>
+              <p><input type="number" name="empContr_simpleIra" id="empContr_simpleIra" class="data" placeholder="Amount" onchange="$(this).removeClass('invalid')"></p>
             </div>
-            <div class="annualContSimpleIra">
-              <p><label for="annualContSimpleIra">Future Annual Simple IRA Contribution Amount (up to $13,500):</label></p>
-              <p><input type="number" class="ecaCalculator" placeholder="0.0" onchange="simplePersCalc(this); $(this).removeClass('invalid');">% x <span class="ecaCalculatorSalary"></span><input type="number" name="annualContSimpleIra" id="annualContSimpleIra" class="data" placeholder="Amount" onchange="simpleCalc(this); $(this).removeClass('invalid');" /></p>
+            <div class="annContr_simpleIra">
+              <p><label for="annContr_simpleIra">Future Annual Simple IRA Contribution Amount (up to $13,500):</label></p>
+              <p><input type="number" class="ecaCalculator" placeholder="0.0" onchange="simplePersCalc(this); $(this).removeClass('invalid');">% x <span class="ecaCalculatorSalary"></span><input type="number" name="annContr_simpleIra" id="annContr_simpleIra" class="data" placeholder="Amount" onchange="simpleCalc(this); $(this).removeClass('invalid');" /></p>
             </div>
-            <div class="catchUpContSimpleIra">
-              <p><label >$3,000 additional 'Catch Up' contribution beginning at age 50: <input type="radio" id="catchUpContSimpleIra" class="data" name="catchUpContSimple"></label></p>
+            <div class="catchUpContr_simpleIra">
+              <p><label >$3,000 additional 'Catch Up' contribution beginning at age 50: <input type="radio" id="catchUpContr_simpleIra" class="data" name="catchUpContSimple"></label></p>
             </div>
-            <div class="contEndAgeSimpleIra">
-              <p><label for="contEndAgeSimpleIra">Age when you will stop contributing to your Simple IRA:</label></p>
-              <p><input type="number" maxlength="2" name="contEndAgeSimpleIra" id="contEndAgeSimpleIra" class="data" placeholder="Age" oninput="$(this).removeClass('invalid')"></p>
+            <div class="endAgeContr_simpleIra">
+              <p><label for="endAgeContr_simpleIra">Age when you will stop contributing to your Simple IRA:</label></p>
+              <p><input type="number" maxlength="2" name="endAgeContr_simpleIra" id="endAgeContr_simpleIra" class="data" placeholder="Age" oninput="$(this).removeClass('invalid')"></p>
             </div>
           </div>
         </div>
@@ -492,25 +492,25 @@
             <p></p>
           </div>
           <div class="survey-fields">
-            <div class="currentValSimple401">
-              <p><label for="currentValSimple401">Total Current Value of your Simple 401k:</label></p>
-              <p><input type="number" name="currentValSimple401" id="currentValSimple401" class="data" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
+            <div class="currentVal_simple401">
+              <p><label for="currentVal_simple401">Total Current Value of your Simple 401k:</label></p>
+              <p><input type="number" name="currentVal_simple401" id="currentVal_simple401" class="data" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
             </div>
-            <div class="empContSimple401">
-              <p><label for="empContSimple401">Future Annual Simple 401k Employer Contribution Amount:</label></p>
-              <p><input type="number" name="empContSimple401" id="empContSimple401" class="data" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
+            <div class="empContr_simple401">
+              <p><label for="empContr_simple401">Future Annual Simple 401k Employer Contribution Amount:</label></p>
+              <p><input type="number" name="empContr_simple401" id="empContr_simple401" class="data" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
               <!-- Possible math problem above. Check Simple 401k employer contribution protocol. -->
             </div>
-            <div class="annualContSimple401">
-              <p><label for="annualContSimple401">Future Annual Simple 401k Contribution Amount (cannot exceed $13,500):</label></p>
-              <p><input type="number" class="ecaCalculator" placeholder="0.0" onchange="simplePersCalc(this); $(this).removeClass('invalid');">% x <span class="ecaCalculatorSalary"></span><input type="number" name="annualContSimple401" id="annualContSimple401" class="data" placeholder="Amount" onchange="simpleCalc(this); $(this).removeClass('invalid');"></p>
+            <div class="annContr_simple401">
+              <p><label for="annContr_simple401">Future Annual Simple 401k Contribution Amount (cannot exceed $13,500):</label></p>
+              <p><input type="number" class="ecaCalculator" placeholder="0.0" onchange="simplePersCalc(this); $(this).removeClass('invalid');">% x <span class="ecaCalculatorSalary"></span><input type="number" name="annContr_simple401" id="annContr_simple401" class="data" placeholder="Amount" onchange="simpleCalc(this); $(this).removeClass('invalid');"></p>
             </div>
-            <div class="catchUpContSimple401">
-              <p><label>$3,000 additional 'Catch Up' contribution beginning at age 50: <input type="radio" id="catchUpContSimple401" class="data" name="catchUpContSimple"></label></p>
+            <div class="catchUpContr_simple401">
+              <p><label>$3,000 additional 'Catch Up' contribution beginning at age 50: <input type="radio" id="catchUpContr_simple401" class="data" name="catchUpContSimple"></label></p>
             </div>
-            <div class="contEndAgeSimple401">
-              <p><label for="contEndAgeSimple401">Age when you will stop contributing to your Simple 401k:</label></p>
-              <p><input type="number" maxlength="2" name="contEndAgeSimple401" id="contEndAgeSimple401" class="data" placeholder="Age" oninput="$(this).removeClass('invalid')"></p>
+            <div class="endAgeContr_simple401">
+              <p><label for="endAgeContr_simple401">Age when you will stop contributing to your Simple 401k:</label></p>
+              <p><input type="number" maxlength="2" name="endAgeContr_simple401" id="endAgeContr_simple401" class="data" placeholder="Age" oninput="$(this).removeClass('invalid')"></p>
             </div>
           </div>
         </div>
@@ -525,17 +525,17 @@
             <p>Instructions for entering additional information.</p>
           </div>
           <div class="survey-fields">
-            <div class="currentValInv">
-              <p><label for="currentValInv">Total Current Value of Savings/Investment/Brokerage accounts:</label></p>
-              <p><input type="number" name="currentValInv" id="currentValInv" class="data" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
+            <div class="currentVal_investAcct">
+              <p><label for="currentVal_investAcct">Total Current Value of Savings/Investment/Brokerage accounts:</label></p>
+              <p><input type="number" name="currentVal_investAcct" id="currentVal_investAcct" class="data" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
             </div>
-            <div class="annualContInv">
-              <p><label for="annualContInv">Future Annual Contribution Amount:</label></p>
-              <p><input type="number" name="annualContInv" id="annualContInv" class="data" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
+            <div class="annContr_investAcct">
+              <p><label for="annContr_investAcct">Future Annual Contribution Amount:</label></p>
+              <p><input type="number" name="annContr_investAcct" id="annContr_investAcct" class="data" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
             </div>
-            <div class="contEndAgeInv">
-              <p><label for="contEndAgeInv">At what age do you plan to stop contributing to your Savings/Investment/Brokerage accounts:</label></p>
-              <p><input type="number" maxlength="2" name="contEndAgeInv" id="contEndAgeInv" class="data" oninput="$(this).removeClass('invalid')"></p>
+            <div class="endAgeContr_investAcct">
+              <p><label for="endAgeContr_investAcct">At what age do you plan to stop contributing to your Savings/Investment/Brokerage accounts:</label></p>
+              <p><input type="number" maxlength="2" name="endAgeContr_investAcct" id="endAgeContr_investAcct" class="data" oninput="$(this).removeClass('invalid')"></p>
             </div>
           </div>
         </div>

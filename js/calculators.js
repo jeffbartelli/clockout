@@ -73,10 +73,10 @@ document.addEventListener('DOMContentLoaded', function() {
   
   $('#modalClose').click(()=>{
     let $values = $('#ecaModal .ecaContAmount');
-    document.getElementById('annualContTrad').value = $values[0].value;
-    document.getElementById('annualContRoth').value = $values[1].value;
-    document.getElementById('annualContSimpleIra').value = $values[2].value;
-    document.getElementById('annualContSimple401').value = $values[3].value;
+    document.getElementById('annContr_tradAccts').value = $values[0].value;
+    document.getElementById('annContr_rothAccts').value = $values[1].value;
+    document.getElementById('annContr_simpleIra').value = $values[2].value;
+    document.getElementById('annContr_simple401').value = $values[3].value;
     $('#ecaModal').toggle();
   });
   
@@ -105,10 +105,10 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   window.iraCalc = (e) => {
-    let rothValue = +parseInt(document.getElementById('annualContRothIra').value) || 0;
-    let tradValue = +parseInt(document.getElementById('annualContTradIra')) || 0;
-    let roth = document.getElementById('annualContRothIra');
-    let trad = document.getElementById('annualContTradIra');
+    let rothValue = +parseInt(document.getElementById('annContr_rothIra').value) || 0;
+    let tradValue = +parseInt(document.getElementById('annContr_tradIra')) || 0;
+    let roth = document.getElementById('annContr_rothIra');
+    let trad = document.getElementById('annContr_tradIra');
     let total = rothValue + tradValue;
     if (total > 6000) {
       roth.classList.add('invalid');
@@ -127,10 +127,10 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   window.simpleCalc = (e) => {
-    let rothValue = +parseInt(document.getElementById('annualContSimpleIra').value) || 0;
-    let tradValue = +parseInt(document.getElementById('annualContSimple401').value) || 0;
-    let roth = document.getElementById('annualContSimpleIra');
-    let trad = document.getElementById('annualContSimple401');
+    let rothValue = +parseInt(document.getElementById('annContr_simpleIra').value) || 0;
+    let tradValue = +parseInt(document.getElementById('annContr_simple401').value) || 0;
+    let roth = document.getElementById('annContr_simpleIra');
+    let trad = document.getElementById('annContr_simple401');
     let total = rothValue + tradValue;
     if (total > 13500) {
       roth.classList.add('invalid');
@@ -145,10 +145,10 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   window.retCalc = (e) => {
-    let trad = +parseInt(document.getElementById('annualContTrad').value) || 0;
-    let roth = +parseInt(document.getElementById('annualContRoth').value) || 0;
-    let simpleIra = +parseInt(document.getElementById('annualContSimpleIra').value) || 0;
-    let simple401 = +parseInt(document.getElementById('annualContSimple401').value) || 0;
+    let trad = +parseInt(document.getElementById('annContr_tradAccts').value) || 0;
+    let roth = +parseInt(document.getElementById('annContr_rothAccts').value) || 0;
+    let simpleIra = +parseInt(document.getElementById('annContr_simpleIra').value) || 0;
+    let simple401 = +parseInt(document.getElementById('annContr_simple401').value) || 0;
     let total = trad + roth + simpleIra + simple401;
     let $values = $('#ecaModal .ecaContAmount');
     let range = document.getElementsByClassName('tab')[currentTab];

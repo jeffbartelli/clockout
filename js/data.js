@@ -10,114 +10,114 @@ const data = {
   },
   ssi: {
     active:true,
-    retirementAgeSsi:null,
-    monthlyAmtSsi:null
+    beginAge_ssi:null,
+    annAmt_ssi:null
   },
   genPension: {
     active:false,
-    benBeginAgeGen:null,
-    annualBenAmtGen:null,
-    annualColaGen:null,
-    colaBeginAgeGen:null,
-    taxGen:null
+    beginAge_genPension:null,
+    annAmt_genPension:null,
+    colaRate_genPension:null,
+    colaAge_genPension:null,
+    tax_genPension:null
   },
   fersPension: {
     active:false,
-    benBeginAgeFers:null,
-    annualBenAmtFers:null
+    beginAge_fersPension:null,
+    annAmt_fersPension:null
   },
   annuities: {
     active:false,
-    annualAnnuity:null,
-    annuityCola:null,
-    annuityAge:null,
-    annuityTax:null
+    annAmt_annuities:null,
+    colaRate_annuities:null,
+    beginAge_annuities:null,
+    tax_annuities:null
   },
   vaDisability: {
     active:false,
-    annualAmtVa:null
+    annAmt_vaDisability:null
   },
   ssiDisability: {
     active:false,
-    annualAmtSsi:null
+    annAmt_ssiDisability:null
   },
   otherDisability: {
     active:false,
-    annualAmtOther:null,
-    colaOther:null,
-    taxOther:null
+    annAmt_otherDisability:null,
+    colaRate_otherDisability:null,
+    tax_otherDisability:null
   },
   retireSal: {
     active:false,
-    retSalBeginAge:null,
-    retSalEndAge:null,
-    retSalAmt:null
+    beginAge_retireSal:null,
+    endAge_retireSal:null,
+    annAmt_retireSal:null
   },
   rents: {
     active:false,
-    rentalProfits:null,
-    rentalProfitsGrowth:null
+    annAmt_rents:null,
+    colaRate_rents:null
   },
   otherBen: {
     active:false,
-    otherBenAmt:null,
-    otherBenCola:null,
+    annAmt_otherBen:null,
+    colaRate_otherBen:null,
     otherBenBeginAge:null,
     otherBenTax:null
   },
   tradIra: {
     active:false,
-    currentValTradIra:null,
-    annualContTradIra:null,
-    catchUpContTradIra:null,
-    contEndAgeTradIra:null
+    currentVal_tradIra:null,
+    annContr_tradIra:null,
+    catchUpContr_tradIra:null,
+    endAgeContr_tradIra:null
   },
   rothIra: {
     active:false,
-    amtContRothIra:null,
-    currentValRothIra:null,
-    annualContRothIra:null,
-    catchUpContRothIra:null,
-    contEndAgeRothIra:null
+    contrVal_rothIra:null,
+    currentVal_rothIra:null,
+    annContr_rothIra:null,
+    catchUpContr_rothIra:null,
+    endAgeContr_rothIra:null
   },
   tradAccts: {
     active:false,
-    currentValTrad:null,
-    empContTrad:null,
-    contEndAgeTrad:null,
-    annualContTrad:null,
-    catchUpContTrad:null
+    currentVal_tradAccts:null,
+    empContr_tradAccts:null,
+    endAgeContr_tradAccts:null,
+    annContr_tradAccts:null,
+    catchUpContr_tradAccts:null
   },
   rothAccts: {
     active:false,
-    amtContRoth:null,
-    currentValRoth:null,
-    empContRoth:null,
-    contEndAgeRoth:null,
-    annualContRoth:null,
-    catchUpContRoth:null
+    contrVal_rothAccts:null,
+    currentVal_rothAccts:null,
+    empContr_rothAccts:null,
+    endAgeContr_rothAccts:null,
+    annContr_rothAccts:null,
+    catchUpContr_rothAccts:null
   },
   simpleIra: {
     active:false,
-    currentValSimpleIra:null,
-    empContSimpleIra:null,
-    contEndAgeSimpleIra:null,
-    annualContSimpleIra:null,
-    catchUpContSimpleIra:null
+    currentVal_simpleIra:null,
+    empContr_simpleIra:null,
+    endAgeContr_simpleIra:null,
+    annContr_simpleIra:null,
+    catchUpContr_simpleIra:null
   },
   simple401: {
     active:false,
-    currentValSimple401:null,
-    empContSimple401:null,
-    contEndAgeSimple401:null,
-    annualContSimple401:null,
-    catchUpContSimple401:null
+    currentVal_simple401:null,
+    empContr_simple401:null,
+    endAgeContr_simple401:null,
+    annContr_simple401:null,
+    catchUpContr_simple401:null
   },
   investAcct: {
     active:false,
-    currentValInv:null,
-    contEndAgeInv:null,
-    annualContInv:null
+    currentVal_investAcct:null,
+    endAgeContr_investAcct:null,
+    annContr_investAcct:null
   },
   // otherAssets: {
   //   active:false,

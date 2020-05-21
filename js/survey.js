@@ -70,7 +70,7 @@ window.demographics = () => {
   let inputs = $("#personalDetails :input");
   let details = {};
   for (let i=0;i<inputs.length;i++) {
-    data.demographics[inputs[i].id] = inputs[i].value;
+    // data.demographics[inputs[i].id] = inputs[i].value;
     details[inputs[i].id] = inputs[i].value;
   }
   return details;
@@ -133,7 +133,18 @@ function validateForm() {
 }
 
 window.harvest = () => {
-  // let inputs = document.querySelectorAll('input:not(.accountTypes):not(.ecaCalculator):not(.monthlyCalc),select');
+  let $accountTypes = $('.accountTypes:checked');
+  var dataTest = {};
+  for (let i=0; i<$('.tab').length; i++) {
+    // if ($($('.accountTypes:checked')))
+    dataTest[$($('.tab')[i]).attr("id")] = {};
+    let $temp = $($('.tab')[i]).find(".data");
+    for (let j=0; j<$temp.length; j++) {
+      dataTest[$($('.tab')[i]).attr("id")][$($temp[j]).attr("id")] = Number($($temp[j]).val()) || $($temp[j]).val();
+      // console.log($($temp[j]).val());
+    }
+  }
+  console.log($accountTypes);
   const invCategories = Object.keys(data);
   for (let i=1; i<invCategories.length; i++) {
     let tempKeys = Object.keys(data[invCategories[i]]);
@@ -146,8 +157,6 @@ window.harvest = () => {
       }
     }
   }
-  console.log(data); 
-  // income();   
 }
 
 export {currentTab, data};

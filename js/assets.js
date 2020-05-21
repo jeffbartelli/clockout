@@ -60,7 +60,7 @@ window.income = () => {
   if(data.ssi.active == true) {
     retire.income.ssi = {annual: []};
     let ssiRate = 0;
-    switch (data.ssi.retirementAgeSsi) { 
+    switch (data.ssi.beginAge_ssi) { 
       case 62: ssiRate = 0.70; break;
       case 63: ssiRate = 0.76; break;
       case 64: ssiRate = 0.82; break;
@@ -71,9 +71,9 @@ window.income = () => {
       case 69: ssiRate = 1.16; break;
       case 70: ssiRate = 1.24;
     };
-    let ssiAmount = data.ssi.monthlyAmtSsi * ssiRate;
+    let ssiAmount = data.ssi.annAmt_ssi * ssiRate;
     for (let i=0; i<ages.cycle; i++) {
-      if (i < (data.ssi.retirementAgeSsi - ages.age)) {
+      if (i < (data.ssi.beginAge_ssi - ages.age)) {
         retire.income.ssi.annual.push(0);
       } else {
         retire.income.ssi.annual.push(ssiAmount);
@@ -88,10 +88,10 @@ window.income = () => {
   // GENERAL PENSIONS
   if(data.genPension.active == true) {
     retire.income.genPension = {annual: []};
-    let penAmount = data.genPension.annualBenAmtGen;
-    let penBeginAge = data.genPension.benBeginAgeGen;
-    let penCola = data.genPension.annualColaGen/100;
-    let penColaAge = data.genPension.colaBeginAgeGen;
+    let penAmount = data.genPension.annAmt_genPension;
+    let penBeginAge = data.genPension.beginAge_genPension;
+    let penCola = data.genPension.colaRate_genPension/100;
+    let penColaAge = data.genPension.colaAge_genPension;
     for (let i=0; i<ages.cycle; i++) {
       if (i < (penBeginAge - ages.age)) {
         retire.income.genPension.annual.push(0);
@@ -107,7 +107,7 @@ window.income = () => {
   // FERS PENSION
   if(data.fersPension.active == true) {
     retire.income.fersPension = {annual: []};
-    let fersBeginAge = data.fersPension.benBeginAgeFers;
+    let fersBeginAge = data.fersPension.beginAge_fersPension;
     let fersRate = 0;
     switch (fersBeginAge) { 
       case 57: fersRate = 0.75; break;
@@ -117,7 +117,7 @@ window.income = () => {
       case 61: fersRate = 0.95; break;
       case 62: fersRate = 1.00; 
     };
-    let fersAmount = data.fersPension.annualBenAmtFers * fersRate;
+    let fersAmount = data.fersPension.annAmt_fersPension * fersRate;
     for (let i=0; i<ages.cycle; i++) {
       if (i < fersBeginAge - ages.age) {
         retire.income.fersPension.annual.push(0);
@@ -131,23 +131,23 @@ window.income = () => {
   // ANNUITIES/INSURANCE
   if(data.annuities.active == true) {
     retire.income.annuities = {annual: []};
-    let annAmount = data.annuities.annualAnnuity;
-    let annuityCola = data.annuities.annuityCola/100;
-    let annuityAge = data.annuities.annuityAge;
+    let annAmount = data.annuities.annAmt_annuities;
+    let colaRate_annuities = data.annuities.colaRate_annuities/100;
+    let beginAge_annuities = data.annuities.beginAge_annuities;
     for (let i=0; i<ages.cycle; i++) {
-      if (i < annuityAge - ages.age) {
+      if (i < beginAge_annuities - ages.age) {
         retire.income.annuities.annual.push(0);
       } else {
         retire.income.annuities.annual.push(annAmount);
         retire.totals.remaining[i] -= annAmount;
-        annAmount *= 1+annuityCola;
+        annAmount *= 1+colaRate_annuities;
       }
     }
   };
   // VA DISABILITY
   if(data.vaDisability.active == true) {
     retire.income.vaDisability = {annual: []};
-    let vaAmount = data.vaDisability.annualAmtVa;
+    let vaAmount = data.vaDisability.annAmt_vaDisability;
     for (let i=0; i<ages.cycle; i++) {
       if (i < ages.retire - ages.age) {
         retire.income.vaDisability.annual.push(0);
@@ -161,7 +161,7 @@ window.income = () => {
   // SSI DISABILITY
   if(data.ssiDisability.active == true) {
     retire.income.ssiDisability = {annual: []};
-    let ssiDisAmount = data.ssiDisability.annualAmtSsi;
+    let ssiDisAmount = data.ssiDisability.annAmt_ssiDisability;
     for (let i=0; i<ages.cycle; i++) {
       if (i < ages.retire - ages.age) {
         retire.income.ssiDisability.annual.push(0);
@@ -175,8 +175,8 @@ window.income = () => {
   // OTHER DISABILITY
   if(data.otherDisability.active == true) {
     retire.income.otherDisability = {annual: []};
-    let oDisAmount = data.otherDisability.annualAmtOther;
-    let disCola = data.otherDisability.colaOther/100;
+    let oDisAmount = data.otherDisability.annAmt_otherDisability;
+    let disCola = data.otherDisability.colaRate_otherDisability/100;
     for (let i=0; i<ages.cycle; i++) {
       if (i < ages.retire - ages.age) {
         retire.income.otherDisability.annual.push(0);
@@ -190,11 +190,11 @@ window.income = () => {
   // RETIREMENT SALARY
   if(data.retireSal.active == true) {
     retire.income.retireSal = {annual: []};
-    let retSalAmount = data.retireSal.retSalAmt;
+    let retSalAmount = data.retireSal.annAmt_retireSal;
     for (let i=0; i<ages.cycle; i++) {
-      if (i < data.retireSal.retSalBeginAge - ages.age) {
+      if (i < data.retireSal.beginAge_retireSal - ages.age) {
         retire.income.retireSal.annual.push(0);
-      } else if (i < data.retireSal.retSalEndAge - ages.age) {
+      } else if (i < data.retireSal.endAge_retireSal - ages.age) {
         retire.income.retireSal.annual.push(retSalAmount);
         retire.totals.remaining[i] -= retSalAmount;
       } else {
@@ -206,8 +206,8 @@ window.income = () => {
   // RENTS
   if(data.rents.active == true) {
     retire.income.rents = {annual: []};
-    let rentAmount = data.rents.rentalProfits;
-    let growth = data.rents.rentalProfitsGrowth/100;
+    let rentAmount = data.rents.annAmt_rents;
+    let growth = data.rents.colaRate_rents/100;
     for (let i=0; i<ages.cycle; i++) {
       if (i < ages.retire - ages.age) {
         retire.income.rents.annual.push(0);
@@ -221,8 +221,8 @@ window.income = () => {
   // OTHER BENEFITS
   if(data.otherBen.active == true) {
     retire.income.otherBen = {annual: []};
-    let oBenAmount = data.otherBen.otherBenAmt;
-    let oBenCola = data.otherBen.otherBenCola/100;
+    let oBenAmount = data.otherBen.annAmt_otherBen;
+    let oBenCola = data.otherBen.colaRate_otherBen/100;
     let oBenAge = data.otherBen.otherBenBeginAge;
     for (let i=0; i<ages.cycle; i++) {
       if (i < oBenAge - ages.age) {
@@ -241,39 +241,39 @@ window.income = () => {
     /* 2. Create records in retire object */
     retire.invAccts.investAcct = {beginValue: [], withdrawal: [], endValue: []};
     /* 3. Create internal variables from data (data.js) */
-    var currentValInv = data.investAcct.currentValInv;
-    var contEndAgeInv = data.investAcct.contEndAgeInv;
-    var annualContInv = data.investAcct.annualContInv;
+    var currentVal_investAcct = data.investAcct.currentVal_investAcct;
+    var endAgeContr_investAcct = data.investAcct.endAgeContr_investAcct;
+    var annContr_investAcct = data.investAcct.annContr_investAcct;
     for (let i=0; i<ages.cycle; i++) {
       /* 4. Push Begin Value */
-      retire.invAccts.investAcct.beginValue.push(currentValInv);
+      retire.invAccts.investAcct.beginValue.push(currentVal_investAcct);
       /* 5. Determine and Set Withdrawal Amount */
       if (retire.totals.remaining[i] > 0) {
-        if (currentValInv >= retire.totals.remaining[i]) {
+        if (currentVal_investAcct >= retire.totals.remaining[i]) {
           retire.invAccts.investAcct.withdrawal.push(retire.totals.remaining[i]);
         } else {
-          retire.invAccts.investAcct.withdrawal.push(currentValInv);
+          retire.invAccts.investAcct.withdrawal.push(currentVal_investAcct);
         }
       } else {
         retire.invAccts.investAcct.withdrawal.push(0);
       }
-      currentValInv -= retire.invAccts.investAcct.withdrawal[i];
+      currentVal_investAcct -= retire.invAccts.investAcct.withdrawal[i];
       retire.totals.remaining[i] -= retire.invAccts.investAcct.withdrawal[i];
       /* 6. Prevent interest accrual once current value = 0 */
-      if (!currentValInv == 0) {
+      if (!currentVal_investAcct == 0) {
         /* 7. Apply (5/12)% Growth Rate for Withdrawal Amount */
-        currentValInv += (retire.invAccts.investAcct.withdrawal[i]/2.4 * (investGrowth(i)-1));
+        currentVal_investAcct += (retire.invAccts.investAcct.withdrawal[i]/2.4 * (investGrowth(i)-1));
         /* 8. Apply Growth Rate */
-        currentValInv *= investGrowth(i);
+        currentVal_investAcct *= investGrowth(i);
       }
       /* 9. Accrue Contributions */
-      if (i <= (contEndAgeInv - ages.age)) {
-        currentValInv += annualContInv;
+      if (i <= (endAgeContr_investAcct - ages.age)) {
+        currentVal_investAcct += annContr_investAcct;
         /* 10. Apply (5/12)% Growth Rate to Contributions */
-        currentValInv += (annualContInv/2.4 * (investGrowth(i)-1));
+        currentVal_investAcct += (annContr_investAcct/2.4 * (investGrowth(i)-1));
       }
       /* 11. Push End Value */
-      retire.invAccts.investAcct.endValue.push(currentValInv);      
+      retire.invAccts.investAcct.endValue.push(currentVal_investAcct);      
     }
   }
 
@@ -284,16 +284,16 @@ window.income = () => {
     /* 2. Create records in retire object */
     retire.ecaAccts.tradAccts = {beginValue: [], rmd: [], withdrawal: [], endValue: []};
     /* 3. Create internal variables from data (data.js) */
-    var currentValTrad = data.tradAccts.currentValTrad;
-    var empContTrad = parseFloat(data.tradAccts.empContTrad) || 0;
-    var annualContTrad = parseFloat(data.tradAccts.annualContTrad) || 0;
-    var contEndAgeTrad = data.tradAccts.contEndAgeTrad;
-    var catchUpContTrad = data.tradAccts.catchUpContTrad;
+    var currentVal_tradAccts = data.tradAccts.currentVal_tradAccts;
+    var empContr_tradAccts = parseFloat(data.tradAccts.empContr_tradAccts) || 0;
+    var annContr_tradAccts = parseFloat(data.tradAccts.annContr_tradAccts) || 0;
+    var endAgeContr_tradAccts = data.tradAccts.endAgeContr_tradAccts;
+    var catchUpContr_tradAccts = data.tradAccts.catchUpContr_tradAccts;
     for (let i=0; i<ages.cycle; i++) {
       /* 4. Push Begin Value */
-      retire.ecaAccts.tradAccts.beginValue.push(currentValTrad);
+      retire.ecaAccts.tradAccts.beginValue.push(currentVal_tradAccts);
       /* 5. Prevent interest accrual once current value = 0 */
-      if (!currentValTrad == 0) {
+      if (!currentVal_tradAccts == 0) {
         /* 6. If under 59, Push RMD & Withdrawal = 0 */
         if (i < (59 - ages.age)) {
           retire.ecaAccts.tradAccts.withdrawal.push(0);
@@ -301,66 +301,66 @@ window.income = () => {
         } /* 7. If 58 < 70, Push Withdrawal Amount */
         else if (i >= (59 - ages.age)
                 && i < (70 - ages.age)) {
-          if (currentValTrad >= retire.totals.remaining[i]) {
+          if (currentVal_tradAccts >= retire.totals.remaining[i]) {
             retire.ecaAccts.tradAccts.withdrawal.push(retire.totals.remaining[i]);
           } else {
-            retire.ecaAccts.tradAccts.withdrawal.push(currentValTrad);
+            retire.ecaAccts.tradAccts.withdrawal.push(currentVal_tradAccts);
           }
-          currentValTrad -= retire.ecaAccts.tradAccts.withdrawal[i];
+          currentVal_tradAccts -= retire.ecaAccts.tradAccts.withdrawal[i];
           retire.totals.remaining[i] -= retire.ecaAccts.tradAccts.withdrawal[i];
           retire.ecaAccts.tradAccts.rmd.push(0);
         } /* 8. If >69, Push RMD Amount + Additional Withdrawal */
         else if (i >= (70 - ages.age)) {
           /* 9. RMD Distribution */
-          var rmdTrad = currentValTrad / rmd[ages.age + i];
+          var rmdTrad = currentVal_tradAccts / rmd[ages.age + i];
           /* 10. Push RMD Value */
           retire.ecaAccts.tradAccts.rmd.push(rmdTrad);
-          currentValTrad -= rmdTrad;
+          currentVal_tradAccts -= rmdTrad;
           retire.totals.remaining[i] -= rmdTrad;
           /* 11. Push Additional Withdrawal Value */
           if (retire.totals.remaining[i] > 0) {
-            if (currentValTrad >= retire.totals.remaining[i]) {
+            if (currentVal_tradAccts >= retire.totals.remaining[i]) {
               retire.ecaAccts.tradAccts.withdrawal.push(retire.totals.remaining[i]);
             } else {
-              retire.ecaAccts.tradAccts.withdrawal.push(currentValTrad);
+              retire.ecaAccts.tradAccts.withdrawal.push(currentVal_tradAccts);
             }
             retire.totals.remaining[i] -= retire.ecaAccts.tradAccts.withdrawal[i];
-            currentValTrad -= retire.ecaAccts.tradAccts.withdrawal[i];
+            currentVal_tradAccts -= retire.ecaAccts.tradAccts.withdrawal[i];
           } else {
             retire.ecaAccts.tradAccts.withdrawal.push(0);
           }
           /* 12. Apply (5/12)% Growth Rate to RMD amount */
-          if (currentValTrad > 0) {
-            currentValTrad += (rmdTrad/2.4 * (investGrowth(i)-1));
+          if (currentVal_tradAccts > 0) {
+            currentVal_tradAccts += (rmdTrad/2.4 * (investGrowth(i)-1));
           }
         } else {
           retire.ecaAccts.tradAccts.rmd.push(0);
           retire.ecaAccts.tradAccts.withdrawal.push(0);
         }
         /* 13. Apply (5/12)% Growth Rate to Withdrawal amount */
-        if (currentValTrad > 0
+        if (currentVal_tradAccts > 0
           && retire.ecaAccts.tradAccts.withdrawal[i] > 0) {
-          currentValTrad += (retire.ecaAccts.tradAccts.withdrawal[i]/2.4 * (investGrowth(i)-1)); 
+          currentVal_tradAccts += (retire.ecaAccts.tradAccts.withdrawal[i]/2.4 * (investGrowth(i)-1)); 
         }
         /* 14. Apply Growth Rate */
-        currentValTrad *= investGrowth(i);
+        currentVal_tradAccts *= investGrowth(i);
       } else {
         retire.ecaAccts.tradAccts.rmd.push(0);
       }
       /* 15. Accrue Personal/Employer Contributions */
-      if (i <= (contEndAgeTrad - ages.age)) {
-        currentValTrad += (empContTrad + annualContTrad);
+      if (i <= (endAgeContr_tradAccts - ages.age)) {
+        currentVal_tradAccts += (empContr_tradAccts + annContr_tradAccts);
         /* 16. Apply (5/12)% Growth Rate to Personal/Employer Contributions */
-        currentValTrad += ((empContTrad + annualContTrad)/2.4 * (investGrowth(i)-1));
+        currentVal_tradAccts += ((empContr_tradAccts + annContr_tradAccts)/2.4 * (investGrowth(i)-1));
         /* 17. Accrue Catch Up Contributions */
-        if ((catchUpContTrad == true) && (i >= (50 - ages.age))) {
-          currentValTrad += 6500;
+        if ((catchUpContr_tradAccts == true) && (i >= (50 - ages.age))) {
+          currentVal_tradAccts += 6500;
           /* 18. Apply (5/12)% Growth Rate to Catch Up Contributions */
-          currentValTrad += (6500/2.4 * (investGrowth(i)-1));
+          currentVal_tradAccts += (6500/2.4 * (investGrowth(i)-1));
         };        
       }
       /* 19. Push End Value */
-      retire.ecaAccts.tradAccts.endValue.push(currentValTrad);
+      retire.ecaAccts.tradAccts.endValue.push(currentVal_tradAccts);
     }
   }
   // SIMPLE IRA
@@ -369,16 +369,16 @@ window.income = () => {
     /* 2. Create records in retire object */
     retire.ecaAccts.simpleIra = {beginValue: [], rmd: [], withdrawal: [], endValue: []};
     /* 3. Create internal variables from data (data.js) */
-    var currentValSimpleIra = data.simpleIra.currentValSimpleIra;
-    var empContSimpleIra = parseFloat(data.simpleIra.empContSimpleIra) || 0;
-    var annualContSimpleIra = parseFloat(data.simpleIra.annualContSimpleIra) || 0;
-    var contEndAgeSimpleIra = data.simpleIra.contEndAgeSimpleIra;
-    var catchUpContSimpleIra = data.simpleIra.catchUpContSimpleIra;
+    var currentVal_simpleIra = data.simpleIra.currentVal_simpleIra;
+    var empContr_simpleIra = parseFloat(data.simpleIra.empContr_simpleIra) || 0;
+    var annContr_simpleIra = parseFloat(data.simpleIra.annContr_simpleIra) || 0;
+    var endAgeContr_simpleIra = data.simpleIra.endAgeContr_simpleIra;
+    var catchUpContr_simpleIra = data.simpleIra.catchUpContr_simpleIra;
     for (let i=0; i<ages.cycle; i++) {
       /* 4. Push Begin Value */
-      retire.ecaAccts.simpleIra.beginValue.push(currentValSimpleIra);
+      retire.ecaAccts.simpleIra.beginValue.push(currentVal_simpleIra);
       /* 5. Prevent interest accrual once current value = 0 */
-      if (!currentValSimpleIra == 0) {
+      if (!currentVal_simpleIra == 0) {
         /* 6. If under 59, Push RMD & Withdrawal = 0 */
         if (i < (59 - ages.age)) {
           retire.ecaAccts.simpleIra.withdrawal.push(0);
@@ -386,66 +386,66 @@ window.income = () => {
         } /* 7. If 58 < 70, Push Withdrawal Amount */
         else if (i >= (59 - ages.age)
                 && i < (70 - ages.age)) {
-          if (currentValSimpleIra >= retire.totals.remaining[i]) {
+          if (currentVal_simpleIra >= retire.totals.remaining[i]) {
             retire.ecaAccts.simpleIra.withdrawal.push(retire.totals.remaining[i]);
           } else {
-            retire.ecaAccts.simpleIra.withdrawal.push(currentValSimpleIra);
+            retire.ecaAccts.simpleIra.withdrawal.push(currentVal_simpleIra);
           }
-          currentValSimpleIra -= retire.ecaAccts.simpleIra.withdrawal[i];
+          currentVal_simpleIra -= retire.ecaAccts.simpleIra.withdrawal[i];
           retire.totals.remaining[i] -= retire.ecaAccts.simpleIra.withdrawal[i];
           retire.ecaAccts.simpleIra.rmd.push(0);
         } /* 8. If >69, Push RMD Amount + Additional Withdrawal */
         else if (i >= (70 - ages.age)) {
           /* 9. RMD Distribution */
-          var rmdSimpleIra = currentValSimpleIra / rmd[ages.age + i];
+          var rmdSimpleIra = currentVal_simpleIra / rmd[ages.age + i];
           /* 10. Push RMD Value */
           retire.ecaAccts.simpleIra.rmd.push(rmdSimpleIra);
-          currentValSimpleIra -= rmdSimpleIra;
+          currentVal_simpleIra -= rmdSimpleIra;
           retire.totals.remaining[i] -= rmdSimpleIra;
           /* 11. Push Additional Withdrawal Value */
           if (retire.totals.remaining[i] > 0) {
-            if (currentValSimpleIra >= retire.totals.remaining[i]) {
+            if (currentVal_simpleIra >= retire.totals.remaining[i]) {
               retire.ecaAccts.simpleIra.withdrawal.push(retire.totals.remaining[i]);
             } else {
-              retire.ecaAccts.simpleIra.withdrawal.push(currentValSimpleIra);
+              retire.ecaAccts.simpleIra.withdrawal.push(currentVal_simpleIra);
             }
             retire.totals.remaining[i] -= retire.ecaAccts.simpleIra.withdrawal[i];
-            currentValSimpleIra -= retire.ecaAccts.simpleIra.withdrawal[i];
+            currentVal_simpleIra -= retire.ecaAccts.simpleIra.withdrawal[i];
           } else {
             retire.ecaAccts.simpleIra.withdrawal.push(0);
           }
           /* 12. Apply (5/12)% Growth Rate to RMD amount */
-          if (currentValSimpleIra > 0) {
-            currentValSimpleIra += (rmdSimpleIra/2.4 * (investGrowth(i)-1));
+          if (currentVal_simpleIra > 0) {
+            currentVal_simpleIra += (rmdSimpleIra/2.4 * (investGrowth(i)-1));
           }
         } else {
           retire.ecaAccts.simpleIra.rmd.push(0);
           retire.ecaAccts.simpleIra.withdrawal.push(0);
         }
         /* 13. Apply (5/12)% Growth Rate to Withdrawal amount */
-        if (currentValSimpleIra > 0
+        if (currentVal_simpleIra > 0
           && retire.ecaAccts.simpleIra.withdrawal[i] > 0) {
-          currentValSimpleIra += (retire.ecaAccts.simpleIra.withdrawal[i]/2.4 * (investGrowth(i)-1)); 
+          currentVal_simpleIra += (retire.ecaAccts.simpleIra.withdrawal[i]/2.4 * (investGrowth(i)-1)); 
         }
         /* 14. Apply Growth Rate */
-        currentValSimpleIra *= investGrowth(i);
+        currentVal_simpleIra *= investGrowth(i);
       } else {
         retire.ecaAccts.simpleIra.rmd.push(0);
       }
       /* 15. Accrue Personal/Employer Contributions */
-      if (i <= (contEndAgeSimpleIra - ages.age)) {
-        currentValSimpleIra += (empContSimpleIra + annualContSimpleIra);
+      if (i <= (endAgeContr_simpleIra - ages.age)) {
+        currentVal_simpleIra += (empContr_simpleIra + annContr_simpleIra);
         /* 16. Apply (5/12)% Growth Rate to Personal/Employer Contributions */
-        currentValSimpleIra += ((empContSimpleIra + annualContSimpleIra)/2.4 * (investGrowth(i)-1));
+        currentVal_simpleIra += ((empContr_simpleIra + annContr_simpleIra)/2.4 * (investGrowth(i)-1));
         /* 17. Accrue Catch Up Contributions */
-        if ((catchUpContSimpleIra == true) && (i >= (50 - ages.age))) {
-          currentValSimpleIra += 6500;
+        if ((catchUpContr_simpleIra == true) && (i >= (50 - ages.age))) {
+          currentVal_simpleIra += 6500;
           /* 18. Apply (5/12)% Growth Rate to Catch Up Contributions */
-          currentValSimpleIra += (6500/2.4 * (investGrowth(i)-1));
+          currentVal_simpleIra += (6500/2.4 * (investGrowth(i)-1));
         };        
       }
       /* 19. Push End Value */
-      retire.ecaAccts.simpleIra.endValue.push(currentValSimpleIra);
+      retire.ecaAccts.simpleIra.endValue.push(currentVal_simpleIra);
     }
   }
   // SIMPLE 401k
@@ -454,16 +454,16 @@ window.income = () => {
     /* 2. Create records in retire object */
     retire.ecaAccts.simple401 = {beginValue: [], rmd: [], withdrawal: [], endValue: []};
     /* 3. Create internal variables from data (data.js) */
-    var currentValSimple401 = data.simple401.currentValSimple401;
-    var empContSimple401 = parseFloat(data.simple401.empContSimple401) || 0;
-    var annualContSimple401 = parseFloat(data.simple401.annualContSimple401) || 0;
-    var contEndAgeSimple401 = data.simple401.contEndAgeSimple401;
-    var catchUpContSimple401 = data.simple401.catchUpContSimple401;
+    var currentVal_simple401 = data.simple401.currentVal_simple401;
+    var empContr_simple401 = parseFloat(data.simple401.empContr_simple401) || 0;
+    var annContr_simple401 = parseFloat(data.simple401.annContr_simple401) || 0;
+    var endAgeContr_simple401 = data.simple401.endAgeContr_simple401;
+    var catchUpContr_simple401 = data.simple401.catchUpContr_simple401;
     for (let i=0; i<ages.cycle; i++) {
       /* 4. Push Begin Value */
-      retire.ecaAccts.simple401.beginValue.push(currentValSimple401);
+      retire.ecaAccts.simple401.beginValue.push(currentVal_simple401);
       /* 5. Prevent interest accrual once current value = 0 */
-      if (!currentValSimple401 == 0) {
+      if (!currentVal_simple401 == 0) {
         /* 6. If under 59, Push RMD & Withdrawal = 0 */
         if (i < (59 - ages.age)) {
           retire.ecaAccts.simple401.withdrawal.push(0);
@@ -471,66 +471,66 @@ window.income = () => {
         } /* 7. If 58 < 70, Push Withdrawal Amount */
         else if (i >= (59 - ages.age)
                 && i < (70 - ages.age)) {
-          if (currentValSimple401 >= retire.totals.remaining[i]) {
+          if (currentVal_simple401 >= retire.totals.remaining[i]) {
             retire.ecaAccts.simple401.withdrawal.push(retire.totals.remaining[i]);
           } else {
-            retire.ecaAccts.simple401.withdrawal.push(currentValSimple401);
+            retire.ecaAccts.simple401.withdrawal.push(currentVal_simple401);
           }
-          currentValSimple401 -= retire.ecaAccts.simple401.withdrawal[i];
+          currentVal_simple401 -= retire.ecaAccts.simple401.withdrawal[i];
           retire.totals.remaining[i] -= retire.ecaAccts.simple401.withdrawal[i];
           retire.ecaAccts.simple401.rmd.push(0);
         } /* 8. If >69, Push RMD Amount + Additional Withdrawal */
         else if (i >= (70 - ages.age)) {
           /* 9. RMD Distribution */
-          var rmdSimple401 = currentValSimple401 / rmd[ages.age + i];
+          var rmdSimple401 = currentVal_simple401 / rmd[ages.age + i];
           /* 10. Push RMD Value */
           retire.ecaAccts.simple401.rmd.push(rmdTrad);
-          currentValSimple401 -= rmdSimple401;
+          currentVal_simple401 -= rmdSimple401;
           retire.totals.remaining[i] -= rmdSimple401;
           /* 11. Push Additional Withdrawal Value */
           if (retire.totals.remaining[i] > 0) {
-            if (currentValSimple401 >= retire.totals.remaining[i]) {
+            if (currentVal_simple401 >= retire.totals.remaining[i]) {
               retire.ecaAccts.simple401.withdrawal.push(retire.totals.remaining[i]);
             } else {
-              retire.ecaAccts.simple401.withdrawal.push(currentValSimple401);
+              retire.ecaAccts.simple401.withdrawal.push(currentVal_simple401);
             }
             retire.totals.remaining[i] -= retire.ecaAccts.simple401.withdrawal[i];
-            currentValSimple401 -= retire.ecaAccts.simple401.withdrawal[i];
+            currentVal_simple401 -= retire.ecaAccts.simple401.withdrawal[i];
           } else {
             retire.ecaAccts.simple401.withdrawal.push(0);
           }
           /* 12. Apply (5/12)% Growth Rate to RMD amount */
-          if (currentValSimple401 > 0) {
-            currentValSimple401 += (rmdSimple401/2.4 * (investGrowth(i)-1));
+          if (currentVal_simple401 > 0) {
+            currentVal_simple401 += (rmdSimple401/2.4 * (investGrowth(i)-1));
           }
         } else {
           retire.ecaAccts.simple401.rmd.push(0);
           retire.ecaAccts.simple401.withdrawal.push(0);
         }
         /* 13. Apply (5/12)% Growth Rate to Withdrawal amount */
-        if (currentValSimple401 > 0
+        if (currentVal_simple401 > 0
           && retire.ecaAccts.simple401.withdrawal[i] > 0) {
-          currentValSimple401 += (retire.ecaAccts.simple401.withdrawal[i]/2.4 * (investGrowth(i)-1)); 
+          currentVal_simple401 += (retire.ecaAccts.simple401.withdrawal[i]/2.4 * (investGrowth(i)-1)); 
         }
         /* 14. Apply Growth Rate */
-        currentValSimple401 *= investGrowth(i);
+        currentVal_simple401 *= investGrowth(i);
       } else {
         retire.ecaAccts.simple401.rmd.push(0);
       }
       /* 15. Accrue Personal/Employer Contributions */
-      if (i <= (contEndAgeSimple401 - ages.age)) {
-        currentValSimple401 += (empContSimple401 + annualContSimple401);
+      if (i <= (endAgeContr_simple401 - ages.age)) {
+        currentVal_simple401 += (empContr_simple401 + annContr_simple401);
         /* 16. Apply (5/12)% Growth Rate to Personal/Employer Contributions */
-        currentValSimple401 += ((empContSimple401 + annualContSimple401)/2.4 * (investGrowth(i)-1));
+        currentVal_simple401 += ((empContr_simple401 + annContr_simple401)/2.4 * (investGrowth(i)-1));
         /* 17. Accrue Catch Up Contributions */
-        if ((catchUpContSimple401 == true) && (i >= (50 - ages.age))) {
-          currentValSimple401 += 6500;
+        if ((catchUpContr_simple401 == true) && (i >= (50 - ages.age))) {
+          currentVal_simple401 += 6500;
           /* 18. Apply (5/12)% Growth Rate to Catch Up Contributions */
-          currentValSimple401 += (6500/2.4 * (investGrowth(i)-1));
+          currentVal_simple401 += (6500/2.4 * (investGrowth(i)-1));
         };        
       }
       /* 19. Push End Value */
-      retire.ecaAccts.simple401.endValue.push(currentValSimple401);
+      retire.ecaAccts.simple401.endValue.push(currentVal_simple401);
     }
   }
   retire.iraAccts = {};
@@ -540,15 +540,15 @@ window.income = () => {
     /* 2. Create records in retire object */
     retire.iraAccts.tradIra = {beginValue: [], rmd: [], withdrawal: [], endValue: []};
     /* 3. Create internal variables from data (data.js) */
-    var currentValTradIra = data.tradIra.currentValTradIra;
-    var contEndAgeTradIra = data.tradIra.contEndAgeTradIra;
-    var annualContTradIra = parseFloat(data.tradIra.annualContTradIra) || 0;
-    var catchUpContTradIra = data.tradIra.catchUpContTradIra;
+    var currentVal_tradIra = data.tradIra.currentVal_tradIra;
+    var endAgeContr_tradIra = data.tradIra.endAgeContr_tradIra;
+    var annContr_tradIra = parseFloat(data.tradIra.annContr_tradIra) || 0;
+    var catchUpContr_tradIra = data.tradIra.catchUpContr_tradIra;
     for (let i=0; i<ages.cycle; i++) {
       /* 4. Push Begin Value */
-      retire.iraAccts.tradIra.beginValue.push(currentValTradIra);
+      retire.iraAccts.tradIra.beginValue.push(currentVal_tradIra);
       /* 5. Prevent interest accrual once current value = 0 */
-      if (!currentValTradIra == 0) {
+      if (!currentVal_tradIra == 0) {
         /* 6. If under 59, Push RMD & Withdrawal = 0 */
         if (i < (59 - ages.age)) {
           retire.iraAccts.tradIra.withdrawal.push(0);
@@ -556,66 +556,66 @@ window.income = () => {
         } /* 7. If 58 < 70, Push Withdrawal Amount */
         else if (i >= (59 - ages.age)
                 && i < (70 - ages.age)) {
-          if (currentValTradIra >= retire.totals.remaining[i]) {
+          if (currentVal_tradIra >= retire.totals.remaining[i]) {
             retire.iraAccts.tradIra.withdrawal.push(retire.totals.remaining[i]);
           } else {
-            retire.iraAccts.tradIra.withdrawal.push(currentValTradIra);
+            retire.iraAccts.tradIra.withdrawal.push(currentVal_tradIra);
           }
-          currentValTradIra -= retire.iraAccts.tradIra.withdrawal[i];
+          currentVal_tradIra -= retire.iraAccts.tradIra.withdrawal[i];
           retire.totals.remaining[i] -= retire.iraAccts.tradIra.withdrawal[i];
           retire.iraAccts.tradIra.rmd.push(0);
         } /* 8. If >69, Push RMD Amount + Additional Withdrawal */
         else if (i >= (70 - ages.age)) {
           /* 9. RMD Distribution */
-          var rmdTradIra = currentValTradIra / rmd[ages.age + i];
+          var rmdTradIra = currentVal_tradIra / rmd[ages.age + i];
           /* 10. Push RMD Value */
           retire.iraAccts.tradIra.rmd.push(rmdTradIra);
-          currentValTradIra -= rmdTradIra;
+          currentVal_tradIra -= rmdTradIra;
           retire.totals.remaining[i] -= rmdTradIra;
           /* 11. Push Additional Withdrawal Value */
           if (retire.totals.remaining[i] > 0) {
-            if (currentValTradIra >= retire.totals.remaining[i]) {
+            if (currentVal_tradIra >= retire.totals.remaining[i]) {
               retire.iraAccts.tradIra.withdrawal.push(retire.totals.remaining[i]);
             } else {
-              retire.iraAccts.tradIra.withdrawal.push(currentValTradIra);
+              retire.iraAccts.tradIra.withdrawal.push(currentVal_tradIra);
             }
             retire.totals.remaining[i] -= retire.iraAccts.tradIra.withdrawal[i];
-            currentValTradIra -= retire.iraAccts.tradIra.withdrawal[i];
+            currentVal_tradIra -= retire.iraAccts.tradIra.withdrawal[i];
           } else {
             retire.iraAccts.tradIra.withdrawal.push(0);
           }
           /* 12. Apply (5/12)% Growth Rate to RMD amount */
-          if (currentValTradIra > 0) {
-            currentValTradIra += (rmdTradIra/2.4 * (investGrowth(i)-1));
+          if (currentVal_tradIra > 0) {
+            currentVal_tradIra += (rmdTradIra/2.4 * (investGrowth(i)-1));
           }
         } else {
           retire.iraAccts.tradIra.rmd.push(0);
           retire.iraAccts.tradIra.withdrawal.push(0);
         }
         /* 13. Apply (5/12)% Growth Rate to Withdrawal amount */
-        if (currentValTradIra > 0
+        if (currentVal_tradIra > 0
           && retire.iraAccts.tradIra.withdrawal[i] > 0) {
-          currentValTradIra += (retire.iraAccts.tradIra.withdrawal[i]/2.4 * (investGrowth(i)-1)); 
+          currentVal_tradIra += (retire.iraAccts.tradIra.withdrawal[i]/2.4 * (investGrowth(i)-1)); 
         }
         /* 14. Apply Growth Rate */
-        currentValTradIra *= investGrowth(i);
+        currentVal_tradIra *= investGrowth(i);
       } else {
         retire.iraAccts.tradIra.rmd.push(0);
       }
       /* 15. Accrue Personal/Employer Contributions */
-      if (i <= (contEndAgeTradIra - ages.age)) {
-        currentValTradIra += (empContTradIra + annualContTradIra);
+      if (i <= (endAgeContr_tradIra - ages.age)) {
+        currentVal_tradIra += (empContr_tradAcctsIra + annContr_tradIra);
         /* 16. Apply (5/12)% Growth Rate to Personal/Employer Contributions */
-        currentValTradIra += ((empContTradIra + annualContTradIra)/2.4 * (investGrowth(i)-1));
+        currentVal_tradIra += ((empContr_tradAcctsIra + annContr_tradIra)/2.4 * (investGrowth(i)-1));
         /* 17. Accrue Catch Up Contributions */
-        if ((catchUpContTradIra == true) && (i >= (50 - ages.age))) {
-          currentValTradIra += 6500;
+        if ((catchUpContr_tradIra == true) && (i >= (50 - ages.age))) {
+          currentVal_tradIra += 6500;
           /* 18. Apply (5/12)% Growth Rate to Catch Up Contributions */
-          currentValTradIra += (6500/2.4 * (investGrowth(i)-1));
+          currentVal_tradIra += (6500/2.4 * (investGrowth(i)-1));
         };        
       }
       /* 19. Push End Value */
-      retire.iraAccts.tradIra.endValue.push(currentValTradIra);
+      retire.iraAccts.tradIra.endValue.push(currentVal_tradIra);
     }
   }
   // ROTH ECA ACCOUNTS
@@ -624,71 +624,71 @@ window.income = () => {
     /* 2. Create records in retire object */
     retire.ecaAccts.rothAccts = {contributions: [], beginValue: [], withdrawal: [], endValue: []};
     /* 3. Create internal variables from data (data.js) */
-    var amtContRoth = data.rothAccts.amtContRoth;
-    var currentValRoth = data.rothAccts.currentValRoth;
-    var empContRoth = parseFloat(data.rothAccts.empContRoth) || 0;
-    var annualContRoth = parseFloat(data.rothAccts.annualContRoth) || 0;
-    var contEndAgeRoth = data.rothAccts.contEndAgeRoth;
-    var catchUpContRoth = data.rothAccts.catchUpContRoth;
+    var contrVal_rothAccts = data.rothAccts.contrVal_rothAccts;
+    var currentVal_rothAccts = data.rothAccts.currentVal_rothAccts;
+    var empContr_rothAccts = parseFloat(data.rothAccts.empContr_rothAccts) || 0;
+    var annContr_rothAccts = parseFloat(data.rothAccts.annContr_rothAccts) || 0;
+    var endAgeContr_rothAccts = data.rothAccts.endAgeContr_rothAccts;
+    var catchUpContr_rothAccts = data.rothAccts.catchUpContr_rothAccts;
     for (let i=0; i<ages.cycle; i++) {
       /* 4. Push Begin Value for Total and Contributions */
-      retire.ecaAccts.rothAccts.beginValue.push(currentValRoth);
+      retire.ecaAccts.rothAccts.beginValue.push(currentVal_rothAccts);
       /* 5. Determine Withdrawal Amount */
       if (retire.totals.remaining[i] > 0) {
         /* 6. Age threshold: Withdraw against contributions before age 59 */
         if (i < (59 - ages.age) && i >= (ages.retire - ages.age)) {
-          if (amtContRoth/((59 - ages.retire) - retCount()) < retire.totals.remaining[i]) {
-            retire.ecaAccts.rothAccts.withdrawal.push(amtContRoth/((59 - ages.retire) - retCount()));
+          if (contrVal_rothAccts/((59 - ages.retire) - retCount()) < retire.totals.remaining[i]) {
+            retire.ecaAccts.rothAccts.withdrawal.push(contrVal_rothAccts/((59 - ages.retire) - retCount()));
           } else {
             retire.ecaAccts.rothAccts.withdrawal.push(retire.totals.remaining[i]);
           };
           /* 7. Deduct withdrawal from total contributions */
-          if (amtContRoth > retire.ecaAccts.rothAccts.withdrawal[i]) {
-            amtContRoth -= retire.ecaAccts.rothAccts.withdrawal[i];
+          if (contrVal_rothAccts > retire.ecaAccts.rothAccts.withdrawal[i]) {
+            contrVal_rothAccts -= retire.ecaAccts.rothAccts.withdrawal[i];
           } else {
-            amtContRoth = 0;
+            contrVal_rothAccts = 0;
           }
         } else if (i >= (59 - ages.age)) {
           /* 8. Age threshold: Withdraw against balance after age 59 */
-          if (currentValRoth >= retire.totals.remaining[i]) {
+          if (currentVal_rothAccts >= retire.totals.remaining[i]) {
             retire.ecaAccts.rothAccts.withdrawal.push(retire.totals.remaining[i]);
           } else {
-            retire.ecaAccts.rothAccts.withdrawal.push(currentValRoth);
+            retire.ecaAccts.rothAccts.withdrawal.push(currentVal_rothAccts);
           }
         }
       } else {
         retire.ecaAccts.rothAccts.withdrawal.push(0);
       }
       /* 9. Deduct withdrawal from current value and from retire...remaining */
-      currentValRoth -= retire.ecaAccts.rothAccts.withdrawal[i];
+      currentVal_rothAccts -= retire.ecaAccts.rothAccts.withdrawal[i];
       retire.totals.remaining[i] -= retire.ecaAccts.rothAccts.withdrawal[i];
       /* 10. Prevent interest accrual once current value = 0 */
-      if (!currentValRoth == 0) {
+      if (!currentVal_rothAccts == 0) {
         /* 11. Apply (5/12)% Growth Rate for Withdrawal Amount */
-        currentValRoth += (retire.ecaAccts.rothAccts.withdrawal[i]/2.4 * (investGrowth(i)-1));
+        currentVal_rothAccts += (retire.ecaAccts.rothAccts.withdrawal[i]/2.4 * (investGrowth(i)-1));
         /* 12. Apply Growth Rate */
-        currentValRoth *= investGrowth(i);
+        currentVal_rothAccts *= investGrowth(i);
       }
       /* 13. Accrue Contributions */
-      if (i <= (contEndAgeRoth - ages.age)) {
-        currentValRoth += (annualContRoth + empContRoth);
-        amtContRoth += annualContRoth;
+      if (i <= (endAgeContr_rothAccts - ages.age)) {
+        currentVal_rothAccts += (annContr_rothAccts + empContr_rothAccts);
+        contrVal_rothAccts += annContr_rothAccts;
         /* 14. Apply (5/12)% Growth Rate to Contributions */
-        currentValRoth += ((annualContRoth + empContRoth)/2.4 * (investGrowth(i)-1));
+        currentVal_rothAccts += ((annContr_rothAccts + empContr_rothAccts)/2.4 * (investGrowth(i)-1));
         /* 15. Accrue Catch Up Contributions */
-        if ((catchUpContRoth == true) && (i >= (50 - ages.age))) {
-          currentValRoth += 6500;
-          amtContRoth += 6500;
+        if ((catchUpContr_rothAccts == true) && (i >= (50 - ages.age))) {
+          currentVal_rothAccts += 6500;
+          contrVal_rothAccts += 6500;
           /* 16. Apply (5/12)% Growth Rate to Catch Up Contributions */
-          currentValRoth += (6500/2.4 * (investGrowth(i)-1));
+          currentVal_rothAccts += (6500/2.4 * (investGrowth(i)-1));
         };
       };
       /* 17. Push End Value */
-      retire.ecaAccts.rothAccts.endValue.push(currentValRoth);
-      if (amtContRoth > retire.ecaAccts.rothAccts.endValue[i]) {
+      retire.ecaAccts.rothAccts.endValue.push(currentVal_rothAccts);
+      if (contrVal_rothAccts > retire.ecaAccts.rothAccts.endValue[i]) {
         retire.ecaAccts.rothAccts.contributions.push(retire.ecaAccts.rothAccts.endValue[i]);
       } else {
-        retire.ecaAccts.rothAccts.contributions.push(amtContRoth);
+        retire.ecaAccts.rothAccts.contributions.push(contrVal_rothAccts);
       }
     }
   }
@@ -698,70 +698,70 @@ window.income = () => {
     /* 2. Create records in retire object */
     retire.iraAccts.rothIra = {contributions: [], beginValue: [], withdrawal: [], endValue: []};
     /* 3. Create internal variables from data (data.js) */
-    var amtContRothIra = data.rothIra.amtContRothIra;
-    var currentValRothIra = data.rothIra.currentValRothIra;
-    var annualContRothIra = data.rothIra.annualContRothIra;
-    var catchUpContRothIra = data.rothIra.catchUpContRothIra;
-    var contEndAgeRothIra = data.rothIra.contEndAgeRothIra;
+    var contrVal_rothIra = data.rothIra.contrVal_rothIra;
+    var currentVal_rothIra = data.rothIra.currentVal_rothIra;
+    var annContr_rothIra = data.rothIra.annContr_rothIra;
+    var catchUpContr_rothIra = data.rothIra.catchUpContr_rothIra;
+    var endAgeContr_rothIra = data.rothIra.endAgeContr_rothIra;
     for (let i=0; i<ages.cycle; i++) {
       /* 4. Push Begin Value for Total and Contributions */
-      retire.iraAccts.rothIra.beginValue.push(currentValRothIra);
+      retire.iraAccts.rothIra.beginValue.push(currentVal_rothIra);
       /* 5. Determine Withdrawal Amount */
       if (retire.totals.remaining[i] > 0) {
         /* 6. Age threshold: Withdraw against contributions before age 59 */
         if (i < (59 - ages.age) && i >= (ages.retire - ages.age)) {
-          if (amtContRothIra/((59 - ages.retire) - retCount()) < retire.totals.remaining[i]) {
-            retire.iraAccts.rothIra.withdrawal.push(amtContRothIra/((59 - ages.retire) - retCount()));
+          if (contrVal_rothIra/((59 - ages.retire) - retCount()) < retire.totals.remaining[i]) {
+            retire.iraAccts.rothIra.withdrawal.push(contrVal_rothIra/((59 - ages.retire) - retCount()));
           } else {
             retire.iraAccts.rothIra.withdrawal.push(retire.totals.remaining[i]);
           };
           /* 7. Deduct withdrawal from total contributions */
-          if (amtContRothIra > retire.iraAccts.rothIra.withdrawal[i]) {
-            amtContRothIra -= retire.iraAccts.rothIra.withdrawal[i];
+          if (contrVal_rothIra > retire.iraAccts.rothIra.withdrawal[i]) {
+            contrVal_rothIra -= retire.iraAccts.rothIra.withdrawal[i];
           } else {
-            amtContRothIra = 0;
+            contrVal_rothIra = 0;
           }
         } else if (i >= (59 - ages.age)) {
           /* 8. Age threshold: Withdraw against balance after age 59 */
-          if (currentValRothIra >= retire.totals.remaining[i]) {
+          if (currentVal_rothIra >= retire.totals.remaining[i]) {
             retire.iraAccts.rothIra.withdrawal.push(retire.totals.remaining[i]);
           } else {
-            retire.iraAccts.rothIra.withdrawal.push(currentValRothIra);
+            retire.iraAccts.rothIra.withdrawal.push(currentVal_rothIra);
           }
         }
       } else {
         retire.iraAccts.rothIra.withdrawal.push(0);
       }
       /* 9. Deduct withdrawal from current value and from retire...remaining */
-      currentValRothIra -= retire.iraAccts.rothIra.withdrawal[i];
+      currentVal_rothIra -= retire.iraAccts.rothIra.withdrawal[i];
       retire.totals.remaining[i] -= retire.iraAccts.rothIra.withdrawal[i];
       /* 10. Prevent interest accrual once current value = 0 */
-      if (!currentValRothIra == 0) {
+      if (!currentVal_rothIra == 0) {
         /* 11. Apply (5/12)% Growth Rate for Withdrawal Amount */
-        currentValRothIra += (retire.iraAccts.rothIra.withdrawal[i]/2.4 * (investGrowth(i)-1));
+        currentVal_rothIra += (retire.iraAccts.rothIra.withdrawal[i]/2.4 * (investGrowth(i)-1));
         /* 12. Apply Growth Rate */
-        currentValRothIra *= investGrowth(i);
+        currentVal_rothIra *= investGrowth(i);
       }
       /* 13. Accrue Contributions */
-      if (i <= (contEndAgeRothIra - ages.age)) {
-        currentValRothIra += annualContRothIra;
-        amtContRothIra += annualContRothIra;
+      if (i <= (endAgeContr_rothIra - ages.age)) {
+        currentVal_rothIra += annContr_rothIra;
+        contrVal_rothIra += annContr_rothIra;
         /* 14. Apply (5/12)% Growth Rate to Contributions */
-        currentValRothIra += (annualContRothIra/2.4 * (investGrowth(i)-1));
+        currentVal_rothIra += (annContr_rothIra/2.4 * (investGrowth(i)-1));
         /* 15. Accrue Catch Up Contributions */
-        if ((catchUpContRothIra == true) && (i >= (50 - ages.age))) {
-          currentValRothIra += 1000;
-          amtContRothIra += 1000;
+        if ((catchUpContr_rothIra == true) && (i >= (50 - ages.age))) {
+          currentVal_rothIra += 1000;
+          contrVal_rothIra += 1000;
           /* 16. Apply (5/12)% Growth Rate to Catch Up Contributions */
-          currentValRothIra += (1000/2.4 * (investGrowth(i)-1));
+          currentVal_rothIra += (1000/2.4 * (investGrowth(i)-1));
         };
       };
       /* 17. Push End Value */
-      retire.iraAccts.rothIra.endValue.push(currentValRothIra);
-      if (amtContRothIra > retire.iraAccts.rothIra.endValue[i]) {
+      retire.iraAccts.rothIra.endValue.push(currentVal_rothIra);
+      if (contrVal_rothIra > retire.iraAccts.rothIra.endValue[i]) {
         retire.iraAccts.rothIra.contributions.push(retire.iraAccts.rothIra.endValue[i]);
       } else {
-        retire.iraAccts.rothIra.contributions.push(amtContRothIra);
+        retire.iraAccts.rothIra.contributions.push(contrVal_rothIra);
       }
     }
   }
