@@ -1,6 +1,5 @@
-import {data} from './data.js';
 import {investmentSelect} from './investChecklist.js';
-// import {income} from './assets.js';
+import { income } from './assets.js';
 
 let currentTab = 0;
 let tabOrder = [0];
@@ -66,97 +65,76 @@ let accountTypes = () => {
   document.getElementsByClassName('step')[0].classList.add('active');
 }
 
-window.demographics = () => {
+export var demographics = () => {
   let inputs = $("#personalDetails :input");
   let details = {};
   for (let i=0;i<inputs.length;i++) {
-    // data.demographics[inputs[i].id] = inputs[i].value;
     details[inputs[i].id] = inputs[i].value;
   }
   return details;
 }
 
-window.activeItems = () => {
-  let $options = $('.accountTypes');
-  for (let i=0; i<$options.length; i++) {
-    if ($options[i].checked) {
-      data[$options[i].classList[1]].active = true;
-    }
-  };
-};
-
 window.nextPrev = (n) => {
   let x = document.getElementsByClassName('tab');
-  // if (n == 1 && !validateForm()) return false;
+  if (n == 1 && !validateForm()) return false;
   if(currentTab == 0) {
     accountTypes();
     demographics();
-    activeItems();
   }
   x[currentTab].style.display = 'none';
   currentTab = tabOrder[tabOrder.indexOf(currentTab)+n];
   if (!currentTab) {
     harvest();
-    // window.location.href = "results.html";
-    // income();
+    income();
   }
   if (x[currentTab]) {
     showTab(currentTab);
     x[currentTab].getElementsByTagName('input')[0].select();
-    // window.scrollTo(0,0);
   }
 }
 
-function validateForm() {
+var validateForm = () => {
   // This function deals with validation of the form fields
   let x, y, blank, valid = true;
   x = document.getElementsByClassName("tab");
   let z = x[currentTab];
-  y = $(z).find('select,input:not(.monthlyCalc):not(.accountTypes):not(":input[type=radio]"):not(.retSalCalcVals)');
+  y = $(z).find('.data');
   for (let i=0; i<y.length; i++) {
-      if (y[i].value != '') {blank = false;}
-    }
-    if (blank == false) {
-      for (let k=0; k<y.length; k++) {
-        if (y[k].value == '') {
-          if(y[k].classList.contains(' invalid')) {
-            continue;
-          } else {
-            y[k].className += " invalid";
-            valid = false;
-          }
+    if (y[i].value == '') {blank = false;}
+  }
+  if (blank == false) {
+    for (let k=0; k<y.length; k++) {
+      if (y[k].value == '') {
+        if(y[k].classList.contains(' invalid')) {
+          continue;
+        } else {
+          y[k].className += " invalid";
+          valid = false;
         }
       }
-      blank = true;
-    } 
+    }
+    blank = true;
+  } 
   return valid;
 }
 
-window.harvest = () => {
-  let $accountTypes = $('.accountTypes:checked');
-  var dataTest = {};
+var harvest = () => {
+  var formData = {};
+  var incSources = jQuery.makeArray($('.accountTypes:checked')).map(g => $(g).attr("class").replace(/accountTypes /g,""));
+  incSources.push("demographics");
   for (let i=0; i<$('.tab').length; i++) {
-    // if ($($('.accountTypes:checked')))
-    dataTest[$($('.tab')[i]).attr("id")] = {};
-    let $temp = $($('.tab')[i]).find(".data");
-    for (let j=0; j<$temp.length; j++) {
-      dataTest[$($('.tab')[i]).attr("id")][$($temp[j]).attr("id")] = Number($($temp[j]).val()) || $($temp[j]).val();
-      // console.log($($temp[j]).val());
-    }
-  }
-  console.log($accountTypes);
-  const invCategories = Object.keys(data);
-  for (let i=1; i<invCategories.length; i++) {
-    let tempKeys = Object.keys(data[invCategories[i]]);
-    for (let j=0; j<tempKeys.length; j++) {
-      if (tempKeys[j] == 'active') {continue;}
-      if (document.getElementById(tempKeys[j]).value == '') {continue;}
-      data[invCategories[i]][tempKeys[j]] = Number(document.getElementById(tempKeys[j]).value) || document.getElementById(tempKeys[j]).value;
-      if (document.getElementById(tempKeys[j]).type == 'radio') {
-        document.getElementById(tempKeys[j]).checked ? data[invCategories[i]][tempKeys[j]] = true : data[invCategories[i]][tempKeys[j]] = false;
+    if (incSources.includes($($('.tab')[i]).attr("id"))) {
+      formData[$($('.tab')[i]).attr("id")] = {};
+      let $temp = $($('.tab')[i]).find(".data");
+      for (let j=0; j<$temp.length; j++) {
+        formData[$($('.tab')[i]).attr("id")][$($temp[j]).attr("id")] = Number($($temp[j]).val()) || $($temp[j]).val();
+        if ($temp[j].type == 'radio') {
+          $temp[j].checked ? formData[$($('.tab')[i]).attr("id")][$($temp[j]).attr("id")] = true : formData[$($('.tab')[i]).attr("id")][$($temp[j]).attr("id")] = false;
+        }
       }
     }
   }
+  return formData;
 }
 
-export {currentTab, data};
+export {currentTab, harvest};

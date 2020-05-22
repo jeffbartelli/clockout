@@ -1,7 +1,8 @@
-import {data} from './survey.js';
+import {harvest} from './survey.js';
 import {life, growthRate, rmd} from './data.js';
 
-window.calcAge = () => {
+var calcAge = () => {
+  let data = harvest();
   let b = data.demographics.dob.split(/\D/);
   let c = new Date(b[0], --b[1], b[2]);
   let age = new Date(Date.now() - c).getFullYear()-1970;
@@ -23,41 +24,32 @@ window.calcAge = () => {
   };
 }
 
-window.income = () => {
+var income = () => {
   let ages = calcAge();
-  let investGrowth = (i) => {return i >= (65 - ages.age) ? 1+growthRate.inflation : 1+growthRate.sp500}
+  let data = harvest();
+  let investGrowth = (i) => {return i >= (65 - ages.age) ? 1+growthRate.inflation : 1+growthRate.sp500};
+  
   var retire = {};
   retire.dates = {year: [], age: []};
   retire.totals = {required: [], income: [], remaining: [], taxes: []};
   let targetSalAmt = parseInt(data.demographics.retSal);
   var retCount = () => {
     let count = 0;
-    for (let j=(ages.retire - ages.age); j<(59 - ages.age); j++) {
-      if (retire.totals.remaining[j] == 0) {
-        count++;
-      }
-    }
+    for (let j=(ages.retire - ages.age); j<(59 - ages.age); j++) {if (retire.totals.remaining[j] == 0) {count++;}}
     return count;
   };
   for (let i=0;i<ages.cycle;i++) {
     retire.dates.year.push(ages.currentYr+i);
     retire.dates.age.push(ages.age+i);
-    if (i <= ages.retire - ages.age) {
-      retire.totals.income.push(0);
-      retire.totals.taxes.push(0);
-      retire.totals.required.push(0);
-      retire.totals.remaining.push(0);
-    } else {
-      retire.totals.income.push(targetSalAmt);
-      retire.totals.taxes.push(targetSalAmt*0.2);
-      retire.totals.required.push(targetSalAmt*1.2);
-      retire.totals.remaining.push(targetSalAmt*1.2);
-    }
+      retire.totals.income.push(+(targetSalAmt).toFixed(2));
+      retire.totals.taxes.push(+(targetSalAmt*0.2).toFixed(2));
+      retire.totals.required.push(+(targetSalAmt*1.2).toFixed(2));
+      retire.totals.remaining.push(+(targetSalAmt*1.2).toFixed(2));
     targetSalAmt *= 1+growthRate.inflation 
   };
   retire.income = {};
   // SOCIAL SECURITY
-  if(data.ssi.active == true) {
+  if(data.ssi) {
     retire.income.ssi = {annual: []};
     let ssiRate = 0;
     switch (data.ssi.beginAge_ssi) { 
@@ -86,7 +78,7 @@ window.income = () => {
     };
   };
   // GENERAL PENSIONS
-  if(data.genPension.active == true) {
+  if(data.genPension) {
     retire.income.genPension = {annual: []};
     let penAmount = data.genPension.annAmt_genPension;
     let penBeginAge = data.genPension.beginAge_genPension;
@@ -105,7 +97,7 @@ window.income = () => {
     }
   };
   // FERS PENSION
-  if(data.fersPension.active == true) {
+  if(data.fersPension) {
     retire.income.fersPension = {annual: []};
     let fersBeginAge = data.fersPension.beginAge_fersPension;
     let fersRate = 0;
@@ -129,7 +121,7 @@ window.income = () => {
     }
   };
   // ANNUITIES/INSURANCE
-  if(data.annuities.active == true) {
+  if(data.annuities) {
     retire.income.annuities = {annual: []};
     let annAmount = data.annuities.annAmt_annuities;
     let colaRate_annuities = data.annuities.colaRate_annuities/100;
@@ -145,7 +137,7 @@ window.income = () => {
     }
   };
   // VA DISABILITY
-  if(data.vaDisability.active == true) {
+  if(data.vaDisability) {
     retire.income.vaDisability = {annual: []};
     let vaAmount = data.vaDisability.annAmt_vaDisability;
     for (let i=0; i<ages.cycle; i++) {
@@ -159,7 +151,7 @@ window.income = () => {
     }
   };
   // SSI DISABILITY
-  if(data.ssiDisability.active == true) {
+  if(data.ssiDisability) {
     retire.income.ssiDisability = {annual: []};
     let ssiDisAmount = data.ssiDisability.annAmt_ssiDisability;
     for (let i=0; i<ages.cycle; i++) {
@@ -173,7 +165,7 @@ window.income = () => {
     }
   };
   // OTHER DISABILITY
-  if(data.otherDisability.active == true) {
+  if(data.otherDisability) {
     retire.income.otherDisability = {annual: []};
     let oDisAmount = data.otherDisability.annAmt_otherDisability;
     let disCola = data.otherDisability.colaRate_otherDisability/100;
@@ -188,7 +180,7 @@ window.income = () => {
     }
   };
   // RETIREMENT SALARY
-  if(data.retireSal.active == true) {
+  if(data.retireSal) {
     retire.income.retireSal = {annual: []};
     let retSalAmount = data.retireSal.annAmt_retireSal;
     for (let i=0; i<ages.cycle; i++) {
@@ -204,7 +196,7 @@ window.income = () => {
     }
   };
   // RENTS
-  if(data.rents.active == true) {
+  if(data.rents) {
     retire.income.rents = {annual: []};
     let rentAmount = data.rents.annAmt_rents;
     let growth = data.rents.colaRate_rents/100;
@@ -219,7 +211,7 @@ window.income = () => {
     }
   };
   // OTHER BENEFITS
-  if(data.otherBen.active == true) {
+  if(data.otherBen) {
     retire.income.otherBen = {annual: []};
     let oBenAmount = data.otherBen.annAmt_otherBen;
     let oBenCola = data.otherBen.colaRate_otherBen/100;
@@ -237,7 +229,7 @@ window.income = () => {
   retire.invAccts = {};
   // INVESTMENT ACCOUNTS
   /* 1. If Account == Active */
-  if(data.investAcct.active == true) {
+  if(data.investAcct) {
     /* 2. Create records in retire object */
     retire.invAccts.investAcct = {beginValue: [], withdrawal: [], endValue: []};
     /* 3. Create internal variables from data (data.js) */
@@ -280,7 +272,7 @@ window.income = () => {
   retire.ecaAccts = {};
   // TRADITIONAL ACCOUNTS
   /* 1. If Account == Active */
-  if(data.tradAccts.active == true) {
+  if(data.tradAccts) {
     /* 2. Create records in retire object */
     retire.ecaAccts.tradAccts = {beginValue: [], rmd: [], withdrawal: [], endValue: []};
     /* 3. Create internal variables from data (data.js) */
@@ -365,7 +357,7 @@ window.income = () => {
   }
   // SIMPLE IRA
   /* 1. If Account == Active */
-  if(data.simpleIra.active == true) {
+  if(data.simpleIra) {
     /* 2. Create records in retire object */
     retire.ecaAccts.simpleIra = {beginValue: [], rmd: [], withdrawal: [], endValue: []};
     /* 3. Create internal variables from data (data.js) */
@@ -450,7 +442,7 @@ window.income = () => {
   }
   // SIMPLE 401k
   /* 1. If Account == Active */
-  if(data.simple401.active == true) {
+  if(data.simple401) {
     /* 2. Create records in retire object */
     retire.ecaAccts.simple401 = {beginValue: [], rmd: [], withdrawal: [], endValue: []};
     /* 3. Create internal variables from data (data.js) */
@@ -536,7 +528,7 @@ window.income = () => {
   retire.iraAccts = {};
   // TRAD IRA
   /* 1. If Account == Active */
-  if(data.tradIra.active == true) {
+  if(data.tradIra) {
     /* 2. Create records in retire object */
     retire.iraAccts.tradIra = {beginValue: [], rmd: [], withdrawal: [], endValue: []};
     /* 3. Create internal variables from data (data.js) */
@@ -620,7 +612,7 @@ window.income = () => {
   }
   // ROTH ECA ACCOUNTS
   /* 1. If Account == Active */
-  if(data.rothAccts.active == true) {
+  if(data.rothAccts) {
     /* 2. Create records in retire object */
     retire.ecaAccts.rothAccts = {contributions: [], beginValue: [], withdrawal: [], endValue: []};
     /* 3. Create internal variables from data (data.js) */
@@ -694,7 +686,7 @@ window.income = () => {
   }
   // ROTH IRA
     /* 1. If Account == Active */
-  if(data.rothIra.active == true) {
+  if(data.rothIra) {
     /* 2. Create records in retire object */
     retire.iraAccts.rothIra = {contributions: [], beginValue: [], withdrawal: [], endValue: []};
     /* 3. Create internal variables from data (data.js) */
@@ -765,23 +757,7 @@ window.income = () => {
       }
     }
   }
-  /* 17. If Account == Active */
-  if(data.tradAccts.active == true) {
-    for (let i=0; i<ages.cycle; i++) {
-
-    
-    }
-  }
-  if(data.simpleIra.active == true) {
-  
-  }
-  if(data.simple401.active == true) {
-  
-  }
-  if(data.tradIra.active == true) {
-
-  }
   console.log(retire);
 };
 
-// export {income};
+export {income};

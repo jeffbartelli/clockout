@@ -194,7 +194,7 @@ input.ecaCalculator {
   font-size: medium;
 }
 
-#ecaModal {
+#simpleModal, #ecaModal {
   background-color: white;
   width: 40%;
   height: 235px;
@@ -209,11 +209,11 @@ input.ecaCalculator {
   display: none;
 }
 
-#ecaModal p {
+#simpleModal, #ecaModal p {
   text-align: justify;
 }
 
-#ecaModal table {
+#simpleModal, #ecaModal table {
   margin: 0 auto 0 auto;
 }
 
