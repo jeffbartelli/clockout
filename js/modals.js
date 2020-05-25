@@ -2,7 +2,7 @@ import {dollarFormat} from './numberFormats.js';
 import {demographics} from './survey.js';
 
 
-$('#workSpace').after(`<div id="retSalCalc">
+$('#workSpace').append(`<div id="retSalCalc">
 <p>Enter annual totals for each category. The total amount will represent the net salary (in today's dollars) that you will need in retirement.</p>
 <p><input type="number" id="housing" placeholder="Housing Budget" class="retSalCalcVals" onchange="retSalCalc()"></p>
 <p><input type="number" id="transport"  class="retSalCalcVals" placeholder="Transportation Budget" onchange="retSalCalc()"></p> 
@@ -27,6 +27,13 @@ $('#workSpace').after(`<div id="retSalCalc">
   <table class="simpleModalFields">
   </table>
   <button id="simpleModalClose" disabled>Submit</button>
+</div>
+
+<div id="iraModal" class="">
+  <p>Total combined annual contributions for All Simple accounts cannot exceed $13,500. Redistribute your contributions below. Note: You can enter a percentage of your salary or an overall amount.</p>
+  <table class="iraModalFields">
+  </table>
+  <button id="iraModalClose" disabled>Submit</button>
 </div>
 `);
 document.addEventListener('DOMContentLoaded', function() {
@@ -73,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
           $('<td/>', {'text': $accounts[i].innerHTML})).append(`
           <td>\
           <input type="number" class="percent ecaCalculator" min="0" max="0" placeholder="0.0" onchange="simpleModalCalc(this)">% x\
-          <span class="modalSalary"></span> =</td>\
+          <span class="modalSimpleSalary"></span> =</td>\
           <td>\
           <input type="number" class="simpleContAmount" 
           onchange="simpleModalCalc(this)"
@@ -88,14 +95,52 @@ document.addEventListener('DOMContentLoaded', function() {
         .text('Total:')
       ).append(
         $('<td/>').append(
-          $('<span/>', {'class': 'simpleModalTotal'})
+          $('<span/>', {'class': 'simpleTotal'})
+        )
+      )
+    ).append(
+      $('<tr/>').append(
+        $('<td/>')
+      ).append(
+        $('<td/>')
+        .text('ECA Total:')
+      ).append(
+        $('<td/>').append(
+          $('<span/>', {'class': 'bigTotal'})
         )
       )
     )
-    $('.modalSalary').each(function() {
+    $('.modalSimpleSalary').each(function() {
       $(this).text(dollarFormat.format(details.salary));
     });     
   }
   simpleModal();
+
+  var iraModal = () => {
+    let $accounts = $('.sectionHeader');
+    for (let i=11; i<13; i++) {
+      $('.iraModalFields').append(
+        $('<tr/>').append(
+          $('<td/>', {'text': $accounts[i].innerHTML})).append(`
+            <td>\
+            <input type="number" class="iraContAmount" 
+            placeholder="0">\
+            </td>`));   
+    }
+    $('.iraModalFields').append(
+      $('<tr/>').append(
+        $('<td/>')
+        .text('Total:')
+      ).append(
+        $('<td/>').append(
+          $('<span/>', {'class': 'iraTotal'})
+        )
+      )
+    )
+    $('.modalIraSalary').each(function() {
+      $(this).text(dollarFormat.format(details.salary));
+    });  
+  }
+  iraModal();
 
 });

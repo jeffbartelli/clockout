@@ -596,9 +596,9 @@ var income = () => {
       }
       /* 15. Accrue Personal/Employer Contributions */
       if (i <= (endAgeContr_tradIra - ages.age)) {
-        currentVal_tradIra += (empContr_tradAcctsIra + annContr_tradIra);
+        currentVal_tradIra += annContr_tradIra;
         /* 16. Apply (5/12)% Growth Rate to Personal/Employer Contributions */
-        currentVal_tradIra += ((empContr_tradAcctsIra + annContr_tradIra)/2.4 * (investGrowth(i)-1));
+        currentVal_tradIra += (annContr_tradIra/2.4 * (investGrowth(i)-1));
         /* 17. Accrue Catch Up Contributions */
         if ((catchUpContr_tradIra == true) && (i >= (50 - ages.age))) {
           currentVal_tradIra += 6500;
