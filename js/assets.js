@@ -28,7 +28,6 @@ var income = () => {
   let ages = calcAge();
   let data = harvest();
   let investGrowth = (i) => {return i >= (65 - ages.age) ? 1+growthRate.inflation : 1+growthRate.sp500};
-  
   var retire = {};
   retire.dates = {year: [], age: []};
   retire.totals = {required: [], income: [], remaining: [], taxes: []};
@@ -647,6 +646,8 @@ var income = () => {
           } else {
             retire.ecaAccts.rothAccts.withdrawal.push(currentVal_rothAccts);
           }
+        } else {
+          retire.ecaAccts.rothAccts.withdrawal.push(0);
         }
       } else {
         retire.ecaAccts.rothAccts.withdrawal.push(0);
@@ -758,6 +759,7 @@ var income = () => {
     }
   }
   console.log(retire);
+  return retire;
 };
 
 export {income};

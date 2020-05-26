@@ -22,7 +22,7 @@ h4 {margin: 3px;}
   border-bottom: 1px solid darkgray;
 }
 
-#workSpace {
+.workSpace {
   border: 1px solid darkgray;
   border-radius: 7px;
   max-width: 80%;
@@ -174,18 +174,26 @@ select.invalid, input.invalid {
   background-color: #4CAF50;
 }
 
-#retSalCalc {
+.controls {
+  margin: 0 auto;
   background-color: white;
   width: 180px;
-  height: 320px;
-  border:1px solid rgb(32, 32, 32);
+}
+
+#retSalCalc {
+  background-color: white;
+  width: 200px;
+  height: 80%;
+  border-style: ridge;
   border-radius: 5px;
-  position: fixed;
-  float: left;
-  left: 29%;
-  top: 35%;
-  transform: translate(-50%, -50%);
-  padding: 5px;
+  position: absolute;
+  /* float: left; */
+  left: 15%;
+  /* top: -10%; */
+  /* transform: translate(-50%, -50%); */
+  /* padding: 0 5% 0 5%; */
+  /* margin: 0 auto; */
+  text-align: center;
   display: none;
 }
 

@@ -12,7 +12,7 @@ let fixStepIndicator = () => {
     x[i].className = x[i].className.replace(' active','');
   }
   $(x[tabOrder.indexOf(currentTab)-1]).addClass('active');
-  // $(x[tabOrder.indexOf(currentTab)-1]).addClass('finish');
+  $(x[tabOrder.indexOf(currentTab)-1]).addClass('finish');
 }
 
 /* Turns on the active tab in the survey */
@@ -81,10 +81,13 @@ window.nextPrev = (n) => {
     accountTypes();
     demographics();
   }
+  if(currentTab == 1 && n == -1) {
+    $('.step').remove();
+  }
   x[currentTab].style.display = 'none';
   currentTab = tabOrder[tabOrder.indexOf(currentTab)+n];
   if (!currentTab) {
-    harvest();
+    // window.location = 'results.html';  
     income();
   }
   if (x[currentTab]) {
@@ -94,7 +97,6 @@ window.nextPrev = (n) => {
 }
 
 var validateForm = () => {
-  // This function deals with validation of the form fields
   let x, y, blank, valid = true;
   x = document.getElementsByClassName("tab");
   let z = x[currentTab];
@@ -134,6 +136,7 @@ var harvest = () => {
       }
     }
   }
+  console.log(formData);
   return formData;
 }
 

@@ -3,6 +3,7 @@ import {demographics} from './survey.js';
 
 
 $('#workSpace').append(`<div id="retSalCalc">
+<div class="controls">
 <p>Enter annual totals for each category. The total amount will represent the net salary (in today's dollars) that you will need in retirement.</p>
 <p><input type="number" id="housing" placeholder="Housing Budget" class="retSalCalcVals" onchange="retSalCalc()"></p>
 <p><input type="number" id="transport"  class="retSalCalcVals" placeholder="Transportation Budget" onchange="retSalCalc()"></p> 
@@ -12,6 +13,7 @@ $('#workSpace').append(`<div id="retSalCalc">
 <p><input type="number" id="other" class="retSalCalcVals" placeholder="Other Expenses" onchange="retSalCalc()"></p>
 <p><input type="number" id="retSalTotal" class="retSalCalcVals total" placeholder="Total Annual Expenses" value=""></p>
 <button id="retSalCalcClose">Close</button>
+</div>
 </div>
 </div>
 
