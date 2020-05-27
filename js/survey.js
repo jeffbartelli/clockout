@@ -65,7 +65,7 @@ let accountTypes = () => {
   document.getElementsByClassName('step')[0].classList.add('active');
 }
 
-export var demographics = () => {
+var demographics = () => {
   let inputs = $("#personalDetails :input");
   let details = {};
   for (let i=0;i<inputs.length;i++) {
@@ -138,8 +138,8 @@ var harvest = () => {
       }
     }
   }
-  console.log(formData);
+  // console.log(formData);
   return formData;
 }
 
-export {currentTab, harvest};
+export {currentTab, demographics, harvest};
