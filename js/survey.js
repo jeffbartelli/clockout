@@ -75,6 +75,7 @@ export var demographics = () => {
 }
 
 window.nextPrev = (n) => {
+  let warn = 0;
   let x = document.getElementsByClassName('tab');
   if (n == 1 && !validateForm()) return false;
   if(currentTab == 0) {
@@ -83,11 +84,12 @@ window.nextPrev = (n) => {
   }
   if(currentTab == 1 && n == -1) {
     $('.step').remove();
+    warn++;
   }
   x[currentTab].style.display = 'none';
   currentTab = tabOrder[tabOrder.indexOf(currentTab)+n];
-  if (!currentTab) {
-    // window.location = 'results.html';  
+  if (!currentTab && warn == 0) {
+    window.location = 'results.html';  
     income();
   }
   if (x[currentTab]) {

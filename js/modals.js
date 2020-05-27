@@ -2,7 +2,7 @@ import {dollarFormat} from './numberFormats.js';
 import {demographics} from './survey.js';
 
 
-$('#workSpace').append(`<div id="retSalCalc">
+$('#survey').append(`<div id="retSalCalc" class="slide-in">
 <div class="controls">
 <p>Enter annual totals for each category. The total amount will represent the net salary (in today's dollars) that you will need in retirement.</p>
 <p><input type="number" id="housing" placeholder="Housing Budget" class="retSalCalcVals" onchange="retSalCalc()"></p>
@@ -38,6 +38,7 @@ $('#workSpace').append(`<div id="retSalCalc">
   <button id="iraModalClose" disabled>Submit</button>
 </div>
 `);
+
 document.addEventListener('DOMContentLoaded', function() {
   const details = demographics();
 

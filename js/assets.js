@@ -22,6 +22,11 @@ var calcAge = () => {
     death: le,
     cycle: le - age
   };
+  if (typeof(Storage) !== "undefined") {
+    localStorage.retireData = JSON.stringify(cycle);
+  } else {
+    window.cycle;
+  }
 }
 
 var income = () => {
@@ -46,7 +51,10 @@ var income = () => {
       retire.totals.remaining.push(+(targetSalAmt*1.2).toFixed(2));
     targetSalAmt *= 1+growthRate.inflation 
   };
-  retire.income = {};
+  // CATEGORY BUILDER
+  if (data.ssi || data.genPension || data.fersPension || data.annuities || data.vaDisability || data.ssiDisability || data.otherDisability || data.retireSal || data.rents || data.otherBen) retire.income = {};
+  if (data.tradAccts || data.simpleIra || data.simple401 || data.rothAccts) retire.ecaAccts = {};
+  if (data.tradIra || data.rothIra) retire.iraAccts = {};
   // SOCIAL SECURITY
   if(data.ssi) {
     retire.income.ssi = {annual: []};
@@ -225,10 +233,10 @@ var income = () => {
       oBenAmount *= 1+oBenCola;
     }
   };
-  retire.invAccts = {};
   // INVESTMENT ACCOUNTS
   /* 1. If Account == Active */
   if(data.investAcct) {
+    retire.invAccts = {};
     /* 2. Create records in retire object */
     retire.invAccts.investAcct = {beginValue: [], withdrawal: [], endValue: []};
     /* 3. Create internal variables from data (data.js) */
@@ -267,8 +275,6 @@ var income = () => {
       retire.invAccts.investAcct.endValue.push(currentVal_investAcct);      
     }
   }
-
-  retire.ecaAccts = {};
   // TRADITIONAL ACCOUNTS
   /* 1. If Account == Active */
   if(data.tradAccts) {
@@ -353,7 +359,6 @@ var income = () => {
       /* 19. Push End Value */
       retire.ecaAccts.tradAccts.endValue.push(currentVal_tradAccts);
     }
-  }
   // SIMPLE IRA
   /* 1. If Account == Active */
   if(data.simpleIra) {
@@ -524,7 +529,6 @@ var income = () => {
       retire.ecaAccts.simple401.endValue.push(currentVal_simple401);
     }
   }
-  retire.iraAccts = {};
   // TRAD IRA
   /* 1. If Account == Active */
   if(data.tradIra) {
@@ -609,6 +613,8 @@ var income = () => {
       retire.iraAccts.tradIra.endValue.push(currentVal_tradIra);
     }
   }
+}  
+
   // ROTH ECA ACCOUNTS
   /* 1. If Account == Active */
   if(data.rothAccts) {
@@ -758,8 +764,13 @@ var income = () => {
       }
     }
   }
-  console.log(retire);
-  return retire;
+  if (typeof(Storage) !== "undefined") {
+    localStorage.retireData = JSON.stringify(retire);
+  } else {
+    window.retire;
+  }
+  // console.log(retire);
+  // return retire;
 };
 
-export {income};
+export {income, calcAge};

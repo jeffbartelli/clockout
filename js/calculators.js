@@ -181,13 +181,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   };
 
-  // window.iraModalCalc = (e) => {
-  //   console.log(parseInt(e.value));
-  //   console.log('trigger');
-  //   parseInt(e.value) > 6000 ? 6000 : parseInt(e.value);
-  //   iraModalTotal();
-  // }
-
   window.iraModalTotal = (e) => {
     let iraContAmount = 0;
     $('.iraContAmount').each(function() {
@@ -239,5 +232,25 @@ document.addEventListener('DOMContentLoaded', function() {
     $('#retSalCalc').toggle();
     event.preventDefault();
   });
+
+  // var toggle = document.getElementById('retSalCalcClose');
+  // var toggle2 = document.getElementById('calculator');
+  // var $slider = $('#retSalCalc');
+  // console.log($slider[0].classList);
+
+  // toggle.addEventListener('click', function() {
+  //   console.log('triggered button');
+  //   var isOpen = $slider[0].classList.contains('slide-in');
+  //   console.log(isOpen);
+  //   $($slider).attr('class', isOpen ? 'slide-out' : 'slide-in');
+  //   $('#retSalCalc').toggle();
+  // });
+  // toggle2.addEventListener('click', function() {
+  //   console.log('triggered icon');
+  //   var isOpen = $slider[0].classList.contains('slide-in');
+  //   console.log(isOpen);
+  //   $($slider).attr('class', isOpen ? 'slide-out' : 'slide-in');
+  //   $('#retSalCalc').toggle();
+  // });
 
 });

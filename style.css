@@ -2,7 +2,9 @@ body {
   font-family: 'PT Sans', sans-serif;
   font-family: 'Roboto', sans-serif;
   margin:auto;
-  background-color: azure;
+  /* background-color: azure; */
+  /* background-color: #FFEAEC; */
+  background-color: #F1F7EE;
 }
 
 h2 {
@@ -23,24 +25,33 @@ h4 {margin: 3px;}
 }
 
 .workSpace {
-  border: 1px solid darkgray;
+  /* border: 1px solid #545E56; */
   border-radius: 7px;
   max-width: 80%;
   margin: 50px auto;
   height: 400px;
-  background-color: whitesmoke;
+  /* background-color: whitesmoke; */
+  background-color: #D8E2DC;
   position: relative;
+  color: #545E56;
 }
 
 #surveyLaunch {
-  border: 3px double dodgerblue;
+  /* border: 3px double dodgerblue; */
+  border: 3px double #BF8B85;
   display: table;
   margin: 0 auto;
-  background-color: deepskyblue;
+  /* background-color: deepskyblue; */
+  /* background-color: #dabeca; */
+  background-color: #8c271e;
   padding: 5px;
   width: 100px;
   text-align: center;
 }
+
+/* #surveyLaunch a:visited, a:link {
+  color: #BF8B85;
+} */
 
 #surveyLaunch a {
   color: ghostwhite;
@@ -52,7 +63,8 @@ h4 {margin: 3px;}
   box-shadow: 0 0 5px 2px rgba(6, 93, 143, 0.712);
   transition-timing-function: ease-in;
   transition-delay: .1s;
-  background-color: dodgerblue;
+  /* background-color: dodgerblue; */
+  background-color: #0081a7;
   border: 3px double deepskyblue;
 }
 
@@ -61,16 +73,24 @@ h4 {margin: 3px;}
   padding: 20px;
 }
 
+.sectionHeader {
+  height: 100%;
+}
+
 /* survey.html */
 .survey-header {
   height: 40px;
-  border-bottom: 1px solid darkgray;
+  border-bottom: 1px solid #545E56;
   text-align: center;
+  font-size: x-large;
+  vertical-align: auto;
+  line-height: 40px;
 }
 
 .survey-content {
   width: 100%;
   position: relative;
+  overflow: hidden;
 }
 
 .survey-instructions {
@@ -145,6 +165,7 @@ select.invalid, input.invalid {
 /* Hide all steps by default: */
 .tab {
   display: none;
+  height: 100%;
   /* height: 400px; */
 }
 
@@ -182,19 +203,20 @@ select.invalid, input.invalid {
 
 #retSalCalc {
   background-color: white;
-  width: 200px;
-  height: 80%;
-  border-style: ridge;
-  border-radius: 5px;
+  width: 250px;
+  height: 359px;
   position: absolute;
-  /* float: left; */
-  left: 15%;
-  /* top: -10%; */
-  /* transform: translate(-50%, -50%); */
-  /* padding: 0 5% 0 5%; */
-  /* margin: 0 auto; */
+  top: 41px;
   text-align: center;
   display: none;
+}
+
+.slide-in {
+  animation: slide-in 2s forwards;
+}
+
+.slide-out {
+  animation: slide-out 2s forwards;
 }
 
 input.ecaCalculator {
@@ -208,7 +230,7 @@ input.ecaCalculator {
   height: 235px;
   border-style: ridge;
   border-radius: 5px;
-  position: fixed;
+  position: absolute;
   float: left;
   left: 50%;
   top: 60%;
