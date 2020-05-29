@@ -285,6 +285,11 @@ input.ecaCalculator {
   vertical-align: middle;
 }
 
+#resultsTable td {
+ border: 1px solid black;
+ margin: 0;
+}
+
 @media only screen and (max-width: 800px) {
   .tab {
     height:auto;

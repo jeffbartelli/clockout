@@ -32,7 +32,7 @@ $('#survey').append(`<div id="retSalCalc" class="slide-in">
 </div>
 
 <div id="iraModal" class="">
-  <p>Total combined annual contributions for All Simple accounts cannot exceed $13,500. Redistribute your contributions below. Note: You can enter a percentage of your salary or an overall amount.</p>
+  <p>Total combined annual contributions for all traditional and roth Individual Retirement Accounts cannot exceed $6,000. Redistribute your contributions below.</p>
   <table class="iraModalFields">
   </table>
   <button id="iraModalClose" disabled>Submit</button>
@@ -126,7 +126,8 @@ document.addEventListener('DOMContentLoaded', function() {
         $('<tr/>').append(
           $('<td/>', {'text': $accounts[i].innerHTML})).append(`
             <td>\
-            <input type="number" class="iraContAmount" 
+            <input type="number" class="iraContAmount"
+            onchange="iraModalTotal(this);" 
             placeholder="0">\
             </td>`));   
     }

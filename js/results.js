@@ -1,21 +1,26 @@
 
 var retire = JSON.parse(localStorage.retireData);
 var cycle = localStorage.cycle;
-// console.log(retire);
+console.log(retire);
 
-$('#results').append($(`<table class="spreadsheet"/>`));
-var keys = Object.keys(retire);
 
+$('#results').append($(`<table class="spreadsheet" id="resultsTable"/>`));
+var keys = ['years','income','invAccts','tradAccts','rothAccts','totals'];
 keys.forEach((item) => {
-  let subKeys = Object.keys(retire[item]);
-  console.log(retire[item]);
-  subKeys.forEach((subItem) => {
-    console.log(retire[item][subItem]);
-    let tubKeys = Object.keys(retire[item][subItem]);
-    tubKeys.forEach((tubItem) => {
-      console.log(retire[item][subItem][tubItem]);
+  if (retire[item]) {
+    $('.spreadsheet').append($('<tr/>', {'class': item}).append($('<td/>', {'colspan': 1+cycle}).text(item)));
+    let subKeys = Object.keys(retire[item]);
+    subKeys.forEach((subItem) => {
+      $(`.${item}`).after($('<tr/>', {'class': subItem}).append($('<td/>', {'colspan': 1+cycle}).text(subItem)));
+      let tubKeys = Object.keys(retire[item][subItem]);
+      tubKeys.forEach((tubItem) => {
+        $(`.${subItem}`).after($('<tr/>', {class: tubItem}).append($('<td/>').text(tubItem)));
+        for (let i=0; i<cycle; i++) {
+          $(`.${tubItem}`).append($('<td/>').text(Math.ceil(retire[item][subItem][tubItem][i])));
+        }
+      });
     });
-  });
+  }
 });
 
 // for (let i=0; i<keys.length; i++) {

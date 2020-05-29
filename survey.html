@@ -303,8 +303,8 @@
             <p><input type="number" name="annAmt_otherBen" id="annAmt_otherBen" class="data" oninput="$(this).removeClass('invalid')"></p>
           </div>
           <div class="colaRate_otherBen">
-            <p><label for="colaRate_otherBen">Annual Cost of Living Adjustment, if applicable:</label></p>
-            <p><input type="number" name="colaRate_otherBen" id="colaRate_otherBen" class="data" oninput="$(this).removeClass('invalid')"></p>
+            <p><label for="colaRate_otherBen">Annual Cost of Living Adjustment (COLA), if applicable (%):</label></p>
+            <p><input type="number" name="colaRate_otherBen" id="colaRate_otherBen" class="data" min="0" max="10" placeholder="Percent" oninput="$(this).removeClass('invalid')"></p>
           </div>
           <div class="otherBenBeginAge">
             <p><label for="otherBenBeginAge">Age when benefits begin:</label></p>

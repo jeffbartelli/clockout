@@ -138,8 +138,8 @@ var harvest = () => {
       }
     }
   }
-  // console.log(formData);
+  console.log(formData);
   return formData;
 }
 
-export {currentTab, demographics, harvest};
+export {currentTab, harvest, demographics};

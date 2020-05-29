@@ -91,8 +91,6 @@ document.addEventListener('DOMContentLoaded', function() {
   window.simpleRetCalc = () => {
     let simpleIra = +parseInt(document.getElementById('annContr_simpleIra').value) || 0;
     let simple401 = +parseInt(document.getElementById('annContr_simple401').value) || 0;
-    let trad = +parseInt(document.getElementById('annContr_tradAccts').value) || 0;
-    let roth = +parseInt(document.getElementById('annContr_rothAccts').value) || 0;
     let total = simpleIra + simple401;
     let $values = $('#simpleModal .simpleContAmount');
     let range = document.getElementsByClassName('tab')[currentTab];
@@ -156,10 +154,10 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // IRA Modal Components
-  window.iraCalc = (e) => {
-    let rothValue = document.getElementById('annContr_rothIra').value;
-    let tradValue = document.getElementById('annContr_tradIra').value;
-    let total = rothValue + tradValue;
+  window.iraCalc = () => {
+    let roth = parseInt(document.getElementById('annContr_rothIra').value) || 0;
+    let trad = parseInt(document.getElementById('annContr_tradIra').value) || 0;
+    let total = roth + trad;  
     let $values = $('#iraModal .iraContAmount');
     let range = document.getElementsByClassName('tab')[currentTab];
     let effects = range.querySelectorAll("[id^='annContr']");
@@ -167,8 +165,8 @@ document.addEventListener('DOMContentLoaded', function() {
       effects.forEach(a => {
         a.classList.add('invalid');
       });
-      $values[0].value = tradValue;
-      $values[1].value = rothValue;
+      $values[0].value = trad;
+      $values[1].value = roth;
       iraModalTotal();
       effects.forEach(a => {
         a.classList.remove('invalid');
@@ -180,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }
   };
-
+  
   window.iraModalTotal = (e) => {
     let iraContAmount = 0;
     $('.iraContAmount').each(function() {
@@ -196,8 +194,8 @@ document.addEventListener('DOMContentLoaded', function() {
       $('.iraTotal').css('color','black');
       $('#iraModalClose').prop('disabled',false);
     }
-  }
-  
+  }  
+
   $('#iraModalClose').click(()=>{
     let $values = $('#iraModal .iraContAmount');
     document.getElementById('annContr_tradIra').value = $values[0].value;
