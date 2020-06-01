@@ -239,6 +239,10 @@ input.ecaCalculator {
   display: none;
 }
 
+#ecaModal {
+  width: 50%;
+}
+
 #iraModal, #simpleModal, #ecaModal p {
   text-align: justify;
 }
@@ -285,9 +289,21 @@ input.ecaCalculator {
   vertical-align: middle;
 }
 
-#resultsTable td {
+
+/* Results Table Styles */
+
+.tableContainer {
+  overflow: auto;
+}
+
+table#resultsTable, td {
  border: 1px solid black;
- margin: 0;
+ border-collapse: collapse;
+ border-spacing: 0px;
+}
+
+tr.time {
+  position: sticky;
 }
 
 @media only screen and (max-width: 800px) {

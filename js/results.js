@@ -4,21 +4,27 @@ var cycle = localStorage.cycle;
 console.log(retire);
 
 
-$('#results').append($(`<table class="spreadsheet" id="resultsTable"/>`));
-var keys = ['years','income','invAccts','tradAccts','rothAccts','totals'];
+// $('#results').append($(`<table class="spreadsheet" id="resultsTable"/>`));
+$('#results').append(`<div class="tableContainer"><table class="spreadsheet" id="resultsTable"></table></div>`);
+let keys = ['years','income','invAccts','tradAccts','rothAccts','totals'];
+let subKeys = ['time','ssi','genPension','fersPension','annuities','vaDisability','ssiDisability','otherDisability','retireSal','rents','otherBen','investAcct','tradEca','simple401','simpleIra','tradIra','rothEca','rothIra','subTotals'];
+let tubKeys = ['remaining','required','taxes','wages','endValue','withdrawal','rmd','contributions','beginValue','annual','age','year']
+// ['year','age','annual','beginValue','rmd','withdrawal','endValue','wages','taxes','required','remaining'];
+
 keys.forEach((item) => {
   if (retire[item]) {
-    $('.spreadsheet').append($('<tr/>', {'class': item}).append($('<td/>', {'colspan': 1+cycle}).text(item)));
-    let subKeys = Object.keys(retire[item]);
     subKeys.forEach((subItem) => {
-      $(`.${item}`).after($('<tr/>', {'class': subItem}).append($('<td/>', {'colspan': 1+cycle}).text(subItem)));
-      let tubKeys = Object.keys(retire[item][subItem]);
-      tubKeys.forEach((tubItem) => {
-        $(`.${subItem}`).after($('<tr/>', {class: tubItem}).append($('<td/>').text(tubItem)));
-        for (let i=0; i<cycle; i++) {
-          $(`.${tubItem}`).append($('<td/>').text(Math.ceil(retire[item][subItem][tubItem][i])));
-        }
-      });
+      if (retire[item][subItem]){
+        $('.spreadsheet').append($('<tr/>', {'class': subItem}).append($('<td/>', {'colspan': Number(cycle)+1}).text(subItem)));
+        tubKeys.forEach((keyItem) => {
+          if (retire[item][subItem][keyItem]) {
+            $(`tr.${subItem}:first`).after((`<tr class="${subItem} ${keyItem}"><td>${keyItem}</td></tr>`));
+            for (let i=0; i<cycle; i++) {
+              $(`.${subItem}.${keyItem}`).append($('<td/>').text(Math.ceil(retire[item][subItem][keyItem][i])));
+            }
+          }
+        });
+      }
     });
   }
 });
