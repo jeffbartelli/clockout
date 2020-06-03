@@ -293,6 +293,7 @@ input.ecaCalculator {
 /* Results Table Styles */
 
 .tableContainer {
+  height: 100%;
   overflow: auto;
 }
 
@@ -300,6 +301,15 @@ table#resultsTable, td {
  border: 1px solid black;
  border-collapse: collapse;
  border-spacing: 0px;
+ /* text-align: right; */
+}
+
+td:first-child {
+  font-weight: bold;
+}
+
+td::first-letter {
+  text-transform: uppercase;
 }
 
 tr.time {

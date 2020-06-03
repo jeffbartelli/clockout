@@ -1,5 +1,6 @@
-import {harvest, currentTab} from './survey.js';
+import {harvest} from './survey.js';
 import {life, growthRate, rmd} from './data.js';
+// import {results} from './results.js';
 
 var calcAge = () => {
   let data = harvest();
@@ -247,7 +248,7 @@ var income = () => {
     var annContr_investAcct = data.investAcct.annContr_investAcct;
     for (let i=0; i<ages.cycle; i++) {
       /* #. Check Retirement Age */
-      if (i < (endAgeContr_investAcct - ages.age)) {
+      if (i < (ages.retire - ages.age)) {
         /* 4. Push Begin Value */
         retire.invAccts.investAcct.beginValue.push(0);
         retire.invAccts.investAcct.withdrawal.push(0);
@@ -280,7 +281,11 @@ var income = () => {
         currentVal_investAcct += (annContr_investAcct/2.4 * (investGrowth(i)-1));
       }
       /* 11. Push End Value */
-      retire.invAccts.investAcct.endValue.push(currentVal_investAcct);      
+        if (i >= (ages.retire - ages.age)) {
+          retire.invAccts.investAcct.endValue.push(currentVal_investAcct);
+        } else {
+          retire.invAccts.investAcct.endValue.push(0);
+        }
     }
   }
   // TRADITIONAL ACCOUNTS
@@ -782,6 +787,7 @@ var income = () => {
   }
   console.log(retire);
   // return retire;
+  results();
 };
 
 export {income, calcAge};

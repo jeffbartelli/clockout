@@ -139,6 +139,11 @@ var harvest = () => {
     }
   }
   console.log(formData);
+  if (typeof(Storage) !== "undefined") {
+    localStorage.formData = JSON.stringify(formData);
+  } else {
+    window.formData;
+  }
   return formData;
 }
 
