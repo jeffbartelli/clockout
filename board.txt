@@ -1,0 +1,36 @@
+
+All0 ?
+cases:
+  0flag = 0 && ssiFlag = 0
+    0flag = 1
+    originalRetAge = retAge
+    retAge - 1
+    income()
+  0flag = 1 && ssiFlag = 0
+    retAge - 1
+    stop at current age
+    income()
+  0flag = 0 && ssiFlag = 1
+    stop
+  0flag = 1 && ssiFlag = 1
+    ssiAge - 1
+    good = 1
+    income()
+!All0 ?
+  0flag = 0 && ssiFlag = 0
+    retAge + 1
+    stop at age 72
+      ssiFlag = 1
+    income()
+  0flag = 0 && ssiFlag = 1
+    ssiAge + 1
+    stop at ssiAge 72
+    income()
+  0flag = 1 && ssiFlag = 0
+    ssiFlag = 1
+    ssiAge - 1
+    income()
+  0flag = 1 && ssiFlag = 1
+    ssiAge + 1
+    good == 0 ? retAge + 1
+    stop
