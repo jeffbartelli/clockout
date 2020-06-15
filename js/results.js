@@ -5,7 +5,9 @@ var results = () => {
   var retire = JSON.parse(localStorage.retireData);
   var cycle = localStorage.cycle;
   console.log(JSON.parse(localStorage.formData));
+  var test = localStorage.testResult;
   console.log(retire);
+  console.log(test);
   // $('#results').append($(`<table class="spreadsheet" id="resultsTable"/>`));
   $('#results').append(`<div class="tableContainer"><table class="spreadsheet" id="resultsTable"></table></div>`);
   let keys = ['years','income','invAccts','tradAccts','rothAccts','totals'];
