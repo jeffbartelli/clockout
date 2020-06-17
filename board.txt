@@ -25,6 +25,7 @@ cases:
   0flag = 0 && ssiFlag = 1
     ssiAge + 1
     stop at ssiAge 72
+    if ssiAge = 72, retAge+1
     income()
   0flag = 1 && ssiFlag = 0
     ssiFlag = 1

@@ -89,7 +89,7 @@ window.nextPrev = (n) => {
   x[currentTab].style.display = 'none';
   currentTab = tabOrder[tabOrder.indexOf(currentTab)+n];
   if (!currentTab && warn == 0) {
-    window.location = 'results.html';  
+    // window.location = 'results.html';  
     income();
   }
   if (x[currentTab]) {

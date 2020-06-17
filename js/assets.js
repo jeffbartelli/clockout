@@ -54,11 +54,21 @@ var income = () => {
       retire.totals.subTotals.remaining.push(+(targetSalAmt*1.2).toFixed(2));
     targetSalAmt *= 1+growthRate.inflation 
   };
+  
+  let allZeroes = true;
+  let zeroFlag = 0;
+  let ssiFlag = 0;
+  let goodFlag = 0;
+  retire.totals.subTotals.remaining.forEach((item,i,arr)=>{
+    if (i >= (ages.retire - ages.age) && arr[i] != 0) {allZeroes = false;}
+  });
+
   // CATEGORY BUILDER
   if (data.ssi || data.genPension || data.fersPension || data.annuities || data.vaDisability || data.ssiDisability || data.otherDisability || data.retireSal || data.rents || data.otherBen) retire.income = {};
   if (data.tradAccts || data.simpleIra || data.simple401 || data.tradIra) retire.tradAccts = {};
   if (data.rothAccts || data.rothIra) retire.rothAccts = {};
-  /*  INSERT INTERNAL FUNCTION HERE */
+  let ssiAge = data.ssi.beginAge_ssi;
+
   let portfolio = (retireAge,ssiRetireAge) => {
     // SCENARIO TESTING AGE ADJUSTMENTS
     if (retireAge !== undefined) {ages.retire = retireAge;}
@@ -66,7 +76,6 @@ var income = () => {
     if(data.ssi) {
       retire.income.ssi = {annual: []};
       let ssiRate = 0;
-      let ssiAge = data.ssi.beginAge_ssi;
       if (ssiRetireAge !== undefined) {ssiAge = ssiRetireAge;}
       switch (ssiAge) { 
         case 62: ssiRate = 0.70; break;
@@ -787,44 +796,63 @@ var income = () => {
       }
     }
     /* IF REMAINING < 0, MOVE BALANCE TO AN INVESTMENT ACCOUNT */
+    switch(true) {
+      case (allZeroes == true && zeroFlag == 0 && ssiFlag == 0):
+        zeroFlag = 1;
+        console.log(ages.retire + ' all0T, 0flagF, ssiFlagF');
+        portfolio(ages.retire -= 1);
+        break;
+      case (allZeroes == true && zeroFlag == 1 && ssiFlag == 0): 
+        console.log(ages.retire + ' all0T, 0flagT, ssiFlagF');
+        if (ages.retire > ages.age) {portfolio(ages.retire -= 1);};
+        break;
+      case (allZeroes == true && zeroFlag == 0 && ssiFlag == 1):
+        console.log(ages.retire + ' all0T, 0flagF, ssiFlagT');
+        break;
+      case (allZeroes == true && zeroFlag == 1 && ssiFlag == 1):
+        goodFlag = 1;
+        console.log(ages.retire + ' all0T, 0flagT, ssiFlagT ' + ssiAge);
+        if (data.ssi.beginAge_ssi > 62) {portfolio(ages.retire,data.ssi.beginAge_ssi -= 1);};
+        break;
+      case (allZeroes == false && zeroFlag == 0 && ssiFlag == 0):
+        console.log(ages.retire + ' all0F, 0flagF, ssiFlagF');
+        if (ages.retire < 72) {
+          portfolio(ages.retire += 1);
+        } else if (ages.retire = 72) {
+          ssiFlag = 1;
+          portfolio();
+        };
+        break;
+      case (allZeroes == false && zeroFlag == 1 && ssiFlag == 0):
+        console.log(ages.retire + ' all0F, 0flagT, ssiFlagF ' + ssiAge);
+        ssiFlag = 1;
+        portfolio(ages.retire,ssiAge -= 1);
+        break;
+      case (allZeroes == false && zeroFlag == 0 && ssiFlag == 1):
+        console.log(ages.retire + ' all0F, 0flagF, ssiFlagT ' + ssiAge);
+        if (ssiAge < 72) {
+          ssiAge += 1;
+          console.log(ssiAge);
+        };
+        if (ssiAge == 72 && ages.retire < ages.death) {
+          console.log('ssiAge = 72 && retire < death');
+          ages.retire += 1;
+          console.log(ages.retire);
+        };
+        if (ages.retire < ages.death) {
+          console.log('the final trigger');
+          portfolio(ages.retire,ssiAge);
+        };
+        break;
+      case (allZeroes == false && zeroFlag == 1 && ssiFlag == 1):
+        console.log(ages.retire + ' all0F, 0flagT, ssiFlagT ' + ssiAge);
+        if (ssiAge < 72) {ssiAge + 1;};
+        if (goodFlag == 0) {ages.retire + 1;};
+        break;
+    }
   }
   portfolio();
 
-  let allZeroes = true;
-  let zeroFlag = 0;
-  let ssiFlag = 0;
-  let goodFlag = 0;
-  retire.totals.subTotals.remaining.forEach((item,i,arr)=>{
-    if (i >= (ages.retire - ages.age) && arr[i] != 0) {allZeroes = false;}
-  });
-  // console.log(allZeroes);
-  switch(true) {
-    case (allZeroes == true && zeroFlag == 0 && ssiFlag == 0):
-      zeroFlag = 1;
-      portfolio(ages.retire - 1);
-      break;
-    case (allZeroes == true && zeroFlag == 1 && ssiFlag == 0): 
-      if (ages.retire > ages.age) {portfolio(ages.retire - 1);};
-      break;
-    case (allZeroes == true && zeroFlag == 0 && ssiFlag == 1):
-      break;
-    case (allZeroes == true && zeroFlag == 1 && ssiFlag == 1):
-      goodFlag = 1;
-      if (data.ssi.beginAge_ssi > 62) {portfolio(ages.retire,data.ssi.beginAge_ssi - 1);};
-      break;
-    case (allZeroes == false && zeroFlag == 0 && ssiFlag == 0):
-
-      break;
-    case (allZeroes == false && zeroFlag == 1 && ssiFlag == 0):
-      
-      break;
-    case (allZeroes == false && zeroFlag == 0 && ssiFlag == 1):
-
-      break;
-    case (allZeroes == false && zeroFlag == 1 && ssiFlag == 1):
-
-      break;
-  }
 
 
   if (typeof(Storage) !== "undefined") {
