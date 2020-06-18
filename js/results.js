@@ -5,14 +5,12 @@ var results = () => {
   var retire = JSON.parse(localStorage.retireData);
   var cycle = localStorage.cycle;
   console.log(JSON.parse(localStorage.formData));
-  var test = localStorage.testResult;
   console.log(retire);
-  console.log(test);
   // $('#results').append($(`<table class="spreadsheet" id="resultsTable"/>`));
   $('#results').append(`<div class="tableContainer"><table class="spreadsheet" id="resultsTable"></table></div>`);
   let keys = ['years','income','invAccts','tradAccts','rothAccts','totals'];
   let subKeys = ['time','ssi','genPension','fersPension','annuities','vaDisability','ssiDisability','otherDisability','retireSal','rents','otherBen','investAcct','tradEca','simple401','simpleIra','tradIra','rothEca','rothIra','subTotals'];
-  let tubKeys = ['remaining','required','taxes','wages','endValue','withdrawal','rmd','contributions','beginValue','annual','age','year']
+  let tubKeys = ['remaining','required','taxes','wages','endValue','withdrawal','rmd','growth','contribution','principal','beginValue','annual','age','year']
   // ['year','age','annual','beginValue','rmd','withdrawal','endValue','wages','taxes','required','remaining'];
 
   keys.forEach((item) => {
