@@ -37,7 +37,7 @@ var income = () => {
   var retire = {};
   retire.years = {time: {}};
   retire.years.time = {year: [], age: []};
-  retire.totals = {totals: {}};
+  retire.totals = {subTotals: {}};
   retire.totals.subTotals = {required: [], wages: [], remaining: [], taxes: []};
   let targetSalAmt = parseInt(data.demographics.retSal);
   var retCount = () => {
@@ -48,20 +48,17 @@ var income = () => {
   for (let i=0;i<ages.cycle;i++) {
     retire.years.time.year.push(ages.currentYr+i);
     retire.years.time.age.push(ages.age+i);
-      retire.totals.subTotals.wages.push(+(targetSalAmt).toFixed(2));
-      retire.totals.subTotals.taxes.push(+(targetSalAmt*0.2).toFixed(2));
-      retire.totals.subTotals.required.push(+(targetSalAmt*1.2).toFixed(2));
-      retire.totals.subTotals.remaining.push(+(targetSalAmt*1.2).toFixed(2));
-    targetSalAmt *= 1+growthRate.inflation 
+    retire.totals.subTotals.wages.push(+(targetSalAmt).toFixed(2));
+    retire.totals.subTotals.taxes.push(+(targetSalAmt*0.2).toFixed(2));
+    retire.totals.subTotals.required.push(+(targetSalAmt*1.2).toFixed(2));
+    retire.totals.subTotals.remaining.push(+(targetSalAmt*1.2).toFixed(2));
+    targetSalAmt *= 1+growthRate.inflation; 
   };
 
-  // let allZeroes = true;
-  // let zeroFlag = 0;
-  // let ssiFlag = 0;
-  // let goodFlag = 0;
-  // retire.totals.subTotals.remaining.forEach((item,i,arr)=>{
-  //   if (i >= (ages.retire - ages.age) && arr[i] != 0) {allZeroes = false;}
-  // });
+  let allZeroes = true;
+  let zeroFlag = 0;
+  let ssiFlag = 0;
+  let goodFlag = 0;
 
     // CATEGORY BUILDER
   if (data.ssi || data.genPension || data.fersPension || data.annuities || data.vaDisability || data.ssiDisability || data.otherDisability || data.retireSal || data.rents || data.otherBen) retire.income = {};
@@ -71,9 +68,18 @@ var income = () => {
   let ssiAge;
    data.ssi == undefined ? ssiAge = 0 : ssiAge = data.ssi.beginAge_ssi;
 
-  // let portfolio = (retireAge,ssiRetireAge) => {
+  let portfolio = (retireAge,ssiRetireAge) => {
+
+    // RESET THE REMAINING VARIABLE 
+    retire.totals.subTotals.remaining.splice(0,ages.cycle);
+    let targetSalAmtDupe = parseInt(data.demographics.retSal);
+    for (let i=0;i<ages.cycle;i++) {
+      retire.totals.subTotals.remaining.push(+(targetSalAmtDupe*1.2).toFixed(2));
+      targetSalAmtDupe *= 1+growthRate.inflation; 
+    }
     // SCENARIO TESTING AGE ADJUSTMENTS
-    // if (retireAge !== undefined) {ages.retire = retireAge;}
+    if (retireAge !== undefined) {ages.retire = retireAge;}
+    if (ssiRetireAge !== undefined) {ssiAge = ssiRetireAge;}
 
   // SOCIAL SECURITY
   if(data.ssi) {
@@ -210,8 +216,9 @@ var income = () => {
   if(data.retireSal) {
     retire.income.retireSal = {annual: []};
     let retSalAmount = data.retireSal.annAmt_retireSal;
+    let retSalBeginAge = (data.retireSal.beginAge_retireSal > ages.retire) ? ages.retire : data.retireSal.beginAge_retireSal;
     for (let i=0; i<ages.cycle; i++) {
-      if (i < data.retireSal.beginAge_retireSal - ages.age) {
+      if (i < retSalBeginAge - ages.age) {
         retire.income.retireSal.annual.push(0);
       } else if (i < data.retireSal.endAge_retireSal - ages.age) {
         retire.income.retireSal.annual.push(retSalAmount);
@@ -261,7 +268,7 @@ var income = () => {
     retire.invAccts.investAcct = {beginValue: [], overflow: [], withdrawal: [], endValue: []};
     /* 3. Create internal variables from data (data.js) */
     var currentVal_investAcct = data.investAcct.currentVal_investAcct;
-    var endAgeContr_investAcct = data.investAcct.endAgeContr_investAcct;
+    var endAgeContr_investAcct = (data.investAcct.endAgeContr_investAcct > ages.retire) ? ages.retire : data.investAcct.endAgeContr_investAcct;
     var annContr_investAcct = data.investAcct.annContr_investAcct;
     for (let i=0; i<ages.cycle; i++) {
       // retire.invAccts.investAcct.overflow.push(0);
@@ -320,7 +327,7 @@ var income = () => {
     var currentVal_tradAccts = data.tradAccts.currentVal_tradAccts;
     var empContr_tradAccts = parseFloat(data.tradAccts.empContr_tradAccts) || 0;
     var annContr_tradAccts = parseFloat(data.tradAccts.annContr_tradAccts) || 0;
-    var endAgeContr_tradAccts = data.tradAccts.endAgeContr_tradAccts;
+    var endAgeContr_tradAccts = (data.tradAccts.endAgeContr_tradAccts > ages.retire) ? ages.retire : data.tradAccts.endAgeContr_tradAccts;
     var catchUpContr_tradAccts = data.tradAccts.catchUpContr_tradAccts;
     for (let i=0; i<ages.cycle; i++) {
       /* 4. Push Begin Value */
@@ -406,7 +413,7 @@ var income = () => {
     var currentVal_simple401 = data.simple401.currentVal_simple401;
     var empContr_simple401 = parseFloat(data.simple401.empContr_simple401) || 0;
     var annContr_simple401 = parseFloat(data.simple401.annContr_simple401) || 0;
-    var endAgeContr_simple401 = data.simple401.endAgeContr_simple401;
+    var endAgeContr_simple401 = (data.simple401.endAgeContr_simple401 > ages.retire) ? ages.retire : data.simple401.endAgeContr_simple401;
     var catchUpContr_simple401 = data.simple401.catchUpContr_simple401;
     for (let i=0; i<ages.cycle; i++) {
       /* 4. Push Begin Value */
@@ -492,7 +499,7 @@ var income = () => {
     var currentVal_simpleIra = data.simpleIra.currentVal_simpleIra;
     var empContr_simpleIra = parseFloat(data.simpleIra.empContr_simpleIra) || 0;
     var annContr_simpleIra = parseFloat(data.simpleIra.annContr_simpleIra) || 0;
-    var endAgeContr_simpleIra = data.simpleIra.endAgeContr_simpleIra;
+    var endAgeContr_simpleIra = (data.simpleIra.endAgeContr_simpleIra > ages.retire) ? ages.retire : data.simpleIra.endAgeContr_simpleIra;
     var catchUpContr_simpleIra = data.simpleIra.catchUpContr_simpleIra;
     for (let i=0; i<ages.cycle; i++) {
       /* 4. Push Begin Value */
@@ -576,7 +583,7 @@ var income = () => {
     retire.tradAccts.tradIra = {beginValue: [], rmd: [], withdrawal: [], endValue: []};
     /* 3. Create internal variables from data (data.js) */
     var currentVal_tradIra = data.tradIra.currentVal_tradIra;
-    var endAgeContr_tradIra = data.tradIra.endAgeContr_tradIra;
+    var endAgeContr_tradIra = (data.tradIra.endAgeContr_tradIra > ages.retire) ? ages.retire : data.tradIra.endAgeContr_tradIra;
     var annContr_tradIra = parseFloat(data.tradIra.annContr_tradIra) || 0;
     var catchUpContr_tradIra = data.tradIra.catchUpContr_tradIra;
     for (let i=0; i<ages.cycle; i++) {
@@ -665,7 +672,7 @@ var income = () => {
     var currentVal_rothAccts = data.rothAccts.currentVal_rothAccts;
     var empContr_rothAccts = parseFloat(data.rothAccts.empContr_rothAccts) || 0;
     var annContr_rothAccts = parseFloat(data.rothAccts.annContr_rothAccts) || 0;
-    var endAgeContr_rothAccts = data.rothAccts.endAgeContr_rothAccts;
+    var endAgeContr_rothAccts = (data.rothAccts.endAgeContr_rothAccts > ages.retire) ? ages.retire : data.rothAccts.endAgeContr_rothAccts;
     var catchUpContr_rothAccts = data.rothAccts.catchUpContr_rothAccts;
     for (let i=0; i<ages.cycle; i++) {
       /* 4. Push Begin Value for Total and Contributions */
@@ -741,7 +748,7 @@ var income = () => {
     var currentVal_rothIra = data.rothIra.currentVal_rothIra;
     var annContr_rothIra = data.rothIra.annContr_rothIra;
     var catchUpContr_rothIra = data.rothIra.catchUpContr_rothIra;
-    var endAgeContr_rothIra = data.rothIra.endAgeContr_rothIra;
+    var endAgeContr_rothIra = (data.rothIra.endAgeContr_rothIra > ages.retire) ? ages.retire : data.rothIra.endAgeContr_rothIra;
     for (let i=0; i<ages.cycle; i++) {
       /* 4. Push Begin Value for Total and Contributions */
       retire.rothAccts.rothIra.beginValue.push(currentVal_rothIra);
@@ -816,63 +823,75 @@ var income = () => {
     }
   }
 
+  retire.totals.subTotals.remaining.forEach((item,i,arr)=>{
+    if (i >= (ages.retire - ages.age) && arr[i] > 0) {allZeroes = false;}
+  });
+
     /* IF REMAINING < 0, MOVE BALANCE TO AN INVESTMENT ACCOUNT */
-    // switch(true) {
-    //   case (allZeroes == true && zeroFlag == 0 && ssiFlag == 0):
-    //     zeroFlag = 1;
-    //     console.log(ages.retire + ' all0T, 0flagF, ssiFlagF');
-    //     portfolio(ages.retire -= 1);
-    //     break;
-    //   case (allZeroes == true && zeroFlag == 1 && ssiFlag == 0): 
-    //     console.log(ages.retire + ' all0T, 0flagT, ssiFlagF');
-    //     if (ages.retire > ages.age) {portfolio(ages.retire -= 1);};
-    //     break;
-    //   case (allZeroes == true && zeroFlag == 0 && ssiFlag == 1):
-    //     console.log(ages.retire + ' all0T, 0flagF, ssiFlagT');
-    //     break;
-    //   case (allZeroes == true && zeroFlag == 1 && ssiFlag == 1):
-    //     goodFlag = 1;
-    //     console.log(ages.retire + ' all0T, 0flagT, ssiFlagT ' + ssiAge);
-    //     if (data.ssi.beginAge_ssi > 62) {portfolio(ages.retire,data.ssi.beginAge_ssi -= 1);};
-    //     break;
-    //   case (allZeroes == false && zeroFlag == 0 && ssiFlag == 0):
-    //     console.log(ages.retire + ' all0F, 0flagF, ssiFlagF');
-    //     if (ages.retire < 72) {
-    //       portfolio(ages.retire += 1);
-    //     } else if (ages.retire = 72) {
-    //       ssiFlag = 1;
-    //       portfolio();
-    //     };
-    //     break;
-    //   case (allZeroes == false && zeroFlag == 1 && ssiFlag == 0):
-    //     console.log(ages.retire + ' all0F, 0flagT, ssiFlagF ' + ssiAge);
-    //     ssiFlag = 1;
-    //     portfolio(ages.retire,ssiAge -= 1);
-    //     break;
-    //   case (allZeroes == false && zeroFlag == 0 && ssiFlag == 1):
-    //     console.log(ages.retire + ' all0F, 0flagF, ssiFlagT ' + ssiAge);
-    //     if (ssiAge < 72) {
-    //       ssiAge += 1;
-    //       console.log(ssiAge);
-    //     };
-    //     if (ssiAge == 72 && ages.retire < ages.death) {
-    //       console.log('ssiAge = 72 && retire < death');
-    //       ages.retire += 1;
-    //       console.log(ages.retire);
-    //     };
-    //     if (ages.retire < ages.death) {
-    //       console.log('the final trigger');
-    //       portfolio(ages.retire,ssiAge);
-    //     };
-    //     break;
-    //   case (allZeroes == false && zeroFlag == 1 && ssiFlag == 1):
-    //     console.log(ages.retire + ' all0F, 0flagT, ssiFlagT ' + ssiAge);
-    //     if (ssiAge < 72) {ssiAge + 1;};
-    //     if (goodFlag == 0) {ages.retire + 1;};
-    //     break;
-    // }
-  // }
-  // portfolio();
+    switch(true) {
+      case (allZeroes == true && zeroFlag == 0 && ssiFlag == 0):
+        zeroFlag = 1;
+        console.log(ages.retire + ' all0T, 0flagF, ssiFlagF');
+        portfolio(ages.retire -= 1);
+        break;
+      case (allZeroes == true && zeroFlag == 1 && ssiFlag == 0): 
+        console.log(ages.retire + ' all0T, 0flagT, ssiFlagF');
+        if (ages.retire > ages.age) {portfolio(ages.retire -= 1);};
+        break;
+      case (allZeroes == true && zeroFlag == 0 && ssiFlag == 1):
+        console.log(ages.retire + ' all0T, 0flagF, ssiFlagT');
+        break;
+      case (allZeroes == true && zeroFlag == 1 && ssiFlag == 1):
+        if (goodFlag === 1) {break;}
+        goodFlag = 1;
+        console.log(ages.retire + ' all0T, 0flagT, ssiFlagT ' + ssiAge);
+        if (ssiAge > 62 && ssiAge !== 72) {portfolio(ssiAge -= 1);};
+        break;
+      case (allZeroes == false && zeroFlag == 0 && ssiFlag == 0):
+        console.log(ages.retire + ' all0F, 0flagF, ssiFlagF');
+        if (ages.retire < 72) {
+          portfolio(ages.retire += 1);
+        } else if (ages.retire = 72) {
+          ssiFlag = 1;
+          portfolio();
+        };
+        break;
+      case (allZeroes == false && zeroFlag == 1 && ssiFlag == 0):
+        console.log(ages.retire + ' all0F, 0flagT, ssiFlagF ' + ssiAge);
+        ssiFlag = 1;
+        portfolio(ages.retire,ssiAge += 1);
+        break;
+      case (allZeroes == false && zeroFlag == 0 && ssiFlag == 1):
+        console.log(ages.retire + ' all0F, 0flagF, ssiFlagT ' + ssiAge);
+        if (ssiAge < 72) {
+          ssiAge += 1;
+          console.log(ssiAge);
+        } else if (ssiAge == 72 && ages.retire < ages.death) {
+          console.log('ssiAge = 72 && retire < death');
+          ages.retire += 1;
+          console.log(ages.retire);
+        };
+        if (ages.retire < ages.death) {
+          console.log('the final trigger');
+          portfolio(ages.retire,ssiAge);
+        };
+        break;
+      case (allZeroes == false && zeroFlag == 1 && ssiFlag == 1):
+        console.log(ages.retire + ' all0F, 0flagT, ssiFlagT ' + ssiAge);
+        if (ssiAge < 72) {
+          ssiAge += 1;
+        } else if (goodFlag === 0) {
+          if (ages.retire < ages.death) {
+            ages.retire += 1;
+          };
+        };
+        // portfolio(retire.age,ssiAge);
+        // need to fully map these links. Use case SSI @ 2500; VA @ 450; Invest @ 500k + 25k
+        // getting an infinite loop in the final case. Need to understand how to move from here to other outcomes, without disrupting other paths that could lead to those same outcomes. Just need a better map of how things will move through here.
+        break;
+    }
+  }
+  portfolio();
 
 
   // if (typeof(Storage) !== "undefined") {
