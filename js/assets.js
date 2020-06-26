@@ -58,7 +58,6 @@ var income = () => {
   let allZeroes = true;
   let zeroFlag = 0;
   let ssiFlag = 0;
-  let goodFlag = 0;
 
     // CATEGORY BUILDER
   if (data.ssi || data.genPension || data.fersPension || data.annuities || data.vaDisability || data.ssiDisability || data.otherDisability || data.retireSal || data.rents || data.otherBen) retire.income = {};
@@ -66,10 +65,10 @@ var income = () => {
   if (data.rothAccts || data.rothIra) retire.rothAccts = {};
 
   let ssiAge;
-   data.ssi == undefined ? ssiAge = 0 : ssiAge = data.ssi.beginAge_ssi;
+   data.ssi == undefined ? ssiAge = 70 : ssiAge = data.ssi.beginAge_ssi;
 
   let portfolio = (retireAge,ssiRetireAge) => {
-
+    let allZeroes = true;
     // RESET THE REMAINING VARIABLE 
     retire.totals.subTotals.remaining.splice(0,ages.cycle);
     let targetSalAmtDupe = parseInt(data.demographics.retSal);
@@ -830,64 +829,50 @@ var income = () => {
     /* IF REMAINING < 0, MOVE BALANCE TO AN INVESTMENT ACCOUNT */
     switch(true) {
       case (allZeroes == true && zeroFlag == 0 && ssiFlag == 0):
+        console.log(`${ages.retire} All0=T, 0Flag=F, ssiFlag=F ${ssiAge}`);
         zeroFlag = 1;
-        console.log(ages.retire + ' all0T, 0flagF, ssiFlagF');
-        portfolio(ages.retire -= 1);
+        portfolio(ages.retire -= 1,ssiAge);
         break;
       case (allZeroes == true && zeroFlag == 1 && ssiFlag == 0): 
-        console.log(ages.retire + ' all0T, 0flagT, ssiFlagF');
-        if (ages.retire > ages.age) {portfolio(ages.retire -= 1);};
+        console.log(`${ages.retire} All0=T, 0Flag=T, ssiFlag=F ${ssiAge}`);
+        if (ages.retire > ages.age) {portfolio(ages.retire -=1,ssiAge);};
         break;
       case (allZeroes == true && zeroFlag == 0 && ssiFlag == 1):
-        console.log(ages.retire + ' all0T, 0flagF, ssiFlagT');
+        console.log(`${ages.retire} All0=T, 0Flag=F, ssiFlag=T ${ssiAge}`);
         break;
       case (allZeroes == true && zeroFlag == 1 && ssiFlag == 1):
-        if (goodFlag === 1) {break;}
-        goodFlag = 1;
-        console.log(ages.retire + ' all0T, 0flagT, ssiFlagT ' + ssiAge);
-        if (ssiAge > 62 && ssiAge !== 72) {portfolio(ssiAge -= 1);};
+        console.log(`${ages.retire} All0=T, 0Flag=T, ssiFlag=T ${ssiAge}`);
         break;
       case (allZeroes == false && zeroFlag == 0 && ssiFlag == 0):
-        console.log(ages.retire + ' all0F, 0flagF, ssiFlagF');
-        if (ages.retire < 72) {
-          portfolio(ages.retire += 1);
-        } else if (ages.retire = 72) {
-          ssiFlag = 1;
-          portfolio();
-        };
+        console.log(`${ages.retire} All0=F, 0Flag=F, ssiFlag=F ${ssiAge}`);
+        if (ages.retire < 70) {
+            portfolio(ages.retire += 1);
+          } else {
+            ssiFlag = 1;
+          };
         break;
       case (allZeroes == false && zeroFlag == 1 && ssiFlag == 0):
-        console.log(ages.retire + ' all0F, 0flagT, ssiFlagF ' + ssiAge);
+        console.log(`${ages.retire} All0=F, 0Flag=T, ssiFlag=F ${ssiAge}`);
         ssiFlag = 1;
         portfolio(ages.retire,ssiAge += 1);
         break;
       case (allZeroes == false && zeroFlag == 0 && ssiFlag == 1):
-        console.log(ages.retire + ' all0F, 0flagF, ssiFlagT ' + ssiAge);
-        if (ssiAge < 72) {
-          ssiAge += 1;
-          console.log(ssiAge);
-        } else if (ssiAge == 72 && ages.retire < ages.death) {
-          console.log('ssiAge = 72 && retire < death');
-          ages.retire += 1;
-          console.log(ages.retire);
+        console.log(`${ages.retire} All0=F, 0Flag=F, ssiFlag=T ${ssiAge}`);
+        if (ssiAge < 70) {
+          portfolio(ages.retire,ssiAge +=1);
+        } else if (ssiAge === 70 && ages.retire < ages.death) {
+          portfolio(ages.retire +=1, ssiAge);
+        } else if (ssiAge === 70 && ages.retire === ages.death) {
+          break;
         };
-        if (ages.retire < ages.death) {
-          console.log('the final trigger');
-          portfolio(ages.retire,ssiAge);
-        };
-        break;
       case (allZeroes == false && zeroFlag == 1 && ssiFlag == 1):
-        console.log(ages.retire + ' all0F, 0flagT, ssiFlagT ' + ssiAge);
-        if (ssiAge < 72) {
-          ssiAge += 1;
-        } else if (goodFlag === 0) {
-          if (ages.retire < ages.death) {
-            ages.retire += 1;
-          };
-        };
-        // portfolio(retire.age,ssiAge);
-        // need to fully map these links. Use case SSI @ 2500; VA @ 450; Invest @ 500k + 25k
-        // getting an infinite loop in the final case. Need to understand how to move from here to other outcomes, without disrupting other paths that could lead to those same outcomes. Just need a better map of how things will move through here.
+        console.log(`${ages.retire} All0=F, 0Flag=T, ssiFlag=T ${ssiAge}`);
+        if (ssiAge < 70) {
+          portfolio(ages.retire,ssiAge += 1);
+        } else if (ssiAge == 70) {
+          portfolio(ages.retire += 1, data.ssi.beginAge_ssi);
+        } else {break;};
+        // Use case SSI @ 2500; VA @ 450; Invest @ 500k + 25k
         break;
     }
   }
