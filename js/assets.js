@@ -55,7 +55,7 @@ var income = () => {
     targetSalAmt *= 1+growthRate.inflation; 
   };
 
-  let allZeroes = true;
+  let portFlag = 0;
   let zeroFlag = 0;
   let ssiFlag = 0;
 
@@ -68,7 +68,6 @@ var income = () => {
    data.ssi == undefined ? ssiAge = 70 : ssiAge = data.ssi.beginAge_ssi;
 
   let portfolio = (retireAge,ssiRetireAge) => {
-    let allZeroes = true;
     // RESET THE REMAINING VARIABLE 
     retire.totals.subTotals.remaining.splice(0,ages.cycle);
     let targetSalAmtDupe = parseInt(data.demographics.retSal);
@@ -268,7 +267,7 @@ var income = () => {
     /* 3. Create internal variables from data (data.js) */
     var currentVal_investAcct = data.investAcct.currentVal_investAcct;
     var endAgeContr_investAcct = (data.investAcct.endAgeContr_investAcct > ages.retire) ? ages.retire : data.investAcct.endAgeContr_investAcct;
-    var annContr_investAcct = data.investAcct.annContr_investAcct;
+    var annContr_investAcct = parseInt(data.investAcct.annContr_investAcct) || 0;
     for (let i=0; i<ages.cycle; i++) {
       // retire.invAccts.investAcct.overflow.push(0);
       /* #. Check Retirement Age */
@@ -822,6 +821,7 @@ var income = () => {
     }
   }
 
+  let allZeroes = true;
   retire.totals.subTotals.remaining.forEach((item,i,arr)=>{
     if (i >= (ages.retire - ages.age) && arr[i] > 0) {allZeroes = false;}
   });
@@ -839,9 +839,11 @@ var income = () => {
         break;
       case (allZeroes == true && zeroFlag == 0 && ssiFlag == 1):
         console.log(`${ages.retire} All0=T, 0Flag=F, ssiFlag=T ${ssiAge}`);
+        portFlag = 1;
         break;
       case (allZeroes == true && zeroFlag == 1 && ssiFlag == 1):
         console.log(`${ages.retire} All0=T, 0Flag=T, ssiFlag=T ${ssiAge}`);
+        portFlag = 1;
         break;
       case (allZeroes == false && zeroFlag == 0 && ssiFlag == 0):
         console.log(`${ages.retire} All0=F, 0Flag=F, ssiFlag=F ${ssiAge}`);
@@ -849,6 +851,7 @@ var income = () => {
             portfolio(ages.retire += 1);
           } else {
             ssiFlag = 1;
+            portfolio();
           };
         break;
       case (allZeroes == false && zeroFlag == 1 && ssiFlag == 0):
@@ -860,11 +863,15 @@ var income = () => {
         console.log(`${ages.retire} All0=F, 0Flag=F, ssiFlag=T ${ssiAge}`);
         if (ssiAge < 70) {
           portfolio(ages.retire,ssiAge +=1);
-        } else if (ssiAge === 70 && ages.retire < ages.death) {
-          portfolio(ages.retire +=1, ssiAge);
+        } else if (ssiAge === 70 && ages.retire < ages.death-1) {
+          console.log(`${ages.death} is greater than ${ages.retire}`);
+          portfolio(ages.retire +=1, ssiAge < 70 ? ssiAge +=1 : 62);
         } else if (ssiAge === 70 && ages.retire === ages.death) {
+          console.log(`It ends here, ${ages.death} & ${ages.retire}`);
+          portFlag = 1;
           break;
         };
+        break;
       case (allZeroes == false && zeroFlag == 1 && ssiFlag == 1):
         console.log(`${ages.retire} All0=F, 0Flag=T, ssiFlag=T ${ssiAge}`);
         if (ssiAge < 70) {
@@ -876,14 +883,14 @@ var income = () => {
         break;
     }
   }
-  portfolio();
+  if (portFlag === 0) {portfolio();}
 
 
-  // if (typeof(Storage) !== "undefined") {
-  //   localStorage.retireData = JSON.stringify(retire);
-  // } else {
-  //   window.retire;
-  // }
+  if (typeof(Storage) !== "undefined") {
+    localStorage.retireData = JSON.stringify(retire);
+  } else {
+    window.retire;
+  }
   console.log(retire);
   // results();
 };

@@ -2,10 +2,11 @@ import {currentTab, demographics} from './survey.js';
 import {dollarFormat} from './numberFormats.js';
 
 document.addEventListener('DOMContentLoaded', function() {
-  const details = demographics();
+  // const details = demographics();
 
   // ecaModal Components
   window.ecaPersCalc = (e) => {
+    const details = demographics();
     e.nextSibling.nextSibling.innerHTML = dollarFormat.format(details.salary);
     e.parentNode.lastChild.value = parseInt(Math.round(details.salary * (e.value/100) > 19500 ? 19500 : details.salary * (e.value/100)));
     retCalc();
@@ -42,12 +43,14 @@ document.addEventListener('DOMContentLoaded', function() {
   };
 
   window.ecaCalc = (e) => {
+    const details = demographics();
     e.nextSibling.nextSibling.innerHTML = dollarFormat.format(details.salary);
     e.parentNode.lastChild.value = parseInt(Math.round(details.salary * (e.value/100) > 57000 ? 57000 : details.salary * (e.value/100)));
     e.parentNode.lastChild.classList.remove('invalid');
   }
 
   window.ecaModalCalc = (e) => {
+    const details = demographics();
     $(e).parent().last().find('.modalSalary').text(dollarFormat.format(details.salary));
     $(e).parent().next().find('.ecaContAmount').val(parseInt(Math.round(details.salary * (e.value/100) > 19500 ? 19500 : details.salary * (e.value/100))));
     ecaModalTotal();
@@ -82,6 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // simpleModal Components
   window.simplePersCalc = (e) => {
+    const details = demographics();
     e.nextSibling.nextSibling.innerHTML = dollarFormat.format(details.salary);
     e.parentNode.lastChild.value = parseInt(Math.round(details.salary * (e.value/100) > 13500 ? 13500 : details.salary * (e.value/100)));
     simpleRetCalc();
@@ -114,6 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
   };
 
   window.simpleModalCalc = (e) => {
+    const details = demographics();
     $(e).parent().last().find('.modalSimpleSalary').text(dollarFormat.format(details.salary));
     $(e).parent().next().find('.simpleContAmount').val(parseInt(Math.round(details.salary * (e.value/100) > 13500 ? 13500 : details.salary * (e.value/100))));
     simpleModalTotal();
