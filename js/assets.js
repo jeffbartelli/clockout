@@ -879,7 +879,6 @@ var income = () => {
         } else if (ssiAge == 70) {
           portfolio(ages.retire += 1, data.ssi.beginAge_ssi);
         } else {break;};
-        // Use case SSI @ 2500; VA @ 450; Invest @ 500k + 25k
         break;
     }
   }

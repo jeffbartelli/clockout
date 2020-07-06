@@ -4,7 +4,7 @@ body {
   margin:auto;
   /* background-color: azure; */
   /* background-color: #FFEAEC; */
-  background-color: #F1F7EE;
+  background-color: white;
 }
 
 h2 {
@@ -26,12 +26,12 @@ h4 {margin: 3px;}
 
 .workSpace {
   /* border: 1px solid #545E56; */
-  border-radius: 7px;
+  /* border-radius: 3px; */
   max-width: 80%;
   margin: 50px auto;
-  height: 400px;
+  height: 450px;
   /* background-color: whitesmoke; */
-  background-color: #D8E2DC;
+  background-color: #F1F7EE;
   position: relative;
   color: #545E56;
 }
@@ -95,13 +95,15 @@ h4 {margin: 3px;}
 
 .survey-instructions {
   width: 50%;
-  float: left; 
+  float: left;
+  padding: 5px;
 }
 
 .survey-fields {
   border-left: 1px solid darkgray;
-  width: 49%;
+  width: 48%;
   float: left;
+  padding: 5px;
 }
 
 #personalDetails, .investmentSelect {
@@ -256,7 +258,7 @@ input.ecaCalculator {
   margin: 0 auto 10px auto;
 }
 
-/* [data-title]:hover:after {
+[data-title]:hover:after {
   opacity: 1;
   transition: all 0.1s ease 0.5s;
   visibility:  visible;
@@ -283,7 +285,7 @@ input.ecaCalculator {
 
 [data-title] {
   position: relative;
-} */
+}
 
 #calculator {
   vertical-align: middle;
