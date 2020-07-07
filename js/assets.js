@@ -63,6 +63,7 @@ var income = () => {
   if (data.ssi || data.genPension || data.fersPension || data.annuities || data.vaDisability || data.ssiDisability || data.otherDisability || data.retireSal || data.rents || data.otherBen) retire.income = {};
   if (data.tradAccts || data.simpleIra || data.simple401 || data.tradIra) retire.tradAccts = {};
   if (data.rothAccts || data.rothIra) retire.rothAccts = {};
+  if(data.investAcct || data.saveAcct) retire.invAccts = {};
 
   let ssiAge;
    data.ssi == undefined ? ssiAge = 70 : ssiAge = data.ssi.beginAge_ssi;
@@ -258,10 +259,62 @@ var income = () => {
       oBenAmount *= 1+oBenCola;
     }
   };
+  // SAVINGS/MONEY MARKET ACCOUNTS
+  /* 1. If Account == Active */
+  if (data.saveAcct) {
+    /* 2. Create records in retire object */
+    retire.invAccts.saveAcct = {beginValue: [], withdrawal: [], endValue: []};
+    /* 3. Create internal variables from data (data.js) */
+    var currentVal_saveAcct = parseInt(data.saveAcct.currentVal_saveAcct) || 0;
+    var annContr_saveAcct = parseInt(data.saveAcct.annContr_saveAcct) || 0;
+    var annIntRate_saveAcct = data.saveAcct.annIntRate_saveAcct;
+    var endAgeContr_saveAcct = (data.saveAcct.endAgeContr_saveAcct > ages.retire) ? ages.retire : data.saveAcct.endAgeContr_saveAcct;
+    for (let i=0; i<ages.cycle; i++) {
+      /* 4. Check Retirement Age */
+      if (i < (ages.retire - ages.age)) {
+        /* 5. Push Begin Value */
+        retire.invAccts.saveAcct.beginValue.push(currentVal_saveAcct);
+        retire.invAccts.saveAcct.withdrawal.push(0);
+      } else {
+        retire.invAccts.saveAcct.beginValue.push(currentVal_saveAcct);
+        /* 6. Determine and Set Withdrawal Amount */
+        if (retire.totals.subTotals.remaining[i] > 0) {
+          if (currentVal_saveAcct >= retire.totals.subTotals.remaining[i]) {
+            retire.invAccts.saveAcct.withdrawal.push(retire.totals.subTotals.remaining[i]);
+          } else {
+            retire.invAccts.saveAcct.withdrawal.push(currentVal_saveAcct);
+          }
+        } else {
+          retire.invAccts.saveAcct.withdrawal.push(0);
+        }
+      }
+      currentVal_saveAcct -= retire.invAccts.saveAcct.withdrawal[i];
+      retire.totals.subTotals.remaining[i] -= retire.invAccts.saveAcct.withdrawal[i];
+      /* 7. Prevent interest accrual once current value = 0 */
+      if (!currentVal_saveAcct == 0) {
+        /* 8. Apply (5/12)% Growth Rate for Withdrawal Amount */
+        currentVal_saveAcct += (retire.invAccts.saveAcct.withdrawal[i]/2.4 * (annIntRate_saveAcct/100));
+        /* 9. Apply Growth Rate */
+        currentVal_saveAcct *= 1 + (annIntRate_saveAcct/100);
+      }
+      /* 10. Accrue Contributions */
+      if (i <= (endAgeContr_saveAcct - ages.age)) {
+        currentVal_saveAcct += annContr_saveAcct;
+        /* 11. Apply (5/12)% Growth Rate to Contributions */
+        currentVal_saveAcct += (annContr_saveAcct/2.4 * (annIntRate_saveAcct/100));
+      }
+      /* 12. Push End Value */
+      // if (i >= (ages.retire - ages.age)) {
+        retire.invAccts.saveAcct.endValue.push(currentVal_saveAcct);
+      // } else {
+      //   retire.invAccts.saveAcct.endValue.push(0);
+      // }
+    }
+  }
+
   // INVESTMENT ACCOUNTS
   /* 1. If Account == Active */
-  if(data.investAcct) {
-    retire.invAccts = {};
+  if (data.investAcct) {
     /* 2. Create records in retire object */
     retire.invAccts.investAcct = {beginValue: [], overflow: [], withdrawal: [], endValue: []};
     /* 3. Create internal variables from data (data.js) */
@@ -309,13 +362,14 @@ var income = () => {
         currentVal_investAcct += (annContr_investAcct/2.4 * (investGrowth(i)-1));
       }
       /* 11. Push End Value */
-        if (i >= (ages.retire - ages.age)) {
-          retire.invAccts.investAcct.endValue.push(currentVal_investAcct);
-        } else {
-          retire.invAccts.investAcct.endValue.push(0);
-        }
+      if (i >= (ages.retire - ages.age)) {
+        retire.invAccts.investAcct.endValue.push(currentVal_investAcct);
+      } else {
+        retire.invAccts.investAcct.endValue.push(0);
+      }
     }
   }
+  
   // TRADITIONAL ACCOUNTS
   /* 1. If Account == Active */
   if(data.tradAccts) {
@@ -825,6 +879,7 @@ var income = () => {
   retire.totals.subTotals.remaining.forEach((item,i,arr)=>{
     if (i >= (ages.retire - ages.age) && arr[i] > 0) {allZeroes = false;}
   });
+  console.log(allZeroes);
 
     /* IF REMAINING < 0, MOVE BALANCE TO AN INVESTMENT ACCOUNT */
     switch(true) {

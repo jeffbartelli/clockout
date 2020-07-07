@@ -585,7 +585,7 @@
         </div>
         <div class="survey-fields">
           <div class="currentVal_investAcct">
-            <p><label for="currentVal_investAcct">Total Current Value of Savings/Investment/Brokerage accounts:</label></p>
+            <p><label for="currentVal_investAcct">Total Current Value of Investment/Brokerage accounts:</label></p>
             <p><input type="number" name="currentVal_investAcct" id="currentVal_investAcct" class="data" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
           </div>
           <div class="annContr_investAcct">
@@ -593,8 +593,40 @@
             <p><input type="number" name="annContr_investAcct" id="annContr_investAcct" class="data" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
           </div>
           <div class="endAgeContr_investAcct">
-            <p><label for="endAgeContr_investAcct">At what age do you plan to stop contributing to your Savings/Investment/Brokerage accounts:</label></p>
+            <p><label for="endAgeContr_investAcct">At what age do you plan to stop contributing to your Investment/Brokerage accounts:</label></p>
             <p><input type="number" maxlength="2" name="endAgeContr_investAcct" id="endAgeContr_investAcct" class="data" oninput="$(this).removeClass('invalid')"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="tab" id="saveAcct">
+      <div class="survey-header">
+        <h4 class="sectionHeader investment">Savings/Money Market Accounts</h4>
+        </div>
+        <div class="survey-content">
+        <div class="survey-instructions">
+          <h4>Instructions</h4>
+          <p>Enter details about ALL non-retirement savings and money market accounts.</p>
+          <h4>Details</h4>
+          <p>Note that these are accounts that generally receive a low interest rate and may actually lose money in the long run when compared against inflation.</p>
+        </div>
+        <div class="survey-fields">
+          <div class="currentVal_saveAcct">
+            <p><label for="currentVal_saveAcct">Total Current Value of savings & money market accounts:</label></p>
+            <p><input type="number" name="currentVal_saveAcct" id="currentVal_saveAcct" class="data" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
+          </div>
+          <div class="annContr_saveAcct">
+            <p><label for="annContr_saveAcct">Future Annual Contribution Amount:</label></p>
+            <p><input type="number" name="annContr_saveAcct" id="annContr_saveAcct" class="data" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
+          </div>
+          <div class="annIntRate_saveAcct">
+            <p><label for="annIntRate_saveAcct">Estimated Annual Interest Rate:</label></p>
+            <p><input type="number" name="annIntRate_saveAcct" id="annIntRate_saveAcct" class="data" placeholder="Percent" step="0.1" min="0" max="15" oninput="$(this).removeClass('invalid')"></p>
+          </div>
+          <div class="endAgeContr_saveAcct">
+            <p><label for="endAgeContr_saveAcct">At what age do you plan to stop contributing to your savings & money market accounts:</label></p>
+            <p><input type="number" maxlength="2" name="endAgeContr_saveAcct" id="endAgeContr_saveAcct" class="data" oninput="$(this).removeClass('invalid')"></p>
           </div>
         </div>
       </div>
