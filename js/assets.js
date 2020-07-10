@@ -18,8 +18,10 @@ var calcAge = () => {
   };
   if (typeof(Storage) !== "undefined") {
     localStorage.cycle = le - age;
+    localStorage.retAge = parseInt(data.demographics.retAge);
   } else {
-    window.cycle;
+    window.cycle = le - age;
+    window.retAge = parseInt(data.demographics.retAge);
   }
   return {
     currentYr: new Date().getFullYear(),
@@ -877,7 +879,10 @@ var income = () => {
 
   let allZeroes = true;
   retire.totals.subTotals.remaining.forEach((item,i,arr)=>{
-    if (i >= (ages.retire - ages.age) && arr[i] > 0) {allZeroes = false;}
+    if (i >= (ages.retire - ages.age) && arr[i] > 0) {
+      console.log(`${i} >= (${ages.retire} - ${ages.age}) && ${arr[i]} > 0`);
+      allZeroes = false;
+    }
   });
   console.log(allZeroes);
 
@@ -936,6 +941,7 @@ var income = () => {
         } else {break;};
         break;
     }
+    allZeroes === false ? retire.retAge = false : retire.retAge = ages.retire;
   }
   if (portFlag === 0) {portfolio();}
 

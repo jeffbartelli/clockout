@@ -31,9 +31,9 @@ h4 {margin: 3px;}
   margin: 50px auto;
   height: 450px;
   /* background-color: whitesmoke; */
-  background-color: #F1F7EE;
+  background-color: whitesmoke;
   position: relative;
-  color: #545E56;
+  color: black;
 }
 
 #surveyLaunch {
@@ -291,11 +291,25 @@ input.ecaCalculator {
   vertical-align: middle;
 }
 
+/* Results Narrative */
+.intro {
+  font-weight: bold;
+  font-size: x-large;
+}
+
+.reportAge {
+  font-weight: bold;
+  font-size: large;
+}
+
+#results {
+  padding: 5px;
+}
 
 /* Results Table Styles */
 
 .tableContainer {
-  height: 100%;
+  /* height: 100%; */
   overflow: auto;
 }
 
