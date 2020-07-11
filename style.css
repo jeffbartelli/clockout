@@ -308,7 +308,7 @@ input.ecaCalculator {
 
 /* Results Table Styles */
 
-.tableContainer {
+.drawdownTable, .tableContainer {
   /* height: 100%; */
   overflow: auto;
 }
@@ -318,6 +318,21 @@ table#resultsTable, td {
  border-collapse: collapse;
  border-spacing: 0px;
  /* text-align: right; */
+}
+
+div.drawdownTable {
+  /* border: 1px solid black; */
+  display:inline-block;
+  font-size: 1em;
+  max-width: 100%;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow: auto;
+}
+
+table#drawdownTable td {
+  border: none;
+  border-collapse: collapse;
 }
 
 td:first-child {

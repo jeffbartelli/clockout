@@ -7,8 +7,6 @@ var results = () => {
   var userRetAge = localStorage.retAge;
   console.log(JSON.parse(localStorage.formData));
   console.log(retire);
-  console.log(retire.retAge);
-  console.log(userRetAge);
 
   if (retire.retAge == false) {
     console.log('triggered on false')
@@ -32,24 +30,69 @@ var results = () => {
     $('#results').append(`<p>To meet your goal, you'll need to keep saving at the rates you identified in the questionare. If ClockOut predicts you'll be able to retire earlier than expected, it assumes you'll stop contributing at <strong>${retire.retAge}</strong>. However, if you planned on having a job in retirement, ClockOut assumes that employment will begin at your new retirement age. </p>`);
   }
   $('#results').append(`<strong>Disclaimer:</strong> ClockOut does not guarantee any of the results it provides. It's an experimental tool, and any information it provides is only for planning purposes. ClockOut does not collect your personal information.`);
-  
 
+  $('#results').append(`<div class="drawdownTable"><table id="drawdownTable" cellspacing="0" cellpadding="0"></table></div>`);
   $('#results').append(`<div class="tableContainer"><table class="spreadsheet" id="resultsTable"></table></div>`);
   let keys = ['years','income','invAccts','tradAccts','rothAccts','totals'];
   let subKeys = ['time','ssi','genPension','fersPension','annuities','vaDisability','ssiDisability','otherDisability','retireSal','rents','otherBen','saveAcct','investAcct','tradEca','simple401','simpleIra','tradIra','rothEca','rothIra','subTotals'];
   let tubKeys = ['remaining','required','taxes','wages','endValue','withdrawal','rmd','principal','beginValue','annual','age','year'];
+  let drawdownTubKeys = ['year','withdrawal','annual'];
+  let colors = ['White','Silver','Aqua','Aquamarine','BurlyWood','Coral','Crimson','DarkCyan','Gold','GreenYellow','HotPink','Lavender','LightGreen','LightSalmon','LightSkyBlue','Linen','MediumTurqoise','MistyRose','PaleGoldenRod','Plum','PowderBlue'];
 
   keys.forEach((item) => {
     if (retire[item]) {
       subKeys.forEach((subItem) => {
         if (retire[item][subItem]){
-          $('.spreadsheet').append($('<tr/>', {'class': subItem}).append($('<td/>', {'colspan': Number(cycle)+1}).text(subItem.replace( /([A-Z])/g, " $1" ))));
+          $('#resultsTable').append($('<tr/>', {'class': subItem}).append($('<td/>', {'colspan': Number(cycle)+1}).text(subItem.replace( /([A-Z])/g, " $1" ))));
           tubKeys.forEach((keyItem) => {
             if (retire[item][subItem][keyItem]) {
               $(`tr.${subItem}:first`).after((`<tr class="${subItem} ${keyItem}"><td align="left">${keyItem.replace( /([A-Z])/g, " $1" )}</td></tr>`));
               for (let i=0; i<cycle; i++) {
                 $(`.${subItem}.${keyItem}`).append($('<td/>', {'align': 'right'}).text([subItem] == "time" ? Math.ceil(retire[item][subItem][keyItem][i]) :
                   dollarFormat.format(Math.ceil(retire[item][subItem][keyItem][i]))));
+              }
+            }
+          });
+        }
+      });
+    }
+  });
+
+  let breaker = 0;
+  keys.forEach((item) => {
+    if (retire[item]) {
+      subKeys.forEach((subItem, ind, arr) => {
+        if (retire[item][subItem]){
+          drawdownTubKeys.forEach((tubItem) => {
+            if (retire[item][subItem][tubItem]) {
+              if (subItem == "time") {
+                $('#drawdownTable').append($(`<tr class="${subItem} ${tubItem}"/>`).append($('<td style="white-space:nowrap"/>').css({"background-color": "lightBlue"}).text(tubItem.replace( /([A-Z])/g, " $1" ).toUpperCase())));
+              } else {
+                $('#drawdownTable').append($(`<tr class="${subItem} ${tubItem}"/>`).append($('<td/ style="white-space:nowrap">').css({"background-color": "lightBlue"}).text(subItem.replace( /([A-Z])/g, " $1" ).toUpperCase())));
+              };
+              if (breaker < 1) {
+                // for (let i=0; i<cycle; i+=5) {
+                //   $(`table#drawdownTable .time.year`)
+                //     .append($('<td colSpan="5"/>')
+                //     .text(`${retire.years.time.year[i]}(age:${retire.years.time.age[i]})`)
+                //     );
+                // }
+                for (let i=0; i<cycle; i++) {
+                  $(`table#drawdownTable .time.year`)
+                    .append($('<td/>')
+                    .css({"background-color": "lightBlue"})
+                    .text(`${retire.years.time.age[i]}|`)
+                    );
+                }
+                breaker += 1;
+              }  
+              for (let i=0; i<cycle; i++) {
+                  $(`table#drawdownTable .${subItem}.${tubItem}`)
+                  .not(`.time.year`)
+                  .append($('<td style="width:10px"/>')
+                  .css(
+                  retire[item][subItem][tubItem][i] === 0 ? {"background-color": "white"} :
+                  {"background-color": colors[subKeys.indexOf(arr[ind])]}));
               }
             }
           });
