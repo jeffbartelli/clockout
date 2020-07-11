@@ -60,6 +60,7 @@ var income = () => {
   let portFlag = 0;
   let zeroFlag = 0;
   let ssiFlag = 0;
+  let stop;
 
     // CATEGORY BUILDER
   if (data.ssi || data.genPension || data.fersPension || data.annuities || data.vaDisability || data.ssiDisability || data.otherDisability || data.retireSal || data.rents || data.otherBen) retire.income = {};
@@ -941,10 +942,10 @@ var income = () => {
         } else {break;};
         break;
     }
-    allZeroes === false ? retire.retAge = false : retire.retAge = ages.retire;
+    (ages.retire +1) == ages.death ? retire.retAge = false : retire.retAge = ages.retire;
+    // allZeroes == true ? retire.retAge = ages.retire : retire.retAge = false;
   }
   if (portFlag === 0) {portfolio();}
-
 
   if (typeof(Storage) !== "undefined") {
     localStorage.retireData = JSON.stringify(retire);

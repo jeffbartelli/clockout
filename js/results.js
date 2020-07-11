@@ -7,15 +7,18 @@ var results = () => {
   var userRetAge = localStorage.retAge;
   console.log(JSON.parse(localStorage.formData));
   console.log(retire);
+  console.log(retire.retAge);
+  console.log(userRetAge);
 
-  if (retire.retAge === false) {
+  if (retire.retAge == false) {
+    console.log('triggered on false')
     $('#results').prepend(`<p><span class="intro">Oh No!</span> You are not saving enough to retire at all. </p>`);
   } else {
     switch (true) {
       case (retire.retAge < userRetAge): 
         $('#results').prepend(`<p><span class="intro">Lucky Duck!</span> You're on track to retire at <span class="reportAge">${retire.retAge}</span>, rather than your target age of <span class="reportAge">${userRetAge}</span>. </p>`);
         break;
-      case (retire.retAge = userRetAge):
+      case (retire.retAge === userRetAge):
         $('#results').prepend(`<p><span class="intro">Right On!</span> You're on track to retire at <span class="reportAge">${retAge}</span>. </p>`);
         break;
       case (retire.retAge > userRetAge):
@@ -34,7 +37,7 @@ var results = () => {
   $('#results').append(`<div class="tableContainer"><table class="spreadsheet" id="resultsTable"></table></div>`);
   let keys = ['years','income','invAccts','tradAccts','rothAccts','totals'];
   let subKeys = ['time','ssi','genPension','fersPension','annuities','vaDisability','ssiDisability','otherDisability','retireSal','rents','otherBen','saveAcct','investAcct','tradEca','simple401','simpleIra','tradIra','rothEca','rothIra','subTotals'];
-  let tubKeys = ['remaining','required','taxes','wages','endValue','withdrawal','rmd','growth','contribution','principal','beginValue','annual','age','year'];
+  let tubKeys = ['remaining','required','taxes','wages','endValue','withdrawal','rmd','principal','beginValue','annual','age','year'];
 
   keys.forEach((item) => {
     if (retire[item]) {

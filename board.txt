@@ -1,37 +1,13 @@
 
-All0 ?
-cases:
-  0flag = 0 && ssiFlag = 0
-    0flag = 1
-    originalRetAge = retAge
-    retAge - 1
-    income()
-  0flag = 1 && ssiFlag = 0
-    retAge - 1
-    stop at current age
-    income()
-  0flag = 0 && ssiFlag = 1
-    stop
-  0flag = 1 && ssiFlag = 1
-    ssiAge - 1
-    good = 1
-    income()
-!All0 ?
-  0flag = 0 && ssiFlag = 0
-    retAge + 1
-    stop at age 72
-      ssiFlag = 1
-    income()
-  0flag = 0 && ssiFlag = 1
-    ssiAge + 1
-    stop at ssiAge 72
-    if ssiAge = 72, retAge+1
-    income()
-  0flag = 1 && ssiFlag = 0
-    ssiFlag = 1
-    ssiAge - 1
-    income()
-  0flag = 1 && ssiFlag = 1
-    ssiAge + 1
-    good == 0 ? retAge + 1
-    stop
+Lucky Duck! You're on track to retire at ${projected retAge}, rather than your target age of ${retAge}.
+Right On! You're on track to retire at ${retAge}.
+Uh-oh! You aren't saving enough to retire by ${retAge}. Based on the information you provided, your earliest retirement age is ${projected retAge}.
+Oh No! You are not saving enough to retire at all. 
+
+ClockOut has run the numbers and determined that you are on/off target. 
+ON TARGET:
+To meet your goal, you'll need to keep saving at the rates you identified in the questionare. If ClockOut predicts you'll be able to retire early than expected, it assumes you'll stop contributing at the new retirement age. However, if you planned on having a job in retirement, ClockOut assumes that employment will begin at your new retirement age.
+OFF TARGET:
+A basic rule of thumb is to have 25 times your target salary in savings at the time of retirement. Based on the information you provided, you'll be ${shortfall} behind your goal at ${retAge}. 
+
+Disclaimer: ClockOut does not guarantee any of the results it provides. It's an experimental tool, and any information it provides is only for planning purposes. ClockOut does not collect your personal information.
