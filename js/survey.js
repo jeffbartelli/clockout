@@ -71,7 +71,6 @@ var demographics = () => {
   for (let i=0;i<inputs.length;i++) {
     details[inputs[i].id] = inputs[i].value;
   }
-  console.log(details);
   return details;
 }
 
@@ -139,7 +138,6 @@ var harvest = () => {
       }
     }
   }
-  console.log(formData);
   if (typeof(Storage) !== "undefined") {
     localStorage.formData = JSON.stringify(formData);
   } else {

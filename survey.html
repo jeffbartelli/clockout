@@ -10,6 +10,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
+  <script>
+    localStorage.clear();
+  </script>
   <div class="workSpace" id="survey">
     <div class="tab" id="demographics">
       <div class="survey-header">
@@ -43,7 +46,7 @@
               <p><label for="salary" data-title="Current Annual Salary + Bonuses">Current Annual Salary: <br><input type="number" name="salary" placeholder="Current Salary" id="salary" min="0" value="100000" class="data" oninput="$(this).removeClass('invalid')"></label></p>
             </div>
             <div class="retSal">
-              <p><label for="retSal" data-title="Total Anticipated Annual Retirement Expenses, in Today's Dollars">Annual Retirement Budget: <br><input type="number" name="retSal" placeholder="Retired Budget" id="retSal" class="data" min="0" value="48000" oninput="$(this).removeClass('invalid')"></label><img src="https://img.icons8.com/material-outlined/24/000000/calculator--v2.png" id="calculator" onclick="$('#retSalCalc').toggle();" title="Total Budget Calculator."/></p>
+              <p><label for="retSal" data-title="Total Anticipated Annual Retirement Expenses, in Today's Dollars">Annual Retirement Budget: <br><input type="number" name="retSal" placeholder="Retired Budget" id="retSal" class="data" min="0" value="48000" oninput="$(this).removeClass('invalid')"></label><img src="https://img.icons8.com/material-outlined/24/000000/calculator--v2.png" id="calculator" onclick="$('#retSalCalc').toggle();document.getElementById('housing').focus();" title="Total Budget Calculator."/></p>
             </div>
             <div class="retAge">
               <p><label for="retAge" data-title="Target Retirement Age">Target Retirement Age: <br><input type="number" name="retAge" maxlength="2" id="retAge" class="data" placeholder="Age" oninput="$(this).removeClass('invalid')" value="56"></label></p>
@@ -59,7 +62,7 @@
       </div>
     </div>
 
-    <div class="tab" id="ssi">
+    <div class="tab" id="socialSecurity">
       <div class="survey-header">
         <h4 class="sectionHeader income">Social Security Retirement</h4>
       </div>
@@ -574,7 +577,7 @@
       </div>
     </div>
 
-    <div class="tab" id="investAcct">
+    <div class="tab" id="investmentAcct">
       <div class="survey-header">
         <h4 class="sectionHeader investment">Investment Accounts</h4>
         </div>

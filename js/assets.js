@@ -18,9 +18,11 @@ var calcAge = () => {
   };
   if (typeof(Storage) !== "undefined") {
     localStorage.cycle = le - age;
+    localStorage.age = age;
     localStorage.retAge = parseInt(data.demographics.retAge);
   } else {
     window.cycle = le - age;
+    Window.age = age;
     window.retAge = parseInt(data.demographics.retAge);
   }
   return {
@@ -63,13 +65,13 @@ var income = () => {
   let stop;
 
     // CATEGORY BUILDER
-  if (data.ssi || data.genPension || data.fersPension || data.annuities || data.vaDisability || data.ssiDisability || data.otherDisability || data.retireSal || data.rents || data.otherBen) retire.income = {};
+  if (data.socialSecurity || data.genPension || data.fersPension || data.annuities || data.vaDisability || data.ssiDisability || data.otherDisability || data.retireSal || data.rents || data.otherBen) retire.income = {};
   if (data.tradAccts || data.simpleIra || data.simple401 || data.tradIra) retire.tradAccts = {};
   if (data.rothAccts || data.rothIra) retire.rothAccts = {};
-  if(data.investAcct || data.saveAcct) retire.invAccts = {};
+  if(data.investmentAcct || data.saveAcct) retire.invAccts = {};
 
   let ssiAge;
-   data.ssi == undefined ? ssiAge = 70 : ssiAge = data.ssi.beginAge_ssi;
+   data.socialSecurity == undefined ? ssiAge = 70 : ssiAge = data.socialSecurity.beginAge_ssi;
 
   let portfolio = (retireAge,ssiRetireAge) => {
     // RESET THE REMAINING VARIABLE 
@@ -84,8 +86,8 @@ var income = () => {
     if (ssiRetireAge !== undefined) {ssiAge = ssiRetireAge;}
 
   // SOCIAL SECURITY
-  if(data.ssi) {
-    retire.income.ssi = {annual: []};
+  if(data.socialSecurity) {
+    retire.income.socialSecurity = {annual: []};
     let ssiRate = 0;
     switch (ssiAge) { 
       case 62: ssiRate = 0.70; break;
@@ -98,12 +100,12 @@ var income = () => {
       case 69: ssiRate = 1.16; break;
       case 70: ssiRate = 1.24;
     };
-    let ssiAmount = data.ssi.annAmt_ssi * ssiRate;
+    let ssiAmount = data.socialSecurity.annAmt_ssi * ssiRate;
     for (let i=0; i<ages.cycle; i++) {
-      if (i < (data.ssi.beginAge_ssi - ages.age)) {
-        retire.income.ssi.annual.push(0);
+      if (i < (data.socialSecurity.beginAge_ssi - ages.age)) {
+        retire.income.socialSecurity.annual.push(0);
       } else {
-        retire.income.ssi.annual.push(ssiAmount);
+        retire.income.socialSecurity.annual.push(ssiAmount);
         retire.totals.subTotals.remaining[i] -= ssiAmount;
       }
       if (ages.currentYr + i == 2035) {
@@ -317,44 +319,44 @@ var income = () => {
 
   // INVESTMENT ACCOUNTS
   /* 1. If Account == Active */
-  if (data.investAcct) {
+  if (data.investmentAcct) {
     /* 2. Create records in retire object */
-    retire.invAccts.investAcct = {beginValue: [], overflow: [], withdrawal: [], endValue: []};
+    retire.invAccts.investmentAcct = {beginValue: [], overflow: [], withdrawal: [], endValue: []};
     /* 3. Create internal variables from data (data.js) */
-    var currentVal_investAcct = data.investAcct.currentVal_investAcct;
-    var endAgeContr_investAcct = (data.investAcct.endAgeContr_investAcct > ages.retire) ? ages.retire : data.investAcct.endAgeContr_investAcct;
-    var annContr_investAcct = parseInt(data.investAcct.annContr_investAcct) || 0;
+    var currentVal_investAcct = data.investmentAcct.currentVal_investAcct;
+    var endAgeContr_investAcct = (data.investmentAcct.endAgeContr_investAcct > ages.retire) ? ages.retire : data.investmentAcct.endAgeContr_investAcct;
+    var annContr_investAcct = parseInt(data.investmentAcct.annContr_investAcct) || 0;
     for (let i=0; i<ages.cycle; i++) {
-      // retire.invAccts.investAcct.overflow.push(0);
+      // retire.invAccts.investmentAcct.overflow.push(0);
       /* #. Check Retirement Age */
       if (i < (ages.retire - ages.age)) {
         /* 4. Push Begin Value */
-        retire.invAccts.investAcct.beginValue.push(0);
-        retire.invAccts.investAcct.withdrawal.push(0);
+        retire.invAccts.investmentAcct.beginValue.push(0);
+        retire.invAccts.investmentAcct.withdrawal.push(0);
       } else {
         // /* #. Collect surplus from previous year */
         // if (retire.totals.subTotals.remaining[i-1] < 0) {
         //   currentVal_investAcct += Math.abs(retire.totals.subTotals.remaining[i-1]);
-        //   retire.invAccts.investAcct.overflow[i] += Math.abs(retire.totals.subTotals.remaining[i-1]);
+        //   retire.invAccts.investmentAcct.overflow[i] += Math.abs(retire.totals.subTotals.remaining[i-1]);
         // }
-        retire.invAccts.investAcct.beginValue.push(currentVal_investAcct);
+        retire.invAccts.investmentAcct.beginValue.push(currentVal_investAcct);
         /* 5. Determine and Set Withdrawal Amount */
         if (retire.totals.subTotals.remaining[i] > 0) {
           if (currentVal_investAcct >= retire.totals.subTotals.remaining[i]) {
-            retire.invAccts.investAcct.withdrawal.push(retire.totals.subTotals.remaining[i]);
+            retire.invAccts.investmentAcct.withdrawal.push(retire.totals.subTotals.remaining[i]);
           } else {
-            retire.invAccts.investAcct.withdrawal.push(currentVal_investAcct);
+            retire.invAccts.investmentAcct.withdrawal.push(currentVal_investAcct);
           }
         } else {
-          retire.invAccts.investAcct.withdrawal.push(0);
+          retire.invAccts.investmentAcct.withdrawal.push(0);
         }
       }
-      currentVal_investAcct -= retire.invAccts.investAcct.withdrawal[i];
-      retire.totals.subTotals.remaining[i] -= retire.invAccts.investAcct.withdrawal[i];
+      currentVal_investAcct -= retire.invAccts.investmentAcct.withdrawal[i];
+      retire.totals.subTotals.remaining[i] -= retire.invAccts.investmentAcct.withdrawal[i];
       /* 6. Prevent interest accrual once current value = 0 */
       if (!currentVal_investAcct == 0) {
         /* 7. Apply (5/12)% Growth Rate for Withdrawal Amount */
-        currentVal_investAcct += (retire.invAccts.investAcct.withdrawal[i]/2.4 * (investGrowth(i)-1));
+        currentVal_investAcct += (retire.invAccts.investmentAcct.withdrawal[i]/2.4 * (investGrowth(i)-1));
         /* 8. Apply Growth Rate */
         currentVal_investAcct *= investGrowth(i);
       }
@@ -366,9 +368,9 @@ var income = () => {
       }
       /* 11. Push End Value */
       if (i >= (ages.retire - ages.age)) {
-        retire.invAccts.investAcct.endValue.push(currentVal_investAcct);
+        retire.invAccts.investmentAcct.endValue.push(currentVal_investAcct);
       } else {
-        retire.invAccts.investAcct.endValue.push(0);
+        retire.invAccts.investmentAcct.endValue.push(0);
       }
     }
   }
@@ -938,7 +940,7 @@ var income = () => {
         if (ssiAge < 70) {
           portfolio(ages.retire,ssiAge += 1);
         } else if (ssiAge == 70) {
-          portfolio(ages.retire += 1, data.ssi.beginAge_ssi);
+          portfolio(ages.retire += 1, data.socialSecurity.beginAge_ssi);
         } else {break;};
         break;
     }
@@ -948,9 +950,11 @@ var income = () => {
   if (portFlag === 0) {portfolio();}
 
   if (typeof(Storage) !== "undefined") {
+    localStorage.ssiAge = ssiAge;
     localStorage.retireData = JSON.stringify(retire);
   } else {
     window.retire;
+    window.ssiAge;
   }
   console.log(retire);
   // results();

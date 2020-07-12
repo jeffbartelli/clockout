@@ -217,11 +217,11 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Calc to determine how much money needed in retirement
   window.retSalCalc = () => {
-  let sum = 0;
-  $('.retSalCalcVals:not(.total)').each(function() {
-    sum += Number($(this).val());
-  });
-  $('#retSalTotal').val(sum);
+    let sum = 0;
+    $('.retSalCalcVals:not(.total)').each(function() {
+      sum += Number($(this).val());
+    });
+    $('#retSalTotal').val(sum);
   };
 
   $('#retSalCalcClose').click((event)=>{
@@ -232,8 +232,14 @@ document.addEventListener('DOMContentLoaded', function() {
     if (sum != 0) {
       $('#retSal').val(sum);
     }
+    let expenses = {};
+    $('.retSalCalcVals').each(function(index){
+      expenses[$(this).attr('id')] = parseInt($(this).val());
+    });
+    localStorage.expenses = JSON.stringify(expenses);
     $('#retSalCalc').toggle();
     event.preventDefault();
+    document.getElementById('dob').focus();
   });
 
   // var toggle = document.getElementById('retSalCalcClose');

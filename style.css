@@ -29,7 +29,7 @@ h4 {margin: 3px;}
   /* border-radius: 3px; */
   max-width: 80%;
   margin: 50px auto;
-  height: 450px;
+  min-height: 450px;
   /* background-color: whitesmoke; */
   background-color: whitesmoke;
   position: relative;
@@ -302,31 +302,56 @@ input.ecaCalculator {
   font-size: large;
 }
 
+.reportDollar {
+  font-weight: bold;
+}
+
 #results {
   padding: 5px;
 }
 
+#expenseTable {
+  float: right
+}
+
 /* Results Table Styles */
+
+table#retirementExpenses {
+  border-collapse: collapse;
+  border-spacing: 0px; 
+  margin-left: 10px;
+}
+
+#retirementExpenses td, #retirementExpenses th {
+  border: 1px solid #0081a7;
+}
+
+.tdRight {
+  text-align: right;
+  padding: 0 2px;
+}
+
+table#resultsTable {
+ border: 1px solid #0081a7;
+ border-collapse: collapse;
+ border-spacing: 0px;
+ /* text-align: right; */
+}
+
+table#resultsTable td {
+  border: 1px solid #0081a7;
+}
 
 .drawdownTable, .tableContainer {
   /* height: 100%; */
   overflow: auto;
 }
 
-table#resultsTable, td {
- border: 1px solid black;
- border-collapse: collapse;
- border-spacing: 0px;
- /* text-align: right; */
-}
-
-div.drawdownTable {
-  /* border: 1px solid black; */
-  display:inline-block;
+table#drawdownTable {
+  /* display: inline-table; */
+  border: 1px solid #0081a7;
   font-size: 1em;
-  max-width: 100%;
-  padding-left: 5px;
-  padding-right: 5px;
+  margin: 0 auto;
   overflow: auto;
 }
 
