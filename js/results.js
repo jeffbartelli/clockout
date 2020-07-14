@@ -1,4 +1,5 @@
-import { dollarFormat } from "./numberFormats.js";
+import { dollarFormat, percentFormat } from "./numberFormats.js";
+import { growthRate } from './data.js';
 
 document.addEventListener('DOMContentLoaded', function() {
 var results = () => {
@@ -22,11 +23,11 @@ var results = () => {
       case (retire.retAge < userRetAge): 
         $('#results').prepend(`<p><span class="intro">Lucky Duck!</span> You're on track to retire at <span class="reportAge">${retire.retAge}</span> in <span class="reportAge">${new Date().getFullYear() + (retire.retAge - age)}</span>, rather than your target age of <span class="reportAge">${userRetAge}</span> in <span class="reportAge">${new Date().getFullYear() + (userRetAge - age)}</span>. </p>`);
         break;
-      case (retire.retAge === userRetAge):
+      case (retire.retAge == userRetAge):
         $('#results').prepend(`<p><span class="intro">Right On!</span> You're on track to retire at the age of <span class="reportAge">${retire.retAge}</span> in <span class="reportAge">${new Date().getFullYear() + (retire.retAge - age)}</span>. </p>`);
         break;
       case (retire.retAge > userRetAge):
-        $('#results').prepend(`<p><span class="intro">Almost There!</span> You aren't saving enough to retire by <span class="reportAge">${userRetAge}</span>. Based on the information you provided, your earliest retirement age is <span class="reportAge">${retire.retAge}</span> in <span class="reportAge">${new Date().getFullYear() + (retire.retAge - age)}</span>. </p>`);
+        $('#results').prepend(`<p><span class="intro">Almost There!</span> You aren't saving quite enough to retire by <span class="reportAge">${userRetAge}</span>. Based on the information you provided, your earliest retirement age is <span class="reportAge">${retire.retAge}</span> in <span class="reportAge">${new Date().getFullYear() + (retire.retAge - age)}</span>. </p>`);
         break; 
     }
   };
@@ -38,7 +39,7 @@ var results = () => {
   if (!retire.retAge) {
     $('#results').append(`<p>Your target annual salary is <span class="reportDollar">${dollarFormat.format(demographics.demographics.retSal)}</span> in today's dollars. By going back and reducing your projected retirement expenses, you may be able to determine at what age you can retire.</p>`);
   } else {
-    $('#results').append(`<h3>Retirement Expenses</h3><p>Your target annual salary is <span class="reportDollar">${dollarFormat.format(demographics.demographics.retSal)}</span> in today's dollars. After accounting for inflation, the equivalent salary when you retire will be <span class="reportDollar">${dollarFormat.format(retire.totals.subTotals.wages[retire.retAge - age])}</span> net, or <span class="reportDollar">${dollarFormat.format(retire.totals.subTotals.required[retire.retAge - age])}</span> gross.</p><p><strong>Note:</strong> ClockOut estimates total tax burden to be 20% of what you'll need. Future updates to ClockOut will provide a more accurate estimate of tax burden based on account type.</p>`);
+    $('#results').append(`<h3>Retirement Expenses</h3><p>Your target annual salary is <span class="reportDollar">${dollarFormat.format(demographics.demographics.retSal)}</span> in today's dollars. After accounting for inflation, the equivalent salary when you retire will be <span class="reportDollar">${dollarFormat.format(retire.totals.subTotals.wages[retire.retAge - age])}</span> net, or <span class="reportDollar">${dollarFormat.format(retire.totals.subTotals.required[retire.retAge - age])}</span> gross.</p><p><strong>Note:</strong> ClockOut estimates total tax burden to be 20% of your estimated retirement expenses. Future updates to ClockOut will provide a more accurate estimate of tax burden based on account type.</p>`);
     if (expenses) {
       let multiplier = retire.totals.subTotals.wages[retire.retAge - age] / demographics.demographics.retSal;
       $('#results').append(`
@@ -89,7 +90,7 @@ var results = () => {
             </tr>
           </table>
         </div>
-        <p>Your anticipated financial needs in retirement are presented in the table on the right, along with a look at equivalent amounts for when you begin retirement. The increase is based on an average inflation rate of 3.22%: actual inflation rates can be higher or lower on a year by year basis.</p>
+        <p>Your anticipated financial needs in retirement are presented in the table on the right, along with a look at equivalent amounts for when you begin retirement. The increase is based on an average U.S. inflation rate of 3.22%: actual inflation rates can be higher or lower on a year by year basis.</p>
       `);
     }
   }
@@ -97,67 +98,75 @@ var results = () => {
   $('#results').append(`<div class="drawdownTable"><table id="drawdownTable" cellspacing="0" cellpadding="0" style="margin: 0px;"></table></div>`);
   $('#results').append(`<p>Your retirement income and investments include:</p>`);
 
-  if (retire.income.socialSecurity) {
-    $('#results').append(`<p><h4>Social Security</h4> Though you had planned to begin Social Security at the age of ${demographics.socialSecurity.beginAge_ssi}, you would be better served filing for benefits beginning at the age of <span class="reportAge">${ssiAge}</span>. This will maximize your chances of ensuring you have enough funds annually to meet your retirement needs.</p>
-    <p>You will need to file with the <a href="https://www.ssa.gov/benefits/forms/" target="_blank">Social Security Administration</a> to begin receiving benefits. Remember: you cannot receive benefits before the age of 62.</p>`);
+  if (retire.income) {
+    if (retire.income.socialSecurity) {
+      $('#results').append(`<p><h4>Social Security</h4> ${(ssiAge == demographics.socialSecurity.beginAge_ssi) ? 'The best age for you to begin receiving Social Security benefits is <span class="reportAge">' + ssiAge + "</span>. " : "Though you had planned to begin Social Security at the age of " + demographics.socialSecurity.beginAge_ssi + ', you would be better served filing for benefits beginning at the age of <span class="reportAge">' + ssiAge + "</span>."} This will maximize your chances of ensuring you have enough funds annually to meet your retirement needs.</p>
+      <p>You will need to file with the <a href="https://www.ssa.gov/benefits/forms/" target="_blank">Social Security Administration</a> to begin receiving benefits. <strong>Remember:</strong> you cannot receive this benefit before the age of 62.</p>`);
+    }
+    if (retire.income.genPension) {
+      $('#results').append(`<p><h4>Pensions</h4> The data you entered indicates that your pension will have an annual ${demographics.genPension.tax_genPension === "on" ? "taxable": ""} payout of <span class="reportDollar">${dollarFormat.format(demographics.genPension.annAmt_genPension)}</span>, beginning at age <span class="reportAge">${demographics.genPension.beginAge_genPension}</span> in ${new Date().getFullYear() + (demographics.genPension.beginAge_genPension - age)}. The pension will grow at an average rate of ${percentFormat.format(demographics.genPension.colaRate_genPension/100)}, which will begin to be applied in ${new Date().getFullYear() + (demographics.genPension.colaAge_genPension - age)}.</p>`);
+    }
+    if (retire.income.fersPension) {
+      $('#results').append(`<p><h4>FERS Pension</h4> The data you entered indicates that your FERS pension will have an annual taxable payout of <span class="reportDollar">${dollarFormat.format(demographics.fersPension.annAmt_fersPension)}</span>, beginning at age <span class="reportAge">${demographics.fersPension.beginAge_fersPension}</span> in ${new Date().getFullYear() + (demographics.fersPension.beginAge_fersPension - age)}. After that date, the benefit will receive an annual inflation increase of approximately <strong>1.8%</strong>. </p><p>You will need to apply with the <a href="https://www.opm.gov/retirement-services/csrs-information/planning-and-applying/#url=Apply" target="_blank">Office of Personnel Management</a> to begin receiving benefits. <strong>Remember:</strong> you cannot receive this benefit before the age of 57.</p>`);
+    }
+    if (retire.income.annuities) {
+      $('#results').append(`<p><h4>Annuities & Insurance</h4> The data that you entered indicates that your annuity will have an annual ${demographics.annuities.tax_annuities === "on" ? "taxable": ""} payout of <span class="reportDollar">${dollarFormat.format(demographics.annuities.annAmt_annuities)}</span>, beginning at age <span class="reportAge">${demographics.annuities.beginAge_annuities}</span> in <strong>${new Date().getFullYear() + (demographics.annuities.beginAge_annuities - age)}</strong>. After that date, the benefit will receive an annual inflation increase of approximately <strong>${percentFormat.format(demographics.annuities.colaRate_annuities/100)}</strong>.</p>`);
+    }
+    if (retire.income.vaDisability) {
+      $('#results').append(`<p><h4>VA Disability</h4>Your VA Disability is a non-taxable benefit. The data you entered indicates that it is currently worth <span class="reportDollar">${dollarFormat.format(demographics.vaDisability.annAmt_vaDisability)}</span> per year. ${retire.retAge === false ? "": 'Your annual benefit will grow at approximately <strong>2.3%</strong> annually, to reach an annual value of <span class="reportDollar">' + dollarFormat.format(Math.round(retire.income.vaDisability.annual[retire.income.vaDisability.annual.findIndex(n => n > 0)])) + '</span> when you begin retirement.'}</p>`);
+    }
+    if (retire.income.ssiDisability) {
+      $('#results').append(`<p><h4>Social Security Disability Insurance</h4> Based on your responses, you currently receive SSDI benefits in the annual amount of <span class="reportDollar">${dollarFormat.format(demographics.ssiDisability.annAmt_ssiDisability)}</span>. The SSDI (and SSI) benefits usually aren't taxed. It will receive an annual inflation adjustment of approximately <strong>${percentFormat.format(growthRate.ssi)}</strong>.</p>`);
+    }
+    if (retire.income.otherDisability) {
+      $('#results').append(`<p><h4>Other Disability</h4> The data that you provided indicates you currently receive <span class="reportDollar">${dollarFormat.format(demographics.otherDisability.annAmt_otherDisability)}</span> per year of ${demographics.otherDisability.tax_otherDisability === "on" ? "taxable": ""} disability benefits. It will receive an annual inflation adjustment of approximately <strong>${percentFormat.format(demographics.otherDisability.colaRate_otherDisability/100)}</strong></p>`);
+    }
+    if (retire.income.retireSal) {
+      $('#results').append(`<p><h4>Retirement Salary</h4>You indicated that you will continue to work after retirement...</p>`);
+    }
+    if (retire.income.rents) {
+      $('#results').append(`<p><h4>Rental Income</h4></p>`);
+    }
+    if (retire.income.otherBen) {
+      $('#results').append(`<p><h4>Other Sources of Benefits</h4></p>`);
+    }  
   }
-  if (retire.income.genPension) {
-    $('#results').append(`<p><h4>Pensions</h4></p>`);
+  if (retire.invAccts) {
+    if (retire.invAccts.saveAcct) {
+      $('#results').append(`<p><h4>Savings & Money Market Accounts</h4></p>`);
+    }
+    if (retire.invAccts.investmentAcct) {
+      $('#results').append(`<p><h4>Investment/Brokerage Accounts</h4></p>`);
+    }
   }
-  if (retire.income.fersPension) {
-    $('#results').append(`<p><h4>FERS Pension</h4></p>`);
+  if (retire.tradAccts) {
+    if (retire.tradAccts.tradEca) {
+      $('#results').append(`<p><h4>Traditional Employee Contribution Accounts</h4></p>`);
+    }
+    if (retire.tradAccts.simple401) {
+      $('#results').append(`<p><h4>Simple 401k</h4></p>`);
+    }
+    if (retire.tradAccts.simpleIra) {
+      $('#results').append(`<p><h4>Simple IRA</h4></p>`);
+    }
+    if (retire.tradAccts.tradIra) {
+      $('#results').append(`<p><h4>Traditional IRA</h4></p>`);
+    }
   }
-  if (retire.income.annuities) {
-    $('#results').append(`<p><h4>Annuities & Insurance</h4></p>`);
-  }
-  if (retire.income.vaDisability) {
-    $('#results').append(`<p><h4>VA Disability</h4></p>`);
-  }
-  if (retire.income.ssiDisability) {
-    $('#results').append(`<p><h4>SSI Disability</h4></p>`);
-  }
-  if (retire.income.otherDisability) {
-    $('#results').append(`<p><h4>Other Disability</h4></p>`);
-  }
-  if (retire.income.retireSal) {
-    $('#results').append(`<p><h4>Retirement Salary</h4>You indicated that you will continue to work after retirement...</p>`);
-  }
-  if (retire.income.rents) {
-    $('#results').append(`<p><h4>Rental Income</h4></p>`);
-  }
-  if (retire.income.otherBen) {
-    $('#results').append(`<p><h4>Other Sources of Benefits</h4></p>`);
-  }
-  if (retire.income.saveAcct) {
-    $('#results').append(`<p><h4>Savings & Money Market Accounts</h4></p>`);
-  }
-  if (retire.income.investmentAcct) {
-    $('#results').append(`<p><h4>Investment/Brokerage Accounts</h4></p>`);
-  }
-  if (retire.income.tradEca) {
-    $('#results').append(`<p><h4>Traditional Employee Contribution Accounts</h4></p>`);
-  }
-  if (retire.income.simple401) {
-    $('#results').append(`<p><h4>Simple 401k</h4></p>`);
-  }
-  if (retire.income.simpleIra) {
-    $('#results').append(`<p><h4>Simple IRA</h4></p>`);
-  }
-  if (retire.income.tradIra) {
-    $('#results').append(`<p><h4>Traditional IRA</h4></p>`);
-  }
-  if (retire.income.rothEca) {
-    $('#results').append(`<p><h4>Roth Employee Contribution Accounts</h4></p>`);
-  }
-  if (retire.income.rothIra) {
-    $('#results').append(`<p><h4>Roth IRA</h4></p>`);
+  if (retire.rothAccts) {
+    if (retire.rothAccts.rothEca) {
+      $('#results').append(`<p><h4>Roth Employee Contribution Accounts</h4></p>`);
+    }
+    if (retire.rothAccts.rothIra) {
+      $('#results').append(`<p><h4>Roth IRA</h4></p>`);
+    }
   }
 
   $('#results').append(`<p><h3>Assumptions & Methodology</h3></p>`);
 
   $('#results').append(`<p><strong>Disclaimer:</strong> ClockOut does not guarantee any of the results it provides. It's an experimental tool, and any information it provides is only for planning purposes. ClockOut does not collect your personal information.</p>`);
 
-  // $('#results').append(`<div class="tableContainer"><table class="spreadsheet" id="resultsTable"></table></div>`);
+  $('#results').append(`<div class="tableContainer"><table class="spreadsheet" id="resultsTable"></table></div>`);
   let keys = ['years','income','invAccts','tradAccts','rothAccts','totals'];
   let subKeys = ['time','socialSecurity','genPension','fersPension','annuities','vaDisability','ssiDisability','otherDisability','retireSal','rents','otherBen','saveAcct','investmentAcct','tradEca','simple401','simpleIra','tradIra','rothEca','rothIra','subTotals'];
   let tubKeys = ['remaining','required','taxes','wages','endValue','withdrawal','rmd','principal','beginValue','annual','age','year'];

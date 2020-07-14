@@ -102,7 +102,7 @@ var income = () => {
     };
     let ssiAmount = data.socialSecurity.annAmt_ssi * ssiRate;
     for (let i=0; i<ages.cycle; i++) {
-      if (i < (data.socialSecurity.beginAge_ssi - ages.age)) {
+      if (i < (ssiAge - ages.age)) {
         retire.income.socialSecurity.annual.push(0);
       } else {
         retire.income.socialSecurity.annual.push(ssiAmount);
