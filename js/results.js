@@ -122,13 +122,13 @@ var results = () => {
       $('#results').append(`<p><h4>Other Disability</h4> The data that you provided indicates you currently receive <span class="reportDollar">${dollarFormat.format(demographics.otherDisability.annAmt_otherDisability)}</span> per year of ${demographics.otherDisability.tax_otherDisability === "on" ? "taxable": ""} disability benefits. It will receive an annual inflation adjustment of approximately <strong>${percentFormat.format(demographics.otherDisability.colaRate_otherDisability/100)}</strong></p>`);
     }
     if (retire.income.retireSal) {
-      $('#results').append(`<p><h4>Retirement Salary</h4>You indicated that you will continue to work after retirement...</p>`);
+      $('#results').append(`<p><h4>Retirement Salary</h4>It looks like you intend to keep working after your big retirement. Good for you. Based on your responses, you plan to begin your post-retirement employment at the age of <span class="reportAge">${demographics.retireSal.beginAge_retireSal}</span> in <strong>${new Date().getFullYear() + (demographics.retireSal.beginAge_retireSal - age)}</strong>. ${(retire.retAge == false) ? "Unfortunately you aren't on track to have enough resources to retire at all, so your planned post-retirement employment will not happen." : (retire.retAge > demographics.retireSal.beginAge_retireSal) ? "Your target age for beginning post-retirement employment was earlier than your retirement age, so Clockout has adjusted your target post-retirement age to " + ((data.retireSal.beginAge_retireSal < ages.retire && ages.retire <= data.retireSal.endAge_retireSal) ? ages.retire : (ages.retire > data.retireSal.endAge_retireSal) ? data.retireSal.endAge_retireSal : data.retireSal.beginAge_retireSal) + ". You will end post-retirement employment at the age of " + data.retireSal.endAge_retireSal + " in " + new Date().getFullYear() + (demographics.retireSal.endAge_retireSal - age) + ". " : ""} `);
     }
     if (retire.income.rents) {
-      $('#results').append(`<p><h4>Rental Income</h4></p>`);
+      $('#results').append(`<p><h4>Rental Income</h4>You expect to generate income from rental properties in retirement. Specifically, you expect to earn <span class="reportDollar">${dollarFormat.format(demographics.rents.annAmt_rents)}</span> growing at an annual rate of <strong>${percentFormat.format(demographics.rents.colaRate_rents/100)}</strong>, which will have a value of <span class="reportDollar">${dollarFormat.format(Math.round(retire.income.rents.annual[retire.income.rents.annual.findIndex(n => n > 0)]))}</span> in the year of your retirement.</p>`);
     }
     if (retire.income.otherBen) {
-      $('#results').append(`<p><h4>Other Sources of Benefits</h4></p>`);
+      $('#results').append(`<p><h4>Other Sources of Benefits</h4>This includes all other benefits that apply to your retirement. Based on your responses, these ${demographics.otherBen.otherBenTax === "on" ? "taxable": ""} benefits will have an annual value of <span class="reportDollar">${dollarFormat.format(Math.round(retire.income.otherBen.annual[retire.income.otherBen.annual.findIndex(n => n > 0)]))}</span> in <strong>${new Date().getFullYear() + (demographics.otherBen.otherBenBeginAge - age)}</strong>. </p>`);
     }  
   }
   if (retire.invAccts) {
@@ -215,27 +215,24 @@ var results = () => {
                 breaker += 1;
               }  
               for (let i=0; i<cycle; i++) {
-                  $(`table#drawdownTable .${subItem}.${tubItem}`)
-                  .not(`.time.year`)
-                  .append($('<td style="width:10px"/>')
-                  .css("background-color", function() {
-                      if (retire[item][subItem].rmd) {
-                        if (retire[item][subItem].withdrawal[i] || retire[item][subItem].rmd[i] !== 0) {
-                          return colors[subKeys.indexOf(arr[ind])];
-                        } else {
-                          return "white";
-                        }
+                $(`table#drawdownTable .${subItem}.${tubItem}`)
+                .not(`.time.year`)
+                .append($('<td style="width:10px"/>')
+                .css("background-color", function() {
+                    if (retire[item][subItem].rmd) {
+                      if (retire[item][subItem].withdrawal[i] || retire[item][subItem].rmd[i] !== 0) {
+                        return colors[subKeys.indexOf(arr[ind])];
                       } else {
-                        if (retire[item][subItem][tubItem][i] !== 0) {
-                          return colors[subKeys.indexOf(arr[ind])];
-                        } else {
-                          return "white";
-                        }
+                        return "white";
                       }
-                  }));
-                  // retire[item][subItem][tubItem][i] === 0 ? {"background-color": "white"} :
-                  // {"background-color": colors[subKeys.indexOf(arr[ind])]}));
-              // }
+                    } else {
+                      if (retire[item][subItem][tubItem][i] !== 0) {
+                        return colors[subKeys.indexOf(arr[ind])];
+                      } else {
+                        return "white";
+                      }
+                    }
+                }));
               };
             };
           });

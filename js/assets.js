@@ -62,7 +62,7 @@ var income = () => {
   let portFlag = 0;
   let zeroFlag = 0;
   let ssiFlag = 0;
-  let stop;
+  let loopFlag = 0;
 
     // CATEGORY BUILDER
   if (data.socialSecurity || data.genPension || data.fersPension || data.annuities || data.vaDisability || data.ssiDisability || data.otherDisability || data.retireSal || data.rents || data.otherBen) retire.income = {};
@@ -71,7 +71,7 @@ var income = () => {
   if(data.investmentAcct || data.saveAcct) retire.invAccts = {};
 
   let ssiAge;
-   data.socialSecurity == undefined ? ssiAge = 70 : ssiAge = data.socialSecurity.beginAge_ssi;
+   data.socialSecurity == undefined ? ssiAge = null : ssiAge = data.socialSecurity.beginAge_ssi;
 
   let portfolio = (retireAge,ssiRetireAge) => {
     // RESET THE REMAINING VARIABLE 
@@ -220,7 +220,7 @@ var income = () => {
   if(data.retireSal) {
     retire.income.retireSal = {annual: []};
     let retSalAmount = data.retireSal.annAmt_retireSal;
-    let retSalBeginAge = (data.retireSal.beginAge_retireSal > ages.retire) ? ages.retire : data.retireSal.beginAge_retireSal;
+    let retSalBeginAge = (data.retireSal.beginAge_retireSal < ages.retire && ages.retire <= data.retireSal.endAge_retireSal) ? ages.retire : (ages.retire > data.retireSal.endAge_retireSal) ? data.retireSal.endAge_retireSal : data.retireSal.beginAge_retireSal;
     for (let i=0; i<ages.cycle; i++) {
       if (i < retSalBeginAge - ages.age) {
         retire.income.retireSal.annual.push(0);
@@ -898,7 +898,13 @@ var income = () => {
         break;
       case (allZeroes == true && zeroFlag == 1 && ssiFlag == 0): 
         console.log(`${ages.retire} All0=T, 0Flag=T, ssiFlag=F ${ssiAge}`);
-        if (ages.retire > ages.age) {portfolio(ages.retire -=1,ssiAge);};
+        if (ages.retire > ages.age) {
+          if (loopFlag == 1) {
+            break;
+          } else {
+            portfolio(ages.retire -=1,ssiAge);
+          }
+        };
         break;
       case (allZeroes == true && zeroFlag == 0 && ssiFlag == 1):
         console.log(`${ages.retire} All0=T, 0Flag=F, ssiFlag=T ${ssiAge}`);
@@ -919,8 +925,13 @@ var income = () => {
         break;
       case (allZeroes == false && zeroFlag == 1 && ssiFlag == 0):
         console.log(`${ages.retire} All0=F, 0Flag=T, ssiFlag=F ${ssiAge}`);
-        ssiFlag = 1;
-        portfolio(ages.retire,ssiAge += 1);
+        if (ssiAge != null) {
+          ssiFlag = 1;
+          portfolio(ages.retire,ssiAge += 1);
+        } else {
+          loopFlag = 1;
+          portfolio(ages.retire += 1,ssiAge);
+        }
         break;
       case (allZeroes == false && zeroFlag == 0 && ssiFlag == 1):
         console.log(`${ages.retire} All0=F, 0Flag=F, ssiFlag=T ${ssiAge}`);
