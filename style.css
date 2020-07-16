@@ -7,6 +7,11 @@ body {
   background-color: white;
 }
 
+.logo {
+  text-align: center;
+  padding-top: 25px;
+}
+
 h2 {
   text-align: center;
   padding: 20px;
@@ -27,8 +32,8 @@ h4 {margin: 3px;}
 .workSpace {
   /* border: 1px solid #545E56; */
   /* border-radius: 3px; */
-  max-width: 80%;
-  margin: 50px auto;
+  max-width: 100%;
+  margin: 50px 10%;
   min-height: 450px;
   /* background-color: whitesmoke; */
   background-color: whitesmoke;
