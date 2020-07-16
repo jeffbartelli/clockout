@@ -46,6 +46,8 @@
     for (let i=1; i<$('.tab').length; i++) {
       $accountTypes[i-1].classList.add($tabs[i].id);
     }
+    // $('.incomeList').append(`<p><label class="accountItems"><input type="checkbox" class="accountTypes milPen" disabled>Military Pension <span style="color:red">(Coming Soon)</span></label></p>`);
+    // $('.investList').append(`<p><label class="accountItems"><input type="checkbox" class="accountTypes sep" disabled>Simplified Employee Pension <span style="color:red">(Coming Soon)</span></label></p>`);
   }
 
 export {investmentSelect};

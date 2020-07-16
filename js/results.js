@@ -18,7 +18,7 @@ var results = () => {
   } else {
     switch (true) {
       case (retire.retAge === age):
-        $('#results').prepend(`<p><span class="intro">Submit Your Two Week Notice!</span> You've already saved enough money to never work again based on your target retirement salary. </p>`); 
+        $('#results').prepend(`<p><span class="intro">Submit Your Two Week Notice!</span> You've already saved enough money to never work again based on your target retirement income. </p>`); 
         break;
       case (retire.retAge < userRetAge): 
         $('#results').prepend(`<p><span class="intro">Lucky Duck!</span> You're on track to retire at <span class="reportAge">${retire.retAge}</span> in <span class="reportAge">${new Date().getFullYear() + (retire.retAge - age)}</span>, rather than your target age of <span class="reportAge">${userRetAge}</span> in <span class="reportAge">${new Date().getFullYear() + (userRetAge - age)}</span>. </p>`);
@@ -32,14 +32,14 @@ var results = () => {
     }
   };
   if (retire.retAge === false || retire.retAge > userRetAge) {
-    $('#results').append(`<p>A basic rule of thumb is to have 25 times your target salary in savings at the time of retirement. Based on the information you provided, you'll be behind your goal at <span class="reportAge">${userRetAge}</span>. </p>`);
+    $('#results').append(`<p>A basic rule of thumb is to have 25 times your target income in savings at the time of retirement. Based on the information you provided, you'll be behind your goal at <span class="reportAge">${userRetAge}</span>. </p>`);
   } else {
     $('#results').append(`<p>To meet your goal, you'll need to keep saving at the rates you identified in the questionare. If ClockOut predicts you'll be able to retire earlier than expected, it assumes you'll stop contributing to all of your accounts at <span class="reportAge">${retire.retAge}</span>. However, if you planned on having a job in retirement, ClockOut assumes that employment will begin at your new retirement age. </p>`);
   }
   if (!retire.retAge) {
-    $('#results').append(`<p>Your target annual salary is <span class="reportDollar">${dollarFormat.format(demographics.demographics.retSal)}</span> in today's dollars. By going back and reducing your projected retirement expenses, you may be able to determine at what age you can retire.</p>`);
+    $('#results').append(`<p>Your target annual income is <span class="reportDollar">${dollarFormat.format(demographics.demographics.retSal)}</span> in today's dollars. By going back and reducing your projected retirement expenses, you may be able to determine at what age you can retire.</p>`);
   } else {
-    $('#results').append(`<h3>Retirement Expenses</h3><p>Your target annual salary is <span class="reportDollar">${dollarFormat.format(demographics.demographics.retSal)}</span> in today's dollars. After accounting for inflation, the equivalent salary when you retire will be <span class="reportDollar">${dollarFormat.format(Math.round(retire.totals.subTotals.wages[retire.retAge - age]))}</span> net, or <span class="reportDollar">${dollarFormat.format(Math.round(retire.totals.subTotals.required[retire.retAge - age]))}</span> gross.</p><p><strong>Note:</strong> ClockOut estimates total tax burden to be 20% of your estimated retirement expenses. Future updates to ClockOut will provide a more accurate estimate of tax burden based on account type.</p>`);
+    $('#results').append(`<h3>Retirement Expenses</h3><p>Your target annual income is <span class="reportDollar">${dollarFormat.format(demographics.demographics.retSal)}</span> in today's dollars. After accounting for inflation, the equivalent income when you retire will be <span class="reportDollar">${dollarFormat.format(Math.round(retire.totals.subTotals.wages[retire.retAge - age]))}</span> net, or <span class="reportDollar">${dollarFormat.format(Math.round(retire.totals.subTotals.required[retire.retAge - age]))}</span> gross.</p><p><strong>Note:</strong> ClockOut estimates total tax burden to be 20% of your estimated retirement expenses. Future updates to ClockOut will provide a more accurate estimate of tax burden based on account type.</p>`);
     if (expenses) {
       let multiplier = retire.totals.subTotals.wages[retire.retAge - age] / demographics.demographics.retSal;
       $('#results').append(`
@@ -96,6 +96,7 @@ var results = () => {
   }
   $('#results').append(`<h3>Financial Drawdown</h3><p>ClockOut has determined how best for you to withdraw your money in retirement to make it last as long as possible while complying with the laws of the United States. The graph below shows all of your accounts and when you will be withdrawing from them.</p>`);
   $('#results').append(`<div class="drawdownTable"><table id="drawdownTable" cellspacing="0" cellpadding="0" style="margin: 0px;"></table></div>`);
+  $('#results').append(`<span class="tableView"><p>Click here to review the detailed table of your investments.<button>Detailed Table</button><p></span>`);
   $('#results').append(`<p>Your retirement income and investments include:</p>`);
 
   if (retire.income) {
@@ -151,23 +152,50 @@ var results = () => {
       $('#results').append(`<p><h4>Simple IRA</h4>The current total amount in holding for all of these accounts is <span class="reportDollar">${dollarFormat.format(Math.round(demographics.simpleIra.currentVal_simpleIra))}</span>. Your employer currently provides a matching contribution of <span class="reportDollar">${dollarFormat.format(Math.round(demographics.simpleIra.empContr_simpleIra))}</span> annually. you are contributing <span class="reportDollar">${dollarFormat.format(Math.round(demographics.simpleIra.annContr_simpleIra))}</span> annually. ${retire.retAge < 50 ? "" : "You do " + (demographics.simpleIra.catchUpContr_simpleIra == false ? "not" : "") + ' plan to make additional "catch up" contributions after the age of 50.'} You plan to stop contributing to these accounts at the age of <span class="reportAge">${demographics.simpleIra.endAgeContr_simpleIra}</span> in <strong>${new Date().getFullYear() + (demographics.simpleIra.endAgeContr_simpleIra - age)}</strong>. ${retire.retAge == false ? "" : "You should first draw from this account in <strong>" + retire.years.time.year[retire.tradAccts.simpleIra.withdrawal.findIndex(n => n > 0)] + '</strong>, when it will be worth <span class="reportDollar">' + dollarFormat.format(Math.round(retire.tradAccts.simpleIra.beginValue[Math.min((retire.tradAccts.simpleIra.withdrawal.findIndex(n => n > 0) == -1) ? 1000 : retire.tradAccts.simpleIra.withdrawal.findIndex(n => n > 0),(retire.tradAccts.simpleIra.rmd.findIndex(n => n > 0) == -1) ? 1000 : retire.tradAccts.simpleIra.rmd.findIndex(n => n > 0))])) + "</span>."}</p>`);
     }
     if (retire.tradAccts.tradIra) {
-      $('#results').append(`<p><h4>Traditional IRA</h4>This account category may include a Roth 401k, Roth 403b, Roth 457b, or a Roth TSP amongst other similar accounts. The current total amount in holding for all of these accounts is <span class="reportDollar">${dollarFormat.format(Math.round(demographics.tradIra.currentVal_tradIra))}</span>. Your employer currently provides a matching contribution of <span class="reportDollar">${dollarFormat.format(Math.round(demographics.tradIra.empContr_tradIra))}</span> annually. you are contributing <span class="reportDollar">${dollarFormat.format(Math.round(demographics.tradIra.annContr_tradIra))}</span> annually. ${retire.retAge < 50 ? "" : "You do " + (demographics.tradIra.catchUpContr_tradIra == false ? "not" : "") + ' plan to make additional "catch up" contributions after the age of 50.'} You plan to stop contributing to these accounts at the age of <span class="reportAge">${demographics.tradIra.endAgeContr_tradIra}</span> in <strong>${new Date().getFullYear() + (demographics.tradIra.endAgeContr_tradIra - age)}</strong>. ${retire.retAge == false ? "" : "You should first draw from this account in <strong>" + retire.years.time.year[retire.tradAccts.tradIra.withdrawal.findIndex(n => n > 0)] + '</strong>, when it will be worth <span class="reportDollar">' + dollarFormat.format(Math.round(retire.tradAccts.tradIra.beginValue[Math.min((retire.tradAccts.tradIra.withdrawal.findIndex(n => n > 0) == -1) ? 1000 : retire.tradAccts.tradIra.withdrawal.findIndex(n => n > 0),(retire.tradAccts.tradIra.rmd.findIndex(n => n > 0) == -1) ? 1000 : retire.tradAccts.tradIra.rmd.findIndex(n => n > 0))])) + "</span>."}</p>`);
+      $('#results').append(`<p><h4>Traditional IRA</h4>The current total amount in holding for all of your traditional IRAs is <span class="reportDollar">${dollarFormat.format(Math.round(demographics.tradIra.currentVal_tradIra))}</span>. Your employer currently provides a matching contribution of <span class="reportDollar">${dollarFormat.format(Math.round(demographics.tradIra.empContr_tradIra))}</span> annually. You plan to contribute ${Math.round(demographics.tradIra.annContr_tradIra) == 6000 ? "the maximum amount of" : ""} <span class="reportDollar">${dollarFormat.format(Math.round(demographics.tradIra.annContr_tradIra))}</span> annually. ${retire.retAge < 50 ? "" : "You do " + (demographics.tradIra.catchUpContr_tradIra == false ? "not" : "") + ' plan to make additional "catch up" contributions after the age of 50.'} You plan to stop contributing to these accounts at the age of <span class="reportAge">${demographics.tradIra.endAgeContr_tradIra}</span> in <strong>${new Date().getFullYear() + (demographics.tradIra.endAgeContr_tradIra - age)}</strong>. ${retire.retAge == false ? "" : "You should first draw from this account in <strong>" + retire.years.time.year[retire.tradAccts.tradIra.withdrawal.findIndex(n => n > 0)] + '</strong>, when it will be worth <span class="reportDollar">' + dollarFormat.format(Math.round(retire.tradAccts.tradIra.beginValue[Math.min((retire.tradAccts.tradIra.withdrawal.findIndex(n => n > 0) == -1) ? 1000 : retire.tradAccts.tradIra.withdrawal.findIndex(n => n > 0),(retire.tradAccts.tradIra.rmd.findIndex(n => n > 0) == -1) ? 1000 : retire.tradAccts.tradIra.rmd.findIndex(n => n > 0))])) + "</span>."}</p>`);
     }
   }
   if (retire.rothAccts) {
     if (retire.rothAccts.rothEca) {
-      $('#results').append(`<p><h4>Roth Employee Contribution Accounts</h4></p>`);
+      $('#results').append(`<p><h4>Roth Employee Contribution Accounts</h4>This account category may include a Roth 401k, Roth 403b, Roth 457b, or a Roth TSP amongst other similar accounts. The current total amount in holding for all of these accounts is <span class="reportDollar">${dollarFormat.format(Math.round(demographics.rothAccts.currentVal_rothAccts))}</span>. Your employer currently provides a matching contribution of <span class="reportDollar">${dollarFormat.format(Math.round(demographics.rothAccts.empContr_rothAccts))}</span> annually. You plan to contribute <span class="reportDollar">${dollarFormat.format(Math.round(demographics.rothAccts.annContr_rothAccts))}</span> annually. ${retire.retAge < 50 ? "" : "You do " + (demographics.rothAccts.catchUpContr_rothAccts == false ? "not" : "") + ' plan to make additional "catch up" contributions after the age of 50.'} You plan to stop contributing to these accounts at the age of <span class="reportAge">${demographics.rothAccts.endAgeContr_rothAccts}</span> in <strong>${new Date().getFullYear() + (demographics.rothAccts.endAgeContr_rothAccts - age)}</strong>. ${retire.retAge == false ? "" : "You should first draw from this account in <strong>" + retire.years.time.year[retire.rothAccts.rothEca.withdrawal.findIndex(n => n > 0)] + '</strong>, when it will be worth <span class="reportDollar">' + dollarFormat.format(Math.round(retire.rothAccts.rothEca.beginValue[Math.min(retire.rothAccts.rothEca.withdrawal.findIndex(n => n > 0))])) + "</span>."}</p>`);
     }
     if (retire.rothAccts.rothIra) {
-      $('#results').append(`<p><h4>Roth IRA</h4></p>`);
+      $('#results').append(`<p><h4>Roth IRA</h4>The current total amount in holding for all of these accounts is <span class="reportDollar">${dollarFormat.format(Math.round(demographics.rothIra.currentVal_rothIra))}</span>. You plan to contribute ${Math.round(demographics.rothIra.annContr_rothIra) == 6000 ? "the maximum amount of" : ""} <span class="reportDollar">${dollarFormat.format(Math.round(demographics.rothIra.annContr_rothIra))}</span> annually. ${retire.retAge < 50 ? "" : "You do " + (demographics.rothIra.catchUpContr_rothIra == false ? "not" : "") + ' plan to make additional "catch up" contributions after the age of 50.'} You plan to stop contributing to these accounts at the age of <span class="reportAge">${demographics.rothIra.endAgeContr_rothIra}</span> in <strong>${new Date().getFullYear() + (demographics.rothIra.endAgeContr_rothIra - age)}</strong>. ${retire.retAge == false ? "" : "You should first draw from this account in <strong>" + retire.years.time.year[retire.rothAccts.rothIra.withdrawal.findIndex(n => n > 0)] + '</strong>, when it will be worth <span class="reportDollar">' + dollarFormat.format(Math.round(retire.rothAccts.rothIra.beginValue[Math.min(retire.rothAccts.rothIra.withdrawal.findIndex(n => n > 0))])) + "</span>."}</p>`);
     }
   }
 
-  $('#results').append(`<p><h3>Assumptions & Methodology</h3></p>`);
+  $('#results').append(`<p><h3>Assumptions & Methodology</h3> <span id="methods">A model of this complexity is built on a variety of assumptions and numerous processes. Some of the most important and noteworthy of these design choices are presented for your information below:
+    <ul>
+      <li>All investments (to exclude savings accounts, and the income sources) grow at a rate of ${percentFormat.format(growthRate.sp500)}, which is the average annual growth rate for the S&P 500 between 2000 - 2019. This growth rate is applied through the age of 65, after which it is reduced to the average US inflation rate of ${percentFormat.format(growthRate.inflation)}. This reduction represents a transition from an aggressive portfolio to a conservative approach in retirement.</li>
+      <li>ClockOut bases its estimates for how long you will live based on your birthday. For example, if you were born in 1970, then you would have a life expectancy of 67 years as a male, and 75 years as a female, with a standard deviation of 8 years for men, and 9 years for women. ClockOut applies 2 standard deviations to your age, which will ensure that adequate funds are available for 95% of those who use this tool.
+      <li>For accounts from the Investment Category, ClockOut employs the following process for accruing and expensing funds:
+        <ol>
+          <li>Record withdrawals and Required Minimum Distributions</li>
+          <li>The above deductions are assumed to happen at a fixed, monthly rate, so standard growth rates are accrued for those deductions, but at a reduced fraction of 5/12</li>
+          <li>The overall growth rate is applied to the principal</li>
+          <li>Personal and Employer contributions are accrued</li>
+          <li>The reduced (5/12) growth rate is applied to the contributions</li>
+          <li>Catch Up Contributions are accrued</li>
+          <li>The reduced (5/12) growth rate is applied to the Catch Up contributions</li>
+        </ol>
+      </li>
+      <li>In order to maximize your investments and minimize your tax burden, ClockOut processes your accounts in the following sequence: 
+        <ol>
+          <li>Income Accounts (Social Security, Pensions, Disability, Retirement Employment, etc)</li>
+          <li>Savings Accounts/Money Markets - these have the lowest interest rates and are drawndown as soon as possible</li>
+          <li>Investment/Brokerage Accounts - since these accounts do not receive preferential tax treatment, they are drawndown before your other accounts</li>
+          <li>Traditional Employee Contribution Accounts - These accounts are drawndown next because they are more restrictive than their Roth equivalents, they are generally provided by an employer and may provide few investment options, and they include Required Minimum Distributions beginning at age of 72</li>
+          <li>Simple 401k and Simple IRA - These accounts are very similar to the Traditional Employee Contribution Accounts and so receive the same treatment within ClockOut's algorithms</li>
+          <li>Traditional IRA - This account is very similar to the Traditional Employee Contribution Accounts and so receive the same treatment within ClockOut's algorithms</li>
+          <li>Roth Employee Contribution Accounts and Roth IRA - With their lower tax rates and more flexible rules for withdrawals, these accounts are held while you drawdown your traditional accounts. Roth accounts do not have Required Minimum Distributions, and since you have already paid taxes on the contributions, ClockOut is designed to draw from those contributions early if it will help you retire sooner.</li>
+        </ol>
+      </li>
+      <li>At present, ClockOut cannot reinvest RMDs that exceed your annual income needs, and so those funds fall out of the system. This bug will not affect the majority of users and will be fixed in a future upgrade.</li>
+    </ul>
+  </p>
+  <p><strong>Disclaimer:</strong> ClockOut does not guarantee any of the results it provides. It's an experimental tool, and any information it provides is only for planning purposes. ClockOut does not collect your personal information.</p></span>`);
 
-  $('#results').append(`<p><strong>Disclaimer:</strong> ClockOut does not guarantee any of the results it provides. It's an experimental tool, and any information it provides is only for planning purposes. ClockOut does not collect your personal information.</p>`);
-
-  $('#results').append(`<div class="tableContainer"><table class="spreadsheet" id="resultsTable"></table></div>`);
+  $('#tableView').append(`<div class="tableContainer"><table class="spreadsheet" id="resultsTable"></table></div>`);
   let keys = ['years','income','invAccts','tradAccts','rothAccts','totals'];
   let subKeys = ['time','socialSecurity','genPension','fersPension','annuities','vaDisability','ssiDisability','otherDisability','retireSal','rents','otherBen','saveAcct','investmentAcct','tradEca','simple401','simpleIra','tradIra','rothEca','rothIra','subTotals'];
   let tubKeys = ['remaining','required','taxes','wages','endValue','withdrawal','rmd','principal','beginValue','annual','age','year'];
