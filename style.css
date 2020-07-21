@@ -1,6 +1,6 @@
 body {
+  font-family: 'Lato', sans-serif;
   font-family: 'PT Sans', sans-serif;
-  font-family: 'Roboto', sans-serif;
   margin:auto;
   /* background-color: azure; */
   /* background-color: #FFEAEC; */
@@ -30,8 +30,6 @@ h4 {margin: 3px;}
 }
 
 .workSpace {
-  /* border: 1px solid #545E56; */
-  /* border-radius: 3px; */
   max-width: 100%;
   margin: 50px 10%;
   min-height: 450px;
@@ -305,6 +303,31 @@ input.ecaCalculator {
 }
 
 /* Results Narrative */
+.header {
+  max-width: 100%;
+  margin: 0 10% -50px 10%;
+  height: 50px;
+  padding-bottom: 20px;
+  background-color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  line-height: 60px;
+}
+
+.header button:first-of-type {
+  margin-left: 10%;
+}
+
+.header button {
+  margin-right: 1%;
+}
+
+#logoSmall {
+  float: right;
+  margin-right: 3%;
+}
+
 .intro {
   font-weight: bold;
   font-size: x-large;
@@ -329,6 +352,10 @@ input.ecaCalculator {
 
 #methods {
   font-size: small;
+}
+
+#tableView {
+  display: none;
 }
 
 /* Results Table Styles */

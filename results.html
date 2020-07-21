@@ -6,13 +6,19 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="style.css" type="text/css" />
   <link href="https://fonts.googleapis.com/css?family=PT+Sans|Lato|Roboto&display=swap" rel="stylesheet">
-  <title>Clockout: When can you retire?</title>
+  <title>Clockout: Retirement Report</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
+  <div class="header">
+    <button onclick="goBack()">Update Values</button>
+    <button onclick="clearValues();">Clear Values</button>
+    <button onclick="reportToggle();" id="reportToggle">Table View</button>
+    <button disabled>Print View</button>
+    <img src="/images/ClockOut-Logo-Blue.png" width="20%" alt="" id="logoSmall">
+  </div>
   <div class="resultSpace" id="results">
   </div>
-  <button onclick="localStorage.clear();">Clear Storage</button>
   <div class="resultSpace" id="tableView">
   </div>
 

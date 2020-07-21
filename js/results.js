@@ -27,7 +27,7 @@ var results = () => {
         $('#results').prepend(`<p><span class="intro">Right On!</span> You're on track to retire at the age of <span class="reportAge">${retire.retAge}</span> in <span class="reportAge">${new Date().getFullYear() + (retire.retAge - age)}</span>. </p>`);
         break;
       case (retire.retAge > userRetAge):
-        $('#results').prepend(`<p><span class="intro">Almost There!</span> You aren't saving quite enough to retire by <span class="reportAge">${userRetAge}</span>. Based on the information you provided, your earliest retirement age is <span class="reportAge">${retire.retAge}</span> in <span class="reportAge">${new Date().getFullYear() + (retire.retAge - age)}</span>. </p>`);
+        $('#results').prepend(`<p><span class="intro">Almost There!</span> You aren't saving quite enough to retire by <span class="reportAge">${userRetAge}</span>, but you are saving enough to retire as early as the age of <span class="reportAge">${retire.retAge}</span> in <span class="reportAge">${new Date().getFullYear() + (retire.retAge - age)}</span>. </p>`);
         break; 
     }
   };
@@ -96,8 +96,8 @@ var results = () => {
   }
   $('#results').append(`<h3>Financial Drawdown</h3><p>ClockOut has determined how best for you to withdraw your money in retirement to make it last as long as possible while complying with the laws of the United States. The graph below shows all of your accounts and when you will be withdrawing from them.</p>`);
   $('#results').append(`<div class="drawdownTable"><table id="drawdownTable" cellspacing="0" cellpadding="0" style="margin: 0px;"></table></div>`);
-  $('#results').append(`<span class="tableView"><p>Click here to review the detailed table of your investments.<button>Detailed Table</button><p></span>`);
-  $('#results').append(`<p>Your retirement income and investments include:</p>`);
+  $('#results').append(`<span class="tableView"><p>Click the 'Table View' button at the top to review the year by year details your account values and retirement withdrawals.<p></span>`);
+  $('#results').append(`<h3>Your retirement income and investments include:</h3>`);
 
   if (retire.income) {
     if (retire.income.socialSecurity) {
@@ -147,7 +147,6 @@ var results = () => {
     if (retire.tradAccts.simple401) {
       $('#results').append(`<p><h4>Simple 401k</h4>The current total amount in holding for all of these accounts is <span class="reportDollar">${dollarFormat.format(Math.round(demographics.simple401.currentVal_simple401))}</span>. Your employer currently provides a matching contribution of <span class="reportDollar">${dollarFormat.format(Math.round(demographics.simple401.empContr_simple401))}</span> annually. you are contributing <span class="reportDollar">${dollarFormat.format(Math.round(demographics.simple401.annContr_simple401))}</span> annually. ${retire.retAge < 50 ? "" : "You do " + (demographics.simple401.catchUpContr_simple401 == false ? "not" : "") + ' plan to make additional "catch up" contributions after the age of 50.'} You plan to stop contributing to these accounts at the age of <span class="reportAge">${demographics.simple401.endAgeContr_simple401}</span> in <strong>${new Date().getFullYear() + (demographics.simple401.endAgeContr_simple401 - age)}</strong>. ${retire.retAge == false ? "" : "You should first draw from this account in <strong>" + retire.years.time.year[retire.tradAccts.simple401.withdrawal.findIndex(n => n > 0)] + '</strong>, when it will be worth <span class="reportDollar">' + dollarFormat.format(Math.round(retire.tradAccts.simple401.beginValue[Math.min((retire.tradAccts.simple401.withdrawal.findIndex(n => n > 0) == -1) ? 1000: retire.tradAccts.simple401.withdrawal.findIndex(n => n > 0),(retire.tradAccts.simple401.rmd.findIndex(n => n > 0) == -1 ) ? 1000 : retire.tradAccts.simple401.rmd.findIndex(n => n > 0))])) + "</span>."}</p>`);
     }
-    console.log(retire.tradAccts.simple401.rmd.findIndex(n => n > 0));
     if (retire.tradAccts.simpleIra) {
       $('#results').append(`<p><h4>Simple IRA</h4>The current total amount in holding for all of these accounts is <span class="reportDollar">${dollarFormat.format(Math.round(demographics.simpleIra.currentVal_simpleIra))}</span>. Your employer currently provides a matching contribution of <span class="reportDollar">${dollarFormat.format(Math.round(demographics.simpleIra.empContr_simpleIra))}</span> annually. you are contributing <span class="reportDollar">${dollarFormat.format(Math.round(demographics.simpleIra.annContr_simpleIra))}</span> annually. ${retire.retAge < 50 ? "" : "You do " + (demographics.simpleIra.catchUpContr_simpleIra == false ? "not" : "") + ' plan to make additional "catch up" contributions after the age of 50.'} You plan to stop contributing to these accounts at the age of <span class="reportAge">${demographics.simpleIra.endAgeContr_simpleIra}</span> in <strong>${new Date().getFullYear() + (demographics.simpleIra.endAgeContr_simpleIra - age)}</strong>. ${retire.retAge == false ? "" : "You should first draw from this account in <strong>" + retire.years.time.year[retire.tradAccts.simpleIra.withdrawal.findIndex(n => n > 0)] + '</strong>, when it will be worth <span class="reportDollar">' + dollarFormat.format(Math.round(retire.tradAccts.simpleIra.beginValue[Math.min((retire.tradAccts.simpleIra.withdrawal.findIndex(n => n > 0) == -1) ? 1000 : retire.tradAccts.simpleIra.withdrawal.findIndex(n => n > 0),(retire.tradAccts.simpleIra.rmd.findIndex(n => n > 0) == -1) ? 1000 : retire.tradAccts.simpleIra.rmd.findIndex(n => n > 0))])) + "</span>."}</p>`);
     }
@@ -271,4 +270,26 @@ var results = () => {
   });
 }
 results();
+
+window.goBack = () => {
+  window.history.back();
+}
+
+window.clearValues = () => {
+  if (confirm("This will delete all the data you have entered. Are you sure you want to proceed?") == true) {
+    localStorage.clear();
+    window.history.back();
+  }
+}
+
+window.reportToggle = () => {
+  $("#results").toggle();
+  $("#tableView").toggle();
+  if ($("#tableView").is(':visible')) {
+    document.getElementById('reportToggle').innerHTML = 'Report View';
+  } else {
+    document.getElementById('reportToggle').innerHTML = 'Table View';
+  }
+}
+
 });

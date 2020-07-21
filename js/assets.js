@@ -20,10 +20,6 @@ var calcAge = () => {
     localStorage.cycle = le - age;
     localStorage.age = age;
     localStorage.retAge = parseInt(data.demographics.retAge);
-  } else {
-    window.cycle = le - age;
-    Window.age = age;
-    window.retAge = parseInt(data.demographics.retAge);
   }
   return {
     currentYr: new Date().getFullYear(),
@@ -883,21 +879,17 @@ var income = () => {
   let allZeroes = true;
   retire.totals.subTotals.remaining.forEach((item,i,arr)=>{
     if (i >= (ages.retire - ages.age) && arr[i] > 0) {
-      console.log(`${i} >= (${ages.retire} - ${ages.age}) && ${arr[i]} > 0`);
       allZeroes = false;
     }
   });
-  console.log(allZeroes);
 
     /* IF REMAINING < 0, MOVE BALANCE TO AN INVESTMENT ACCOUNT */
     switch(true) {
       case (allZeroes == true && zeroFlag == 0 && ssiFlag == 0):
-        console.log(`${ages.retire} All0=T, 0Flag=F, ssiFlag=F ${ssiAge}`);
         zeroFlag = 1;
         portfolio(ages.retire -= 1,ssiAge);
         break;
       case (allZeroes == true && zeroFlag == 1 && ssiFlag == 0): 
-        console.log(`${ages.retire} All0=T, 0Flag=T, ssiFlag=F ${ssiAge}`);
         if (ages.retire > ages.age) {
           if (loopFlag == 1) {
             break;
@@ -907,15 +899,12 @@ var income = () => {
         };
         break;
       case (allZeroes == true && zeroFlag == 0 && ssiFlag == 1):
-        console.log(`${ages.retire} All0=T, 0Flag=F, ssiFlag=T ${ssiAge}`);
         portFlag = 1;
         break;
       case (allZeroes == true && zeroFlag == 1 && ssiFlag == 1):
-        console.log(`${ages.retire} All0=T, 0Flag=T, ssiFlag=T ${ssiAge}`);
         portFlag = 1;
         break;
       case (allZeroes == false && zeroFlag == 0 && ssiFlag == 0):
-        console.log(`${ages.retire} All0=F, 0Flag=F, ssiFlag=F ${ssiAge}`);
         if (ages.retire < 70) {
             portfolio(ages.retire += 1);
           } else {
@@ -924,7 +913,6 @@ var income = () => {
           };
         break;
       case (allZeroes == false && zeroFlag == 1 && ssiFlag == 0):
-        console.log(`${ages.retire} All0=F, 0Flag=T, ssiFlag=F ${ssiAge}`);
         if (ssiAge != null) {
           ssiFlag = 1;
           portfolio(ages.retire,ssiAge += 1);
@@ -934,20 +922,16 @@ var income = () => {
         }
         break;
       case (allZeroes == false && zeroFlag == 0 && ssiFlag == 1):
-        console.log(`${ages.retire} All0=F, 0Flag=F, ssiFlag=T ${ssiAge}`);
         if (ssiAge < 70) {
           portfolio(ages.retire,ssiAge +=1);
         } else if (ssiAge === 70 && ages.retire < ages.death-1) {
-          console.log(`${ages.death} is greater than ${ages.retire}`);
           portfolio(ages.retire +=1, ssiAge < 70 ? ssiAge +=1 : 62);
         } else if (ssiAge === 70 && ages.retire === ages.death) {
-          console.log(`It ends here, ${ages.death} & ${ages.retire}`);
           portFlag = 1;
           break;
         };
         break;
       case (allZeroes == false && zeroFlag == 1 && ssiFlag == 1):
-        console.log(`${ages.retire} All0=F, 0Flag=T, ssiFlag=T ${ssiAge}`);
         if (ssiAge < 70) {
           portfolio(ages.retire,ssiAge += 1);
         } else if (ssiAge == 70) {
@@ -956,7 +940,6 @@ var income = () => {
         break;
     }
     (ages.retire +1) == ages.death ? retire.retAge = false : retire.retAge = ages.retire;
-    // allZeroes == true ? retire.retAge = ages.retire : retire.retAge = false;
   }
   if (portFlag === 0) {portfolio();}
 
@@ -967,8 +950,7 @@ var income = () => {
     window.retire;
     window.ssiAge;
   }
-  console.log(retire);
-  // results();
+  // console.log(retire);
 };
 
 export {income, calcAge};
