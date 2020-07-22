@@ -282,6 +282,11 @@ window.clearValues = () => {
   }
 }
 
+window.printReport = () => {
+  $("#results").show();
+  window.print();
+}
+
 window.reportToggle = () => {
   $("#results").toggle();
   $("#tableView").toggle();
@@ -290,6 +295,10 @@ window.reportToggle = () => {
   } else {
     document.getElementById('reportToggle').innerHTML = 'Table View';
   }
+}
+
+window.sendEmail = () => {
+  window.open(`mailto:jeff.bartelli@zoho.com?subject=I'm Having Troubles with ClockOut&body=Here's a description of the problems I'm having...`);
 }
 
 });

@@ -1,0 +1,49 @@
+.header {
+  margin: 0 auto;
+  width: 80%;
+  text-align: center;
+  padding-bottom: 0;
+  height: unset;
+  position: relative;
+  top: 0px;
+}
+
+.header img {
+  vertical-align: middle;
+}
+
+.header button {
+  display: none;
+}
+
+body {
+  -webkit-print-color-adjust:exact;
+  background-color: unset;
+}
+
+.resultSpace {
+  background-color: unset;
+}
+
+#reportTitle {
+  display: inline;
+}
+
+#logoSmall {
+  display: inline;
+  float: unset;
+  margin-right: 0;
+}
+
+.drawdownTable, .tableContainer {
+  height: 100%;
+  overflow: unset;
+}
+
+#tableView {
+  display: table;
+  transform:rotate(90deg);
+  transform-origin: bottom left;
+  margin-top: -60%;
+  page-break-before: always;
+}

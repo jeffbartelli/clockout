@@ -21,6 +21,8 @@ p {margin: 3px;}
 
 h4 {margin: 3px;}
 
+h5 {text-align: center;}
+
 ::placeholder {color: darkgrey;}
 
 /* index.html */
@@ -326,6 +328,10 @@ input.ecaCalculator {
 #logoSmall {
   float: right;
   margin-right: 3%;
+}
+
+#reportTitle {
+  display: none;
 }
 
 .intro {
