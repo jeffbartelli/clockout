@@ -66,6 +66,8 @@ let accountTypes = () => {
 }
 
 var demographics = () => {
+  $('[id^=endAgeContr]').val($('#retAge').val());
+  $('#beginAge_retireSal').attr({"min" : $('#retAge').val()});
   let inputs = $("#personalDetails :input");
   let details = {};
   for (let i=0;i<inputs.length;i++) {

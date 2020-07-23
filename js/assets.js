@@ -31,6 +31,7 @@ var calcAge = () => {
 }
 
 var income = () => {
+  localStorage.removeItem('retireData');
   let ages = calcAge();
   let data = harvest();
   let investGrowth = (i) => {return i >= (65 - ages.age) ? 1+growthRate.inflation : 1+growthRate.sp500};
@@ -327,7 +328,7 @@ var income = () => {
       /* #. Check Retirement Age */
       if (i < (ages.retire - ages.age)) {
         /* 4. Push Begin Value */
-        retire.invAccts.investmentAcct.beginValue.push(0);
+        retire.invAccts.investmentAcct.beginValue.push(currentVal_investAcct);
         retire.invAccts.investmentAcct.withdrawal.push(0);
       } else {
         // /* #. Collect surplus from previous year */
@@ -363,11 +364,12 @@ var income = () => {
         currentVal_investAcct += (annContr_investAcct/2.4 * (investGrowth(i)-1));
       }
       /* 11. Push End Value */
-      if (i >= (ages.retire - ages.age)) {
-        retire.invAccts.investmentAcct.endValue.push(currentVal_investAcct);
-      } else {
-        retire.invAccts.investmentAcct.endValue.push(0);
-      }
+      // if (i >= (ages.retire - ages.age)) {
+      //   retire.invAccts.investmentAcct.endValue.push(currentVal_investAcct);
+      // } else {
+      //   retire.invAccts.investmentAcct.endValue.push(currentVal_investAcct);
+      // }
+      retire.invAccts.investmentAcct.endValue.push(currentVal_investAcct);
     }
   }
   
@@ -493,7 +495,7 @@ var income = () => {
           /* 9. RMD Distribution */
           var rmdSimple401 = currentVal_simple401 / rmd[ages.age + i];
           /* 10. Push RMD Value */
-          retire.tradAccts.simple401.rmd.push(rmdTrad);
+          retire.tradAccts.simple401.rmd.push(rmdSimple401);
           currentVal_simple401 -= rmdSimple401;
           retire.totals.subTotals.remaining[i] -= rmdSimple401;
           /* 11. Push Additional Withdrawal Value */
@@ -795,7 +797,7 @@ var income = () => {
     /* 1. If Account == Active */
   if(data.rothIra) {
     /* 2. Create records in retire object */
-    retire.rothAccts.rothIra = {principal: [], beginValue: [], contribution: [], growth: [], withdrawal: [], endValue: []};
+    retire.rothAccts.rothIra = {principal: [], beginValue: [], withdrawal: [], endValue: []};
     /* 3. Create internal variables from data (data.js) */
     var contrVal_rothIra = data.rothIra.contrVal_rothIra;
     var currentVal_rothIra = data.rothIra.currentVal_rothIra;
@@ -805,8 +807,6 @@ var income = () => {
     for (let i=0; i<ages.cycle; i++) {
       /* 4. Push Begin Value for Total and Contributions */
       retire.rothAccts.rothIra.beginValue.push(currentVal_rothIra);
-      retire.rothAccts.rothIra.contribution.push(0);
-      retire.rothAccts.rothIra.growth.push(0);
       /* 5. Determine Withdrawal Amount */
       if (retire.totals.subTotals.remaining[i] > 0) {
         /* 6. Age threshold: Withdraw against contributions before age 59 */
@@ -842,26 +842,20 @@ var income = () => {
       if (!currentVal_rothIra == 0) {
         /* 11. Apply (5/12)% Growth Rate for Withdrawal Amount */
         currentVal_rothIra += (retire.rothAccts.rothIra.withdrawal[i]/2.4 * (investGrowth(i)-1));
-        // retire.rothAccts.rothIra.growth[i] += (retire.rothAccts.rothIra.withdrawal[i]/2.4 * (investGrowth(i)-1));
         /* 12. Apply Growth Rate */
         currentVal_rothIra *= investGrowth(i);
-        // retire.rothAccts.rothIra.growth[i] += currentVal_rothIra * (investGrowth(i)-1);
         /* 13. Accrue Contributions */
         if (i <= (endAgeContr_rothIra - ages.age)) {
           currentVal_rothIra += annContr_rothIra;
           contrVal_rothIra += annContr_rothIra;
-          retire.rothAccts.rothIra.contribution[i] += annContr_rothIra;
           /* 14. Apply (5/12)% Growth Rate to Contributions */
           currentVal_rothIra += (annContr_rothIra/2.4 * (investGrowth(i)-1));
-          // retire.rothAccts.rothIra.growth[i] += (annContr_rothIra/2.4 * (investGrowth(i)-1));
           /* 15. Accrue Catch Up Contributions */
           if ((catchUpContr_rothIra == true) && (i >= (50 - ages.age))) {
             currentVal_rothIra += 1000;
             contrVal_rothIra += 1000;
-            retire.rothAccts.rothIra.contribution[i] += 1000;
             /* 16. Apply (5/12)% Growth Rate to Catch Up Contributions */
             currentVal_rothIra += (1000/2.4 * (investGrowth(i)-1));
-            // retire.rothAccts.rothIra.growth[i] += (1000/2.4 * (investGrowth(i)-1));
           };
         };
       };
@@ -872,7 +866,6 @@ var income = () => {
       } else {
         retire.rothAccts.rothIra.principal.push(contrVal_rothIra);
       }
-      retire.rothAccts.rothIra.growth[i] += retire.rothAccts.rothIra.endValue[i] - retire.rothAccts.rothIra.beginValue[i];
     }
   }
 

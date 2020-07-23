@@ -1,6 +1,38 @@
 import { dollarFormat, percentFormat } from "./numberFormats.js";
 import { growthRate } from './data.js';
 
+window.goBack = () => {
+  window.history.back();
+}
+
+window.clearValues = () => {
+  if (confirm("This will delete all the data you have entered. Are you sure you want to proceed?") == true) {
+    localStorage.clear();
+    window.history.back();
+  }
+}
+
+window.printReport = () => {
+  $("#results").show();
+  $("#tableView").show();
+  window.print();
+  $("#tableView").hide();
+}
+
+window.reportToggle = () => {
+  $("#results").toggle();
+  $("#tableView").toggle();
+  if ($("#tableView").is(':visible')) {
+    document.getElementById('reportToggle').innerHTML = 'Report View';
+  } else {
+    document.getElementById('reportToggle').innerHTML = 'Table View';
+  }
+}
+
+window.sendEmail = () => {
+  window.open(`mailto:jeff.bartelli@zoho.com?subject=I'm Having Troubles with ClockOut&body=Here's a description of the problems I'm having...`);
+}
+
 document.addEventListener('DOMContentLoaded', function() {
 var results = () => {
   var retire = JSON.parse(localStorage.retireData);
@@ -98,10 +130,22 @@ var results = () => {
   $('#results').append(`<div class="drawdownTable"><table id="drawdownTable" cellspacing="0" cellpadding="0" style="margin: 0px;"></table></div>`);
   $('#results').append(`<span class="tableView"><p>Click the 'Table View' button at the top to review the year by year details your account values and retirement withdrawals.<p></span>`);
   $('#results').append(`<h3>Your retirement income and investments include:</h3>`);
-
+  function ssiPercent () {
+    switch (parseInt(ssiAge)) { 
+      case 62: return 70;
+      case 63: return 76;
+      case 64: return 82;
+      case 65: return 88;
+      case 66: return 94;
+      case 67: return 100;
+      case 68: return 108;
+      case 69: return 116;
+      case 70: return 124;
+    };
+  }
   if (retire.income) {
     if (retire.income.socialSecurity) {
-      $('#results').append(`<p><h4>Social Security</h4> ${(ssiAge == demographics.socialSecurity.beginAge_ssi) ? 'The best age for you to begin receiving Social Security benefits is <span class="reportAge">' + ssiAge + "</span>. " : "Though you had planned to begin Social Security at the age of " + demographics.socialSecurity.beginAge_ssi + ', you would be better served filing for benefits beginning at the age of <span class="reportAge">' + ssiAge + "</span>."} This will maximize your chances of ensuring you have enough funds annually to meet your retirement needs.</p>
+      $('#results').append(`<p><h4>Social Security</h4> ${(ssiAge == demographics.socialSecurity.beginAge_ssi) ? 'The best age for you to begin receiving Social Security benefits is <span class="reportAge">' + ssiAge + "</span>. " : "Though you had planned to begin Social Security at the age of " + demographics.socialSecurity.beginAge_ssi + ', you would be better served filing for benefits beginning at the age of <span class="reportAge">' + ssiAge + "</span>."} Beginning your Social Security benefits at this age will entitle you to payments that equal ${ssiPercent()}% of your benefit. This will maximize your chances of ensuring you have enough funds annually to meet your retirement needs.</p>
       <p>You will need to file with the <a href="https://www.ssa.gov/benefits/forms/" target="_blank">Social Security Administration</a> to begin receiving benefits. <strong>Remember:</strong> you cannot receive this benefit before the age of 62.</p>`);
     }
     if (retire.income.genPension) {
@@ -137,7 +181,7 @@ var results = () => {
       $('#results').append(`<p><h4>Savings & Money Market Accounts</h4>You currently have <span class="reportDollar">${dollarFormat.format(demographics.saveAcct.currentVal_saveAcct)}</span> in your savings/money market/cash deposit accounts, with plans to contribute <span class="reportDollar">${dollarFormat.format(demographics.saveAcct.annContr_saveAcct)}</span> annually until <span class="reportAge">${demographics.saveAcct.endAgeContr_saveAcct}</span>. These accounts will grow at a rate of ${percentFormat.format(demographics.saveAcct.annIntRate_saveAcct)}, which is ${(demographics.saveAcct.annIntRate_saveAcct / 100) > growthRate.inflation ? "more" : "less"} than the approximate inflation rate of ${percentFormat.format(growthRate.inflation)}.</p>`);
     }
     if (retire.invAccts.investmentAcct) {
-      $('#results').append(`<p><h4>Investment/Brokerage Accounts</h4>These investments are currently worth <span class="reportDollar">${dollarFormat.format(demographics.investmentAcct.currentVal_investAcct)}</span>, with ongoing annual contributions estimated at <span class="reportDollar">${dollarFormat.format(demographics.investmentAcct.annContr_investAcct)}</span>. Contributions to these accounts are projected to end in <strong>${new Date().getFullYear() + (retire.retAge - age)}</strong>. You will first beginning drawing from this account in <strong>${retire.years.time.year[retire.invAccts.investmentAcct.withdrawal.findIndex(n => n > 0)]}</strong>, when it will be worth <span class="reportDollar">${dollarFormat.format(Math.round(retire.invAccts.investmentAcct.beginValue[retire.invAccts.investmentAcct.beginValue.findIndex(n => n > 0)]))}</span>.</p>`);
+      $('#results').append(`<p><h4>Investment/Brokerage Accounts</h4>These investments are currently worth <span class="reportDollar">${dollarFormat.format(demographics.investmentAcct.currentVal_investAcct)}</span>, with ongoing annual contributions estimated at <span class="reportDollar">${dollarFormat.format(demographics.investmentAcct.annContr_investAcct)}</span>. Contributions to these accounts are projected to end in <strong>${new Date().getFullYear() + (retire.retAge - age)}</strong>. You will first beginning drawing from this account in <strong>${retire.years.time.year[retire.invAccts.investmentAcct.withdrawal.findIndex(n => n > 0)]}</strong>, when it will be worth <span class="reportDollar">${dollarFormat.format(Math.round(retire.invAccts.investmentAcct.beginValue[retire.invAccts.investmentAcct.withdrawal.findIndex(n => n > 0)]))}</span>.</p>`);
     }
   }
   if (retire.tradAccts) {
@@ -145,10 +189,10 @@ var results = () => {
       $('#results').append(`<p><h4>Traditional Employee Contribution Accounts</h4>This account category may include a 401k, 403b, 457b, TSP, Safe Harbor 401k, or a Single 401k, amongst other similar accounts. The current total amount in holding for all of these accounts is <span class="reportDollar">${dollarFormat.format(Math.round(demographics.tradAccts.currentVal_tradAccts))}</span>. Your employer currently provides a matching contribution of <span class="reportDollar">${dollarFormat.format(Math.round(demographics.tradAccts.empContr_tradAccts))}</span> annually. you are contributing <span class="reportDollar">${dollarFormat.format(Math.round(demographics.tradAccts.annContr_tradAccts))}</span> annually. ${retire.retAge < 50 ? "" : "You do " + (demographics.tradAccts.catchUpContr_tradAccts == false ? "not" : "") + ' plan to make additional "catch up" contributions after the age of 50.'} You plan to stop contributing to these accounts at the age of <span class="reportAge">${demographics.tradAccts.endAgeContr_tradAccts}</span> in <strong>${new Date().getFullYear() + (demographics.tradAccts.endAgeContr_tradAccts - age)}</strong>. ${retire.retAge == false ? "" : "You should first draw from this account in <strong>" + retire.years.time.year[retire.tradAccts.tradEca.withdrawal.findIndex(n => n > 0)] + '</strong>, when it will be worth <span class="reportDollar">' + dollarFormat.format(Math.round(retire.tradAccts.tradEca.beginValue[Math.min((retire.tradAccts.tradEca.withdrawal.findIndex(n => n > 0) == -1) ? 1000 : retire.tradAccts.tradEca.withdrawal.findIndex(n => n > 0),(retire.tradAccts.tradEca.rmd.findIndex(n => n > 0) == -1) ? 1000 : retire.tradAccts.tradEca.rmd.findIndex(n => n > 0) )])) + "</span>."}</p>`);
     }
     if (retire.tradAccts.simple401) {
-      $('#results').append(`<p><h4>Simple 401k</h4>The current total amount in holding for all of these accounts is <span class="reportDollar">${dollarFormat.format(Math.round(demographics.simple401.currentVal_simple401))}</span>. Your employer currently provides a matching contribution of <span class="reportDollar">${dollarFormat.format(Math.round(demographics.simple401.empContr_simple401))}</span> annually. you are contributing <span class="reportDollar">${dollarFormat.format(Math.round(demographics.simple401.annContr_simple401))}</span> annually. ${retire.retAge < 50 ? "" : "You do " + (demographics.simple401.catchUpContr_simple401 == false ? "not" : "") + ' plan to make additional "catch up" contributions after the age of 50.'} You plan to stop contributing to these accounts at the age of <span class="reportAge">${demographics.simple401.endAgeContr_simple401}</span> in <strong>${new Date().getFullYear() + (demographics.simple401.endAgeContr_simple401 - age)}</strong>. ${retire.retAge == false ? "" : "You should first draw from this account in <strong>" + retire.years.time.year[retire.tradAccts.simple401.withdrawal.findIndex(n => n > 0)] + '</strong>, when it will be worth <span class="reportDollar">' + dollarFormat.format(Math.round(retire.tradAccts.simple401.beginValue[Math.min((retire.tradAccts.simple401.withdrawal.findIndex(n => n > 0) == -1) ? 1000: retire.tradAccts.simple401.withdrawal.findIndex(n => n > 0),(retire.tradAccts.simple401.rmd.findIndex(n => n > 0) == -1 ) ? 1000 : retire.tradAccts.simple401.rmd.findIndex(n => n > 0))])) + "</span>."}</p>`);
+      $('#results').append(`<p><h4>Simple 401k</h4>The current total amount in holding for all of these accounts is <span class="reportDollar">${dollarFormat.format(Math.round(demographics.simple401.currentVal_simple401))}</span>. Your employer currently provides a matching contribution of <span class="reportDollar">${dollarFormat.format(Math.round(demographics.simple401.empContr_simple401))}</span> annually. you are contributing <span class="reportDollar">${dollarFormat.format(Math.round(demographics.simple401.annContr_simple401))}</span> annually. ${retire.retAge < 50 ? "" : "You do " + (demographics.simple401.catchUpContr_simple401 == false ? "not" : "") + ' plan to make additional "catch up" contributions after the age of 50.'} You plan to stop contributing to these accounts at the age of <span class="reportAge">${demographics.simple401.endAgeContr_simple401}</span> in <strong>${new Date().getFullYear() + (demographics.simple401.endAgeContr_simple401 - age)}</strong>. ${retire.retAge == false ? "" : "You should first draw from this account in <strong>" + (retire.tradAccts.simple401.withdrawal.findIndex(n => n > 0) == -1 ? retire.years.time.year[retire.tradAccts.simple401.rmd.findIndex(n => n > 0)] : retire.years.time.year[retire.tradAccts.simple401.withdrawal.findIndex(n => n > 0)]) + '</strong>, when it will be worth <span class="reportDollar">' + dollarFormat.format(Math.round(retire.tradAccts.simple401.beginValue[Math.min((retire.tradAccts.simple401.withdrawal.findIndex(n => n > 0) == -1) ? 1000: retire.tradAccts.simple401.withdrawal.findIndex(n => n > 0),(retire.tradAccts.simple401.rmd.findIndex(n => n > 0) == -1 ) ? 1000 : retire.tradAccts.simple401.rmd.findIndex(n => n > 0))])) + "</span>."}</p>`);
     }
     if (retire.tradAccts.simpleIra) {
-      $('#results').append(`<p><h4>Simple IRA</h4>The current total amount in holding for all of these accounts is <span class="reportDollar">${dollarFormat.format(Math.round(demographics.simpleIra.currentVal_simpleIra))}</span>. Your employer currently provides a matching contribution of <span class="reportDollar">${dollarFormat.format(Math.round(demographics.simpleIra.empContr_simpleIra))}</span> annually. you are contributing <span class="reportDollar">${dollarFormat.format(Math.round(demographics.simpleIra.annContr_simpleIra))}</span> annually. ${retire.retAge < 50 ? "" : "You do " + (demographics.simpleIra.catchUpContr_simpleIra == false ? "not" : "") + ' plan to make additional "catch up" contributions after the age of 50.'} You plan to stop contributing to these accounts at the age of <span class="reportAge">${demographics.simpleIra.endAgeContr_simpleIra}</span> in <strong>${new Date().getFullYear() + (demographics.simpleIra.endAgeContr_simpleIra - age)}</strong>. ${retire.retAge == false ? "" : "You should first draw from this account in <strong>" + retire.years.time.year[retire.tradAccts.simpleIra.withdrawal.findIndex(n => n > 0)] + '</strong>, when it will be worth <span class="reportDollar">' + dollarFormat.format(Math.round(retire.tradAccts.simpleIra.beginValue[Math.min((retire.tradAccts.simpleIra.withdrawal.findIndex(n => n > 0) == -1) ? 1000 : retire.tradAccts.simpleIra.withdrawal.findIndex(n => n > 0),(retire.tradAccts.simpleIra.rmd.findIndex(n => n > 0) == -1) ? 1000 : retire.tradAccts.simpleIra.rmd.findIndex(n => n > 0))])) + "</span>."}</p>`);
+      $('#results').append(`<p><h4>Simple IRA</h4>The current total amount in holding for all of these accounts is <span class="reportDollar">${dollarFormat.format(Math.round(demographics.simpleIra.currentVal_simpleIra))}</span>. Your employer currently provides a matching contribution of <span class="reportDollar">${dollarFormat.format(Math.round(demographics.simpleIra.empContr_simpleIra))}</span> annually. you are contributing <span class="reportDollar">${dollarFormat.format(Math.round(demographics.simpleIra.annContr_simpleIra))}</span> annually. ${retire.retAge < 50 ? "" : "You do " + (demographics.simpleIra.catchUpContr_simpleIra == false ? "not" : "") + ' plan to make additional "catch up" contributions after the age of 50.'} You plan to stop contributing to these accounts at the age of <span class="reportAge">${demographics.simpleIra.endAgeContr_simpleIra}</span> in <strong>${new Date().getFullYear() + (demographics.simpleIra.endAgeContr_simpleIra - age)}</strong>. ${retire.retAge == false ? "" : "You should first draw from this account in <strong>" + (retire.tradAccts.simpleIra.withdrawal.findIndex(n => n > 0) == -1 ? retire.years.time.year[retire.tradAccts.simpleIra.rmd.findIndex(n => n > 0)] : retire.years.time.year[retire.tradAccts.simpleIra.withdrawal.findIndex(n => n > 0)]) + '</strong>, when it will be worth <span class="reportDollar">' + dollarFormat.format(Math.round(retire.tradAccts.simpleIra.beginValue[Math.min((retire.tradAccts.simpleIra.withdrawal.findIndex(n => n > 0) == -1) ? 1000 : retire.tradAccts.simpleIra.withdrawal.findIndex(n => n > 0),(retire.tradAccts.simpleIra.rmd.findIndex(n => n > 0) == -1) ? 1000 : retire.tradAccts.simpleIra.rmd.findIndex(n => n > 0))])) + "</span>."}</p>`);
     }
     if (retire.tradAccts.tradIra) {
       $('#results').append(`<p><h4>Traditional IRA</h4>The current total amount in holding for all of your traditional IRAs is <span class="reportDollar">${dollarFormat.format(Math.round(demographics.tradIra.currentVal_tradIra))}</span>. Your employer currently provides a matching contribution of <span class="reportDollar">${dollarFormat.format(Math.round(demographics.tradIra.empContr_tradIra))}</span> annually. You plan to contribute ${Math.round(demographics.tradIra.annContr_tradIra) == 6000 ? "the maximum amount of" : ""} <span class="reportDollar">${dollarFormat.format(Math.round(demographics.tradIra.annContr_tradIra))}</span> annually. ${retire.retAge < 50 ? "" : "You do " + (demographics.tradIra.catchUpContr_tradIra == false ? "not" : "") + ' plan to make additional "catch up" contributions after the age of 50.'} You plan to stop contributing to these accounts at the age of <span class="reportAge">${demographics.tradIra.endAgeContr_tradIra}</span> in <strong>${new Date().getFullYear() + (demographics.tradIra.endAgeContr_tradIra - age)}</strong>. ${retire.retAge == false ? "" : "You should first draw from this account in <strong>" + retire.years.time.year[retire.tradAccts.tradIra.withdrawal.findIndex(n => n > 0)] + '</strong>, when it will be worth <span class="reportDollar">' + dollarFormat.format(Math.round(retire.tradAccts.tradIra.beginValue[Math.min((retire.tradAccts.tradIra.withdrawal.findIndex(n => n > 0) == -1) ? 1000 : retire.tradAccts.tradIra.withdrawal.findIndex(n => n > 0),(retire.tradAccts.tradIra.rmd.findIndex(n => n > 0) == -1) ? 1000 : retire.tradAccts.tradIra.rmd.findIndex(n => n > 0))])) + "</span>."}</p>`);
@@ -270,35 +314,4 @@ var results = () => {
   });
 }
 results();
-
-window.goBack = () => {
-  window.history.back();
-}
-
-window.clearValues = () => {
-  if (confirm("This will delete all the data you have entered. Are you sure you want to proceed?") == true) {
-    localStorage.clear();
-    window.history.back();
-  }
-}
-
-window.printReport = () => {
-  $("#results").show();
-  window.print();
-}
-
-window.reportToggle = () => {
-  $("#results").toggle();
-  $("#tableView").toggle();
-  if ($("#tableView").is(':visible')) {
-    document.getElementById('reportToggle').innerHTML = 'Report View';
-  } else {
-    document.getElementById('reportToggle').innerHTML = 'Table View';
-  }
-}
-
-window.sendEmail = () => {
-  window.open(`mailto:jeff.bartelli@zoho.com?subject=I'm Having Troubles with ClockOut&body=Here's a description of the problems I'm having...`);
-}
-
 });

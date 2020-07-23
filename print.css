@@ -44,6 +44,6 @@ body {
   display: table;
   transform:rotate(90deg);
   transform-origin: bottom left;
-  margin-top: -60%;
+  /* margin-top: -60%; */
   page-break-before: always;
 }

@@ -9,14 +9,13 @@
   <title>Clockout: Retirement Questionaire</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
-<body>
+<body onload="instructionModal();">
   <div class="workSpace" id="survey">
     <div class="tab" id="demographics">
       <div class="survey-header">
         <h4 class="sectionHeader">Personal Details</h4>
       </div>
       <div class="survey-content">
-        <div class="survey-instructions"></div>
         <div id="personalDetails" class="">
           <div class="personalDetails-format">
             <div class="dob">
@@ -30,7 +29,7 @@
                 </select>
               </label></p>
             </div>
-            <div class="married">
+            <!-- <div class="married">
               <p><label for="married" data-title="Anticipated Tax Filing Status in Retirement">Married: <br><select name="married" id="married" class="data" oninput="$(this).removeClass('invalid')">
                   <option value="single" selected>Single</option>
                   <option value="married">Married</option>
@@ -38,7 +37,7 @@
                   <option value="headOfHousehold">Head of Household</option>
                 </select>
               </label></p>
-            </div>
+            </div> -->
             <div class="salary">
               <p><label for="salary" data-title="Current Annual Salary + Bonuses">Current Annual Salary: <br><input type="number" name="salary" placeholder="Current Salary" id="salary" min="0" value="100000" class="data" oninput="$(this).removeClass('invalid')"></label></p>
             </div>
@@ -279,8 +278,8 @@
             <p><input type="number" name="annAmt_retireSal" id="annAmt_retireSal" class="data" placeholder="Salary" oninput="$(this).removeClass('invalid')"></p>
           </div>
           <div class="beginAge_retireSal">
-            <p><label for="beginAge_retireSal">Age when retirement employment begins:</label></p>
-            <p><input type="number" name="beginAge_retireSal" id="beginAge_retireSal" class="data" oninput="$(this).removeClass('invalid')"></p>
+            <p><label for="beginAge_retireSal">Age when retirement employment begins (cannot be lower than your target retirement age):</label></p>
+            <p><input type="number" name="beginAge_retireSal" id="beginAge_retireSal" class="data" oninput="$(this).removeClass('invalid');"></p>
           </div>
           <div class="endAge_retireSal">
             <p><label for="endAge_retireSal">Age when retirement employment ends:</label></p>

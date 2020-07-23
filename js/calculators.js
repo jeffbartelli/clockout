@@ -208,6 +208,10 @@ document.addEventListener('DOMContentLoaded', function() {
     $('#iraModal').toggle();
   });
 
+  $('#instructionModalClose').click(()=>{
+    $('#instructionModal').hide();
+  });
+
   // Calculators
   // Calc for multiplying monthly value by 12
   window.monthlyCalc = (e) => {
