@@ -8,14 +8,19 @@
   <link href="https://fonts.googleapis.com/css?family=PT+Sans|Lato|Roboto&display=swap" rel="stylesheet">
   <title>Clockout: When can you retire?</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    if (localStorage.retireData) {window.location.href = "results.html";} else {console.log('no val');}
+  </script>
 </head>
 <body>
     <p class="logo"><img src="/images/ClockOut-Logo-Blue.png" width="50%" alt=""></p>
-    <h2>The premier tool that can tell you when you can retire</h2>
+    <h2>Know when you can retire</h2>
+    <h3>Are you saving for retirement? If so, ClockOut can help you determine when you can stop saving, and start enjoying the fruits of your labors.</h4><br />
     <div id="surveyLaunch">
       <a href="survey.html">Get Started</a>
     </div>
-    <h5>Warning: ClockOut is not optimized for use on mobile devices and may not function correctly with Internet Explorer 8 or older.</h5>
+    <h5>Warning: ClockOut is not optimized for use on mobile devices and may not function correctly with Internet Explorer 9 or older.</h5>
+    <h5>&#169;2020 Jeff Bartelli Patent Pending</h5>
 
   <script type="module" src="/js/survey.js"></script>
 </body>

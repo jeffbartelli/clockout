@@ -804,6 +804,7 @@ var income = () => {
     var annContr_rothIra = data.rothIra.annContr_rothIra;
     var catchUpContr_rothIra = data.rothIra.catchUpContr_rothIra;
     var endAgeContr_rothIra = (data.rothIra.endAgeContr_rothIra > ages.retire) ? ages.retire : data.rothIra.endAgeContr_rothIra;
+    console.log(`${data.rothIra.endAgeContr_rothIra} & ${ages.retire}`);
     for (let i=0; i<ages.cycle; i++) {
       /* 4. Push Begin Value for Total and Contributions */
       retire.rothAccts.rothIra.beginValue.push(currentVal_rothIra);

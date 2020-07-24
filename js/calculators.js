@@ -237,33 +237,17 @@ document.addEventListener('DOMContentLoaded', function() {
       $('#retSal').val(sum);
     }
     let expenses = {};
+    let expenseTable = 0;
     $('.retSalCalcVals').each(function(index){
       expenses[$(this).attr('id')] = parseInt($(this).val());
     });
+    for (const i in expenses) {
+      if (expenses[i]) {expenseTable = 1;}
+    }
+    localStorage.expenseTable = expenseTable;
     localStorage.expenses = JSON.stringify(expenses);
     $('#retSalCalc').toggle();
     event.preventDefault();
-    document.getElementById('dob').focus();
+    document.getElementById('retAge').focus();
   });
-
-  // var toggle = document.getElementById('retSalCalcClose');
-  // var toggle2 = document.getElementById('calculator');
-  // var $slider = $('#retSalCalc');
-  // console.log($slider[0].classList);
-
-  // toggle.addEventListener('click', function() {
-  //   console.log('triggered button');
-  //   var isOpen = $slider[0].classList.contains('slide-in');
-  //   console.log(isOpen);
-  //   $($slider).attr('class', isOpen ? 'slide-out' : 'slide-in');
-  //   $('#retSalCalc').toggle();
-  // });
-  // toggle2.addEventListener('click', function() {
-  //   console.log('triggered icon');
-  //   var isOpen = $slider[0].classList.contains('slide-in');
-  //   console.log(isOpen);
-  //   $($slider).attr('class', isOpen ? 'slide-out' : 'slide-in');
-  //   $('#retSalCalc').toggle();
-  // });
-
 });

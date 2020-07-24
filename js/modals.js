@@ -42,8 +42,9 @@ $('#survey').append(`<div id="retSalCalc" class="slide-in">
 $('body').append(`
   <div id="instructionModal" class="">
     <div>
-    <h4>Fill in all of the fields on the left. Then select the Income & Benefits and Investment Accounts that apply to you. Enter the required information on each page in the interview. If you have two account within an account type (like two Traditional IRAs for example) then enter the combined data in the provide forms. You should be able to complete the survey and receive your results in less than ten minutes if you have your financial data on hand. An overall report will be provided once you enter your information.</h4>
-    <button id="instructionModalClose">Submit</button>
+    <h4>Fill out your personal details on the left. Then select the Income & Benefits and Investment Accounts that apply to you. Enter the required information on each page in the interview. If you have two accounts within an account type (like two Traditional IRAs for example) then enter the combined data in the provided forms. You should be able to complete the survey and receive your results in less than ten minutes if you have your financial data on hand. An overall report will be provided once you enter your information.</h4>
+    <button id="instructionModalClose">Got It</button>
+    <label class="optOut" for="instructOpt"><input type="checkbox" id="instructOpt" onclick="optOut();"> Do not show this message again</label>
     </div>
   </div>
   `);
@@ -157,8 +158,13 @@ document.addEventListener('DOMContentLoaded', function() {
   iraModal();
 
   window.instructionModal = () => {
-    $('#instructionModal').fadeIn();
+    if (localStorage.optOut === false || localStorage.optOut === undefined) {
+      $('#instructionModal').fadeIn();
+    }
   }
 
+  window.optOut = () => {
+    $('#instructOpt').prop("checked") ? localStorage.optOut = true : localStorage.optOut = false;
+  }
 
 });

@@ -19,12 +19,12 @@
         <div id="personalDetails" class="">
           <div class="personalDetails-format">
             <div class="dob">
-              <p><label for="dob" data-title="Enter your date of birth">Date of Birth: <br><input type="date" name="dob" id="dob" class="data" tabindex="0" oninput="$(this).removeClass('invalid')" value="1982-03-05"></label></p>
+              <p><label for="dob" data-title="Enter your date of birth">Date of Birth: <br><input type="date" name="dob" id="dob" class="data" tabindex="0" oninput="$(this).removeClass('invalid')" value=""></label></p>
             </div>
             <div class="gender">
               <p><label for="gender" data-title="Gender is needed for life expectancy projections">Sex: <br><select name="gender" id="gender" oninput="$(this).removeClass('invalid')" data-title="Gender is needed for life expectancy projections" class="data" >
                   <option value="" selected disabled>--</option>
-                  <option value="male" selected>Male</option>
+                  <option value="male">Male</option>
                   <option value="female">Female</option>
                 </select>
               </label></p>
@@ -39,13 +39,13 @@
               </label></p>
             </div> -->
             <div class="salary">
-              <p><label for="salary" data-title="Current Annual Salary + Bonuses">Current Annual Salary: <br><input type="number" name="salary" placeholder="Current Salary" id="salary" min="0" value="100000" class="data" oninput="$(this).removeClass('invalid')"></label></p>
+              <p><label for="salary" data-title="Current Annual Salary + Bonuses">Current Annual Salary: <br><input type="number" name="salary" placeholder="Current Salary" id="salary" min="0" value="" class="data" oninput="$(this).removeClass('invalid')"></label></p>
             </div>
             <div class="retSal">
-              <p><label for="retSal" data-title="Total Anticipated Annual Retirement Expenses, in Today's Dollars">Annual Retirement Budget: <br><input type="number" name="retSal" placeholder="Retired Budget" id="retSal" class="data" min="0" value="48000" oninput="$(this).removeClass('invalid')"></label><img src="https://img.icons8.com/material-outlined/24/000000/calculator--v2.png" id="calculator" onclick="$('#retSalCalc').toggle();document.getElementById('housing').focus();" title="Total Budget Calculator."/>(Click to build a budget)</p>
+              <p><label for="retSal" data-title="Total Anticipated Annual Retirement Expenses, in Today's Dollars">Annual Retirement Budget: <br><input type="number" name="retSal" placeholder="Retired Budget" id="retSal" class="data" min="0" value="" oninput="$(this).removeClass('invalid')"></label><img src="https://img.icons8.com/material-outlined/24/000000/calculator--v2.png" id="calculator" onclick="$('#retSalCalc').toggle();document.getElementById('housing').focus();" title="Total Budget Calculator."/>(Click to build a budget)</p>
             </div>
             <div class="retAge">
-              <p><label for="retAge" data-title="Target Retirement Age">Target Retirement Age: <br><input type="number" name="retAge" maxlength="2" id="retAge" class="data" placeholder="Age" oninput="$(this).removeClass('invalid')" value="56"></label></p>
+              <p><label for="retAge" data-title="Target Retirement Age">Target Retirement Age: <br><input type="number" name="retAge" maxlength="2" id="retAge" class="data" placeholder="Age" oninput="$(this).removeClass('invalid')" value=""></label></p>
             </div>
             <!-- <div class="retState">
               <p><label for="state" data-title="">Retirement State:</label></p>
