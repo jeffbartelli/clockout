@@ -231,12 +231,13 @@ input.ecaCalculator {
   position: absolute;
   top: 0;
   height: 100%;
+  width: 100%;
   display: none;
 }
 
 #instructionModal div {
   background-color: white;
-  width: 30%;
+  width: 500px;
   height: auto;
   transform: translate(100%, 70%);
   padding: 5px;
