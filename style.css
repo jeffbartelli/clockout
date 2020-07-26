@@ -16,7 +16,7 @@ h2 {
 }
 
 h3 {
-  margin: 3px;
+  margin: 10px 3px 3px 3px;
   text-align: center; 
 }
 
@@ -293,6 +293,10 @@ input.ecaCalculator {
   margin: 0 auto 10px auto;
 }
 
+[data-title] {
+  position: relative;
+}
+
 [data-title]:hover:after {
   opacity: 1;
   transition: all 0.1s ease 0.5s;
@@ -301,13 +305,43 @@ input.ecaCalculator {
 
 [data-title]:after {
   content: attr(data-title);
-  background-color: aliceblue;
+  background-color: white;
   color: #111;
   font-size: 100%;
   position: absolute;
-  padding: 1px 3px;
-  top: 20px;  
-  right: 50px;
+  padding: 0 3px;
+  top: 0px;  
+  left: 0px;
+  transform: translate(-100%, -15%);
+  transition-duration: 0.5s;
+
+  width: fit-content;
+  white-space: nowrap;
+  box-shadow: 1px 1px 3px darkgray;
+  opacity: 0;
+  border: 1px solid darkgray;
+  /* border-radius: 5px; */
+  z-index: 99999;
+  visibility: hidden;
+}
+
+[data-value]:hover:after {
+  opacity: 1;
+  transition: all 0.1s ease 0.5s;
+  visibility:  visible;
+}
+
+[data-value]:after {
+  content: attr(data-value);
+  background-color: white;
+  color: #111;
+  font-size: 100%;
+  position: absolute;
+  padding: 0 3px;
+  top: 0px;  
+  right: 0px;
+  transform: translate(100%, 50%);
+  transition-duration: 0.5s;
   width: fit-content;
   white-space: nowrap;
   box-shadow: 1px 1px 3px darkgray;
@@ -318,7 +352,7 @@ input.ecaCalculator {
   visibility: hidden;
 }
 
-[data-title] {
+[data-value] {
   position: relative;
 }
 
@@ -419,11 +453,6 @@ input.ecaCalculator {
   border: 1px solid #0081a7;
 }
 
-#tableView tr:first-child {
-  position: sticky;
-  top: 0;
-}
-
 /* Results Table Styles */
 
 table#retirementExpenses {
@@ -442,14 +471,17 @@ table#retirementExpenses {
 }
 
 table#resultsTable {
- border: 1px solid #0081a7;
- border-collapse: collapse;
- border-spacing: 0px;
- /* text-align: right; */
+  border: 1px solid #0081a7;
+  border-collapse: collapse;
+  border-spacing: 0px;
+  table-layout: fixed;
+  background-color: white;
 }
 
 table#resultsTable td {
   border: 1px solid #0081a7;
+  width: 1px;
+  white-space: nowrap;
 }
 
 .drawdownTable {
@@ -478,8 +510,4 @@ td:first-child {
 
 td::first-letter {
   text-transform: uppercase;
-}
-
-tr.time {
-  position: sticky;
 }

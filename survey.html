@@ -19,10 +19,10 @@
         <div id="personalDetails" class="">
           <div class="personalDetails-format">
             <div class="dob">
-              <p><label for="dob" data-title="Enter your date of birth">Date of Birth: <br><input type="date" name="dob" id="dob" class="data" tabindex="0" oninput="$(this).removeClass('invalid')" value=""></label></p>
+              <p><label for="dob" data-value="Enter Your Date of Birth">Date of Birth: <br><input type="date" name="dob" id="dob" class="data" tabindex="0" oninput="$(this).removeClass('invalid')" value=""></label></p>
             </div>
             <div class="gender">
-              <p><label for="gender" data-title="Gender is needed for life expectancy projections">Sex: <br><select name="gender" id="gender" oninput="$(this).removeClass('invalid')" data-title="Gender is needed for life expectancy projections" class="data" >
+              <p><label for="gender" data-value="A Binary Gender Is Needed for Life Expectancy Projections">Sex: <br><select name="gender" id="gender" oninput="$(this).removeClass('invalid')" data-value="Gender is needed for life expectancy projections" class="data" >
                   <option value="" selected disabled>--</option>
                   <option value="male">Male</option>
                   <option value="female">Female</option>
@@ -30,7 +30,7 @@
               </label></p>
             </div>
             <!-- <div class="married">
-              <p><label for="married" data-title="Anticipated Tax Filing Status in Retirement">Married: <br><select name="married" id="married" class="data" oninput="$(this).removeClass('invalid')">
+              <p><label for="married" data-value="Anticipated Tax Filing Status in Retirement">Married: <br><select name="married" id="married" class="data" oninput="$(this).removeClass('invalid')">
                   <option value="single" selected>Single</option>
                   <option value="married">Married</option>
                   <option value="married">Married Filing Separately</option>
@@ -39,16 +39,16 @@
               </label></p>
             </div> -->
             <div class="salary">
-              <p><label for="salary" data-title="Current Annual Salary + Bonuses">Current Annual Salary: <br><input type="number" name="salary" placeholder="Current Salary" id="salary" min="0" value="" class="data" oninput="$(this).removeClass('invalid')"></label></p>
+              <p><label for="salary" data-value="Enter Your Current, Total Annual Income">Current Annual Income: <br><input type="number" name="salary" placeholder="Total Income" id="salary" min="0" value="" class="data" oninput="$(this).removeClass('invalid')"></label></p>
             </div>
             <div class="retSal">
-              <p><label for="retSal" data-title="Total Anticipated Annual Retirement Expenses, in Today's Dollars">Annual Retirement Budget: <br><input type="number" name="retSal" placeholder="Retired Budget" id="retSal" class="data" min="0" value="" oninput="$(this).removeClass('invalid')"></label><img src="https://img.icons8.com/material-outlined/24/000000/calculator--v2.png" id="calculator" onclick="$('#retSalCalc').toggle();document.getElementById('housing').focus();" title="Total Budget Calculator."/>(Click to build a budget)</p>
+              <p><label for="retSal" data-value="Total Anticipated Annual Retirement Expenses, in Today's Dollars">Annual Retirement Expenses: <br><input type="number" name="retSal" placeholder="Retirement Budget" id="retSal" class="data" min="0" value="" oninput="$(this).removeClass('invalid')"></label><img src="https://img.icons8.com/material-outlined/24/000000/calculator--v2.png" id="calculator" onclick="$('#retSalCalc').toggle();document.getElementById('housing').focus();" title="Total Budget Calculator."/>(Click to build a budget)</p>
             </div>
             <div class="retAge">
-              <p><label for="retAge" data-title="Target Retirement Age">Target Retirement Age: <br><input type="number" name="retAge" maxlength="2" id="retAge" class="data" placeholder="Age" oninput="$(this).removeClass('invalid')" value=""></label></p>
+              <p><label for="retAge" data-value="Target Retirement Age">Target Retirement Age: <br><input type="number" name="retAge" maxlength="2" id="retAge" class="data" placeholder="Age" oninput="$(this).removeClass('invalid')" value=""></label></p>
             </div>
             <!-- <div class="retState">
-              <p><label for="state" data-title="">Retirement State:</label></p>
+              <p><label for="state" data-value="The State Where You Will Retire">Retirement State:</label></p>
               <p><select name="state" id="retState" class="data" oninput="$(this).removeClass('invalid')"></select></p>
             </div> -->
           </div>
@@ -65,23 +65,28 @@
       <div class="survey-content">
         <div class="survey-instructions">
           <h4>Instructions</h4>          
-          <p>Enter the full (age 67, 100%) monthly benefit in the field Project Full Montly SSI Benefit field, regardless of which age you plan to apply for SSI benefits. If you plan to retire before or after age 67, select the correct age in the Age dropdown menu. Note that the percentage shown with each age is the amount of SSI benefit you will receive if you initiate benefits at that age.</p>
+          <p>
+            Enter your estimated Social Security retirement benefit here. You can enter either the monthly or annual amount. Enter the full (100%) benefit amount.
+          </p>
+          <p> 
+            Select the age at which you want to begin receiving Social Security benefits. You will receive 100% of your benefits if you initiate benefits at the age of 67. You will receive a reduced percentage if you begin receiving benefits before 67. You will receive an increased percentage if you begin receiving benefits after 67. The age dropdown will show you the percentage received for each age.
+            </p>
           <h4>Details</h4>
-          <p>Nearly all U.S. citizens are entitled to Social Security. If you have worked in the U.S. and payed taxes then you have likely contributed to Social Security. </p><p>There are two ways to determine your estmated monthly benefit:</p>
+          <p>There are two ways to determine your estmated monthly benefit:</p>
             <ul>
               <li>The Social Security Administration's <a href="https://www.ssa.gov/benefits/retirement/estimator.html" target="_blank">Retirement Estimator</a> (easiest option), or</li>
               <li>A detailed estimate retrieved from your <a href="https://secure.ssa.gov/RIL/SiView.action" target="_blank">Social Security account</a></li>
             </ul>
-          <p>Note: The Social Security Administration estimates that after 2035 it will only collect enough payroll taxes to pay out 80% of your estimated benefit. This tool adjusts anticipated bayouts accordingly.</p>
+          <p>Warning: The Social Security Administration estimates that after 2035 it will only collect enough payroll taxes to provide 80% of your benefit. ClockOut adjusts your anticipated benefits accordingly.</p>
         </div>
         <div class="survey-fields">
           <div class="annAmt_ssi">
-            <p><label for="annAmt_ssi">Projected full monthly SSI benefit (not adjusted if initiating benefits before age 67):</label></p>
+            <p><label for="annAmt_ssi">Monthly or annual Social Security retirement benefit:</label></p>
             <p>
               <input type="number" class="monthlyCalc" onchange="monthlyCalc(this)" placeholder="Monthly Amount"> x 12 = <input type="number" name="annAmt_ssi" id="annAmt_ssi" class="data" oninput="$(this).removeClass('invalid')" placeholder="Annual Amount"></p>
           </div>
           <div class="beginAge_ssi">
-            <p><label for="beginAge_ssi">Age at which you plan to begin SSI benefits:</label></p>
+            <p><label for="beginAge_ssi">Begin Social Security benefits age:</label></p>
             <p>
               <select name="beginAge_ssi" id="beginAge_ssi" class="data" oninput="$(this).removeClass('invalid')">
                 <option value="" disabled selected hidden>Select one</option>
@@ -108,8 +113,8 @@
       <div class="survey-content">
         <div class="survey-instructions">
           <h4>Instructions</h4>
-          <p>Use these fields to enter details about your pension benefit. You can enter either a monthly or annual distribution. Be sure to enter the value of the pension at the age of retirement (not in today's dollars).</p>
-          <p>If there is no later age at which Cost of Living Adjustments (COLA) begins, enter the same age at which your benefits begin.</p>
+          <p>Enter your pension benefit details here. Remember to enter the dollar amount of the pension for when you retire, and not in today's dollars.</p>
+          <p>Note: if the pension and its cost of living adjustments begin at the same age, then enter that age in the "age when COLA begins" field.</p>
         </div>
         <div class="survey-fields">
           <div class="annAmt_genPension">
@@ -142,8 +147,9 @@
       <div class="survey-content">
         <div class="survey-instructions">
           <h4>Instructions</h4>
-          <p>For your FERS pension, enter the monthly or annual benefit amount you expect to receive at the time of retirement. Also enter the age at which you plan to begin receiving the benefit. Only enter the full retirement benefit amount (the 100% amount received at age 62); if you will begin receiving benefits before 62, this tool will adjust the payout accordingly.</p>
-          <p>You can find instructions for calculating your FERS benefit <a href="https://www.opm.gov/retirement-services/fers-information/computation/" target="_blank">here</a>. This <a href="https://retireinstitute.com/fers-calculator/" target="_blank">calculator</a> can help determine your FERS payout, but requires submitting an email address to receive your results.</p>
+          <p>Enter your monthly or annual FERS pension amount here, along with the age when you plan to begin receiving benefits. The full FERS benefit (100%) is only available at the age of 62. Benefits are reduced if you begin receiving benefits before that age.</p>
+          <h4>Details</h4>
+          <p>You can find instructions for calculating your FERS benefit <a href="https://www.opm.gov/retirement-services/fers-information/computation/" target="_blank">here</a>. This <a href="https://retireinstitute.com/fers-calculator/" target="_blank">calculator</a> can help determine your FERS payout, but requires that you submit an email address to receive your results.</p>
         </div>
         <div class="survey-fields">
           <div class="annAmt_fersPension">
@@ -172,10 +178,10 @@
         <div class="survey-content">
         <div class="survey-instructions">
           <h4>Instructions</h4>          
-          <p>At present this form can only accommodate fixed annuities. If you have a different type of annuity - and the fields provided here are inadequate - consider entering your information in the Other Benefits section.</p>
           <p>Enter the monthly or annual value of the annuity at the age when it will begin paying out.</p>
+          <p>Note: if the pension and its cost of living adjustments begin at the same age, then enter that age in the "age when COLA begins" field.</p>
           <h4>Details</h4>
-          <p>Annuities are complex and confusing financial vehicles sold by insurance companies. For a deep dive into annuities, visit <a href="https://www.creditkarma.com/advice/i/how-do-annuities-work/" target="_blank">this</a> article over at creditkarma.</p>
+          <p>Annuities are complex and confusing financial vehicles sold by insurance companies. For a deep dive into annuities, read this <a href="https://www.creditkarma.com/advice/i/how-do-annuities-work/" target="_blank">creditkarma</a> article.</p>
         </div>
         <div class="survey-fields">
           <div class="annAmt_annuities">
@@ -204,7 +210,7 @@
         <div class="survey-content">
         <div class="survey-instructions">
           <h4>Instructions</h4>
-          <p>If you currently receive benefits, enter your current monthly (or annual) benefit amount.</p>
+          <p>Enter your monthly or annual benefit amount.</p>
           <h4>Details</h4>
           <p>VA disability is a tax-free benefit for veterans with a qualified disability as determined by the Department of Veterans Affairs. If you are a veteran (or the dependent or caretaker of a veteran) visit the <a href="https://www.va.gov/disability/how-to-file-claim/" target="_blank">Department of Veterans Affairs</a> to determine if you can file for disability.</p>
         </div>
@@ -244,7 +250,7 @@
         <div class="survey-content">
         <div class="survey-instructions">
           <h4>Instructions</h4>
-          <p>If you receive disability benefits from a source other than the Social Security Administration or the VA - such as a state, union, or former employer - enter the details here.</p>
+          <p>If you receive disability benefits from a source other than the Social Security Administration or the VA - such as a state, union, a former employer, or workers compensation - enter the details here.</p>
         </div>
         <div class="survey-fields">
           <div class="annAmt_otherDisability">
@@ -269,8 +275,8 @@
         <div class="survey-content">
         <div class="survey-instructions">
           <h4>Instructions</h4>
-          <p>Just because you plan to retire doesn't mean you plan to stop working. If you anticipate having another job after retirement - even if for just a few years or only part time - then enter the details here.</p>
-          <p>Retirement is likely years away it's hard to estimate how much you will earn, so make a guess of how much you'd like to earn in today's dollars.</p>
+          <p>If you plan to continue working after retirement - even if only part time or for just a few years - then enter the details here.</p>
+          <p>Your retirement is likely years away, so estimating your retirement salary is hard. Simply guess how much you'd like to earn in today's dollars. You will be able to change this information later if necessary.</p>
         </div>
         <div class="survey-fields">
           <div class="annAmt_retireSal">
@@ -296,7 +302,7 @@
         <div class="survey-content">
         <div class="survey-instructions">
           <h4>Instructions</h4>
-          <p>If you own rental properties - or expect to own rental properties at the time of retirement - enter basic details about them here. Specifically, include the net annual rental profits you anticipate earning (in today's dollars), as well as the anticipated annual rate of profit growth.</p>
+          <p>If you plan to own rental properties at the time of retirement - enter the basic details about them here. Specifically, include the net annual rental profits you anticipate earning (in today's dollars), as well as the anticipated annual rate of profit growth.</p>
         </div>
         <div class="survey-fields">
           <div class="annAmt_rents">
@@ -318,7 +324,7 @@
         <div class="survey-content">
           <div class="survey-instructions">
             <h4>Instructions</h4>
-            <p>If you receive a benefit that wasn't covered by any of the other benefit categories, enter those details here. This should not include things like retirement and savings accounts, but benefits that are paid out to you without monetary contributions.</p>
+            <p>If you receive a benefit that wasn't covered by any of the other Income & Benefit categories, enter those details here. This should not include things like retirement and savings accounts, but benefits that are paid out to you without monetary contributions.</p>
           </div>
           <div class="survey-fields">
             <div class="annAmt_otherBen">
@@ -349,8 +355,8 @@
           <h4>Instructions</h4>
           <p>Enter the total values for ALL Traditional IRA accounts you own in the fields below.</p>
           <h4>Details</h4>
-          <p>The Traditional IRA is an Individual Retirement Account that allows you to make tax-deferred contributions until the age of 70. Beginning at age 59 1/2, you can begin to make withdrawals from all Traditional IRAs. With Traditional IRAs, you pay standard income taxes on all distributions.</p>
-          <p>As of 2019, maximum annual contributions to ALL IRAs cannot exceed $6,000. However, at age 50, you can make additional "catch up" contributions of $1,000, raising your total annual contributions to $7,000. Check the option for catch up contributions if you'd like to include these contributions to a Traditional IRA.</p>
+          <p>The Traditional IRA is an Individual Retirement Account that allows you to make tax-deferred contributions until the age of 70. Beginning at age 59 1/2, you can begin withdrawing from your Traditional IRA, though you will pay standard income taxes on all withdrawals.</p>
+          <p>As of 2019, maximum annual contributions to All IRAs you hold cannot exceed $6,000. Beginning at age 50, you can make additional "catch up" contributions of $1,000, raising your total annual contribution limit to $7,000. Check the option for catch up contributions if you'd like to include in your Traditional IRA.</p>
           <p>For more information visit <a href="https://www.investopedia.com/terms/t/traditionalira.asp">this site</a>.</p>
         </div>
         <div class="survey-fields">
@@ -380,15 +386,15 @@
         <div class="survey-content">
         <div class="survey-instructions">
           <h4>Instructions</h4>
-          <p>Enter the total values for ALL Roth IRA accounts you own in the fields below.</p>
+          <p>Enter the total amounts for all of your Roth IRA accounts.</p>
           <h4>Details</h4>
-          <p>The Roth IRA is an Individual Retirement Account that allows you to make after-tax contributions until the age of 70. Beginning at age 59 1/2, you can begin to make withdrawals from all Roth IRAs. With Roth IRAs, you never pay taxes on distributions. Also, since contributions to Roth IRAs have already been taxed, you can withdrawal your contributions at any time without penalties.</p>
-          <p>As of 2019, maximum annual contributions to ALL IRAs cannot exceed $6,000. However, at age 50, you can make additional "catch up" contributions of $1,000, raising your total annual contributions to $7,000. Check the option for catch up contributions if you'd like to include these contributions to a Roth IRA.</p>
+          <p>The Roth IRA is an Individual Retirement Account that allows you to make after-tax contributions until the age of 70. Beginning at age 59 1/2, you can make tax-free withdrawals from your Roth IRA. Since Roth IRA contributions have already been taxed, you can withdraw your principal amount at anytime without penalty.</p>
+          <p>As of 2019, maximum annual contributions to ALL IRAs cannot exceed $6,000. However, at age 50, you can make additional "catch up" contributions of $1,000, raising your total annual contributions to $7,000. Check the option for catch up contributions if you'd like to include them in your Roth IRA.</p>
           <p>For more information visit <a href="https://www.investopedia.com/terms/r/rothira.asp">this site</a>.</p>
         </div>
         <div class="survey-fields">
             <div class="contrVal_rothIra">
-            <p><label for="contrVal_rothIra">Total Roth IRA contributions through last year:</label></p>
+            <p><label for="contrVal_rothIra">Total Roth IRA contributions:</label></p>
             <p><input type="number" id="contrVal_rothIra" class="data" name="contrVal_rothIra" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
           </div>
           <div class="currentVal_rothIra">
@@ -417,9 +423,9 @@
         <div class="survey-content">
         <div class="survey-instructions">
           <h4>Instructions</h4>
-          <p>Populate the fields with totals for all Traditional accounts covered in this category.</p>
+          <p>Enter the total amounts for all traditional employee contribution accounts covered in this category.</p>
           <h4>Details</h4>
-          <p>Employee Contribution Plans are a type of <a href="https://investorjunkie.com/retirement/employer-sponsored-retirement-plans/" target="_blank">employer-sponsored savings plan</a>. With these accounts, you can set aside up to $19,500 per year, with your employer usually matching a portion of your contributions. "Catch Up" contributions can be made beginning at the age of 50, raising the total contribution limit for all of these accounts by $6,500, to $26,000 per year.</p> 
+          <p>Employee Contribution Plans are a type of <a href="https://investorjunkie.com/retirement/employer-sponsored-retirement-plans/" target="_blank">employer-sponsored savings plan</a>. With these accounts, you can contribute up to $19,500 per year. Your employer will usually match your contributions up to a specified limit, which legally cannot exceed $56,000. At the age of 50, you can begin making "Catch Up" contributions of up to $6,500, raising your annual contribution limit to $26,000 per year.</p> 
           <p>With Traditional plans, your contributions are tax free, and distributions taken in retirement are taxed as normal income.</p>
           <p>The following types of Traditional Accounts should be recorded here:
             <ul>
@@ -463,9 +469,9 @@
         <div class="survey-content">
         <div class="survey-instructions">
           <h4>Instructions</h4>
-          <p>Populate the fields with totals for all Roth accounts covered in this category. Your contributions - which should be lower than the total current value - are the total amount of money you've put into your accounts through last year.</p>
+          <p>Enter the total amounts for all Roth employee contribution accounts covered in this category.</p>
           <h4>Details</h4>
-          <p>Employee Contribution Plans are a type of <a href="https://investorjunkie.com/retirement/employer-sponsored-retirement-plans/" target="_blank">employer-sponsored savings plan</a>. With these accounts, you can set aside up to $19,500 per year, with your employer usually matching a portion of your contributions. "Catch Up" contributions can be made beginning at the age of 50, raising the total contribution limit for all of these accounts by $6,500, to $26,000 per year.</p> 
+          <p>Employee Contribution Plans are a type of <a href="https://investorjunkie.com/retirement/employer-sponsored-retirement-plans/" target="_blank">employer-sponsored savings plan</a>. With these accounts, you can contribute up to $19,500 per year. Your employer may match your contributions, up to a certain limit, though employer contributions to a Roth account will be taxable. Your employer's contribution cannot exceed $56,000. At the age of 50, you can begin making "Catch Up" contributions of up to $6,500, raising your annual contribution limit for all employee contribution accounts to $26,000 per year.</p> 
           <p>With <a href="https://www.irs.gov/retirement-plans/retirement-plans-faqs-on-designated-roth-accounts" target="_blank">designated Roth plans</a>, you contribute after you've paid taxes. The benefit of this is that all distributions taken in retirement are tax free.</p>
           <p>The following types of designated Roth Accounts should be recorded here:
             <ul>
@@ -580,8 +586,10 @@
         </div>
         <div class="survey-content">
         <div class="survey-instructions">
+          <h4>Details</h4>
+          <p>This category includes only investment accounts that are not federally sanctioned retirement accounts. These accounts can be called investment accounts, brokerage accounts, or other similar names. What they all have in common is that they allow you to invest in stocks, bonds, and other investment vehicles.</p>
           <h4>Instructions</h4>
-          <p>Enter details about ALL non-retirement investment accounts you maintain. This can include brokerage accounts, but should exclude savings and money-market accounts as those generally receive lower interest rates.</p>
+          <p>Enter the total values for all of your investment accounts here.</p>
         </div>
         <div class="survey-fields">
           <div class="currentVal_investAcct">
@@ -607,9 +615,9 @@
         <div class="survey-content">
         <div class="survey-instructions">
           <h4>Instructions</h4>
-          <p>Enter details about ALL non-retirement savings and money market accounts.</p>
+          <p>Enter details about ALL non-retirement savings, certificat of deposit (CD), and money market accounts.</p>
           <h4>Details</h4>
-          <p>Note that these are accounts that generally receive a low interest rate and may actually lose money in the long run when compared against inflation.</p>
+          <p>Note that these are accounts that generally receive a low interest rate and may actually lose money in the long run when considered against inflation.</p>
         </div>
         <div class="survey-fields">
           <div class="currentVal_saveAcct">

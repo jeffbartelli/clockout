@@ -39,7 +39,7 @@ var income = () => {
   retire.years = {time: {}};
   retire.years.time = {year: [], age: []};
   retire.totals = {subTotals: {}};
-  retire.totals.subTotals = {required: [], wages: [], remaining: [], taxes: []};
+  retire.totals.subTotals = {total: [], expenses: [], remaining: [], taxes: []};
   let targetSalAmt = parseInt(data.demographics.retSal);
   var retCount = () => {
     let count = 0;
@@ -49,9 +49,9 @@ var income = () => {
   for (let i=0;i<ages.cycle;i++) {
     retire.years.time.year.push(ages.currentYr+i);
     retire.years.time.age.push(ages.age+i);
-    retire.totals.subTotals.wages.push(+(targetSalAmt).toFixed(2));
+    retire.totals.subTotals.expenses.push(+(targetSalAmt).toFixed(2));
     retire.totals.subTotals.taxes.push(+(targetSalAmt*0.2).toFixed(2));
-    retire.totals.subTotals.required.push(+(targetSalAmt*1.2).toFixed(2));
+    retire.totals.subTotals.total.push(+(targetSalAmt*1.2).toFixed(2));
     retire.totals.subTotals.remaining.push(+(targetSalAmt*1.2).toFixed(2));
     targetSalAmt *= 1+growthRate.inflation; 
   };

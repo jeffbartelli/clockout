@@ -105,9 +105,9 @@ var results = () => {
   if (!retire.retAge) {
     $('#results').append(`<p>Your target annual income is <span class="reportDollar">${dollarFormat.format(demographics.demographics.retSal)}</span> in today's dollars. By going back and reducing your projected retirement expenses, you may be able to determine at what age you can retire.</p>`);
   } else {
-    $('#results').append(`<h3>Retirement Expenses</h3><p>Your target annual income is <span class="reportDollar">${dollarFormat.format(demographics.demographics.retSal)}</span> in today's dollars. After accounting for inflation, the equivalent income when you retire will be <span class="reportDollar">${dollarFormat.format(Math.round(retire.totals.subTotals.wages[retire.retAge - age]))}</span> net, or <span class="reportDollar">${dollarFormat.format(Math.round(retire.totals.subTotals.required[retire.retAge - age]))}</span> gross.</p><p><strong>Note:</strong> ClockOut estimates total tax burden to be 20% of your estimated retirement expenses. Future updates to ClockOut will provide a more accurate estimate of tax burden based on account type.</p>`);
+    $('#results').append(`<h3>Retirement Expenses</h3><p>Your target annual income is <span class="reportDollar">${dollarFormat.format(demographics.demographics.retSal)}</span> in today's dollars. After accounting for inflation, the equivalent income when you retire will be <span class="reportDollar">${dollarFormat.format(Math.round(retire.totals.subTotals.expenses[retire.retAge - age]))}</span> net, or <span class="reportDollar">${dollarFormat.format(Math.round(retire.totals.subTotals.total[retire.retAge - age]))}</span> gross.</p><p><strong>Note:</strong> ClockOut estimates total tax burden to be 20% of your estimated retirement expenses. Future updates to ClockOut will provide a more accurate estimate of tax burden based on account type.</p>`);
     if (localStorage.expenseTable == 1) {
-      let multiplier = retire.totals.subTotals.wages[retire.retAge - age] / demographics.demographics.retSal;
+      let multiplier = retire.totals.subTotals.expenses[retire.retAge - age] / demographics.demographics.retSal;
       $('#results').append(`
         <div id="expenseTable">
           <table id="retirementExpenses">
@@ -276,7 +276,7 @@ var results = () => {
   $('#tableView').append(`<div class="tableContainer"><table class="spreadsheet" id="resultsTable"></table></div>`);
   let keys = ['years','income','invAccts','tradAccts','rothAccts','totals'];
   let subKeys = ['time','socialSecurity','genPension','fersPension','annuities','vaDisability','ssiDisability','otherDisability','retireSal','rents','otherBen','saveAcct','investmentAcct','tradEca','simple401','simpleIra','tradIra','rothEca','rothIra','subTotals'];
-  let tubKeys = ['required','taxes','wages','endValue','withdrawal','rmd','annual','age','year'];
+  let tubKeys = ['total','taxes','expenses','endValue','withdrawal','rmd','annual','age','year'];
   let drawdownTubKeys = ['year','withdrawal','annual'];
   let colors = ["#85e2d0","#e7bfca","#cddd97","#cac1e3","#c6daa5","#7ab4f9","#b2d6c1","#f7ad94","#a7dde2","#dbcd9f","#85bef3","#dbc6ab","#6cdcfa","#f1a3ba","#b7e1a7","#e9bbe7","#eed69b","#ecaadd","#96ddae","#c0a4eb","#cdb77e","#92c7ed","#d9b3ee","#b8b1f3","#cbbaef"];
 
@@ -284,7 +284,8 @@ var results = () => {
     if (retire[item]) {
       subKeys.forEach((subItem) => {
         if (retire[item][subItem]){
-          $('#resultsTable').append($('<tr/>', {'class': subItem}).append($('<td/>', {'colspan': Number(cycle)+1}).text(subItem.replace( /([A-Z])/g, " $1" ))));
+          $('#resultsTable').append($('<tr/>', {'class': subItem}).append($('<td/>').text(subItem.replace( /([A-Z])/g, " $1" ))));
+          $(`tr.${subItem}`).append($('<td/>', {'colspan': Number(cycle),'style':'text-align:center;font-weight:bold;background-color:lightgrey'}).text(subItem.replace( /([A-Z])/g, " $1" )));
           tubKeys.forEach((keyItem) => {
             if (retire[item][subItem][keyItem]) {
               $(`tr.${subItem}:first`).after((`<tr class="${subItem} ${keyItem}"><td align="left">${keyItem.replace( /([A-Z])/g, " $1" )}</td></tr>`));
