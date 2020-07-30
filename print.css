@@ -47,3 +47,11 @@ body {
   /* margin-top: -60%; */
   page-break-before: always;
 }
+
+#controlTitle {
+  display: none;
+}
+
+#tableInstr {
+  display: none;
+}

@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="style.css" type="text/css" />
   <link href="https://fonts.googleapis.com/css?family=PT+Sans|Lato|Roboto&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <title>Clockout: Retirement Questionaire</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
@@ -42,7 +43,7 @@
               <p><label for="salary" data-value="Enter Your Current, Total Annual Income">Current Annual Income: <br><input type="number" name="salary" placeholder="Total Income" id="salary" min="0" value="" class="data" oninput="$(this).removeClass('invalid')"></label></p>
             </div>
             <div class="retSal">
-              <p><label for="retSal" data-value="Total Anticipated Annual Retirement Expenses, in Today's Dollars">Annual Retirement Expenses: <br><input type="number" name="retSal" placeholder="Retirement Budget" id="retSal" class="data" min="0" value="" oninput="$(this).removeClass('invalid')"></label><img src="https://img.icons8.com/material-outlined/24/000000/calculator--v2.png" id="calculator" onclick="$('#retSalCalc').toggle();document.getElementById('housing').focus();" title="Total Budget Calculator."/>(Click to build a budget)</p>
+              <p><label for="retSal" data-value="Total Anticipated Annual Retirement Expenses, in Today's Dollars">Annual Retirement Expenses: <br><input type="number" name="retSal" placeholder="Retirement Budget" id="retSal" class="data" min="0" value="" oninput="$(this).removeClass('invalid')"></label><span id="calcLineBreak"><img src="https://img.icons8.com/material-outlined/24/000000/calculator--v2.png" id="calculator" onclick="$('#retSalCalc').toggle();document.getElementById('housing').focus();" title="Total Budget Calculator." tabindex="0"/>(Click to build a budget)</span></p>
             </div>
             <div class="retAge">
               <p><label for="retAge" data-value="Target Retirement Age">Target Retirement Age: <br><input type="number" name="retAge" maxlength="2" id="retAge" class="data" placeholder="Age" oninput="$(this).removeClass('invalid')" value=""></label></p>
@@ -178,7 +179,7 @@
         <div class="survey-content">
         <div class="survey-instructions">
           <h4>Instructions</h4>          
-          <p>Enter the monthly or annual value of the annuity at the age when it will begin paying out.</p>
+          <p>Enter the monthly or annual value (the annual value will autopopulate if you enter a monthly value) of the annuity at the age when it will begin paying out.</p>
           <p>Note: if the pension and its cost of living adjustments begin at the same age, then enter that age in the "age when COLA begins" field.</p>
           <h4>Details</h4>
           <p>Annuities are complex and confusing financial vehicles sold by insurance companies. For a deep dive into annuities, read this <a href="https://www.creditkarma.com/advice/i/how-do-annuities-work/" target="_blank">creditkarma</a> article.</p>
@@ -423,7 +424,7 @@
         <div class="survey-content">
         <div class="survey-instructions">
           <h4>Instructions</h4>
-          <p>Enter the total amounts for all traditional employee contribution accounts covered in this category.</p>
+          <p>Enter the total amounts for all traditional employee contribution accounts covered in this category. If you enter a percentage, the dollar amount will auto-populate.</p>
           <h4>Details</h4>
           <p>Employee Contribution Plans are a type of <a href="https://investorjunkie.com/retirement/employer-sponsored-retirement-plans/" target="_blank">employer-sponsored savings plan</a>. With these accounts, you can contribute up to $19,500 per year. Your employer will usually match your contributions up to a specified limit, which legally cannot exceed $56,000. At the age of 50, you can begin making "Catch Up" contributions of up to $6,500, raising your annual contribution limit to $26,000 per year.</p> 
           <p>With Traditional plans, your contributions are tax free, and distributions taken in retirement are taxed as normal income.</p>
@@ -445,11 +446,11 @@
           </div>
           <div class="empContr_tradAccts">
             <p><label for="empContr_tradAccts">Future Annual Employer Contribution Amount: </label></p>
-            <p><input type="number" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="empContr_tradAccts" id="empContr_tradAccts" class="data" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>  
+            <p><input type="number" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% <span class="mobileReplace">x <span class="ecaCalculatorSalary"></span></span><span class="mobileEquals">=</span> <input type="number" name="empContr_tradAccts" id="empContr_tradAccts" class="data" min="0" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>  
           </div>
           <div class="annContr_tradAccts">
             <p><label for="annContr_tradAccts">Future Annual Personal Contribution Amount (up to $19,500):</label></p>
-            <p><input type="number" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaPersCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="annContr_tradAccts" id="annContr_tradAccts" class="data" placeholder="Amount" onchange="retCalc(this); $(this).removeClass('invalid');"></p>
+            <p><input type="number" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaPersCalc(this)">% <span class="mobileReplace">x <span class="ecaCalculatorSalary"></span></span><span class="mobileEquals">=</span> <input type="number" name="annContr_tradAccts" id="annContr_tradAccts" class="data" placeholder="Amount" onchange="retCalc(this); $(this).removeClass('invalid');"></p>
           </div>
           <div class="catchUpContr_tradAccts">
             <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="radio" id="catchUpContr_tradAccts" class="data" name="catchUpContEca"></label></p>
@@ -469,7 +470,7 @@
         <div class="survey-content">
         <div class="survey-instructions">
           <h4>Instructions</h4>
-          <p>Enter the total amounts for all Roth employee contribution accounts covered in this category.</p>
+          <p>Enter the total amounts for all Roth employee contribution accounts covered in this category. If you enter a percentage, the dollar amount will auto-populate.</p>
           <h4>Details</h4>
           <p>Employee Contribution Plans are a type of <a href="https://investorjunkie.com/retirement/employer-sponsored-retirement-plans/" target="_blank">employer-sponsored savings plan</a>. With these accounts, you can contribute up to $19,500 per year. Your employer may match your contributions, up to a certain limit, though employer contributions to a Roth account will be taxable. Your employer's contribution cannot exceed $56,000. At the age of 50, you can begin making "Catch Up" contributions of up to $6,500, raising your annual contribution limit for all employee contribution accounts to $26,000 per year.</p> 
           <p>With <a href="https://www.irs.gov/retirement-plans/retirement-plans-faqs-on-designated-roth-accounts" target="_blank">designated Roth plans</a>, you contribute after you've paid taxes. The benefit of this is that all distributions taken in retirement are tax free.</p>
@@ -493,11 +494,11 @@
           </div>
           <div class="empContr_rothAccts">
             <p><label for="empContr_rothAccts">Future Annual Roth Employer Match/Contribution Amount: </label></p>
-            <p><input type="number" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="empContr_rothAccts" id="empContr_rothAccts" class="data" min="0" max="100" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
+            <p><input type="number" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaCalc(this)">% <span class="mobileReplace"></span>x <span class="ecaCalculatorSalary"></span></span><span class="mobileEquals">=</span> <input type="number" name="empContr_rothAccts" id="empContr_rothAccts" class="data" min="0" max="100" placeholder="Amount" oninput="$(this).removeClass('invalid')"></p>
           </div>
           <div class="annContr_rothAccts">
             <p><label for="annContr_rothAccts">Future Annual Roth Contribution Amount (up to $19,500):</label></p>
-            <p><input type="number" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaPersCalc(this)">% x <span class="ecaCalculatorSalary"></span> <input type="number" name="annContr_rothAccts" id="annContr_rothAccts" class="data" placeholder="Amount" onchange="retCalc(this); $(this).removeClass('invalid');"></p>
+            <p><input type="number" class="ecaCalculator" min="0" max="100" placeholder="0.0" onchange="ecaPersCalc(this)">% <span class="mobileReplace"></span>x <span class="ecaCalculatorSalary"></span></span><span class="mobileEquals">=</span> <input type="number" name="annContr_rothAccts" id="annContr_rothAccts" class="data" placeholder="Amount" onchange="retCalc(this); $(this).removeClass('invalid');"></p>
           </div>
           <div class="catchUpContr_rothAccts">
             <p><label>$6,500 additional 'Catch Up' contribution beginning at age 50: <input type="radio" id="catchUpContr_rothAccts" class="data" name="catchUpContEca"></label></p>
@@ -517,7 +518,7 @@
         <div class="survey-content">
         <div class="survey-instructions">
           <h4>Instructions</h4>
-          <p>Enter details about your Simple IRA here.</p>
+          <p>Enter details about your Simple IRA here. If you enter a percentage, the dollar amount will auto-populate.</p>
           <h4>Details</h4>
           <p>Simple IRAs are retirement plans for small business with fewer than 100 employees. Known as Savings Incentive Match Plan for Employees (SIMPLE), employers can choose to make a 2% contribution to all employees, or a matching contribution of up to 3%. Employees can contribution up to $13,500 per year. If over 50, you can make an additional "catch up" contribution of up to $3,000. For more information check out this page on <a href="https://www.investopedia.com/terms/s/simple-ira.asp" target="_blank">Investopedia</a>.</p>
         </div>
@@ -532,7 +533,7 @@
           </div>
           <div class="annContr_simpleIra">
             <p><label for="annContr_simpleIra">Future Annual Simple IRA Contribution Amount (up to $13,500):</label></p>
-            <p><input type="number" class="ecaCalculator" placeholder="0.0" onchange="simplePersCalc(this); $(this).removeClass('invalid');">% x <span class="ecaCalculatorSalary"></span><input type="number" name="annContr_simpleIra" id="annContr_simpleIra" class="data" placeholder="Amount" onchange="simpleRetCalc(this); $(this).removeClass('invalid');" /></p>
+            <p><input type="number" class="ecaCalculator" placeholder="0.0" onchange="simplePersCalc(this); $(this).removeClass('invalid');">% <span class="mobileReplace"></span>x <span class="ecaCalculatorSalary"></span></span><span class="mobileEquals">=</span> <input type="number" name="annContr_simpleIra" id="annContr_simpleIra" class="data" placeholder="Amount" onchange="simpleRetCalc(this); $(this).removeClass('invalid');" /></p>
           </div>
           <div class="catchUpContr_simpleIra">
             <p><label >$3,000 additional 'Catch Up' contribution beginning at age 50: <input type="radio" id="catchUpContr_simpleIra" class="data" name="catchUpContSimple"></label></p>
@@ -552,7 +553,7 @@
         <div class="survey-content">
         <div class="survey-instructions">
           <h4>Instructions</h4>
-          <p>Enter details about your SIMPLE 401k here.</p>
+          <p>Enter details about your SIMPLE 401k here. If you enter a percentage, the dollar amount will auto-populate.</p>
           <h4>Details</h4>
           <p>A Simple 401k is a retirement plan for small business with fewer than 100 employees. Known as Savings Incentive Match Plan for Employees (SIMPLE). Employees can contribution up to $13,500 per year. If over 50, you can make an additional "catch up" contribution of up to $3,000. For more information check out this page on <a href="https://www.investopedia.com/terms/s/simple-ira.asp" target="_blank">Investopedia</a>.</p>
         </div>
@@ -567,7 +568,7 @@
           </div>
           <div class="annContr_simple401">
             <p><label for="annContr_simple401">Future Annual Simple 401k Contribution Amount (cannot exceed $13,500):</label></p>
-            <p><input type="number" class="ecaCalculator" placeholder="0.0" onchange="simplePersCalc(this); $(this).removeClass('invalid');">% x <span class="ecaCalculatorSalary"></span><input type="number" name="annContr_simple401" id="annContr_simple401" class="data" placeholder="Amount" onchange="simpleRetCalc(this); $(this).removeClass('invalid');"></p>
+            <p><input type="number" class="ecaCalculator" placeholder="0.0" onchange="simplePersCalc(this); $(this).removeClass('invalid');">% <span class="mobileReplace"></span>x <span class="ecaCalculatorSalary"></span></span><span class="mobileEquals">=</span> <input type="number" name="annContr_simple401" id="annContr_simple401" class="data" placeholder="Amount" onchange="simpleRetCalc(this); $(this).removeClass('invalid');"></p>
           </div>
           <div class="catchUpContr_simple401">
             <p><label>$3,000 additional 'Catch Up' contribution beginning at age 50: <input type="radio" id="catchUpContr_simple401" class="data" name="catchUpContSimple"></label></p>

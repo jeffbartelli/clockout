@@ -209,7 +209,8 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   $('#instructionModalClose').click(()=>{
-    $('#instructionModal').hide();
+    $(window).width() < 900 ? $('#instructionModal').slideUp() : $('#instructionModal').hide();
+    $('#dob').focus();
   });
 
   // Calculators

@@ -39,7 +39,7 @@ $('#survey').append(`<div id="retSalCalc" class="slide-in">
 </div>
 `);
 
-$('body').append(`
+$('#demographics .survey-header').after(`
   <div id="instructionModal" class="">
     <div>
     <h4 style="text-align:center">Clockout Survey Instructions</h4>
@@ -50,7 +50,7 @@ $('body').append(`
       <li>Enter your financial information on each page in the interview</li>
       <li>If you have two accounts within the same type (i.e. Two Traditional IRAs) then enter the combined totals for those accounts</li>
     </ol>
-    <h4>If you have your financial information available, the ClockOut interview should take less than 10 minutes. An overall report will be provided at the end of the interview.</h4>
+    <h4>If you have your financial information available, the ClockOut interview should take less than 5 minutes. An overall report will be provided at the end of the interview.</h4>
     <button id="instructionModalClose">Got It</button>
     <label class="optOut" for="instructOpt"><input type="checkbox" id="instructOpt" onclick="optOut();"> Do not show this message again</label>
     </div>

@@ -95,6 +95,7 @@ var results = () => {
     }
   }
   $('#results').append(`<h3>Financial Drawdown</h3><p>ClockOut has determined how best for you to withdraw your money in retirement to make it last as long as possible while complying with the laws of the United States. The graph below shows all of your accounts and when you will be withdrawing from them.</p>`);
+  $('#results').append(`<h5 id="tableInstr">*Scroll the chart below to see your full drawdown plan</h5>`);
   $('#results').append(`<div class="drawdownTable"><table id="drawdownTable" cellspacing="0" cellpadding="0" style="margin: 0px;"></table></div>`);
   $('#results').append(`<span class="tableView"><p>Click the 'Table View' button at the top to review the year by year details your account values and retirement withdrawals.<p></span>`);
   $('#results').append(`<h3>Your retirement income and investments include:</h3>`);

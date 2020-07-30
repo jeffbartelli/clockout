@@ -135,6 +135,7 @@ h5 {text-align: center;}
   width: 100%;
   position: absolute;
   bottom: 0;
+  padding-bottom: 5px;
   margin-bottom: 5px;
 }
 
@@ -197,9 +198,13 @@ select.invalid, input.invalid {
 }
 
 .controls {
-  margin: 0 auto;
+  margin: 0 1%;
   background-color: white;
-  width: 180px;
+  width: fit-content;
+}
+
+.controls p {
+  font-size: medium;
 }
 
 #retSalCalc {
@@ -211,6 +216,7 @@ select.invalid, input.invalid {
   left: 4%;
   text-align: center;
   display: none;
+  font-size: x-large;
 }
 
 .slide-in {
@@ -233,13 +239,14 @@ input.ecaCalculator {
   height: 100%;
   width: 100%;
   display: none;
+  z-index: 1000;
 }
 
 #instructionModal div {
   background-color: white;
-  width: 500px;
+  max-width: 500px;
   height: auto;
-  transform: translate(100%, 70%);
+  transform: translate(50%, 50%);
   padding: 5px;
   z-index: 900;
 }
@@ -315,7 +322,6 @@ input.ecaCalculator {
   left: 0px;
   transform: translate(-100%, -15%);
   transition-duration: 0.5s;
-
   width: fit-content;
   white-space: nowrap;
   box-shadow: 1px 1px 3px darkgray;
@@ -361,7 +367,6 @@ input.ecaCalculator {
   vertical-align: middle;
   cursor: pointer;
 }
-
 
 /* Report User Controls */
 #emailForm {
@@ -410,6 +415,14 @@ input.ecaCalculator {
 #logoSmall {
   float: right;
   margin-right: 3%;
+}
+
+#controlTitle {
+  display: none;
+}
+
+#mobileReportTitle {
+  display: none;
 }
 
 #reportTitle {
@@ -505,10 +518,324 @@ table#drawdownTable td {
   border-collapse: collapse;
 }
 
+#tableInstr {
+  display: none;
+}
+
 td:first-child {
   font-weight: bold;
 }
 
 td::first-letter {
   text-transform: uppercase;
+}
+
+@media screen and (max-width: 900px) {
+  #splashScreen {
+    padding: 1%;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    position: relative;
+  }
+
+  .workSpace {
+    max-width: 100%;
+    margin: 0;
+  }
+
+  label, p {
+    font-size: larger;
+  }
+
+  button {
+    font-size: large;
+  }
+
+  .survey-header {
+    height: unset;
+    border-bottom: 1px solid #545E56;
+    text-align: center;
+    font-size: x-large;
+    vertical-align: auto;
+    line-height: 40px;
+  }
+
+  #instructionModal {
+    background-color: unset;
+    position: relative;
+    top: unset;
+    height: unset;
+    width: unset;
+    display: none;
+    z-index: unset;
+  }
+  
+  #instructionModal div {
+    background-color: whitesmoke;
+    max-width: unset;
+    height: auto;
+    transform: unset;
+    padding: 5px;
+    z-index: 900;
+  }
+  
+  .optOut {
+    margin-top: 24px;
+    text-align: center;
+    color: #545E56;
+  }
+  
+  #instructionModal button {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0%);
+  }
+  
+  #instructionModal h4 {
+    text-align: left;
+  }
+
+  #personalDetails, .investmentSelect {
+    width: unset;
+    float: unset;
+  }
+
+  .personalDetails-format {
+    display: table;
+    margin: unset;
+  }
+  
+  .incomeList, .investList {
+    width: unset;
+    float: unset;
+  }
+
+  #calcLineBreak {
+    display: block;
+  }
+
+  #retSalCalc {
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 41px;
+    left: 0;
+    text-align: left;
+    display: none;
+  }
+
+  .mobileReplace {
+    display: none;
+  }
+
+  .mobileEquals {
+    display: inline;
+  }
+
+  .survey-footer {
+    width: unset;
+    position: unset;
+    bottom: unset;
+    margin: 2% 0;
+  }
+
+  .survey-instructions {
+    width: unset;
+    float: unset;
+    padding: 1%;
+  }
+  
+  .survey-fields {
+    border-left: unset;
+    width: unset;
+    float: unset;
+    padding: 1%;
+  }
+
+  [data-title] {
+    position: relative;
+  }
+  
+  [data-title]:hover:after {
+    opacity: 1;
+    transition: all 0.1s ease 0.0s;
+    visibility:  visible;
+    animation: seconds 0.5s forwards;
+    animation-iteration-count: 1;
+    animation-delay: 3s;
+  }
+  
+  [data-title]:after {
+    content: attr(data-title);
+    background-color: white;
+    color: #111;
+    font-size: 100%;
+    position: absolute;
+    padding: 0 3px;
+    top: 0px;
+    left: 0px;
+    transform: translate(0%, -100%);
+    transition-duration: 0.5s;
+    width: 250px;
+    white-space: pre-wrap;
+    box-shadow: 1px 1px 3px darkgray;
+    opacity: 0;
+    border: 1px solid darkgray;
+    z-index: 99999;
+    visibility: hidden;
+  }
+    
+  [data-value] {
+    position: relative;
+  }
+  
+  [data-value]:hover:after {
+    opacity: 1;
+    transition: all 0.1s ease 0.5s;
+    visibility:  visible;
+    animation: seconds 1.0s forwards;
+    animation-iteration-count: 1;
+    animation-delay: 3s;
+  }
+  
+  [data-value]:after {
+    content: attr(data-value);
+    background-color: white;
+    color: #111;
+    font-size: 100%;
+    position: absolute;
+    padding: 0 3px;
+    top: 0px;  
+    right: 0px;
+    transform: translate(100%, 0%);
+    width: unset;
+    max-width: fit-content;
+    white-space: pre-line;
+    box-shadow: 1px 1px 3px darkgray;
+    opacity: 0;
+    border: 1px solid darkgray;
+    border-radius: 0;
+    z-index: 99999;
+    visibility: hidden;
+    margin-right: 3%;
+  }
+
+  @keyframes seconds {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      left: -9999px; 
+    }
+  }
+
+  .controls input[type="number"] {
+    width: 300px;
+    font-size: large;
+  }
+
+  /* input[type="number"],input[type="text"],input[type="date"] {
+    width: 300px;
+    border: 1px solid #aaaaaa;
+  } */
+
+  #iraModal, #simpleModal, #ecaModal {
+    background-color: white;
+    width: 100%;
+    height: unset;
+    border-style: unset;
+    border-radius: unset;
+    position: absolute;
+    float: unset;
+    left: 0;
+    bottom: 0;
+    /* top: 41px; */
+    transform: unset;
+    padding: 3% 0;
+    border-top: 3px double;
+  }
+  
+  #ecaModal {
+    max-width: 100%;
+  }
+  
+  #iraModal, #simpleModal, #ecaModal p {
+    text-align: justify;
+  }
+  
+  #iraModal, #simpleModal, #ecaModal table {
+    margin: 0;
+  }
+  
+  #modalClose {
+    display: block;
+    margin: 0 auto 10px auto;
+  }
+
+  .survey-footer {
+    padding-bottom: 2%;
+    margin-bottom: unset;
+  }
+
+  /* Results Narrative */
+  .resultSpace {
+    margin: unset;
+    background-color: snow;
+  }
+  
+  .header {
+    max-width: 100%;
+    margin: 0 1%;
+    height: 100%;
+    padding-bottom: unset;
+    border-bottom: 1px solid #545E56;
+    background-color: snow;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    line-height: unset;
+    text-align: center;
+  }
+
+  .header button:first-of-type {
+    margin-left: unset;
+  }
+
+  .header button {
+    margin-right: unset;
+    margin: 1%;
+  }
+
+  #printButton {
+    display: none;
+  }
+
+  #logoSmall {
+    display: none;
+  }
+
+  #controlTitle {
+    margin-bottom: 0;
+    display: inline;
+  }
+
+  #reportTitle {
+    display: none;
+  }
+
+  #mobileReportTitle {
+    display: inline;
+  }
+
+  #tableInstr {
+    display: inline;
+    text-align: center;
+  }
 }

@@ -29,7 +29,7 @@ window.reportToggle = () => {
 
 $('body').append(`
 <div id="emailForm">
-  <form action="mailto:jeff.bartelli@zoho.com?subject=ClockOut Error Report" method="POST" enctype="text/plain">
+  <form action="mailto:support@clockoutonline.net?subject=ClockOut Error Report" method="POST" enctype="text/plain">
     <fieldset>
       <legend>Personal Information</legend>
       <label for="contactName" id="contactName">Name: <input type="text" id="contactName" name="contactName" placeholder="First & Last Name" maxlength="30" required></label>
