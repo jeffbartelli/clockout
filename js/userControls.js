@@ -27,7 +27,11 @@ window.reportToggle = () => {
   }
 }
 
-$('body').append(`
+window.missingButtonsClose = () => {
+  $('#missingButtons').slideUp();
+}
+
+$('#tableView').after(`
 <div id="emailForm">
   <form action="mailto:support@clockoutonline.net?subject=ClockOut Error Report" method="POST" enctype="text/plain">
     <fieldset>
@@ -37,7 +41,7 @@ $('body').append(`
     </fieldset>
     <fieldset>
       <legend>Description</legend>
-      <label for="description" id="contactDesc"><textarea name="description" id="contactDesc" cols="63" rows="10" placeholder="Describe the problem here..." required></textarea></label>
+      <label for="description"><textarea name="description" id="contactDesc" placeholder="Describe the problem here..." required></textarea></label>
       <input type="hidden" id="warning" name="Do Not Delete Anything Below This Line">
       <input type="hidden" id="demographicData" name="demographicData">
     </fieldset>

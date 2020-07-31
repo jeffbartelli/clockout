@@ -13,21 +13,22 @@ var results = () => {
   // console.log(JSON.parse(localStorage.formData));
   // console.log(retire);
 
+  $('.header').after(`<div id="missingButtons" onclick="missingButtonsClose();"><span id="missingButtonsClose">&times;</span><p>Print and Email controls are available in the desktop version of this site</p></div>`);
   if (retire.retAge == false) {
-    $('#results').prepend(`<p><span class="intro">Oh No!</span> You are not saving enough to retire at all. </p>`);
+    $('#results').append(`<p><span class="intro">Oh No!</span> You are not saving enough to retire at all. </p>`);
   } else {
     switch (true) {
       case (retire.retAge === age):
-        $('#results').prepend(`<p><span class="intro">Submit Your Two Week Notice!</span> You've already saved enough money to never work again based on your target retirement income. </p>`); 
+        $('#results').append(`<p><span class="intro">Submit Your Two Week Notice!</span> You've already saved enough money to never work again based on your target retirement income. </p>`); 
         break;
       case (retire.retAge < userRetAge): 
-        $('#results').prepend(`<p><span class="intro">Lucky Duck!</span> You're on track to retire at <span class="reportAge">${retire.retAge}</span> in <span class="reportAge">${new Date().getFullYear() + (retire.retAge - age)}</span>, rather than your target age of <span class="reportAge">${userRetAge}</span> in <span class="reportAge">${new Date().getFullYear() + (userRetAge - age)}</span>. </p>`);
+        $('#results').append(`<p><span class="intro">Lucky Duck!</span> You're on track to retire at <span class="reportAge">${retire.retAge}</span> in <span class="reportAge">${new Date().getFullYear() + (retire.retAge - age)}</span>, rather than your target age of <span class="reportAge">${userRetAge}</span> in <span class="reportAge">${new Date().getFullYear() + (userRetAge - age)}</span>. </p>`);
         break;
       case (retire.retAge == userRetAge):
-        $('#results').prepend(`<p><span class="intro">Right On!</span> You're on track to retire at the age of <span class="reportAge">${retire.retAge}</span> in <span class="reportAge">${new Date().getFullYear() + (retire.retAge - age)}</span>. </p>`);
+        $('#results').append(`<p><span class="intro">Right On!</span> You're on track to retire at the age of <span class="reportAge">${retire.retAge}</span> in <span class="reportAge">${new Date().getFullYear() + (retire.retAge - age)}</span>. </p>`);
         break;
       case (retire.retAge > userRetAge):
-        $('#results').prepend(`<p><span class="intro">Almost There!</span> You aren't saving quite enough to retire by <span class="reportAge">${userRetAge}</span>, but you are saving enough to retire as early as the age of <span class="reportAge">${retire.retAge}</span> in <span class="reportAge">${new Date().getFullYear() + (retire.retAge - age)}</span>. </p>`);
+        $('#results').append(`<p><span class="intro">Almost There!</span> You aren't saving quite enough to retire by <span class="reportAge">${userRetAge}</span>, but you are saving enough to retire as early as the age of <span class="reportAge">${retire.retAge}</span> in <span class="reportAge">${new Date().getFullYear() + (retire.retAge - age)}</span>. </p>`);
         break; 
     }
   };

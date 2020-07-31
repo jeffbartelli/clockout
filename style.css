@@ -530,6 +530,10 @@ td::first-letter {
   text-transform: uppercase;
 }
 
+#missingButtons {
+  display: none;
+}
+
 @media screen and (max-width: 900px) {
   #splashScreen {
     padding: 1%;
@@ -813,7 +817,7 @@ td::first-letter {
     margin: 1%;
   }
 
-  #printButton {
+  #printButton, #sendButton {
     display: none;
   }
 
@@ -838,4 +842,37 @@ td::first-letter {
     display: inline;
     text-align: center;
   }
+
+  #missingButtons {
+    background-color: #ffe2ea;
+    display: inline-block;
+    color: #5a2822;
+    cursor: pointer;
+  }
+
+  #missingButtonsClose {
+    float: right;
+    color: #5a2822;
+    font-size: 28px;
+    font-weight: bold;
+    margin-right: 3%;
+    margin-top: 1.5%;
+    
+  }
+
+  /* Report User Controls */
+  /* #emailForm {
+    position: absolute;
+    top: 117px;
+    left: 0%;
+    background-color: white;
+    z-index: 2000;
+    display: none;
+    padding: 0;
+    max-width: max-content;
+  }
+
+  #contactDesc {
+    width: 200px;
+  } */
 }
